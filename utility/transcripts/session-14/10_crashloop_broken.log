@@ -1,0 +1,52 @@
+#CWD ~/Devops-Assignments/session-14-kubernetes-troubleshooting/02-common-issues/01-crashloopbackoff
+$ kubectl apply -f broken.yaml
+pod/orders-worker created
+
+$ timeout 45 kubectl get pod orders-worker -n session14 --watch
+NAME            READY   STATUS              RESTARTS   AGE
+orders-worker   0/1     ContainerCreating   0          1s
+orders-worker   0/1     ContainerCreating   0          1s
+orders-worker   1/1     Running             0          1s
+orders-worker   0/1     Error               0          1s
+orders-worker   1/1     Running             1 (0s ago)   1s
+orders-worker   0/1     Error               1 (1s ago)   2s
+orders-worker   0/1     CrashLoopBackOff    1 (15s ago)   16s
+orders-worker   1/1     Running             2 (15s ago)   16s
+orders-worker   0/1     Error               2 (15s ago)   16s
+orders-worker   0/1     CrashLoopBackOff    2 (25s ago)   41s
+orders-worker   1/1     Running             3 (25s ago)   41s
+orders-worker   0/1     Error               3 (25s ago)   41s
+
+$ kubectl get pod orders-worker -n session14
+NAME            READY   STATUS   RESTARTS      AGE
+orders-worker   0/1     Error    3 (30s ago)   46s
+
+$ kubectl logs orders-worker -n session14
+[FATAL] DATABASE_URL environment variable is missing
+
+$ kubectl logs orders-worker -n session14 --previous
+unable to retrieve container logs for containerd://4b5e652f49ba256d69e6aebe11ab55fffbe0359449f5770f056c8ef399f83491
+$ kubectl describe pod orders-worker -n session14 | grep -A3 -E "^    (State|Last State):|Restart Count"
+    State:          Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Wed, 07 Oct 2026 21:54:14 +0530
+--
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Wed, 07 Oct 2026 21:53:49 +0530
+--
+    Restart Count:  3
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-9mbdh (ro)
+
+$ kubectl describe pod orders-worker -n session14 | sed -n "/^Events:/,\$p" | grep -E "Type|BackOff|Started"
+  Type     Reason     Age               From               Message
+  Normal   Started    5s (x4 over 45s)  kubelet            spec.containers{worker}: Container started
+  Warning  BackOff    5s (x3 over 44s)  kubelet            spec.containers{worker}: Back-off restarting failed container worker in pod orders-worker_session14(b3d81085-3490-4b92-81c9-b66fcdb25a11)
+
+$ kubectl get pod orders-worker -n session14 -o jsonpath="env={.spec.containers[0].env} envFrom={.spec.containers[0].envFrom}{\"\n\"}"
+env= envFrom=
+

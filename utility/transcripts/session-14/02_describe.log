@@ -1,0 +1,83 @@
+#CWD ~/Devops-Assignments/session-14-kubernetes-troubleshooting/01-kubectl-commands
+$ POD=$(kubectl get pod -n session14 -l app=shop-api -o jsonpath="{.items[0].metadata.name}"); kubectl describe pod $POD -n session14
+Name:             shop-api-7bfcdcb467-2blqq
+Namespace:        session14
+Priority:         0
+Service Account:  default
+Node:             devops-lab-control-plane/172.21.0.2
+Start Time:       Wed, 07 Oct 2026 21:51:12 +0530
+Labels:           app=shop-api
+                  pod-template-hash=7bfcdcb467
+                  tier=backend
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.60
+IPs:
+  IP:           10.244.0.60
+Controlled By:  ReplicaSet/shop-api-7bfcdcb467
+Containers:
+  api:
+    Container ID:   containerd://cc25efc2447661e61514816d0f6a140243d64f4e03264b002eda69315bec1688
+    Image:          nginx:1.27-alpine
+    Image ID:       docker.io/library/nginx@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Wed, 07 Oct 2026 21:51:12 +0530
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     200m
+      memory:  64Mi
+    Requests:
+      cpu:        50m
+      memory:     32Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-dkhbg (ro)
+  access-logger:
+    Container ID:  containerd://444c41d20c29aaddd9bc36ff1d9bbae12368c9b229e9b1369c1a233e98fef4e1
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      i=0; while true; do i=$((i+1)); echo "$(date -u +%T) order #$i processed"; sleep 4; done
+    State:          Running
+      Started:      Wed, 07 Oct 2026 21:51:12 +0530
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-dkhbg (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-dkhbg:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  8s    default-scheduler  Successfully assigned session14/shop-api-7bfcdcb467-2blqq to devops-lab-control-plane
+  Normal  Pulled     8s    kubelet            spec.containers{api}: Container image "nginx:1.27-alpine" already present on machine and can be accessed by the pod
+  Normal  Created    8s    kubelet            spec.containers{api}: Container created
+  Normal  Started    8s    kubelet            spec.containers{api}: Container started
+  Normal  Pulled     8s    kubelet            spec.containers{access-logger}: Container image "busybox:1.36" already present on machine and can be accessed by the pod
+  Normal  Created    8s    kubelet            spec.containers{access-logger}: Container created
+  Normal  Started    8s    kubelet            spec.containers{access-logger}: Container started
+

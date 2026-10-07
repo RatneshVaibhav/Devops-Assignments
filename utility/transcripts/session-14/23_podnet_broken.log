@@ -1,0 +1,67 @@
+#CWD ~/Devops-Assignments/session-14-kubernetes-troubleshooting/02-common-issues/07-pod-networking
+$ kubectl apply -f broken.yaml
+deployment.apps/ledger created
+service/ledger-svc created
+
+$ kubectl rollout status deployment/ledger -n session14 --timeout=120s
+Waiting for deployment "ledger" rollout to finish: 0 of 1 updated replicas are available...
+deployment "ledger" successfully rolled out
+
+$ kubectl get pods -n session14 -l app=ledger -o wide
+NAME                      READY   STATUS        RESTARTS   AGE   IP            NODE                       NOMINATED NODE   READINESS GATES
+ledger-599574f574-l65dm   1/1     Terminating   0          23s   10.244.0.93   devops-lab-control-plane   <none>           <none>
+ledger-bf94898ff-76wcc    1/1     Running       0          5s    10.244.0.94   devops-lab-control-plane   <none>           <none>
+ledger-bf94898ff-swstm    1/1     Terminating   0          27s   10.244.0.92   devops-lab-control-plane   <none>           <none>
+
+$ kubectl exec -n session14 client -- wget -qO- -T 3 http://ledger-svc
+wget: can't connect to remote host (10.96.174.142): Connection refused
+command terminated with exit code 1
+
+$ LEDGER_IP=$(kubectl get pod -n session14 -l app=ledger -o jsonpath="{.items[0].status.podIP}"); kubectl exec -n session14 client -- wget -qO- -T 3 http://$LEDGER_IP:8000
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Directory listing for /</title>
+</head>
+<body>
+<h1>Directory listing for /</h1>
+<hr>
+<ul>
+<li><a href="bin/">bin/</a></li>
+<li><a href="dev/">dev/</a></li>
+<li><a href="etc/">etc/</a></li>
+<li><a href="home/">home/</a></li>
+<li><a href="lib/">lib/</a></li>
+<li><a href="media/">media/</a></li>
+<li><a href="mnt/">mnt/</a></li>
+<li><a href="opt/">opt/</a></li>
+<li><a href="proc/">proc/</a></li>
+<li><a href="product_name">product_name</a></li>
+<li><a href="product_uuid">product_uuid</a></li>
+<li><a href="root/">root/</a></li>
+<li><a href="run/">run/</a></li>
+<li><a href="sbin/">sbin/</a></li>
+<li><a href="srv/">srv/</a></li>
+<li><a href="sys/">sys/</a></li>
+<li><a href="tmp/">tmp/</a></li>
+<li><a href="usr/">usr/</a></li>
+<li><a href="var/">var/</a></li>
+</ul>
+<hr>
+</body>
+</html>
+
+$ kubectl exec -n session14 deploy/ledger -- wget -qO- -T 3 http://127.0.0.1:8000 | head -3
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+
+$ kubectl exec -n session14 deploy/ledger -- netstat -tln
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       
+tcp        0      0 127.0.0.1:8000          0.0.0.0:*               LISTEN      
+
+$ kubectl get deploy ledger -n session14 -o jsonpath="{.spec.template.spec.containers[0].command}{\"\n\"}"
+["python3","-m","http.server","8000","--bind","127.0.0.1"]
+

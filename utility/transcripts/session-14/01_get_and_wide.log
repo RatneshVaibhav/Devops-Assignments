@@ -1,0 +1,64 @@
+#CWD ~/Devops-Assignments/session-14-kubernetes-troubleshooting/01-kubectl-commands
+$ kubectl apply -f demo-app.yaml
+deployment.apps/shop-api created
+service/shop-api created
+
+$ kubectl rollout status deployment/shop-api -n session14 --timeout=120s
+Waiting for deployment "shop-api" rollout to finish: 0 of 2 updated replicas are available...
+Waiting for deployment "shop-api" rollout to finish: 1 of 2 updated replicas are available...
+deployment "shop-api" successfully rolled out
+
+$ kubectl get pods -n session14
+NAME                        READY   STATUS    RESTARTS   AGE
+client                      1/1     Running   0          2s
+shop-api-7bfcdcb467-2blqq   2/2     Running   0          1s
+shop-api-7bfcdcb467-rdtdl   2/2     Running   0          1s
+
+$ kubectl get pods -n session14 -o wide
+NAME                        READY   STATUS    RESTARTS   AGE   IP            NODE                       NOMINATED NODE   READINESS GATES
+client                      1/1     Running   0          2s    10.244.0.59   devops-lab-control-plane   <none>           <none>
+shop-api-7bfcdcb467-2blqq   2/2     Running   0          1s    10.244.0.60   devops-lab-control-plane   <none>           <none>
+shop-api-7bfcdcb467-rdtdl   2/2     Running   0          1s    10.244.0.61   devops-lab-control-plane   <none>           <none>
+
+$ kubectl get pods -n session14 --show-labels
+NAME                        READY   STATUS    RESTARTS   AGE   LABELS
+client                      1/1     Running   0          2s    role=client
+shop-api-7bfcdcb467-2blqq   2/2     Running   0          1s    app=shop-api,pod-template-hash=7bfcdcb467,tier=backend
+shop-api-7bfcdcb467-rdtdl   2/2     Running   0          1s    app=shop-api,pod-template-hash=7bfcdcb467,tier=backend
+
+$ kubectl get pods -n session14 -l app=shop-api,tier=backend
+NAME                        READY   STATUS    RESTARTS   AGE
+shop-api-7bfcdcb467-2blqq   2/2     Running   0          1s
+shop-api-7bfcdcb467-rdtdl   2/2     Running   0          1s
+
+$ kubectl get deploy,rs,svc -n session14 -o wide
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS          IMAGES                           SELECTOR
+deployment.apps/shop-api   2/2     2            2           1s    api,access-logger   nginx:1.27-alpine,busybox:1.36   app=shop-api
+
+NAME                                  DESIRED   CURRENT   READY   AGE   CONTAINERS          IMAGES                           SELECTOR
+replicaset.apps/shop-api-7bfcdcb467   2         2         2       1s    api,access-logger   nginx:1.27-alpine,busybox:1.36   app=shop-api,pod-template-hash=7bfcdcb467
+
+NAME               TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE   SELECTOR
+service/shop-api   ClusterIP   10.96.186.109   <none>        80/TCP    1s    app=shop-api
+
+$ kubectl get nodes -o wide
+NAME                       STATUS   ROLES           AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                       KERNEL-VERSION             CONTAINER-RUNTIME
+devops-lab-control-plane   Ready    control-plane   60m   v1.37.0   172.21.0.2    <none>        Debian GNU/Linux 13 (trixie)   6.12.69-linuxkit (amd64)   containerd://2.3.4
+
+$ kubectl get pods -n session14 -o custom-columns=POD:.metadata.name,IP:.status.podIP,NODE:.spec.nodeName,CONTAINERS:.spec.containers[*].name
+POD                         IP            NODE                       CONTAINERS
+client                      10.244.0.59   devops-lab-control-plane   toolbox
+shop-api-7bfcdcb467-2blqq   10.244.0.60   devops-lab-control-plane   api,access-logger
+shop-api-7bfcdcb467-rdtdl   10.244.0.61   devops-lab-control-plane   api,access-logger
+
+$ kubectl get pod -n session14 -l app=shop-api -o jsonpath="{range .items[*]}{.metadata.name}{\"\t\"}{.status.phase}{\"\t\"}{.status.qosClass}{\"\n\"}{end}"
+shop-api-7bfcdcb467-2blqq	Running	Burstable
+shop-api-7bfcdcb467-rdtdl	Running	Burstable
+
+$ kubectl get pods -A --sort-by=.metadata.creationTimestamp | tail -5
+production-webapp    web-app-d45775485-jt8kh                            1/1     Running            0              6m4s
+production-webapp    web-app-d45775485-7c5qr                            1/1     Running            0              5m49s
+session14            client                                             1/1     Running            0              3s
+session14            shop-api-7bfcdcb467-2blqq                          2/2     Running            0              2s
+session14            shop-api-7bfcdcb467-rdtdl                          2/2     Running            0              2s
+

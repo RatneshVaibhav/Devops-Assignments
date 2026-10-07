@@ -1,0 +1,119 @@
+#CWD ~/Devops-Assignments/session-14-kubernetes-troubleshooting/01-kubectl-commands
+$ kubectl events -n session14 | tail -8
+35s         Normal   Created             Pod/shop-api-7bfcdcb467-rdtdl    Container created
+35s         Normal   Started             Pod/shop-api-7bfcdcb467-rdtdl    Container started
+35s         Normal   Pulled              Pod/shop-api-7bfcdcb467-rdtdl    Container image "busybox:1.36" already present on machine and can be accessed by the pod
+35s         Normal   Created             Pod/shop-api-7bfcdcb467-rdtdl    Container created
+35s         Normal   Started             Pod/shop-api-7bfcdcb467-rdtdl    Container started
+35s         Normal   SuccessfulCreate    ReplicaSet/shop-api-7bfcdcb467   Created pod: shop-api-7bfcdcb467-2blqq
+35s         Normal   SuccessfulCreate    ReplicaSet/shop-api-7bfcdcb467   Created pod: shop-api-7bfcdcb467-rdtdl
+35s         Normal   ScalingReplicaSet   Deployment/shop-api              Scaled up replica set shop-api-7bfcdcb467 from 0 to 2
+
+$ kubectl events -n session14 --for deployment/shop-api
+LAST SEEN   TYPE     REASON              OBJECT                MESSAGE
+35s         Normal   ScalingReplicaSet   Deployment/shop-api   Scaled up replica set shop-api-7bfcdcb467 from 0 to 2
+
+$ kubectl get events -n session14 --sort-by=.lastTimestamp --field-selector type=Normal | tail -4
+35s         Normal   Started             pod/shop-api-7bfcdcb467-rdtdl    Container started
+35s         Normal   SuccessfulCreate    replicaset/shop-api-7bfcdcb467   Created pod: shop-api-7bfcdcb467-2blqq
+35s         Normal   SuccessfulCreate    replicaset/shop-api-7bfcdcb467   Created pod: shop-api-7bfcdcb467-rdtdl
+35s         Normal   ScalingReplicaSet   deployment/shop-api              Scaled up replica set shop-api-7bfcdcb467 from 0 to 2
+
+$ kubectl events -A --types=Warning | tail -5
+production-webapp    21m                    Warning   FailedGetResourceMetric        HorizontalPodAutoscaler/web-app-hpa                    failed to get cpu utilization: did not receive metrics for targeted pods (pods might be unready)
+session13            9m12s (x25 over 24m)   Warning   Unhealthy                      Pod/startup-too-short                                  Startup probe failed: Get "http://10.244.0.42:80/": dial tcp 10.244.0.42:80: connect: connection refused
+session13            8m49s (x15 over 22m)   Warning   BackOff                        Pod/liveness-demo                                      Back-off restarting failed container app in pod liveness-demo_session13(48065e36-a888-4a39-88ce-6142034be1b4)
+session13            3m59s (x17 over 19m)   Warning   BackOff                        Pod/startup-too-short                                  Back-off restarting failed container slow-app in pod startup-too-short_session13(67fa473f-72e9-4e29-bbc7-f5b9c4af367d)
+session13            3m14s (x31 over 29m)   Warning   Unhealthy                      Pod/liveness-demo                                      Liveness probe failed: cat: can't open '/tmp/healthy': No such file or directory
+
+$ kubectl explain pod.spec.containers.livenessProbe | head -22
+KIND:       Pod
+VERSION:    v1
+
+FIELD: livenessProbe <Probe>
+
+
+DESCRIPTION:
+    Periodic probe of container liveness. Container will be restarted if the
+    probe fails. Cannot be updated. More info:
+    https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+    Probe describes a health check to be performed against a container to
+    determine whether it is alive or ready to receive traffic.
+    
+FIELDS:
+  exec	<ExecAction>
+    Exec specifies a command to execute in the container.
+
+  failureThreshold	<integer>
+    Minimum consecutive failures for the probe to be considered failed after
+    having succeeded. Defaults to 3. Minimum value is 1.
+
+  grpc	<GRPCAction>
+
+$ kubectl explain deployment.spec.strategy.rollingUpdate.maxSurge
+GROUP:      apps
+KIND:       Deployment
+VERSION:    v1
+
+FIELD: maxSurge <IntOrString>
+
+
+DESCRIPTION:
+    The maximum number of pods that can be scheduled above the desired number of
+    pods. Value can be an absolute number (ex: 5) or a percentage of desired
+    pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is
+    calculated from percentage by rounding up. Defaults to 25%. Example: when
+    this is set to 30%, the new ReplicaSet can be scaled up immediately when the
+    rolling update starts, such that the total number of old and new pods do not
+    exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet
+    can be scaled up further, ensuring that total number of pods running at any
+    time during the update is at most 130% of desired pods.
+    IntOrString is a type that can hold an int32 or a string.  When used in JSON
+    or YAML marshalling and unmarshalling, it produces or consumes the inner
+    type.  This allows you to have, for example, a JSON field that can accept a
+    name or number.
+    
+
+
+$ kubectl explain hpa.spec --recursive | head -20
+GROUP:      autoscaling
+KIND:       HorizontalPodAutoscaler
+VERSION:    v2
+
+FIELD: spec <HorizontalPodAutoscalerSpec>
+
+
+DESCRIPTION:
+    spec is the specification for the behaviour of the autoscaler. More info:
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+    HorizontalPodAutoscalerSpec describes the desired functionality of the
+    HorizontalPodAutoscaler.
+    
+FIELDS:
+  behavior	<HorizontalPodAutoscalerBehavior>
+    scaleDown	<HPAScalingRules>
+      policies	<[]HPAScalingPolicy>
+        periodSeconds	<integer> -required-
+        type	<string> -required-
+        value	<integer> -required-
+
+$ kubectl top nodes
+NAME                       CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+devops-lab-control-plane   167m         1%       1512Mi          46%         
+
+$ kubectl top pods -n session14 --containers
+POD                         NAME            CPU(cores)   MEMORY(bytes)   
+client                      toolbox         2m           0Mi             
+shop-api-7bfcdcb467-2blqq   access-logger   1m           0Mi             
+shop-api-7bfcdcb467-2blqq   api             0m           9Mi             
+shop-api-7bfcdcb467-rdtdl   access-logger   3m           0Mi             
+shop-api-7bfcdcb467-rdtdl   api             0m           9Mi             
+
+$ kubectl top pods -A --sort-by=memory | head -6
+NAMESPACE            NAME                                               CPU(cores)   MEMORY(bytes)   
+kube-system          kube-apiserver-devops-lab-control-plane            33m          296Mi           
+ingress-nginx        ingress-nginx-controller-596f5b6bcf-dp94p          3m           153Mi           
+kube-system          kube-controller-manager-devops-lab-control-plane   12m          86Mi            
+kube-system          etcd-devops-lab-control-plane                      17m          63Mi            
+kube-system          kube-scheduler-devops-lab-control-plane            6m           37Mi            
+

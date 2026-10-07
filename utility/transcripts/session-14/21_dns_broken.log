@@ -1,0 +1,60 @@
+#CWD ~/Devops-Assignments/session-14-kubernetes-troubleshooting/02-common-issues/06-dns
+$ kubectl apply -f broken-frontend.yaml
+namespace/storefront created
+configmap/frontend-config created
+pod/frontend created
+
+$ kubectl wait --for=condition=Ready pod/frontend -n storefront --timeout=90s
+pod/frontend condition met
+
+$ kubectl logs frontend -n storefront --tail=3
+16:30:20 inventory UNREACHABLE (http://inventory-svc)
+wget: bad address 'inventory-svc'
+16:30:25 inventory UNREACHABLE (http://inventory-svc)
+
+$ kubectl exec -n storefront frontend -- nslookup inventory-svc
+Server:		10.96.0.10
+Address:	10.96.0.10:53
+
+** server can't find inventory-svc.svc.cluster.local: NXDOMAIN
+
+** server can't find inventory-svc.storefront.svc.cluster.local: NXDOMAIN
+
+** server can't find inventory-svc.cluster.local: NXDOMAIN
+
+** server can't find inventory-svc.storefront.svc.cluster.local: NXDOMAIN
+
+** server can't find inventory-svc.cluster.local: NXDOMAIN
+
+** server can't find inventory-svc.svc.cluster.local: NXDOMAIN
+
+command terminated with exit code 1
+
+$ kubectl exec -n storefront frontend -- cat /etc/resolv.conf
+search storefront.svc.cluster.local svc.cluster.local cluster.local
+nameserver 10.96.0.10
+options ndots:5
+
+$ kubectl get svc -A | grep -E "NAMESPACE|inventory"
+NAMESPACE           NAME                                 TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+session14           inventory-svc                        ClusterIP      10.96.145.180   <none>        80/TCP                       14s
+
+$ kubectl get pods -n kube-system -l k8s-app=kube-dns
+NAME                       READY   STATUS    RESTARTS      AGE
+coredns-559f6c778d-4x5qz   1/1     Running   1 (56m ago)   69m
+coredns-559f6c778d-9m5c7   1/1     Running   1 (56m ago)   69m
+
+$ kubectl logs -n kube-system -l k8s-app=kube-dns --tail=2 --prefix
+[pod/coredns-559f6c778d-4x5qz/coredns] [INFO] plugin/ready: Plugins not ready: "kubernetes"
+[pod/coredns-559f6c778d-4x5qz/coredns] [INFO] plugin/ready: Plugins not ready: "kubernetes"
+[pod/coredns-559f6c778d-9m5c7/coredns] [INFO] plugin/ready: Plugins not ready: "kubernetes"
+[pod/coredns-559f6c778d-9m5c7/coredns] [INFO] plugin/ready: Plugins not ready: "kubernetes"
+
+$ kubectl exec -n storefront frontend -- nslookup kubernetes.default.svc.cluster.local | tail -2
+
+
+
+$ kubectl exec -n storefront frontend -- nslookup inventory-svc.session14.svc.cluster.local | tail -2
+Address: 10.96.145.180
+
+

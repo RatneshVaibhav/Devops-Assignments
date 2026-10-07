@@ -1,0 +1,39 @@
+#CWD ~/Devops-Assignments/session-14-kubernetes-troubleshooting/02-common-issues/02-imagepullbackoff
+$ kubectl apply -f broken.yaml
+pod/catalog-web created
+pod/catalog-cache created
+
+$ timeout 40 kubectl get pods -n session14 -l issue=image-pull --watch
+NAME            READY   STATUS              RESTARTS   AGE
+catalog-cache   0/1     ContainerCreating   0          0s
+catalog-web     0/1     ContainerCreating   0          0s
+catalog-web     0/1     ContainerCreating   0          1s
+catalog-cache   0/1     ContainerCreating   0          1s
+catalog-web     0/1     ErrImagePull        0          4s
+catalog-cache   0/1     ErrImagePull        0          6s
+catalog-web     0/1     ImagePullBackOff    0          17s
+catalog-cache   0/1     ImagePullBackOff    0          18s
+catalog-web     0/1     ErrImagePull        0          32s
+catalog-cache   0/1     ErrImagePull        0          37s
+
+$ kubectl describe pod catalog-web -n session14 | sed -n "/^Events:/,\$p"
+Events:
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  41s                default-scheduler  Successfully assigned session14/catalog-web to devops-lab-control-plane
+  Normal   Pulling    25s (x2 over 40s)  kubelet            spec.containers{web}: Pulling image "nginx:1.27-alpine-doesnotexist"
+  Warning  Failed     22s (x2 over 38s)  kubelet            spec.containers{web}: Failed to pull image "nginx:1.27-alpine-doesnotexist": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/library/nginx:1.27-alpine-doesnotexist": failed to resolve reference "docker.io/library/nginx:1.27-alpine-doesnotexist": docker.io/library/nginx:1.27-alpine-doesnotexist: not found
+  Warning  Failed     22s (x2 over 38s)  kubelet            spec.containers{web}: Error: ErrImagePull
+  Normal   BackOff    10s (x2 over 37s)  kubelet            spec.containers{web}: Back-off pulling image "nginx:1.27-alpine-doesnotexist"
+  Warning  Failed     10s (x2 over 37s)  kubelet            spec.containers{web}: Error: ImagePullBackOff
+
+$ kubectl describe pod catalog-cache -n session14 | sed -n "/^Events:/,\$p" | grep -E "Type|Failed"
+  Type     Reason     Age                From               Message
+  Warning  Failed     20s (x2 over 36s)  kubelet            spec.containers{cache}: Failed to pull image "ratneshvaibhav/redis-typo:7": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/ratneshvaibhav/redis-typo:7": failed to resolve reference "docker.io/ratneshvaibhav/redis-typo:7": docker.io/ratneshvaibhav/redis-typo:7: not found
+  Warning  Failed     20s (x2 over 36s)  kubelet            spec.containers{cache}: Error: ErrImagePull
+  Warning  Failed     5s (x2 over 35s)   kubelet            spec.containers{cache}: Error: ImagePullBackOff
+
+$ kubectl get pod catalog-web catalog-cache -n session14 -o jsonpath="{range .items[*]}{.metadata.name}: {.status.containerStatuses[0].state.waiting.reason} - image {.spec.containers[0].image}{\"\n\"}{end}"
+catalog-web: ErrImagePull - image nginx:1.27-alpine-doesnotexist
+catalog-cache: ErrImagePull - image ratneshvaibhav/redis-typo:7
+
