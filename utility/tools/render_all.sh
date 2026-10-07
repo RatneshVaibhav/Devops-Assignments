@@ -28,7 +28,10 @@ done
 # anything left that is neither a browser capture nor backed by a transcript?
 stale=0
 while IFS= read -r png; do
-  rel="${png#"$S"/}"; base="${rel%.png}"; base="${base%_[0-9]*}"
-  [ -f "$T/$base.log" ] || { echo "STALE: $rel"; stale=1; }
+  rel="${png#"$S"/}"; base="${rel%.png}"
+  [ -f "$T/$base.log" ] && continue
+  # multi-page renders are <name>_<page>.png
+  [[ "$base" =~ ^(.*)_[0-9]+$ ]] && [ -f "$T/${BASH_REMATCH[1]}.log" ] && continue
+  echo "STALE: $rel"; stale=1
 done < <(find "$S" -name '*.png' ! -name 'web_*')
 exit $stale
