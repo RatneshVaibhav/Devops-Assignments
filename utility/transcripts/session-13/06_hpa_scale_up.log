@@ -1,0 +1,24 @@
+#CWD ~/Devops-Assignments/session-13-storage-hpa-probes/02-hpa
+$ kubectl apply -f load-generator.yaml
+deployment.apps/load-generator created
+
+$ kubectl get pods -n session13 -l app=load-generator
+NAME                             READY   STATUS              RESTARTS   AGE
+load-generator-59866cbfd-5lbl7   0/1     ContainerCreating   0          0s
+load-generator-59866cbfd-69gbh   0/1     ContainerCreating   0          0s
+load-generator-59866cbfd-8plbp   0/1     ContainerCreating   0          0s
+
+$ timeout 150 kubectl get hpa hpa-demo -n session13 --watch
+NAME       REFERENCE             TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+hpa-demo   Deployment/hpa-demo   cpu: 7%/50%   1         5         1          32s
+hpa-demo   Deployment/hpa-demo   cpu: 115%/50%   1         5         1          45s
+hpa-demo   Deployment/hpa-demo   cpu: 208%/50%   1         5         3          60s
+hpa-demo   Deployment/hpa-demo   cpu: 173%/50%   1         5         5          75s
+hpa-demo   Deployment/hpa-demo   cpu: 129%/50%   1         5         5          90s
+hpa-demo   Deployment/hpa-demo   cpu: 127%/50%   1         5         5          105s
+hpa-demo   Deployment/hpa-demo   cpu: 124%/50%   1         5         5          2m
+hpa-demo   Deployment/hpa-demo   cpu: 126%/50%   1         5         5          2m15s
+hpa-demo   Deployment/hpa-demo   cpu: 135%/50%   1         5         5          2m30s
+hpa-demo   Deployment/hpa-demo   cpu: 135%/50%   1         5         5          2m45s
+hpa-demo   Deployment/hpa-demo   cpu: 133%/50%   1         5         5          3m
+

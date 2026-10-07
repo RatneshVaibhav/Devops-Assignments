@@ -1,0 +1,88 @@
+#CWD ~/Devops-Assignments/session-13-storage-hpa-probes/02-hpa
+$ kubectl apply -f deployment.yaml -f service.yaml
+deployment.apps/hpa-demo created
+service/hpa-demo-service unchanged
+
+$ kubectl rollout status deployment/hpa-demo -n session13 --timeout=180s
+Waiting for deployment "hpa-demo" rollout to finish: 0 of 1 updated replicas are available...
+deployment "hpa-demo" successfully rolled out
+
+$ kubectl get deployment,svc,pods -n session13 -l app=hpa-demo -o wide
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                        SELECTOR
+deployment.apps/hpa-demo   1/1     1            1           50s   php-apache   registry.k8s.io/hpa-example   app=hpa-demo
+
+NAME                            READY   STATUS    RESTARTS   AGE   IP            NODE                       NOMINATED NODE   READINESS GATES
+pod/hpa-demo-7545dc4b55-bhvff   1/1     Running   0          50s   10.244.0.24   devops-lab-control-plane   <none>           <none>
+
+$ kubectl run curl-once -n session13 --rm -i --restart=Never --image=busybox:1.36 -- wget -qO- http://hpa-demo-service
+All commands and output from this session will be recorded in container logs, including credentials and sensitive information passed through the command prompt.
+If you don't see a command prompt, try pressing enter.
+OK!pod "curl-once" deleted from session13 namespace
+
+$ kubectl get pods -n kube-system -l k8s-app=metrics-server
+NAME                              READY   STATUS    RESTARTS        AGE
+metrics-server-84c99cb944-qztmq   1/1     Running   2 (7m56s ago)   21m
+
+$ kubectl top nodes
+NAME                       CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+devops-lab-control-plane   130m         1%       1219Mi          37%         
+
+$ kubectl top pods -n session13 -l app=hpa-demo
+NAME                        CPU(cores)   MEMORY(bytes)   
+hpa-demo-7545dc4b55-bhvff   10m          16Mi            
+
+$ cat hpa.yml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpa-demo
+  namespace: session13
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: hpa-demo
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50      # keep average CPU at 50% of the request
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies:
+        - type: Pods
+          value: 2                    # add at most 2 Pods every 15s
+          periodSeconds: 15
+    scaleDown:
+      # default is 300s; shortened so the scale-down is observable in the lab
+      stabilizationWindowSeconds: 60
+      policies:
+        - type: Pods
+          value: 1
+          periodSeconds: 20
+
+$ kubectl apply -f hpa.yml
+horizontalpodautoscaler.autoscaling/hpa-demo created
+
+$ kubectl get hpa -n session13
+NAME       REFERENCE             TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+hpa-demo   Deployment/hpa-demo   cpu: 6%/50%   1         5         1          25s
+
+$ kubectl describe hpa hpa-demo -n session13 | sed -n "/^Metrics:/,/^Max replicas/p;/^Conditions:/,\$p"
+Metrics:                                               ( current / target )
+  resource cpu on pods  (as a percentage of request):  6% (13m) / 50%
+Min replicas:                                          1
+Max replicas:                                          5
+Conditions:
+  Type            Status  Reason              Message
+  ----            ------  ------              -------
+  AbleToScale     True    ReadyForNewScale    recommended size matches current size
+  ScalingActive   True    ValidMetricFound    the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
+  ScalingLimited  False   DesiredWithinRange  the desired count is within the acceptable range
+Events:           <none>
+

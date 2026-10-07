@@ -1,0 +1,97 @@
+#CWD ~/Devops-Assignments/session-13-storage-hpa-probes/02-hpa
+$ kubectl apply -f deployment.yaml -f service.yaml
+deployment.apps/hpa-demo created
+service/hpa-demo-service created
+
+$ kubectl rollout status deployment/hpa-demo -n session13 --timeout=120s
+Waiting for deployment "hpa-demo" rollout to finish: 0 of 1 updated replicas are available...
+error: timed out waiting for the condition
+
+$ kubectl get deployment,svc,pods -n session13 -l app=hpa-demo
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/hpa-demo   0/1     1            0           2m
+
+NAME                           READY   STATUS         RESTARTS   AGE
+pod/hpa-demo-669574bbb-xw4ls   0/1     ErrImagePull   0          2m
+
+$ kubectl get svc hpa-demo-service -n session13
+NAME               TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
+hpa-demo-service   ClusterIP   10.96.50.75   <none>        80/TCP    2m
+
+$ kubectl get pods -n kube-system -l k8s-app=metrics-server
+NAME                              READY   STATUS    RESTARTS   AGE
+metrics-server-84c99cb944-qztmq   1/1     Running   0          9m56s
+
+$ kubectl top nodes
+NAME                       CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+devops-lab-control-plane   124m         1%       1248Mi          38%         
+
+$ kubectl top pods -n session13 -l app=hpa-demo
+error: Metrics not available for pod session13/hpa-demo-669574bbb-xw4ls, age: 2m41.21009858s
+
+$ kubectl apply -f hpa.yml
+horizontalpodautoscaler.autoscaling/hpa-demo created
+
+$ kubectl get hpa -n session13
+NAME       REFERENCE             TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+hpa-demo   Deployment/hpa-demo   cpu: <unknown>/50%   1         5         1          0s
+
+$ kubectl get hpa -n session13
+NAME       REFERENCE             TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+hpa-demo   Deployment/hpa-demo   cpu: <unknown>/50%   1         5         1          30s
+
+$ kubectl describe hpa hpa-demo -n session13
+Name:                                                  hpa-demo
+Namespace:                                             session13
+Labels:                                                <none>
+Annotations:                                           <none>
+CreationTimestamp:                                     Wed, 07 Oct 2026 21:02:02 +0530
+Reference:                                             Deployment/hpa-demo
+Metrics:                                               ( current / target )
+  resource cpu on pods  (as a percentage of request):  <unknown> / 50%
+Min replicas:                                          1
+Max replicas:                                          5
+Behavior:
+  Scale Up:
+    Stabilization Window: 0 seconds
+    Select Policy: Max
+    Policies:
+      - Type: Pods  Value: 2  Period: 15 seconds
+  Scale Down:
+    Stabilization Window: 60 seconds
+    Select Policy: Max
+    Policies:
+      - Type: Pods  Value: 1  Period: 20 seconds
+Deployment pods:    1 current / 0 desired
+Conditions:
+  Type           Status  Reason                   Message
+  ----           ------  ------                   -------
+  AbleToScale    True    SucceededGetScale        the HPA controller was able to get the target's current scale
+  ScalingActive  False   FailedGetResourceMetric  the HPA was unable to compute the replica count: failed to get cpu utilization: unable to get metrics for resource cpu: no metrics returned from resource metrics API
+Events:
+  Type     Reason                        Age               From                       Message
+  ----     ------                        ----              ----                       -------
+  Warning  FailedGetResourceMetric       0s (x3 over 30s)  horizontal-pod-autoscaler  failed to get cpu utilization: unable to get metrics for resource cpu: no metrics returned from resource metrics API
+  Warning  FailedComputeMetricsReplicas  0s (x3 over 30s)  horizontal-pod-autoscaler  invalid metrics (1 invalid out of 1), first error is: failed to get cpu resource metric value: failed to get cpu utilization: unable to get metrics for resource cpu: no metrics returned from resource metrics API
+
+$ kubectl describe pod -n session13 -l app=hpa-demo | sed -n "/^Events:/,\$p" | cut -c1-300
+Events:
+  Type     Reason          Age                    From               Message
+  ----     ------          ----                   ----               -------
+  Normal   Scheduled       5m34s                  default-scheduler  Successfully assigned session13/hpa-demo-669574bbb-xw4ls to devops-lab-control-plane
+  Normal   Pulling         2m22s (x5 over 5m34s)  kubelet            spec.containers{nginx}: Pulling image "nginx:1.27"
+  Warning  Failed          2m19s (x5 over 5m32s)  kubelet            spec.containers{nginx}: Failed to pull image "nginx:1.27": failed to pull and unpack image "docker.io/library/nginx:1.27": failed to resolve reference "docker.io/library/nginx:1.27": unexpected status from HEAD request to https://r
+  Warning  Failed          2m19s (x5 over 5m32s)  kubelet            spec.containers{nginx}: Error: ErrImagePull
+  Warning  Failed          81s (x15 over 5m31s)   kubelet            spec.containers{nginx}: Error: ImagePullBackOff
+  Normal   BackOff         69s (x16 over 5m31s)   kubelet            spec.containers{nginx}: Back-off pulling image "nginx:1.27"
+  Normal   SandboxChanged  42s                    kubelet            Pod sandbox changed, it will be killed and re-created.
+  Warning  Failed          38s                    kubelet            spec.containers{nginx}: Failed to pull image "nginx:1.27": failed to pull and unpack image "docker.io/library/nginx:1.27": failed to resolve reference "docker.io/library/nginx:1.27": unexpected status from HEAD request to https://r
+  Warning  Failed          38s                    kubelet            spec.containers{nginx}: Error: ErrImagePull
+  Normal   BackOff         37s                    kubelet            spec.containers{nginx}: Back-off pulling image "nginx:1.27"
+  Warning  Failed          37s                    kubelet            spec.containers{nginx}: Error: ImagePullBackOff
+  Normal   Pulling         26s (x2 over 42s)      kubelet            spec.containers{nginx}: Pulling image "nginx:1.27"
+  Normal   Pulled          8s                     kubelet            spec.containers{nginx}: Successfully pulled image "nginx:1.27" in 17.911s (17.911s including waiting). Image size: 72406859 bytes.
+  Normal   Created         8s                     kubelet            spec.containers{nginx}: Container created
+  Normal   Started         7s                     kubelet            spec.containers{nginx}: Container started
+  Warning  Unhealthy       7s (x2 over 7s)        kubelet            spec.containers{nginx}: Readiness probe failed: Get "http://10.244.0.2:80/": dial tcp 10.244.0.2:80: connect: connection refused
+

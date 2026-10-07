@@ -1,0 +1,38 @@
+#CWD ~/Devops-Assignments/session-13-storage-hpa-probes/02-hpa
+$ kubectl delete -f load-generator.yaml
+deployment.apps "load-generator" deleted from session13 namespace
+
+$ timeout 220 kubectl get hpa hpa-demo -n session13 --watch
+NAME       REFERENCE             TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+hpa-demo   Deployment/hpa-demo   cpu: 125%/50%   1         5         5          3m28s
+hpa-demo   Deployment/hpa-demo   cpu: 128%/50%   1         5         5          3m30s
+hpa-demo   Deployment/hpa-demo   cpu: 124%/50%   1         5         5          3m45s
+hpa-demo   Deployment/hpa-demo   cpu: 129%/50%   1         5         5          4m
+hpa-demo   Deployment/hpa-demo   cpu: 92%/50%    1         5         5          4m15s
+hpa-demo   Deployment/hpa-demo   cpu: 6%/50%     1         5         5          4m30s
+hpa-demo   Deployment/hpa-demo   cpu: 6%/50%     1         5         5          4m46s
+hpa-demo   Deployment/hpa-demo   cpu: 6%/50%     1         5         5          5m1s
+hpa-demo   Deployment/hpa-demo   cpu: 6%/50%     1         5         5          5m16s
+hpa-demo   Deployment/hpa-demo   cpu: 6%/50%     1         5         4          5m31s
+hpa-demo   Deployment/hpa-demo   cpu: 6%/50%     1         5         4          5m46s
+hpa-demo   Deployment/hpa-demo   cpu: 7%/50%     1         5         3          6m1s
+hpa-demo   Deployment/hpa-demo   cpu: 6%/50%     1         5         3          6m16s
+hpa-demo   Deployment/hpa-demo   cpu: 6%/50%     1         5         2          6m31s
+hpa-demo   Deployment/hpa-demo   cpu: 6%/50%     1         5         2          6m46s
+hpa-demo   Deployment/hpa-demo   cpu: 5%/50%     1         5         1          7m1s
+
+$ kubectl get pods -n session13 -l app=hpa-demo
+NAME                        READY   STATUS    RESTARTS   AGE
+hpa-demo-7545dc4b55-bhvff   1/1     Running   0          8m52s
+
+$ kubectl describe hpa hpa-demo -n session13 | sed -n "/^Events:/,\$p"
+Events:
+  Type    Reason             Age    From                       Message
+  ----    ------             ----   ----                       -------
+  Normal  SuccessfulRescale  6m23s  horizontal-pod-autoscaler  New size: 3; reason: cpu resource utilization (percentage of request) above target
+  Normal  SuccessfulRescale  6m8s   horizontal-pod-autoscaler  New size: 5; reason: cpu resource utilization (percentage of request) above target
+  Normal  SuccessfulRescale  112s   horizontal-pod-autoscaler  New size: 4; reason: All metrics below target
+  Normal  SuccessfulRescale  82s    horizontal-pod-autoscaler  New size: 3; reason: All metrics below target
+  Normal  SuccessfulRescale  52s    horizontal-pod-autoscaler  New size: 2; reason: All metrics below target
+  Normal  SuccessfulRescale  22s    horizontal-pod-autoscaler  New size: 1; reason: All metrics below target
+

@@ -1,0 +1,39 @@
+#CWD ~/Devops-Assignments/session-13-storage-hpa-probes/03-probes
+$ kubectl apply -f startup.yaml -f startup-too-short.yaml
+pod/startup-demo created
+pod/startup-too-short created
+
+$ timeout 100 kubectl get pods -n session13 -l demo=startup-probe --watch
+NAME                READY   STATUS              RESTARTS   AGE
+startup-demo        0/1     ContainerCreating   0          0s
+startup-too-short   0/1     ContainerCreating   0          0s
+startup-demo        0/1     ContainerCreating   0          0s
+startup-too-short   0/1     ContainerCreating   0          0s
+startup-too-short   0/1     Running             0          0s
+startup-demo        0/1     Running             0          0s
+startup-demo        0/1     Running             0          35s
+startup-demo        1/1     Running             0          35s
+startup-too-short   0/1     Running             1 (0s ago)   45s
+startup-too-short   0/1     Running             2 (0s ago)   90s
+
+$ kubectl get pods -n session13 -l demo=startup-probe
+NAME                READY   STATUS    RESTARTS      AGE
+startup-demo        1/1     Running   0             100s
+startup-too-short   0/1     Running   2 (10s ago)   100s
+
+$ UID_OK=$(kubectl get pod startup-demo -n session13 -o jsonpath={.metadata.uid}); kubectl get events -n session13 --field-selector involvedObject.uid=$UID_OK --sort-by=.lastTimestamp | grep -E "LAST|Unhealthy|Started|Killing"
+LAST SEEN   TYPE      REASON      OBJECT             MESSAGE
+100s        Normal    Started     pod/startup-demo   Container started
+70s         Warning   Unhealthy   pod/startup-demo   Startup probe failed: Get "http://10.244.0.41:80/": dial tcp 10.244.0.41:80: connect: connection refused
+
+$ UID_BAD=$(kubectl get pod startup-too-short -n session13 -o jsonpath={.metadata.uid}); kubectl get events -n session13 --field-selector involvedObject.uid=$UID_BAD --sort-by=.lastTimestamp | grep -E "LAST|Unhealthy|Started|Killing"
+LAST SEEN   TYPE      REASON      OBJECT                  MESSAGE
+41s         Normal    Killing     pod/startup-too-short   Container slow-app failed startup probe, will be restarted
+11s         Normal    Started     pod/startup-too-short   Container started
+1s          Warning   Unhealthy   pod/startup-too-short   Startup probe failed: Get "http://10.244.0.42:80/": dial tcp 10.244.0.42:80: connect: connection refused
+
+$ kubectl logs startup-demo -n session13 | head -3
+warming up for 30s
+2026/10/07 15:57:56 [notice] 1#1: using the "epoll" event method
+2026/10/07 15:57:56 [notice] 1#1: nginx/1.27.5
+

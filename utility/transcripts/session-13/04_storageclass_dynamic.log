@@ -1,0 +1,57 @@
+#CWD ~/Devops-Assignments/session-13-storage-hpa-probes/01-kubernetes-volumes
+$ kubectl get storageclass
+NAME                 PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+standard (default)   rancher.io/local-path   Delete          WaitForFirstConsumer   false                  7m6s
+
+$ kubectl apply -f storageclass.yaml
+storageclass.storage.k8s.io/local-retain created
+
+$ kubectl get storageclass
+NAME                 PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+local-retain         rancher.io/local-path   Retain          WaitForFirstConsumer   false                  1s
+standard (default)   rancher.io/local-path   Delete          WaitForFirstConsumer   false                  7m7s
+
+$ kubectl apply -f dynamic-pvc.yaml
+persistentvolumeclaim/dynamic-claim created
+persistentvolumeclaim/default-class-claim created
+
+$ kubectl get pvc -n session13
+NAME                  STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+default-class-claim   Pending                                      standard       <unset>                 4s
+dynamic-claim         Pending                                      local-retain   <unset>                 4s
+
+$ kubectl describe pvc dynamic-claim -n session13 | sed -n "/^Events:/,\$p"
+Events:
+  Type    Reason                Age   From                         Message
+  ----    ------                ----  ----                         -------
+  Normal  WaitForFirstConsumer  4s    persistentvolume-controller  waiting for first consumer to be created before binding
+
+$ kubectl apply -f dynamic-pod.yaml && kubectl wait --for=condition=Ready pod/dynamic-demo -n session13 --timeout=120s
+pod/dynamic-demo created
+pod/dynamic-demo condition met
+
+$ kubectl get pvc -n session13
+NAME                  STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+default-class-claim   Bound    pvc-844ce21a-32ef-4a4e-ad78-bad5bbc54e05   128Mi      RWO            standard       <unset>                 9s
+dynamic-claim         Bound    pvc-51f1f3a9-153a-4cbf-adc2-2ffefccf51a5   256Mi      RWO            local-retain   <unset>                 9s
+
+$ kubectl get pv -o custom-columns=NAME:.metadata.name,CAPACITY:.spec.capacity.storage,RECLAIM:.spec.persistentVolumeReclaimPolicy,STATUS:.status.phase,CLAIM:.spec.claimRef.name,CLASS:.spec.storageClassName,NODE-PATH:.spec.hostPath.path
+NAME                                       CAPACITY   RECLAIM   STATUS     CLAIM                 CLASS          NODE-PATH
+pvc-51f1f3a9-153a-4cbf-adc2-2ffefccf51a5   256Mi      Retain    Bound      dynamic-claim         local-retain   /var/local-path-provisioner/pvc-51f1f3a9-153a-4cbf-adc2-2ffefccf51a5_session13_dynamic-claim
+pvc-844ce21a-32ef-4a4e-ad78-bad5bbc54e05   128Mi      Delete    Bound      default-class-claim   standard       /var/local-path-provisioner/pvc-844ce21a-32ef-4a4e-ad78-bad5bbc54e05_session13_default-class-claim
+static-pv-1gi                              1Gi        Retain    Released   static-claim          manual         /var/static-pv-1gi
+
+$ kubectl exec -n session13 dynamic-demo -- sh -c "cat /retain/note.txt /default/note.txt"
+stored on a dynamically provisioned volume
+stored on the default class
+
+$ kubectl delete pod dynamic-demo -n session13 && kubectl delete pvc dynamic-claim default-class-claim -n session13
+pod "dynamic-demo" deleted from session13 namespace
+persistentvolumeclaim "dynamic-claim" deleted from session13 namespace
+persistentvolumeclaim "default-class-claim" deleted from session13 namespace
+
+$ kubectl get pv -o custom-columns=NAME:.metadata.name,RECLAIM:.spec.persistentVolumeReclaimPolicy,STATUS:.status.phase,CLASS:.spec.storageClassName
+NAME                                       RECLAIM   STATUS     CLASS
+pvc-51f1f3a9-153a-4cbf-adc2-2ffefccf51a5   Retain    Released   local-retain
+static-pv-1gi                              Retain    Released   manual
+

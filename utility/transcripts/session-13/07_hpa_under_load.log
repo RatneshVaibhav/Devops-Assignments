@@ -1,0 +1,44 @@
+#CWD ~/Devops-Assignments/session-13-storage-hpa-probes/02-hpa
+$ kubectl get hpa -n session13
+NAME       REFERENCE             TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+hpa-demo   Deployment/hpa-demo   cpu: 133%/50%   1         5         5          3m6s
+
+$ kubectl top pods -n session13 -l app=hpa-demo
+NAME                        CPU(cores)   MEMORY(bytes)   
+hpa-demo-7545dc4b55-8rpbd   242m         13Mi            
+hpa-demo-7545dc4b55-bhvff   296m         19Mi            
+hpa-demo-7545dc4b55-kwqfz   226m         13Mi            
+hpa-demo-7545dc4b55-m7r2t   283m         14Mi            
+hpa-demo-7545dc4b55-n2kzh   290m         13Mi            
+
+$ kubectl get pods -n session13 -l app=hpa-demo -o wide
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                       NOMINATED NODE   READINESS GATES
+hpa-demo-7545dc4b55-8rpbd   1/1     Running   0          2m22s   10.244.0.29   devops-lab-control-plane   <none>           <none>
+hpa-demo-7545dc4b55-bhvff   1/1     Running   0          4m51s   10.244.0.24   devops-lab-control-plane   <none>           <none>
+hpa-demo-7545dc4b55-kwqfz   1/1     Running   0          2m7s    10.244.0.32   devops-lab-control-plane   <none>           <none>
+hpa-demo-7545dc4b55-m7r2t   1/1     Running   0          2m22s   10.244.0.30   devops-lab-control-plane   <none>           <none>
+hpa-demo-7545dc4b55-n2kzh   1/1     Running   0          2m7s    10.244.0.31   devops-lab-control-plane   <none>           <none>
+
+$ kubectl get deployment hpa-demo -n session13
+NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+hpa-demo   5/5     5            5           4m51s
+
+$ kubectl describe hpa hpa-demo -n session13 | sed -n "/^Metrics:/,/^Max replicas/p;/^Deployment pods/,\$p"
+Metrics:                                               ( current / target )
+  resource cpu on pods  (as a percentage of request):  133% (267m) / 50%
+Min replicas:                                          1
+Max replicas:                                          5
+Deployment pods:    5 current / 5 desired
+Conditions:
+  Type            Status  Reason            Message
+  ----            ------  ------            -------
+  AbleToScale     True    ReadyForNewScale  recommended size matches current size
+  ScalingActive   True    ValidMetricFound  the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
+  ScalingLimited  True    TooManyReplicas   the desired replica count is more than the maximum replica count
+  ScaledToZero    False   NotScaledToZero   the HPA controller did not scale the workload to zero
+Events:
+  Type    Reason             Age    From                       Message
+  ----    ------             ----   ----                       -------
+  Normal  SuccessfulRescale  2m22s  horizontal-pod-autoscaler  New size: 3; reason: cpu resource utilization (percentage of request) above target
+  Normal  SuccessfulRescale  2m7s   horizontal-pod-autoscaler  New size: 5; reason: cpu resource utilization (percentage of request) above target
+

@@ -1,0 +1,39 @@
+#CWD ~/Devops-Assignments/session-13-storage-hpa-probes/02-hpa
+$ cat load-generator.yaml | grep -A1 -E "replicas|command"
+  replicas: 3
+  selector:
+--
+          command: ["/bin/sh", "-c", "while true; do wget -q -O- http://hpa-demo-service > /dev/null; done"]
+          resources:
+
+$ kubectl apply -f load-generator.yaml
+deployment.apps/load-generator created
+
+$ timeout 150 kubectl get hpa hpa-demo -n session13 --watch
+NAME       REFERENCE             TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+hpa-demo   Deployment/hpa-demo   cpu: 1%/50%   1         5         1          32s
+hpa-demo   Deployment/hpa-demo   cpu: 118%/50%   1         5         1          60s
+hpa-demo   Deployment/hpa-demo   cpu: 153%/50%   1         5         3          75s
+hpa-demo   Deployment/hpa-demo   cpu: 60%/50%    1         5         3          90s
+hpa-demo   Deployment/hpa-demo   cpu: 19%/50%    1         5         4          105s
+hpa-demo   Deployment/hpa-demo   cpu: 6%/50%     1         5         4          2m
+hpa-demo   Deployment/hpa-demo   cpu: 30%/50%    1         5         4          2m15s
+hpa-demo   Deployment/hpa-demo   cpu: 12%/50%    1         5         4          2m30s
+hpa-demo   Deployment/hpa-demo   cpu: 24%/50%    1         5         4          2m45s
+hpa-demo   Deployment/hpa-demo   cpu: 23%/50%    1         5         3          3m
+
+$ kubectl scale deployment load-generator -n session13 --replicas=8
+deployment.apps/load-generator scaled
+
+$ timeout 120 kubectl get hpa hpa-demo -n session13 --watch
+NAME       REFERENCE             TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+hpa-demo   Deployment/hpa-demo   cpu: 2%/50%   1         5         3          3m18s
+hpa-demo   Deployment/hpa-demo   cpu: 54%/50%   1         5         2          3m30s
+hpa-demo   Deployment/hpa-demo   cpu: 23%/50%   1         5         2          3m45s
+hpa-demo   Deployment/hpa-demo   cpu: 9%/50%    1         5         2          4m
+hpa-demo   Deployment/hpa-demo   cpu: 27%/50%   1         5         2          4m15s
+hpa-demo   Deployment/hpa-demo   cpu: 33%/50%   1         5         2          4m30s
+hpa-demo   Deployment/hpa-demo   cpu: 28%/50%   1         5         2          4m45s
+hpa-demo   Deployment/hpa-demo   cpu: 22%/50%   1         5         2          5m
+hpa-demo   Deployment/hpa-demo   cpu: 32%/50%   1         5         2          5m15s
+
