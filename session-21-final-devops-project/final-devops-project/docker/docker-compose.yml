@@ -1,0 +1,53 @@
+# Full local stack:  cd docker && cp .env.example .env && docker compose up --build
+name: shelfshare
+
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: shelfshare
+      POSTGRES_USER: shelfshare
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in docker/.env}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U shelfshare -d shelfshare"]
+      interval: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/backend.Dockerfile
+    image: shelfshare-backend:compose
+    environment:
+      APP_ENV: compose
+      DB_HOST: db
+      DB_NAME: shelfshare
+      DB_USER: shelfshare
+      DB_PASSWORD: ${DB_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready')"]
+      interval: 5s
+      retries: 20
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/frontend.Dockerfile
+    image: shelfshare-frontend:compose
+    environment:
+      BACKEND_URL: http://backend:8000
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "3000:8080"
+
+volumes:
+  db-data:

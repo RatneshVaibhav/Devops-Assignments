@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shelfshare-frontend
+  labels: {app: shelfshare-frontend}
+spec:
+  replicas: 2
+  selector:
+    matchLabels: {app: shelfshare-frontend}
+  template:
+    metadata:
+      labels: {app: shelfshare-frontend}
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile: {type: RuntimeDefault}
+      containers:
+        - name: web
+          image: shelfshare-frontend
+          ports:
+            - {name: http, containerPort: 8080}
+          env:
+            - {name: BACKEND_URL, value: "http://shelfshare-backend:8000"}
+          readinessProbe:
+            httpGet: {path: /healthz, port: http}
+            periodSeconds: 5
+          livenessProbe:
+            httpGet: {path: /healthz, port: http}
+            periodSeconds: 10
+          resources:
+            requests: {cpu: 10m, memory: 16Mi}
+            limits: {cpu: 100m, memory: 48Mi}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {drop: ["ALL"]}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shelfshare-frontend
+  labels: {app: shelfshare-frontend}
+spec:
+  selector: {app: shelfshare-frontend}
+  ports:
+    - {name: http, port: 80, targetPort: http}

@@ -1,0 +1,12 @@
+{{- if .Values.monitoring.dashboard.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "shelfshare.name" . }}-dashboard
+  labels:
+    {{- include "shelfshare.labels" . | nindent 4 }}
+    grafana_dashboard: "1"
+data:
+  shelfshare-dashboard.json: |-
+{{ .Files.Get "files/grafana-dashboard.json" | replace "__NAMESPACE__" .Release.Namespace | indent 4 }}
+{{- end }}

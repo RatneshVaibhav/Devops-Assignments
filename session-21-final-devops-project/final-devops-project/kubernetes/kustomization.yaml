@@ -1,0 +1,30 @@
+# Plain-manifest version of ShelfShare:  kubectl apply -k kubernetes/
+# (the Helm chart in ../helm is the same application, parameterised)
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: shelfshare-raw
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: shelfshare
+    includeSelectors: false
+resources:
+  - namespace.yaml
+  - configmap.yaml
+  - postgres.yaml
+  - backend.yaml
+  - frontend.yaml
+  - ingress.yaml
+  - hpa.yaml
+# the database password is read from db.env (git-ignored, see db.env.example)
+secretGenerator:
+  - name: shelfshare-db
+    envs: [db.env]
+generatorOptions:
+  disableNameSuffixHash: true
+images:
+  - name: shelfshare-backend
+    newName: localhost:5001/ratneshvaibhav/shelfshare-backend
+    newTag: "1.0.0"
+  - name: shelfshare-frontend
+    newName: localhost:5001/ratneshvaibhav/shelfshare-frontend
+    newTag: "1.0.0"

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "shelfshare.name" . }}-backend
+  labels: {{- include "shelfshare.labels" . | nindent 4 }}
+data:
+  DB_HOST: {{ include "shelfshare.dbHost" . | quote }}
+  DB_PORT: {{ .Values.database.port | quote }}
+  DB_NAME: {{ .Values.database.name | quote }}
+  DB_USER: {{ .Values.database.user | quote }}
+  CORS_ORIGINS: {{ printf "http://%s:8088" .Values.ingress.host | quote }}
+  {{- range $k, $v := .Values.backend.env }}
+  {{ $k }}: {{ $v | quote }}
+  {{- end }}

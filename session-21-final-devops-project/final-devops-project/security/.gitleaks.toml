@@ -1,0 +1,15 @@
+# Gitleaks configuration for the final project
+title = "shelfshare secret scanning"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "dependencies, build output and generated reports are not our source"
+paths = [
+  '''(^|/)node_modules/''',
+  '''(^|/)dist/''',
+  '''(^|/)\.venv/''',
+  '''(^|/)reports/''',
+  '''\.example$''',
+]

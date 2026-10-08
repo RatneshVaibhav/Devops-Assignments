@@ -1,0 +1,21 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "shelfshare.name" . }}
+  labels: {{- include "shelfshare.labels" . | nindent 4 }}
+spec:
+  ingressClassName: {{ .Values.ingress.className }}
+  rules:
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service: {name: {{ include "shelfshare.name" . }}-backend, port: {name: http}}
+          - path: /
+            pathType: Prefix
+            backend:
+              service: {name: {{ include "shelfshare.name" . }}-frontend, port: {name: http}}
+{{- end }}

@@ -1,0 +1,60 @@
+# Images are <registry>/<owner>/shelfshare-backend|frontend:<tag>.
+# CI sets image.tag to the git commit SHA.
+image:
+  registry: localhost:5001
+  owner: ratneshvaibhav
+  tag: "1.0.0"
+  pullPolicy: IfNotPresent
+
+backend:
+  replicas: 2
+  env:
+    APP_ENV: development
+    LOG_LEVEL: INFO
+  resources:
+    requests: {cpu: 50m, memory: 96Mi}
+    limits: {cpu: 300m, memory: 192Mi}
+  hpa:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 4
+    targetCPU: 70
+
+frontend:
+  replicas: 2
+  resources:
+    requests: {cpu: 10m, memory: 16Mi}
+    limits: {cpu: 100m, memory: 64Mi}   # 48Mi left no headroom under node memory pressure
+
+postgres:
+  enabled: true
+  image: postgres:17-alpine
+  storage: 1Gi
+  storageClass: ""        # "" = cluster default
+  resources:
+    requests: {cpu: 50m, memory: 64Mi}
+    limits: {memory: 256Mi}
+
+database:
+  host: ""                # empty = the chart's own postgres
+  port: 5432
+  name: shelfshare
+  user: shelfshare
+  # The password is never in values or Git: create the Secret beforehand, e.g.
+  #   kubectl create secret generic shelfshare-db --from-literal=password=$(openssl rand -hex 16)
+  existingSecret: shelfshare-db
+  passwordKey: password
+
+ingress:
+  enabled: true
+  className: nginx
+  host: shelfshare.localhost
+
+monitoring:
+  serviceMonitor:
+    enabled: true
+    interval: 15s
+  rules:
+    enabled: true
+  dashboard:
+    enabled: true

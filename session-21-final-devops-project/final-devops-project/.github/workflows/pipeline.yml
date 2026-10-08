@@ -1,0 +1,309 @@
+# Session 21 - ShelfShare end-to-end pipeline
+#
+#  backend-test ─┐                       ┌─ sast ────────┐
+#  frontend-build┴─────────────────────► ├─ sca ─────────┼─► docker-build ─► image-scan ─┐
+#                                        └─ secret-scan ─┘                              │
+#                                   security-gate (one policy over 8 reports) ◄─────────┘
+#                                        │
+#                                      push (both images, tag = commit SHA)
+#                                        │
+#                                      deploy:  DEPLOY_MODE=kind   -> throw-away kind cluster + helm upgrade --install + helm test
+#                                               DEPLOY_MODE=gitops -> commit image.tag to the GitOps repo; Argo CD rolls it out
+#
+# A copy of this file lives in final-devops-project/.github/workflows/pipeline.yml;
+# GitHub only runs workflows from the repository root, so this one is the one that runs.
+name: Session 21 - ShelfShare pipeline
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "session-21-final-devops-project/final-devops-project/**"
+      - ".github/workflows/session-21-pipeline.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "session-21-final-devops-project/final-devops-project/**"
+      - ".github/workflows/session-21-pipeline.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: session21-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PROJECT: session-21-final-devops-project/final-devops-project
+  REGISTRY: ${{ vars.REGISTRY || 'ghcr.io' }}
+  DEPLOY_MODE: ${{ vars.DEPLOY_MODE || 'kind' }}
+
+defaults:
+  run:
+    shell: bash
+    working-directory: session-21-final-devops-project/final-devops-project
+
+jobs:
+  # ------------------------------------------------------------ build & test
+  backend-test:
+    name: Backend tests (pytest)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r application/backend/requirements-dev.txt
+      - name: Run pytest (SQLite test database)
+        working-directory: ${{ env.PROJECT }}/application/backend
+        run: pytest -v --cov=app --cov-report=term --cov-report=xml:reports/coverage.xml --junitxml=reports/junit.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: backend-test-report
+          path: ${{ env.PROJECT }}/application/backend/reports/
+
+  frontend-build:
+    name: Frontend build (Vite)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: npm ci and build
+        working-directory: ${{ env.PROJECT }}/application/frontend
+        run: npm ci --no-audit --no-fund && npm run build && ls -la dist/assets
+      - uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: ${{ env.PROJECT }}/application/frontend/dist/
+
+  # ------------------------------------------------------------ security scans
+  sast:
+    name: SAST (Bandit + Semgrep)
+    needs: [backend-test, frontend-build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install bandit==1.9.4 semgrep==1.179.0
+      - name: Bandit (backend)
+        run: |
+          mkdir -p reports
+          bandit -r application/backend/app -c security/bandit.yaml -f json -o reports/bandit.json --exit-zero -q
+          jq -r '"bandit: \(.results | length) findings (\([.results[] | select(.issue_severity == "HIGH")] | length) HIGH) in \(.metrics._totals.loc) lines"' reports/bandit.json
+      - name: Semgrep (backend + frontend)
+        run: |
+          semgrep scan --config p/python --config p/react --config security/semgrep-rules.yml --metrics off \
+            --json -o reports/semgrep.json application/backend/app application/frontend/src
+          jq -r '"semgrep: \(.results | length) findings in \(.paths.scanned | length) files"' reports/semgrep.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: security-sast
+          path: ${{ env.PROJECT }}/reports/
+
+  sca:
+    name: SCA (pip-audit + npm audit + Trivy fs)
+    needs: [backend-test, frontend-build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Install pinned, checksum-verified scanners
+        run: bash security/install-tools.sh "$HOME/.local/bin" && echo "$HOME/.local/bin" >> "$GITHUB_PATH" && pip install pip-audit==2.10.1
+      - name: pip-audit (backend)
+        run: |
+          mkdir -p reports
+          pip-audit -r application/backend/requirements.txt -f json -o reports/pip-audit.json || true
+          jq -r '"pip-audit: \([.dependencies[].vulns[]] | length) vulnerabilities in \(.dependencies | length) packages"' reports/pip-audit.json
+      - name: npm audit (frontend runtime dependencies)
+        working-directory: ${{ env.PROJECT }}/application/frontend
+        run: |
+          npm audit --omit=dev --json > ../../reports/npm-audit.json || true
+          jq -c '.metadata.vulnerabilities' ../../reports/npm-audit.json
+      - name: Trivy filesystem scan (requirements.txt + package-lock.json)
+        run: |
+          trivy fs --config security/trivy.yaml --quiet --format json -o reports/trivy-fs.json application
+          trivy fs --config security/trivy.yaml --quiet application
+      - uses: actions/upload-artifact@v4
+        with:
+          name: security-sca
+          path: ${{ env.PROJECT }}/reports/
+
+  secret-scan:
+    name: Secret scan (Gitleaks)
+    needs: [backend-test, frontend-build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned, checksum-verified scanners
+        run: bash security/install-tools.sh "$HOME/.local/bin" && echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: Gitleaks
+        run: |
+          mkdir -p reports
+          gitleaks dir . --config security/.gitleaks.toml --redact --no-banner \
+            --report-format json --report-path reports/gitleaks.json --exit-code 0
+          jq -r '"gitleaks: \(length) secrets found"' reports/gitleaks.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: security-secrets
+          path: ${{ env.PROJECT }}/reports/
+
+  # ------------------------------------------------------------ images
+  docker-build:
+    name: Docker build (backend + frontend)
+    needs: [sast, sca, secret-scan]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build both images
+        run: |
+          docker build -f docker/backend.Dockerfile --build-arg BUILD_SHA="$GITHUB_SHA" -t shelfshare-backend:"$GITHUB_SHA" .
+          docker build -f docker/frontend.Dockerfile -t shelfshare-frontend:"$GITHUB_SHA" .
+          docker images | grep -E "shelfshare-(backend|frontend)"
+      - name: Save images
+        run: |
+          mkdir -p images
+          docker save shelfshare-backend:"$GITHUB_SHA" -o images/backend.tar
+          docker save shelfshare-frontend:"$GITHUB_SHA" -o images/frontend.tar
+          ls -lh images
+      - uses: actions/upload-artifact@v4
+        with:
+          name: docker-images
+          path: ${{ env.PROJECT }}/images/
+          retention-days: 1
+
+  image-scan:
+    name: Image scan (Trivy)
+    needs: docker-build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: docker-images
+          path: ${{ env.PROJECT }}/images
+      - name: Install pinned, checksum-verified scanners
+        run: bash security/install-tools.sh "$HOME/.local/bin" && echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: Trivy - the exact tarballs that will be pushed
+        run: |
+          mkdir -p reports
+          for img in backend frontend; do
+            trivy image --config security/trivy.yaml --quiet --input images/$img.tar --format json -o reports/trivy-image-$img.json
+            jq -r --arg i "$img" '"\($i) image: \([.Results[]?.Vulnerabilities[]?] | length) HIGH/CRITICAL (\(.Metadata.OS.Family) \(.Metadata.OS.Name))"' reports/trivy-image-$img.json
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: security-images
+          path: ${{ env.PROJECT }}/reports/
+
+  security-gate:
+    name: Security gate
+    needs: [sast, sca, secret-scan, image-scan]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: security-*
+          merge-multiple: true
+          path: ${{ env.PROJECT }}/reports
+      - name: Apply the security policy
+        run: security/security-gate.sh reports | tee gate.txt
+      - name: Publish the gate result
+        if: always()
+        run: |
+          { echo '### Security gate'; echo '```'; cat gate.txt 2>/dev/null; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+
+  # ------------------------------------------------------------ delivery
+  push:
+    name: Push images (tag = commit SHA)
+    needs: security-gate
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: docker-images
+          path: ${{ env.PROJECT }}/images
+      - name: Load images
+        run: docker load -i images/backend.tar && docker load -i images/frontend.tar
+      - name: Log in to GitHub Container Registry
+        if: env.REGISTRY == 'ghcr.io'
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+      - name: Tag and push
+        run: |
+          for img in backend frontend; do
+            target="$REGISTRY/${GITHUB_REPOSITORY_OWNER,,}/shelfshare-$img:$GITHUB_SHA"
+            docker tag "shelfshare-$img:$GITHUB_SHA" "$target"
+            docker push -q "$target"
+            echo "pushed $target"
+          done
+
+  deploy:
+    name: Deploy (${{ vars.DEPLOY_MODE || 'kind' }})
+    needs: push
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - uses: actions/checkout@v4
+
+      # ---- GitOps: change the desired state, Argo CD does the rest
+      - name: Promote the new tag in the GitOps repository
+        if: env.DEPLOY_MODE == 'gitops'
+        env:
+          GITOPS_REPO: ${{ secrets.GITOPS_REPO }}
+        run: |
+          git clone -q "$GITOPS_REPO" /tmp/gitops
+          cd /tmp/gitops
+          git config user.name "shelfshare-ci"
+          git config user.email "ci@shelfshare.invalid"
+          sed -i -E "s/^(  tag: ).*/\1\"$GITHUB_SHA\"/" environments/dev/values.yaml
+          git diff --stat
+          git commit -qam "Deploy shelfshare ${GITHUB_SHA::7} to dev (pipeline run $GITHUB_RUN_NUMBER)"
+          git push -q origin HEAD:main
+          echo "dev now wants image tag $GITHUB_SHA ($(git rev-parse --short HEAD))"
+
+      # ---- no GitOps controller reachable (GitHub-hosted runner): deploy directly with Helm
+      - name: Create a throw-away kind cluster
+        if: env.DEPLOY_MODE != 'gitops'
+        uses: helm/kind-action@v1
+        with:
+          cluster_name: ci
+      - name: Install Helm
+        if: env.DEPLOY_MODE != 'gitops'
+        uses: azure/setup-helm@v4
+      - name: Load the pushed images into the cluster
+        if: env.DEPLOY_MODE != 'gitops'
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+          for img in backend frontend; do
+            ref="$REGISTRY/${GITHUB_REPOSITORY_OWNER,,}/shelfshare-$img:$GITHUB_SHA"
+            docker pull -q "$ref" && kind load docker-image "$ref" --name ci
+          done
+      - name: helm upgrade --install
+        if: env.DEPLOY_MODE != 'gitops'
+        run: |
+          kubectl create namespace shelfshare
+          kubectl create secret generic shelfshare-db -n shelfshare --from-literal=password="$(openssl rand -hex 16)"
+          helm upgrade --install shelfshare helm/shelfshare -n shelfshare --wait --timeout 6m \
+            --set image.registry="$REGISTRY" --set image.owner="${GITHUB_REPOSITORY_OWNER,,}" \
+            --set image.tag="$GITHUB_SHA" --set image.pullPolicy=Never \
+            --set ingress.enabled=false --set monitoring.serviceMonitor.enabled=false \
+            --set monitoring.rules.enabled=false --set monitoring.dashboard.enabled=false
+          kubectl get pods -n shelfshare
+          helm test shelfshare -n shelfshare

@@ -1,0 +1,13 @@
+# Trivy configuration shared by the filesystem (SCA) and image scans.
+severity:
+  - HIGH
+  - CRITICAL
+scan:
+  scanners:
+    - vuln
+vulnerability:
+  # no ignore-unfixed: the Alpine base image has zero HIGH/CRITICAL CVEs, so the
+  # gate can block on every finding instead of only on fixable ones
+  ignore-unfixed: false
+# the scanners only report; security-gate.sh decides pass/fail
+exit-code: 0

@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shelfshare-backend
+  labels: {app: shelfshare-backend}
+spec:
+  replicas: 2
+  selector:
+    matchLabels: {app: shelfshare-backend}
+  template:
+    metadata:
+      labels: {app: shelfshare-backend}
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile: {type: RuntimeDefault}
+      initContainers:
+        # the headless Service has no DNS record until Postgres is ready; without this
+        # the first `alembic upgrade head` fails and the pod restarts (see README)
+        - name: wait-for-db
+          image: postgres:17-alpine
+          command: ["sh", "-c", "until pg_isready -h \"$DB_HOST\" -p \"$DB_PORT\" -t 2; do echo waiting for $DB_HOST; sleep 2; done"]
+          envFrom:
+            - configMapRef: {name: shelfshare-backend-config}
+          resources:
+            requests: {cpu: 10m, memory: 16Mi}
+            limits: {memory: 32Mi}
+          securityContext:
+            runAsUser: 70
+            allowPrivilegeEscalation: false
+            capabilities: {drop: ["ALL"]}
+      containers:
+        - name: api
+          image: shelfshare-backend
+          ports:
+            - {name: http, containerPort: 8000}
+          envFrom:
+            - configMapRef: {name: shelfshare-backend-config}
+          env:
+            - name: DB_PASSWORD
+              valueFrom: {secretKeyRef: {name: shelfshare-db, key: password}}
+          startupProbe:                 # migrations + boot: up to 30 x 2s
+            httpGet: {path: /health, port: http}
+            periodSeconds: 2
+            failureThreshold: 30
+          readinessProbe:               # can reach the database?
+            httpGet: {path: /ready, port: http}
+            periodSeconds: 5
+            failureThreshold: 2
+          livenessProbe:                # process alive?
+            httpGet: {path: /health, port: http}
+            periodSeconds: 10
+            failureThreshold: 3
+          resources:
+            requests: {cpu: 50m, memory: 96Mi}
+            limits: {cpu: 300m, memory: 192Mi}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: {drop: ["ALL"]}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shelfshare-backend
+  labels: {app: shelfshare-backend}
+spec:
+  selector: {app: shelfshare-backend}
+  ports:
+    - {name: http, port: 8000, targetPort: http}

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "shelfshare.name" . }}-backend
+  labels:
+    {{- include "shelfshare.labels" . | nindent 4 }}
+    app.kubernetes.io/component: backend
+spec:
+  selector: {{- include "shelfshare.selector" (dict "Release" .Release "component" "backend") | nindent 4 }}
+  ports:
+    - {name: http, port: 8000, targetPort: http}

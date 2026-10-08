@@ -1,0 +1,19 @@
+# One host, two backends: the UI on / and the API on /api.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: shelfshare
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: shelfshare.localhost
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service: {name: shelfshare-backend, port: {name: http}}
+          - path: /
+            pathType: Prefix
+            backend:
+              service: {name: shelfshare-frontend, port: {name: http}}

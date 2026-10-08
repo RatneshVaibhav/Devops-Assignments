@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "shelfshare.name" . }}-frontend
+  labels:
+    {{- include "shelfshare.labels" . | nindent 4 }}
+    app.kubernetes.io/component: frontend
+spec:
+  replicas: {{ .Values.frontend.replicas }}
+  selector:
+    matchLabels: {{- include "shelfshare.selector" (dict "Release" .Release "component" "frontend") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "shelfshare.selector" (dict "Release" .Release "component" "frontend") | nindent 8 }}
+        app.kubernetes.io/version: {{ .Values.image.tag | quote }}
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile: {type: RuntimeDefault}
+      containers:
+        - name: web
+          image: {{ include "shelfshare.image" (dict "root" . "name" "frontend") }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - {name: http, containerPort: 8080}
+          env:
+            - name: BACKEND_URL
+              value: {{ printf "http://%s-backend:8000" (include "shelfshare.name" .) | quote }}
+            # size nginx's worker_processes to the container's CPU limit instead of the
+            # node's 12 CPUs (12 workers per pod made the 48Mi limit fragile - see README)
+            - name: NGINX_ENTRYPOINT_WORKER_PROCESSES_AUTOTUNE
+              value: "1"
+          readinessProbe:
+            httpGet: {path: /healthz, port: http}
+            periodSeconds: 5
+          livenessProbe:
+            httpGet: {path: /healthz, port: http}
+            periodSeconds: 10
+          resources: {{- toYaml .Values.frontend.resources | nindent 12 }}
+          securityContext: {{- include "shelfshare.restricted" . | nindent 12 }}

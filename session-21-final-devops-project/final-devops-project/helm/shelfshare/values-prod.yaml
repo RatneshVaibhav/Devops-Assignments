@@ -1,0 +1,22 @@
+# production: images from GHCR, more replicas, larger limits, real hostname
+image:
+  registry: ghcr.io
+  pullPolicy: Always
+backend:
+  replicas: 3
+  env:
+    APP_ENV: production
+    LOG_LEVEL: INFO
+  resources:
+    requests: {cpu: 100m, memory: 128Mi}
+    limits: {cpu: "1", memory: 384Mi}
+  hpa:
+    minReplicas: 3
+    maxReplicas: 10
+frontend:
+  replicas: 3
+postgres:
+  storage: 20Gi
+  storageClass: gp3
+ingress:
+  host: shelfshare.example.edu

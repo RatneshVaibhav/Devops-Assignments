@@ -1,0 +1,27 @@
+# Project rules, run together with the public p/python and p/react rulesets.
+rules:
+  - id: hardcoded-credential-assignment
+    languages: [python]
+    severity: ERROR
+    message: Credential assigned from a string literal - read it from the environment (Kubernetes Secret).
+    patterns:
+      - pattern: $NAME = "..."
+      - metavariable-regex:
+          metavariable: $NAME
+          regex: (?i).*(password|passwd|secret|api_?key|token).*
+      - pattern-not: $NAME = ""
+
+  - id: raw-sql-string-formatting
+    languages: [python]
+    severity: ERROR
+    message: SQL built with string formatting - use SQLAlchemy expressions or bound parameters.
+    pattern-either:
+      - pattern: text(f"...")
+      - pattern: text("..." % $X)
+      - pattern: $DB.execute(f"...")
+
+  - id: react-dangerously-set-inner-html
+    languages: [javascript]
+    severity: ERROR
+    message: dangerouslySetInnerHTML renders raw HTML (XSS) - render text instead.
+    pattern: <$EL dangerouslySetInnerHTML={...} />

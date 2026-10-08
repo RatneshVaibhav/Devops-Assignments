@@ -1,0 +1,60 @@
+# PostgreSQL with persistent storage: the StatefulSet's volumeClaimTemplate gives
+# the pod its own PVC, which survives pod restarts and rescheduling.
+apiVersion: v1
+kind: Service
+metadata:
+  name: shelfshare-postgres
+spec:
+  clusterIP: None              # headless: stable DNS for the StatefulSet pod
+  selector: {app: shelfshare-postgres}
+  ports:
+    - {name: postgres, port: 5432}
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: shelfshare-postgres
+spec:
+  serviceName: shelfshare-postgres
+  replicas: 1
+  selector:
+    matchLabels: {app: shelfshare-postgres}
+  template:
+    metadata:
+      labels: {app: shelfshare-postgres}
+    spec:
+      securityContext:
+        fsGroup: 70            # postgres user in the alpine image
+      containers:
+        - name: postgres
+          image: postgres:17-alpine
+          ports:
+            - {name: postgres, containerPort: 5432}
+          env:
+            - name: POSTGRES_DB
+              valueFrom: {configMapKeyRef: {name: shelfshare-backend-config, key: DB_NAME}}
+            - name: POSTGRES_USER
+              valueFrom: {configMapKeyRef: {name: shelfshare-backend-config, key: DB_USER}}
+            - name: POSTGRES_PASSWORD
+              valueFrom: {secretKeyRef: {name: shelfshare-db, key: password}}
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          readinessProbe:
+            exec: {command: ["sh", "-c", "pg_isready -U \"$POSTGRES_USER\" -d \"$POSTGRES_DB\""]}
+            periodSeconds: 5
+          livenessProbe:
+            exec: {command: ["sh", "-c", "pg_isready -U \"$POSTGRES_USER\" -d \"$POSTGRES_DB\""]}
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          resources:
+            requests: {cpu: 50m, memory: 64Mi}
+            limits: {memory: 256Mi}
+          volumeMounts:
+            - {name: data, mountPath: /var/lib/postgresql/data}
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ReadWriteOnce]
+        resources:
+          requests: {storage: 1Gi}

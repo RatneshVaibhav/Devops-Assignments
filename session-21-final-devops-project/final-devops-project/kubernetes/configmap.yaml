@@ -1,0 +1,13 @@
+# Non-secret configuration of the backend.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shelfshare-backend-config
+data:
+  APP_ENV: kubernetes
+  LOG_LEVEL: INFO
+  DB_HOST: shelfshare-postgres
+  DB_PORT: "5432"
+  DB_NAME: shelfshare
+  DB_USER: shelfshare
+  CORS_ORIGINS: http://shelfshare.localhost:8088
