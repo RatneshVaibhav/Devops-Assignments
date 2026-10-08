@@ -1,0 +1,58 @@
+# Alerting rules for the campus-status service. The operator loads them into Prometheus;
+# firing alerts are sent to Alertmanager.
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: campus-status
+  namespace: session20
+spec:
+  groups:
+    - name: campus-status.recording
+      rules:
+        - record: campus_status:http_requests:rate1m
+          expr: sum by (status) (rate(http_requests_total{job="campus-status"}[1m]))
+        - record: campus_status:error_ratio:rate2m
+          expr: |
+            sum(rate(http_requests_total{job="campus-status",status=~"5.."}[2m]))
+              / sum(rate(http_requests_total{job="campus-status"}[2m]))
+    - name: campus-status.alerts
+      rules:
+        - alert: CampusStatusHighErrorRate
+          expr: campus_status:error_ratio:rate2m > 0.10
+          for: 1m
+          labels: {severity: warning, team: campus-web}
+          annotations:
+            summary: "More than 10% of campus-status requests are failing"
+            description: "Error ratio is {{ $value | humanizePercentage }} over the last 2 minutes."
+        - alert: CampusStatusHighLatencyP95
+          expr: |
+            histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket{job="campus-status"}[2m]))) > 0.5
+          for: 1m
+          labels: {severity: warning, team: campus-web}
+          annotations:
+            summary: "p95 latency of campus-status is above 500 ms"
+            description: "p95 is {{ $value | humanizeDuration }}."
+        - alert: CampusStatusHighCPU
+          expr: |
+            sum by (pod) (rate(container_cpu_usage_seconds_total{namespace="session20",container="app"}[2m]))
+              / sum by (pod) (kube_pod_container_resource_limits{namespace="session20",container="app",resource="cpu"}) > 0.8
+          for: 1m
+          labels: {severity: warning, team: campus-web}
+          annotations:
+            summary: "{{ $labels.pod }} uses more than 80% of its CPU limit"
+            description: "CPU usage is {{ $value | humanizePercentage }} of the limit."
+        - alert: CampusStatusHighMemory
+          expr: |
+            sum by (pod) (container_memory_working_set_bytes{namespace="session20",container="app"})
+              / sum by (pod) (kube_pod_container_resource_limits{namespace="session20",container="app",resource="memory"}) > 0.8
+          for: 2m
+          labels: {severity: warning, team: campus-web}
+          annotations:
+            summary: "{{ $labels.pod }} uses more than 80% of its memory limit"
+        - alert: CampusStatusUnavailable
+          expr: kube_deployment_status_replicas_available{namespace="session20",deployment="campus-status"} < 1
+          for: 1m
+          labels: {severity: critical, team: campus-web}
+          annotations:
+            summary: "campus-status has no available replicas"
+            description: "Every replica of the deployment is down - the service is unavailable."

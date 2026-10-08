@@ -1,0 +1,49 @@
+#CWD ~/campus-gitops
+$ kubectl get configmap exam-week-banner -n campus-gitops
+NAME               DATA   AGE
+exam-week-banner   1      6m27s
+
+$ git rm -q app/exam-banner.yaml && git commit -q -m "Exams are over: remove the exam-week banner" && git push -q && echo "pushed $(git rev-parse --short HEAD) at $(date +%T)"
+pushed a02bc92 at 14:46:11
+
+$ until ! kubectl get configmap exam-week-banner -n campus-gitops >/dev/null 2>&1; do sleep 2; done; echo "$(date +%T) pruned:"; kubectl get configmap exam-week-banner -n campus-gitops
+14:46:27 pruned:
+Error from server (NotFound): configmaps "exam-week-banner" not found
+
+$ git log --oneline
+a02bc92 Exams are over: remove the exam-week banner
+ff4a5de Scale notice board to 3 replicas and publish release 2
+8d6311e Notice board: deployment (2 replicas), service, page and exam banner
+
+$ git revert --no-edit HEAD~1 && git show --stat --oneline HEAD | head -4 && git push -q && echo "pushed revert $(git rev-parse --short HEAD) at $(date +%T)"
+[main cc9fc8d] Revert "Scale notice board to 3 replicas and publish release 2"
+ Date: Thu Oct 8 14:46:29 2026 +0530
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+cc9fc8d Revert "Scale notice board to 3 replicas and publish release 2"
+ app/configmap.yaml  | 2 +-
+ app/deployment.yaml | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+pushed revert cc9fc8d at 14:46:30
+
+$ until [ "$(kubectl get deploy notice-board -n campus-gitops -o jsonpath={.spec.replicas})" = 2 ]; do sleep 2; done; echo "$(date +%T) rolled back:"; kubectl get deploy notice-board -n campus-gitops
+14:47:04 rolled back:
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+notice-board   2/2     2            2           7m24s
+
+$ argocd app history campus-gitops
+SOURCE  http://gitea-http.gitea.svc.cluster.local:3000/ratnesh/campus-gitops.git
+ID      DATE                           REVISION
+0       2026-10-08 14:39:42 +0530 IST  main (8d6311e)
+1       2026-10-08 14:42:14 +0530 IST  main (ff4a5de)
+2       2026-10-08 14:46:27 +0530 IST  main (a02bc92)
+3       2026-10-08 14:47:03 +0530 IST  main (cc9fc8d)
+
+$ argocd app get campus-gitops | sed -n "/Sync Status/,\$p"
+Sync Status:        Synced to main (cc9fc8d)
+Health Status:      Healthy
+
+GROUP  KIND        NAMESPACE      NAME               STATUS  HEALTH   HOOK  MESSAGE
+       ConfigMap   campus-gitops  notice-board-page  Synced                 configmap/notice-board-page configured
+       Service     campus-gitops  notice-board       Synced  Healthy        service/notice-board unchanged
+apps   Deployment  campus-gitops  notice-board       Synced  Healthy        deployment.apps/notice-board configured
+

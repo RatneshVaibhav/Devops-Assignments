@@ -1,0 +1,50 @@
+#CWD ~/Devops-Assignments/session-20-monitoring-observability-gitops/01-monitoring
+$ curl -s http://prometheus.localhost:8088/api/v1/targets | jq -r ".data.activeTargets[] | select(.labels.job==\"campus-status\") | \"\(.labels.job)  \(.scrapeUrl)  health=\(.health)  lastScrape=\(.lastScrapeDuration|tostring|.[0:6])s\""
+campus-status  http://10.244.0.143:8000/metrics  health=up  lastScrape=0.0035s
+campus-status  http://10.244.0.144:8000/metrics  health=up  lastScrape=0.0035s
+
+$ curl -s http://prometheus.localhost:8088/api/v1/targets | jq -r "[.data.activeTargets[] | \"\(.labels.job) \(.health)\"] | group_by(.) | map(\"\(.[0]): \(length)\") | .[]"
+apiserver up: 1
+campus-status up: 2
+coredns up: 2
+kps-alertmanager up: 2
+kps-grafana up: 1
+kps-operator up: 1
+kps-prometheus up: 2
+kube-state-metrics up: 1
+kubelet up: 3
+node-exporter up: 1
+
+$ q() { curl -s http://prometheus.localhost:8088/api/v1/query --data-urlencode "query=$1" | jq -r ".data.result[] | \"  \(.metric | del(.__name__) | to_entries | map(\"\(.key)=\(.value)\") | join(\",\"))  =>  \(.value[1])\""; }; echo "q() defined"
+q() defined
+
+$ q "sum by (status) (rate(http_requests_total{job=\"campus-status\"}[1m]))"
+  status=200  =>  10.065326109439253
+
+$ q "histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket{job=\"campus-status\"}[2m])))"
+    =>  0.00475
+
+$ q "sum by (pod) (rate(container_cpu_usage_seconds_total{namespace=\"session20\",container=\"app\"}[2m]))"
+  pod=campus-status-b6dd4b6d6-xgzpx  =>  0.008280894573382989
+  pod=campus-status-b6dd4b6d6-xjz64  =>  0.007569116076773375
+
+$ q "sum by (pod) (container_memory_working_set_bytes{namespace=\"session20\",container=\"app\"}) / 1024 / 1024"
+  pod=campus-status-b6dd4b6d6-xgzpx  =>  33.77734375
+  pod=campus-status-b6dd4b6d6-xjz64  =>  33.59375
+
+$ q "sum by (deployment) (kube_deployment_status_replicas_available{namespace=\"session20\"})"
+  deployment=campus-status  =>  2
+  deployment=traffic-generator  =>  1
+
+$ q "100 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[2m])) * 100"
+    =>  9.997936606192638
+
+$ curl -s http://prometheus.localhost:8088/api/v1/rules | jq -r ".data.groups[] | select(.name|startswith(\"campus-status\")) | .rules[] | \"\(.type)  \(.name)  health=\(.health)  state=\(.state // \"-\")\""
+alerting  CampusStatusHighErrorRate  health=ok  state=inactive
+alerting  CampusStatusHighLatencyP95  health=ok  state=inactive
+alerting  CampusStatusHighCPU  health=ok  state=inactive
+alerting  CampusStatusHighMemory  health=ok  state=inactive
+alerting  CampusStatusUnavailable  health=ok  state=inactive
+recording  campus_status:http_requests:rate1m  health=ok  state=-
+recording  campus_status:error_ratio:rate2m  health=ok  state=-
+

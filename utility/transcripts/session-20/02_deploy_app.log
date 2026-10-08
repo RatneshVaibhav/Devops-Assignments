@@ -1,0 +1,45 @@
+#CWD ~/Devops-Assignments/session-20-monitoring-observability-gitops/01-monitoring
+$ kubectl apply -f k8s/app.yaml -f k8s/servicemonitor.yaml -f k8s/prometheusrule.yaml -f k8s/grafana-dashboard.yaml
+namespace/session20 created
+deployment.apps/campus-status created
+service/campus-status created
+servicemonitor.monitoring.coreos.com/campus-status created
+prometheusrule.monitoring.coreos.com/campus-status created
+configmap/campus-status-dashboard created
+
+$ kubectl rollout status deployment/campus-status -n session20 --timeout=120s
+Waiting for deployment "campus-status" rollout to finish: 0 of 2 updated replicas are available...
+Waiting for deployment "campus-status" rollout to finish: 1 of 2 updated replicas are available...
+deployment "campus-status" successfully rolled out
+
+$ kubectl apply -f k8s/traffic-generator.yaml && kubectl rollout status deployment/traffic-generator -n session20 --timeout=120s
+deployment.apps/traffic-generator created
+Waiting for deployment "traffic-generator" rollout to finish: 0 of 1 updated replicas are available...
+deployment "traffic-generator" successfully rolled out
+
+$ kubectl get pods,svc,servicemonitor,prometheusrule -n session20
+NAME                                     READY   STATUS    RESTARTS   AGE
+pod/campus-status-b6dd4b6d6-xgzpx        1/1     Running   0          11s
+pod/campus-status-b6dd4b6d6-xjz64        1/1     Running   0          11s
+pod/traffic-generator-5f68fb567b-sqglb   1/1     Running   0          1s
+
+NAME                    TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+service/campus-status   ClusterIP   10.96.173.131   <none>        80/TCP    11s
+
+NAME                                                 AGE
+servicemonitor.monitoring.coreos.com/campus-status   11s
+
+NAME                                                 AGE
+prometheusrule.monitoring.coreos.com/campus-status   11s
+
+$ kubectl run metrics-probe -n session20 --rm -i --restart=Never --image=busybox:1.36 -- sh -c "sleep 2; wget -qO- http://campus-status/metrics" 2>/dev/null | grep -E "^(# HELP|# TYPE) http_requests_total|^http_requests_total|^http_request_duration_seconds_bucket\{le=\"0.05\",path=\"/api/notices\"|^http_requests_in_flight|^campus_status_info"
+# HELP http_requests_total HTTP requests handled
+# TYPE http_requests_total counter
+http_requests_total{method="GET",path="/ready",status="200"} 2.0
+http_requests_total{method="GET",path="/health",status="200"} 1.0
+http_requests_total{method="GET",path="/api/flaky",status="200"} 8.0
+http_requests_total{method="GET",path="/api/notices",status="200"} 9.0
+http_request_duration_seconds_bucket{le="0.05",path="/api/notices"} 9.0
+http_requests_in_flight 1.0
+campus_status_info{version="1.0.0"} 1.0
+

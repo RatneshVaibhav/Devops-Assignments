@@ -1,0 +1,33 @@
+#CWD ~/Devops-Assignments/session-20-monitoring-observability-gitops/01-monitoring
+$ kubectl get pods -n monitoring -l app.kubernetes.io/name=grafana
+NAME                          READY   STATUS    RESTARTS      AGE
+kps-grafana-bf94587cb-8mm7l   3/3     Running   1 (74s ago)   4m23s
+
+$ kubectl describe pod -n monitoring -l app.kubernetes.io/name=grafana | grep -B2 -A4 "Last State"
+    State:           Running
+      Started:       Thu, 08 Oct 2026 14:08:49 +0530
+    Last State:      Terminated
+      Reason:        OOMKilled
+      Exit Code:     137
+      Started:       Thu, 08 Oct 2026 14:07:18 +0530
+      Finished:      Thu, 08 Oct 2026 14:08:48 +0530
+
+$ kubectl get pod -n monitoring -l app.kubernetes.io/name=grafana -o jsonpath="{range .items[0].spec.containers[*]}{.name}: limit {.resources.limits.memory}{\"\n\"}{end}"
+grafana-sc-dashboard: limit 
+grafana-sc-datasources: limit 
+grafana: limit 256Mi
+
+$ helm upgrade kps prometheus-community/kube-prometheus-stack --version 92.1.0 -n monitoring -f values/kube-prometheus-stack.yaml --wait --timeout 10m | grep -E "STATUS|REVISION"
+STATUS: deployed
+REVISION: 2
+
+$ kubectl get pods -n monitoring -l app.kubernetes.io/name=grafana
+NAME                           READY   STATUS    RESTARTS   AGE
+kps-grafana-76945667c9-fg4nb   3/3     Running   0          29s
+
+$ kubectl top pod -n monitoring --containers -l app.kubernetes.io/name=grafana
+POD                            NAME                     CPU(cores)   MEMORY(bytes)   
+kps-grafana-76945667c9-fg4nb   grafana                  434m         273Mi           
+kps-grafana-76945667c9-fg4nb   grafana-sc-dashboard     367m         72Mi            
+kps-grafana-76945667c9-fg4nb   grafana-sc-datasources   488m         71Mi            
+

@@ -1,0 +1,38 @@
+#CWD ~/Devops-Assignments/session-20-monitoring-observability-gitops/01-monitoring
+$ kubectl apply -f k8s/alert-receiver.yaml && kubectl rollout status deployment/alert-receiver -n session20 --timeout=120s
+configmap/alert-receiver created
+deployment.apps/alert-receiver created
+service/alert-receiver created
+Waiting for deployment "alert-receiver" rollout to finish: 0 of 1 updated replicas are available...
+deployment "alert-receiver" successfully rolled out
+
+$ grep -A22 "^alertmanager:" values/kube-prometheus-stack.yaml | sed -n "2,22p"
+  config:
+    global:
+      resolve_timeout: 5m
+    route:
+      receiver: "null"
+      group_by: [alertname, namespace]
+      group_wait: 30s
+      group_interval: 2m
+      repeat_interval: 12h
+      routes:
+        - receiver: "null"               # Watchdog is a heartbeat, not a page
+          matchers: ['alertname = "Watchdog"']
+        - receiver: campus-web-team      # every alert labelled team=campus-web
+          matchers: ['team = "campus-web"']
+    receivers:
+      - name: "null"
+      - name: campus-web-team
+        webhook_configs:
+          - url: http://alert-receiver.session20.svc.cluster.local:8080/
+            send_resolved: true
+    templates: ["/etc/alertmanager/config/*.tmpl"]
+
+$ helm upgrade kps prometheus-community/kube-prometheus-stack --version 92.1.0 -n monitoring -f values/kube-prometheus-stack.yaml --wait --timeout 10m | grep -E "STATUS|REVISION"
+STATUS: deployed
+REVISION: 3
+
+$ until kubectl logs deploy/alert-receiver -n session20 | grep -q NOTIFY; do sleep 5; done; kubectl logs deploy/alert-receiver -n session20
+NOTIFY [campus-web-team] FIRING   CampusStatusHighErrorRate severity=warning - More than 10% of campus-status requests are failing
+

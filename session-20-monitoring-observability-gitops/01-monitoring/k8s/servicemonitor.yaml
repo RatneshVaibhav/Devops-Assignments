@@ -1,0 +1,14 @@
+# Tells the Prometheus Operator to scrape every endpoint of the campus-status Service.
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: campus-status
+  namespace: session20
+spec:
+  selector:
+    matchLabels:
+      app: campus-status
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s

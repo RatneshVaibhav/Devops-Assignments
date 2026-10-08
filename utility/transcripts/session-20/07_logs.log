@@ -1,0 +1,25 @@
+#CWD ~/Devops-Assignments/session-20-monitoring-observability-gitops/01-monitoring
+$ kubectl logs -n session20 -l app=campus-status --prefix --tail=2
+[pod/campus-status-b6dd4b6d6-xjz64/app] {"ts": "2026-10-08T08:47:17+0000", "level": "info", "request_id": "bdc210c68ad5", "method": "GET", "path": "/api/flaky", "status": 200, "duration_ms": 0.17}
+[pod/campus-status-b6dd4b6d6-xjz64/app] {"ts": "2026-10-08T08:47:17+0000", "level": "error", "request_id": "ea1fcf3ea942", "method": "GET", "path": "/api/flaky", "status": 500, "duration_ms": 0.17}
+[pod/campus-status-b6dd4b6d6-xgzpx/app] {"ts": "2026-10-08T08:47:17+0000", "level": "info", "request_id": "60ee18aeb496", "method": "GET", "path": "/api/notices", "status": 200, "duration_ms": 0.22}
+[pod/campus-status-b6dd4b6d6-xgzpx/app] {"ts": "2026-10-08T08:47:17+0000", "level": "info", "request_id": "383ef64e443b", "method": "GET", "path": "/api/flaky", "status": 200, "duration_ms": 0.17}
+
+$ L() { kubectl logs -n session20 -l app=campus-status --since=60s --tail=-1 | grep "^{"; }; echo "L = all JSON log lines of every replica from the last 60 s (-l alone keeps only 10 lines per pod)"
+L = all JSON log lines of every replica from the last 60 s (-l alone keeps only 10 lines per pod)
+
+$ L | jq -s -c "group_by(.status) | map({status: .[0].status, requests: length})"
+[{"status":200,"requests":598},{"status":500,"requests":281}]
+
+$ L | jq -s -c "group_by(.path) | map({path: .[0].path, requests: length, errors: (map(select(.status >= 500)) | length)})"
+[{"path":"/api/flaky","requests":562,"errors":281},{"path":"/api/notices","requests":281,"errors":0},{"path":"/health","requests":12,"errors":0},{"path":"/ready","requests":24,"errors":0}]
+
+$ L | jq -r "select(.level==\"error\") | \"\(.ts) \(.request_id) \(.method) \(.path) -> \(.status) in \(.duration_ms) ms\"" | tail -3
+2026-10-08T08:47:16+0000 57fcdf265873 GET /api/flaky -> 500 in 0.17 ms
+2026-10-08T08:47:17+0000 d1c317a64ecb GET /api/flaky -> 500 in 0.17 ms
+2026-10-08T08:47:18+0000 fcd36c93eaf5 GET /api/flaky -> 500 in 0.23 ms
+
+$ RID=$(L | jq -r "select(.status==500) | .request_id" | tail -1); echo "follow one failing request: $RID"; kubectl logs -n session20 -l app=campus-status --since=60s --tail=-1 --prefix | grep $RID
+follow one failing request: 379aa9c8c476
+[pod/campus-status-b6dd4b6d6-xjz64/app] {"ts": "2026-10-08T08:47:18+0000", "level": "error", "request_id": "379aa9c8c476", "method": "GET", "path": "/api/flaky", "status": 500, "duration_ms": 0.18}
+

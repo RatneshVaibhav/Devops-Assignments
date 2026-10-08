@@ -1,0 +1,74 @@
+#CWD ~/Devops-Assignments/session-20-monitoring-observability-gitops/03-gitops
+$ grep -v "^#" argocd/campus-gitops-app.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: campus-gitops
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: http://gitea-http.gitea.svc.cluster.local:3000/ratnesh/campus-gitops.git
+    targetRevision: main
+    path: app
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: campus-gitops
+  syncPolicy:
+    automated:
+      prune: true        # delete what was removed from Git
+      selfHeal: true     # undo manual changes made in the cluster
+    syncOptions:
+      - CreateNamespace=true
+
+$ kubectl get application campus-gitops -n argocd
+NAME            SYNC STATUS   HEALTH STATUS
+campus-gitops   Synced        Healthy
+
+$ export ARGOCD_OPTS="--server argocd.localhost:8088 --plaintext --grpc-web"   # read-only anonymous access through the ingress
+
+$ argocd app get campus-gitops
+Name:               argocd/campus-gitops
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          campus-gitops
+URL:                https://argocd.localhost/applications/campus-gitops
+Source:
+- Repo:             http://gitea-http.gitea.svc.cluster.local:3000/ratnesh/campus-gitops.git
+  Target:           main
+  Path:             app
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to main (8d6311e)
+Health Status:      Healthy
+
+GROUP  KIND        NAMESPACE      NAME               STATUS   HEALTH   HOOK  MESSAGE
+       Namespace                  campus-gitops      Running  Synced         namespace/campus-gitops created
+       ConfigMap   campus-gitops  exam-week-banner   Synced                  configmap/exam-week-banner created
+       ConfigMap   campus-gitops  notice-board-page  Synced                  configmap/notice-board-page created
+       Service     campus-gitops  notice-board       Synced   Healthy        service/notice-board created
+apps   Deployment  campus-gitops  notice-board       Synced   Healthy        deployment.apps/notice-board created
+
+$ git -C ~/campus-gitops log --oneline -1
+8d6311e Notice board: deployment (2 replicas), service, page and exam banner
+
+$ kubectl get deploy,pods,svc,configmap -n campus-gitops
+NAME                           READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/notice-board   2/2     2            2           97s
+
+NAME                                READY   STATUS    RESTARTS   AGE
+pod/notice-board-7f5766456c-mbft6   1/1     Running   0          97s
+pod/notice-board-7f5766456c-qvxhc   1/1     Running   0          97s
+
+NAME                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+service/notice-board   ClusterIP   10.96.182.150   <none>        80/TCP    97s
+
+NAME                          DATA   AGE
+configmap/exam-week-banner    1      97s
+configmap/kube-root-ca.crt    1      97s
+configmap/notice-board-page   1      97s
+
+$ kubectl run web-check -n campus-gitops --rm -i --restart=Never --image=busybox:1.36 -- sh -c "sleep 1; wget -qO- http://notice-board" 2>/dev/null | grep -E "<h1>|<p>"
+<h1>Campus notice board</h1>
+<p>Release 1 - deployed by Argo CD from Git.</p>
+

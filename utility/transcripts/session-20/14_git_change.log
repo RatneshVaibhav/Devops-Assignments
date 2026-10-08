@@ -1,0 +1,45 @@
+#CWD ~/campus-gitops
+$ sed -i "s/replicas: 2/replicas: 3/" app/deployment.yaml && sed -i "s/Release 1 - deployed by Argo CD from Git./Release 2 - three replicas, changed only through Git./" app/configmap.yaml && git diff --stat && git diff | grep -E "^[-+] "
+ app/configmap.yaml  | 2 +-
+ app/deployment.yaml | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+-    <p>Release 1 - deployed by Argo CD from Git.</p>
++    <p>Release 2 - three replicas, changed only through Git.</p>
+-  replicas: 2
++  replicas: 3
+
+$ git commit -q -am "Scale notice board to 3 replicas and publish release 2" && git push -q && echo "pushed $(git rev-parse --short HEAD) at $(date +%T)"
+pushed ff4a5de at 14:41:40
+
+$ until [ "$(kubectl get application campus-gitops -n argocd -o jsonpath={.status.sync.revision})" = "$(git rev-parse HEAD)" ] && [ "$(kubectl get deploy notice-board -n campus-gitops -o jsonpath={.status.readyReplicas})" = 3 ]; do sleep 2; done; echo "cluster converged at $(date +%T)"
+cluster converged at 14:42:23
+
+$ argocd app get campus-gitops | sed -n "/Sync Status/,/Health Status/p"
+Sync Status:        Synced to main (ff4a5de)
+Health Status:      Healthy
+
+$ kubectl get deploy notice-board -n campus-gitops && kubectl get pods -n campus-gitops
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+notice-board   3/3     3            3           2m43s
+NAME                            READY   STATUS    RESTARTS   AGE
+notice-board-7f5766456c-mbft6   1/1     Running   0          2m45s
+notice-board-7f5766456c-n792g   1/1     Running   0          13s
+notice-board-7f5766456c-qvxhc   1/1     Running   0          2m45s
+
+$ kubectl run web-check -n campus-gitops --rm -i --restart=Never --image=busybox:1.36 -- sh -c "sleep 1; wget -qO- http://notice-board" 2>/dev/null | grep "<p>"
+<p>Release 1 - deployed by Argo CD from Git.</p>
+
+$ argocd app history campus-gitops
+SOURCE  http://gitea-http.gitea.svc.cluster.local:3000/ratnesh/campus-gitops.git
+ID      DATE                           REVISION
+0       2026-10-08 14:39:42 +0530 IST  main (8d6311e)
+1       2026-10-08 14:42:14 +0530 IST  main (ff4a5de)
+
+$ kubectl get configmap notice-board-page -n campus-gitops -o jsonpath="{.data.index\.html}" | grep "<p>"; echo "^ the ConfigMap object already has release 2"
+<p>Release 2 - three replicas, changed only through Git.</p>
+^ the ConfigMap object already has release 2
+
+$ until kubectl exec -n campus-gitops deploy/notice-board -- cat /usr/share/nginx/html/index.html | grep -q "Release 2"; do sleep 3; done; echo "file inside the pod updated at $(date +%T)"; kubectl run web-check -n campus-gitops --rm -i --restart=Never --image=busybox:1.36 -- sh -c "sleep 1; wget -qO- http://notice-board" 2>/dev/null | grep "<p>"
+file inside the pod updated at 14:43:23
+<p>Release 2 - three replicas, changed only through Git.</p>
+

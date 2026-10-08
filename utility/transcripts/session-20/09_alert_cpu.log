@@ -1,0 +1,20 @@
+#CWD ~/Devops-Assignments/session-20-monitoring-observability-gitops/01-monitoring
+$ kubectl scale deployment/traffic-generator -n session20 --replicas=3 && kubectl rollout status deployment/traffic-generator -n session20 --timeout=60s
+deployment.apps/traffic-generator scaled
+deployment "traffic-generator" successfully rolled out
+
+$ scripts/watch-alert.sh CampusStatusHighCPU 420
+14:24:24  +  0s  CampusStatusHighCPU          inactive  value=-
+14:25:35  + 71s  CampusStatusHighCPU          pending   value=8.337311148065071e-01
+14:26:35  +131s  CampusStatusHighCPU          firing    value=8.355630600212812e-01
+
+$ kubectl top pods -n session20 -l app=campus-status
+NAME                            CPU(cores)   MEMORY(bytes)   
+campus-status-b6dd4b6d6-xgzpx   281m         35Mi            
+campus-status-b6dd4b6d6-xjz64   284m         36Mi            
+
+$ curl -s http://prometheus.localhost:8088/api/v1/alerts | jq -r ".data.alerts[] | select(.labels.alertname|startswith(\"CampusStatus\")) | \"\(.state)\t\(.labels.alertname)\t\(.labels.pod // \"-\")\t\(.annotations.description // .annotations.summary)\""
+firing	CampusStatusHighLatencyP95	-	p95 is 964.3ms.
+firing	CampusStatusHighCPU	campus-status-b6dd4b6d6-xgzpx	CPU usage is 83.56% of the limit.
+firing	CampusStatusHighCPU	campus-status-b6dd4b6d6-xjz64	CPU usage is 88.41% of the limit.
+

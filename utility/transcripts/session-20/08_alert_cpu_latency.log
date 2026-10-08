@@ -1,0 +1,29 @@
+#CWD ~/Devops-Assignments/session-20-monitoring-observability-gitops/01-monitoring
+$ kubectl set env deployment/traffic-generator -n session20 PHASE=heavy && kubectl rollout status deployment/traffic-generator -n session20 --timeout=60s
+deployment.apps/traffic-generator env updated
+Waiting for deployment "traffic-generator" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "traffic-generator" rollout to finish: 1 old replicas are pending termination...
+deployment "traffic-generator" successfully rolled out
+
+$ scripts/watch-alert.sh CampusStatusHighLatencyP95 420
+14:17:35  +  0s  CampusStatusHighLatencyP95   inactive  value=-
+14:18:05  + 30s  CampusStatusHighLatencyP95   pending   value=5.413435297588853e-01
+14:19:05  + 90s  CampusStatusHighLatencyP95   firing    value=9.04244843176286e-01
+
+$ scripts/watch-alert.sh CampusStatusHighCPU 300
+14:19:05  +  0s  CampusStatusHighCPU          inactive  value=-
+timed out (state=inactive)
+
+$ kubectl top pods -n session20 -l app=campus-status
+NAME                            CPU(cores)   MEMORY(bytes)   
+campus-status-b6dd4b6d6-xgzpx   221m         33Mi            
+campus-status-b6dd4b6d6-xjz64   189m         33Mi            
+
+$ curl -s http://prometheus.localhost:8088/api/v1/alerts | jq -r ".data.alerts[] | select(.labels.alertname|startswith(\"CampusStatus\")) | \"\(.state)\t\(.labels.alertname)\t\(.labels.pod // \"-\")\t\(.annotations.description // .annotations.summary)\""
+firing	CampusStatusHighLatencyP95	-	p95 is 962.3ms.
+
+$ kubectl logs deploy/alert-receiver -n session20
+NOTIFY [campus-web-team] FIRING   CampusStatusHighErrorRate severity=warning - More than 10% of campus-status requests are failing
+NOTIFY [campus-web-team] FIRING   CampusStatusHighLatencyP95 severity=warning - p95 latency of campus-status is above 500 ms
+NOTIFY [campus-web-team] RESOLVED CampusStatusHighErrorRate severity=warning - More than 10% of campus-status requests are failing
+

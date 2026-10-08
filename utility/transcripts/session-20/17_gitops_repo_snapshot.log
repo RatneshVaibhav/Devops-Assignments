@@ -1,0 +1,24 @@
+#CWD ~/Devops-Assignments/session-20-monitoring-observability-gitops/03-gitops
+$ git -C ~/campus-gitops archive HEAD | tar -x -C gitops-repo && tree gitops-repo
+gitops-repo
+├── app
+│   ├── configmap.yaml
+│   ├── deployment.yaml
+│   └── service.yaml
+└── README.md
+
+2 directories, 4 files
+
+$ diff -r --exclude=.git ~/campus-gitops gitops-repo && echo "gitops-repo/ is identical to the Gitea repository at $(git -C ~/campus-gitops rev-parse --short HEAD)"
+gitops-repo/ is identical to the Gitea repository at cc9fc8d
+
+$ git -C ~/campus-gitops bundle create $PWD/campus-gitops.bundle --all && git bundle verify campus-gitops.bundle 2>&1 | tail -1 && ls -l campus-gitops.bundle
+The bundle uses this hash algorithm: sha1
+-rw-rw-r-- 1 ratnesh ratnesh 2595 Oct  8 14:52 campus-gitops.bundle
+
+$ git clone -q campus-gitops.bundle /tmp/campus-gitops-from-bundle && git -C /tmp/campus-gitops-from-bundle log --oneline && rm -rf /tmp/campus-gitops-from-bundle
+cc9fc8d Revert "Scale notice board to 3 replicas and publish release 2"
+a02bc92 Exams are over: remove the exam-week banner
+ff4a5de Scale notice board to 3 replicas and publish release 2
+8d6311e Notice board: deployment (2 replicas), service, page and exam banner
+

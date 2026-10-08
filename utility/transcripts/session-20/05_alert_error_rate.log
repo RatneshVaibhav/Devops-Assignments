@@ -1,0 +1,33 @@
+#CWD ~/Devops-Assignments/session-20-monitoring-observability-gitops/01-monitoring
+$ kubectl set env deployment/traffic-generator -n session20 PHASE=errors && kubectl rollout status deployment/traffic-generator -n session20 --timeout=60s
+deployment.apps/traffic-generator env updated
+Waiting for deployment "traffic-generator" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "traffic-generator" rollout to finish: 1 old replicas are pending termination...
+deployment "traffic-generator" successfully rolled out
+
+$ scripts/watch-alert.sh CampusStatusHighErrorRate 420
+14:12:56  +  0s  CampusStatusHighErrorRate    inactive  value=-
+14:13:56  + 60s  CampusStatusHighErrorRate    pending   value=1.168016560953668e-01
+14:14:56  +120s  CampusStatusHighErrorRate    firing    value=2.4013081456955382e-01
+
+$ curl -s http://prometheus.localhost:8088/api/v1/alerts | jq -r ".data.alerts[] | select(.labels.alertname|startswith(\"CampusStatus\")) | {alert: .labels.alertname, state, severity: .labels.severity, since: .activeAt, summary: .annotations.summary, description: .annotations.description}"
+{
+  "alert": "CampusStatusHighErrorRate",
+  "state": "firing",
+  "severity": "warning",
+  "since": "2026-10-08T08:43:47.895958888Z",
+  "summary": "More than 10% of campus-status requests are failing",
+  "description": "Error ratio is 24.01% over the last 2 minutes."
+}
+
+$ curl -s http://alertmanager.localhost:8088/api/v2/alerts | jq -r ".[] | select(.labels.alertname|startswith(\"CampusStatus\")) | {alertname: .labels.alertname, team: .labels.team, status: .status.state, receivers: [.receivers[].name], startsAt}"
+{
+  "alertname": "CampusStatusHighErrorRate",
+  "team": "campus-web",
+  "status": "active",
+  "receivers": [
+    "null"
+  ],
+  "startsAt": "2026-10-08T08:44:47.895Z"
+}
+

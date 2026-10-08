@@ -1,0 +1,36 @@
+# argo/argo-cd 10.10.0 (Argo CD v3.5.4), trimmed for a laptop cluster.
+fullnameOverride: argocd
+global:
+  domain: argocd.localhost          # used for the links Argo CD prints and the UI
+dex: {enabled: false}                 # no SSO in the lab
+notifications: {enabled: false}
+configs:
+  params:
+    server.insecure: true             # plain HTTP behind the ingress controller (lab only)
+  cm:
+    timeout.reconciliation: 30s       # poll Git every 30 s instead of 3 min, so changes show up quickly
+    users.anonymous.enabled: "true"   # read-only UI access for screenshots
+  rbac:
+    policy.default: role:readonly
+server:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hostname: argocd.localhost
+  resources:
+    requests: {cpu: 20m, memory: 64Mi}
+    limits: {memory: 192Mi}
+controller:
+  resources:
+    requests: {cpu: 50m, memory: 128Mi}
+    limits: {memory: 384Mi}
+repoServer:
+  resources:
+    requests: {cpu: 20m, memory: 64Mi}
+    limits: {memory: 256Mi}
+applicationSet:
+  replicas: 0                         # not used in this demo; saves memory on the laptop
+redis:
+  resources:
+    requests: {cpu: 10m, memory: 16Mi}
+    limits: {memory: 64Mi}

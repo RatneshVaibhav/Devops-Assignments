@@ -1,0 +1,111 @@
+# kube-prometheus-stack 92.1.0, trimmed for a single-node kind cluster on a laptop.
+fullnameOverride: kps
+
+# kind binds etcd / scheduler / controller-manager / kube-proxy metrics to localhost,
+# so they cannot be scraped; disable the targets and their alert rules instead of
+# living with permanently "down" targets.
+kubeEtcd: {enabled: false}
+kubeScheduler: {enabled: false}
+kubeControllerManager: {enabled: false}
+kubeProxy: {enabled: false}
+defaultRules:
+  create: true
+  rules:
+    etcd: false
+    kubeSchedulerAlerting: false
+    kubeSchedulerRecording: false
+    kubeControllerManager: false
+    kubeProxy: false
+
+prometheus:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts: [prometheus.localhost]
+    paths: [/]
+  prometheusSpec:
+    retention: 12h
+    scrapeInterval: 15s
+    evaluationInterval: 15s
+    # pick up ServiceMonitors / PrometheusRules from every namespace, not only this release's
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+    resources:
+      requests: {cpu: 100m, memory: 256Mi}
+      limits: {memory: 768Mi}
+
+alertmanager:
+  config:
+    global:
+      resolve_timeout: 5m
+    route:
+      receiver: "null"
+      group_by: [alertname, namespace]
+      group_wait: 30s
+      group_interval: 2m
+      repeat_interval: 12h
+      routes:
+        - receiver: "null"               # Watchdog is a heartbeat, not a page
+          matchers: ['alertname = "Watchdog"']
+        - receiver: campus-web-team      # every alert labelled team=campus-web
+          matchers: ['team = "campus-web"']
+    receivers:
+      - name: "null"
+      - name: campus-web-team
+        webhook_configs:
+          - url: http://alert-receiver.session20.svc.cluster.local:8080/
+            send_resolved: true
+    templates: ["/etc/alertmanager/config/*.tmpl"]
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts: [alertmanager.localhost]
+    paths: [/]
+  alertmanagerSpec:
+    resources:
+      requests: {cpu: 10m, memory: 32Mi}
+      limits: {memory: 96Mi}
+
+grafana:
+  # the ~30 bundled Kubernetes dashboards pushed Grafana to ~500Mi; on a 3.2 GiB
+  # Docker VM only the project's own dashboard is loaded
+  defaultDashboardsEnabled: false
+  admin:
+    existingSecret: grafana-admin       # created with a random password before install
+    userKey: admin-user
+    passwordKey: admin-password
+  grafana.ini:
+    auth.anonymous:                     # read-only viewer access for the lab screenshots
+      enabled: true
+      org_role: Viewer
+    users:
+      default_theme: light
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts: [grafana.localhost]
+    path: /
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      searchNamespace: ALL              # dashboards can live next to the app they describe
+  resources:
+    requests: {cpu: 50m, memory: 128Mi}
+    limits: {memory: 384Mi}            # 256Mi was OOMKilled at start-up (see README)
+
+kube-state-metrics:
+  resources:
+    requests: {cpu: 10m, memory: 32Mi}
+    limits: {memory: 96Mi}
+
+prometheus-node-exporter:
+  resources:
+    requests: {cpu: 10m, memory: 16Mi}
+    limits: {memory: 48Mi}
+
+prometheusOperator:
+  resources:
+    requests: {cpu: 20m, memory: 48Mi}
+    limits: {memory: 128Mi}

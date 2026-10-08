@@ -1,0 +1,23 @@
+#CWD ~/Devops-Assignments
+$ echo "$(date +%T) someone scales the deployment by hand:"; kubectl scale deployment notice-board -n campus-gitops --replicas=1; kubectl get deploy notice-board -n campus-gitops -o custom-columns=DESIRED:.spec.replicas,READY:.status.readyReplicas
+14:45:05 someone scales the deployment by hand:
+deployment.apps/notice-board scaled
+DESIRED   READY
+3         1
+
+$ sleep 10; echo "$(date +%T):"; kubectl get deploy notice-board -n campus-gitops
+14:45:22:
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+notice-board   3/3     3            3           5m42s
+
+$ kubectl get events -n campus-gitops --field-selector involvedObject.name=notice-board --sort-by=.lastTimestamp | grep -i scaled | tail -2
+17s         Normal   ScalingReplicaSet   deployment/notice-board   Scaled down replica set notice-board-7f5766456c from 3 to 1
+15s         Normal   ScalingReplicaSet   deployment/notice-board   Scaled up replica set notice-board-7f5766456c from 1 to 3
+
+$ kubectl get application campus-gitops -n argocd -o jsonpath="last sync {.status.operationState.startedAt} automated={.status.operationState.operation.initiatedBy.automated}: {range .status.operationState.syncResult.resources[*]}{.kind}/{.name} {.message}{end}{\"\n\"}"
+last sync 2026-10-08T09:15:10Z automated=true: Deployment/notice-board deployment.apps/notice-board configured
+
+$ argocd app get campus-gitops | sed -n "/Sync Status/,/Health Status/p"
+Sync Status:        Synced to main (ff4a5de)
+Health Status:      Healthy
+

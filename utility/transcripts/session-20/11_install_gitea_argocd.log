@@ -1,0 +1,44 @@
+#CWD ~/Devops-Assignments/session-20-monitoring-observability-gitops/03-gitops
+$ kubectl apply -f gitea/gitea.yaml && kubectl rollout status deployment/gitea -n gitea --timeout=300s
+namespace/gitea created
+persistentvolumeclaim/gitea-data created
+deployment.apps/gitea created
+service/gitea-http created
+ingress.networking.k8s.io/gitea created
+Waiting for deployment "gitea" rollout to finish: 0 of 1 updated replicas are available...
+deployment "gitea" successfully rolled out
+
+$ curl -s http://gitea.localhost:8088/api/v1/version; echo
+<html>
+<head><title>503 Service Temporarily Unavailable</title></head>
+<body>
+<center><h1>503 Service Temporarily Unavailable</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+
+$ helm upgrade --install argocd argo/argo-cd --version 10.10.0 -n argocd --create-namespace -f argocd/values.yaml --wait --timeout 15m | grep -E "^(NAME|STATUS|REVISION)"
+NAME: argocd
+NAMESPACE: argocd
+STATUS: deployed
+REVISION: 1
+
+$ kubectl get pods -n gitea -o wide; kubectl get pods -n argocd
+NAME                     READY   STATUS    RESTARTS   AGE   IP             NODE                       NOMINATED NODE   READINESS GATES
+gitea-7c8f599cfc-q6gbr   1/1     Running   0          86s   10.244.0.167   devops-lab-control-plane   <none>           <none>
+NAME                                  READY   STATUS      RESTARTS   AGE
+argocd-application-controller-0       1/1     Running     0          18s
+argocd-redis-5887f96b6f-jspwm         1/1     Running     0          18s
+argocd-redis-secret-init-knjbt        0/1     Completed   0          56s
+argocd-repo-server-7cf4dfc94b-c4x9z   1/1     Running     0          18s
+argocd-server-7fd59b446-gbg69         1/1     Running     0          18s
+
+$ kubectl get ingress -A | grep -E "NAMESPACE|gitea|argocd"
+NAMESPACE    NAME               CLASS   HOSTS                    ADDRESS     PORTS   AGE
+argocd       argocd-server      nginx   argocd.localhost         localhost   80      20s
+gitea        gitea              nginx   gitea.localhost          localhost   80      89s
+
+$ argocd version --core --short 2>/dev/null | head -2 || true
+argocd: v3.5.4+d6d5b24
+

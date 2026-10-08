@@ -1,0 +1,38 @@
+# Synthetic users. PHASE controls the traffic mix:
+#   normal - fast requests only
+#   heavy  - CPU-heavy reports (drives CPU and latency up)
+#   errors - 1 in 3 requests hits a failing endpoint (drives the error ratio up)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traffic-generator
+  namespace: session20
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traffic-generator
+  template:
+    metadata:
+      labels:
+        app: traffic-generator
+    spec:
+      containers:
+        - name: users
+          image: busybox:1.36
+          env:
+            - name: PHASE
+              value: normal
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              base=http://campus-status.session20.svc.cluster.local
+              while true; do
+                wget -q -O /dev/null $base/api/notices
+                case "$PHASE" in
+                  heavy)  for i in 1 2 3; do wget -q -O /dev/null "$base/api/report?ms=600" & done; wait ;;
+                  errors) wget -q -O /dev/null "$base/api/flaky?fail=1"; wget -q -O /dev/null $base/api/flaky ;;
+                  *)      wget -q -O /dev/null $base/api/flaky ;;
+                esac
+                sleep 0.2
+              done

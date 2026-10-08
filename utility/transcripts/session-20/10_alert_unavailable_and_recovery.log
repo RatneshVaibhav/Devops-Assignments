@@ -1,0 +1,34 @@
+#CWD ~/Devops-Assignments/session-20-monitoring-observability-gitops/01-monitoring
+$ kubectl scale deployment/campus-status -n session20 --replicas=0
+deployment.apps/campus-status scaled
+
+$ scripts/watch-alert.sh CampusStatusUnavailable 300
+14:30:03  +  0s  CampusStatusUnavailable      inactive  value=-
+14:30:23  + 20s  CampusStatusUnavailable      pending   value=0e+00
+14:31:23  + 80s  CampusStatusUnavailable      firing    value=0e+00
+
+$ until kubectl logs deploy/alert-receiver -n session20 | grep -q "FIRING   CampusStatusUnavailable"; do sleep 5; done; date +%T; kubectl logs deploy/alert-receiver -n session20 | grep Unavailable
+14:31:52
+NOTIFY [campus-web-team] FIRING   CampusStatusUnavailable severity=critical - campus-status has no available replicas
+
+$ kubectl scale deployment/campus-status -n session20 --replicas=2 && kubectl rollout status deployment/campus-status -n session20 --timeout=120s
+deployment.apps/campus-status scaled
+Waiting for deployment "campus-status" rollout to finish: 0 of 2 updated replicas are available...
+Waiting for deployment "campus-status" rollout to finish: 1 of 2 updated replicas are available...
+deployment "campus-status" successfully rolled out
+
+$ until [ "$(curl -s http://prometheus.localhost:8088/api/v1/alerts | jq "[.data.alerts[] | select(.labels.alertname|startswith(\"CampusStatus\"))] | length")" = 0 ]; do sleep 10; done; echo "$(date +%T) no CampusStatus alerts pending or firing"
+14:32:20 no CampusStatus alerts pending or firing
+
+$ until kubectl logs deploy/alert-receiver -n session20 | grep -q "RESOLVED CampusStatusUnavailable"; do sleep 5; done; kubectl logs deploy/alert-receiver -n session20
+NOTIFY [campus-web-team] FIRING   CampusStatusHighErrorRate severity=warning - More than 10% of campus-status requests are failing
+NOTIFY [campus-web-team] FIRING   CampusStatusHighLatencyP95 severity=warning - p95 latency of campus-status is above 500 ms
+NOTIFY [campus-web-team] RESOLVED CampusStatusHighErrorRate severity=warning - More than 10% of campus-status requests are failing
+NOTIFY [campus-web-team] FIRING   CampusStatusHighCPU severity=warning - campus-status-b6dd4b6d6-xgzpx uses more than 80% of its CPU limit
+NOTIFY [campus-web-team] FIRING   CampusStatusHighCPU severity=warning - campus-status-b6dd4b6d6-xjz64 uses more than 80% of its CPU limit
+NOTIFY [campus-web-team] RESOLVED CampusStatusHighCPU severity=warning - campus-status-b6dd4b6d6-xgzpx uses more than 80% of its CPU limit
+NOTIFY [campus-web-team] RESOLVED CampusStatusHighCPU severity=warning - campus-status-b6dd4b6d6-xjz64 uses more than 80% of its CPU limit
+NOTIFY [campus-web-team] RESOLVED CampusStatusHighLatencyP95 severity=warning - p95 latency of campus-status is above 500 ms
+NOTIFY [campus-web-team] FIRING   CampusStatusUnavailable severity=critical - campus-status has no available replicas
+NOTIFY [campus-web-team] RESOLVED CampusStatusUnavailable severity=critical - campus-status has no available replicas
+

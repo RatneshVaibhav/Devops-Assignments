@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: notice-board-page
+data:
+  index.html: |
+    <h1>Campus notice board</h1>
+    <p>Release 1 - deployed by Argo CD from Git.</p>

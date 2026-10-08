@@ -1,0 +1,32 @@
+#CWD ~/Devops-Assignments/session-20-monitoring-observability-gitops/03-gitops
+$ kubectl exec -n gitea deploy/gitea -- gitea admin user create --username ratnesh --email 180539626+RatneshVaibhav@users.noreply.github.com --password "$GITEA_PW" --must-change-password=false --admin 2>&1 | tail -1
+New user 'ratnesh' has been successfully created!
+
+$ curl -s -u "ratnesh:$GITEA_PW" -X POST http://gitea.localhost:8088/api/v1/user/repos -H "Content-Type: application/json" -d "{\"name\":\"campus-gitops\",\"description\":\"Desired state of the campus notice board\",\"private\":false,\"default_branch\":\"main\"}" | jq "{full_name, clone_url, private, default_branch}"
+{
+  "full_name": "ratnesh/campus-gitops",
+  "clone_url": "http://gitea.localhost:8088/ratnesh/campus-gitops.git",
+  "private": false,
+  "default_branch": "main"
+}
+
+$ git clone -q http://gitea.localhost:8088/ratnesh/campus-gitops.git ~/campus-gitops && cd ~/campus-gitops
+warning: You appear to have cloned an empty repository.
+
+#CWD ~/campus-gitops
+$ git config user.name "Ratnesh Vaibhav" && git config user.email 180539626+RatneshVaibhav@users.noreply.github.com && git config credential.helper "store --file=$GIT_CREDS" && git checkout -q -b main
+
+$ cp -r ~/Devops-Assignments/session-20-monitoring-observability-gitops/03-gitops/gitops-repo/. . && tree
+.
+├── app
+│   ├── configmap.yaml
+│   ├── deployment.yaml
+│   ├── exam-banner.yaml
+│   └── service.yaml
+└── README.md
+
+2 directories, 5 files
+
+$ git add . && git commit -q -m "Notice board: deployment (2 replicas), service, page and exam banner" && git push -q -u origin main && git log --oneline
+8d6311e Notice board: deployment (2 replicas), service, page and exam banner
+
