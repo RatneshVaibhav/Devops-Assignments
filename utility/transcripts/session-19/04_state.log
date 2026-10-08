@@ -1,0 +1,95 @@
+#CWD ~/Devops-Assignments/session-19-cloud-terraform/terraform
+$ ls -a; echo "^ no terraform.tfstate here: state lives in the S3 backend"
+.
+..
+backend-aws.hcl.example
+backend-emulator.hcl
+compute.tf
+network.tf
+outputs.tf
+providers.tf
+security.tf
+storage.tf
+.terraform
+.terraform.lock.hcl
+terraform.tfvars
+tfplan
+user_data.sh
+variables.tf
+versions.tf
+^ no terraform.tfstate here: state lives in the S3 backend
+
+$ terraform state list
+data.aws_ami.al2023
+aws_iam_instance_profile.web
+aws_iam_role.web
+aws_iam_role_policy.read_site
+aws_instance.web
+aws_internet_gateway.main
+aws_route_table.private
+aws_route_table.public
+aws_route_table_association.private["a"]
+aws_route_table_association.public["a"]
+aws_route_table_association.public["b"]
+aws_s3_bucket.assets
+aws_s3_bucket_public_access_block.assets
+aws_s3_bucket_server_side_encryption_configuration.assets
+aws_s3_bucket_versioning.assets
+aws_s3_object.index
+aws_security_group.web
+aws_subnet.private["a"]
+aws_subnet.public["a"]
+aws_subnet.public["b"]
+aws_vpc.main
+aws_vpc_security_group_egress_rule.all
+aws_vpc_security_group_ingress_rule.http
+aws_vpc_security_group_ingress_rule.https
+aws_vpc_security_group_ingress_rule.ssh_admin
+random_id.bucket_suffix
+
+$ terraform state show -no-color aws_instance.web | grep -E "^\s+(ami|instance_type|subnet_id|private_ip|public_ip|iam_instance_profile|availability_zone|id)\s+=|http_tokens|encrypted|volume_type"
+    ami                                  = "ami-0884624fc54d115f3"
+    availability_zone                    = "ap-south-1a"
+    iam_instance_profile                 = "s19-campus-web-web-profile"
+    id                                   = "i-9e9fe1e005683a560"
+    instance_type                        = "t3.micro"
+    private_ip                           = "10.20.1.4"
+    public_ip                            = "54.214.104.22"
+    subnet_id                            = "subnet-aadd374260209e988"
+        http_tokens                 = "required"
+        encrypted             = true
+        volume_type           = "gp3"
+
+$ aws s3 ls s3://ratnesh-tfstate-s19 --recursive
+2026-10-08 13:50:07      46839 session-19/terraform.tfstate
+
+$ aws s3api list-object-versions --bucket ratnesh-tfstate-s19 --prefix session-19/terraform.tfstate --query "Versions[].[VersionId,IsLatest,Size,LastModified]" --output table
+-----------------------------------------------------------------------------------------
+|                                  ListObjectVersions                                   |
++---------------------------------------+--------+--------+-----------------------------+
+|  0ff9b858-65a9-4e58-ac4b-259629cd736d |  True  |  46839 |  2026-10-08T08:20:07+00:00  |
+|  27f7026a-2809-4e00-b51e-88f0b91db33a |  False |  46347 |  2026-10-08T08:20:07+00:00  |
+|  fee917df-1a5f-4dc3-a2cf-4f3d1051537e |  False |  232   |  2026-10-08T08:19:43+00:00  |
+|  fca9320c-b89f-49cd-baae-d9aea0539c61 |  False |  231   |  2026-10-08T08:19:25+00:00  |
++---------------------------------------+--------+--------+-----------------------------+
+
+$ terraform state pull | jq "{version, terraform_version, serial, lineage, resources: (.resources | length), outputs: (.outputs | keys)}"
+{
+  "version": 4,
+  "terraform_version": "1.16.5",
+  "serial": 2,
+  "lineage": "25c1c54b-67da-c663-1a00-44ed4a6a6c93",
+  "resources": 24,
+  "outputs": [
+    "ami_id",
+    "assets_bucket",
+    "private_subnet_ids",
+    "public_subnet_ids",
+    "vpc_id",
+    "web_instance_id",
+    "web_public_ip",
+    "web_security_group_id",
+    "web_url"
+  ]
+}
+

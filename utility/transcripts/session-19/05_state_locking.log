@@ -1,0 +1,39 @@
+#CWD ~/Devops-Assignments/session-19-cloud-terraform/terraform
+$ (sleep 30; echo no) | terraform apply -no-color -var instance_type=t3.small > /tmp/claude-1000/-home-ratnesh-Devops-Assignments/547b44cd-86af-42a2-8dc6-d9d083c050bc/scratchpad/locked-apply.txt 2>&1 &  echo "terminal 1: terraform apply started, waiting at its approval prompt (holds the lock)"
+terminal 1: terraform apply started, waiting at its approval prompt (holds the lock)
+
+$ aws s3 ls s3://ratnesh-tfstate-s19 --recursive
+2026-10-08 13:50:07      46839 session-19/terraform.tfstate
+2026-10-08 13:50:42        232 session-19/terraform.tfstate.tflock
+
+$ terraform plan -no-color -lock-timeout=0s 2>&1 | head -16
+
+Error: Error acquiring the state lock
+
+Error message: operation error S3: PutObject, https response error
+StatusCode: 412, RequestID:
+pOCRkoLOe9zlVyX4HdC8zPj18Rzdr22nVul0YL2D9K3BAy3OsW6P, HostID:
+9Gjjt1m+cjU4OPvX9O9/8RuvnG41MRb/18Oux2o5H5MY7ISNTlXN+Dz9IG62/ILVxhAGI0qyPfg=,
+api error PreconditionFailed: At least one of the pre-conditions you
+specified did not hold
+Lock Info:
+  ID:        fc48b0ef-795a-8a2f-10f3-e5ca3dbd525f
+  Path:      ratnesh-tfstate-s19/session-19/terraform.tfstate
+  Operation: OperationTypeApply
+  Who:       ratnesh@IdeaPad
+  Version:   1.16.5
+  Created:   2026-10-08 08:20:42.602959352 +0000 UTC
+
+$ tail -3 /tmp/claude-1000/-home-ratnesh-Devops-Assignments/547b44cd-86af-42a2-8dc6-d9d083c050bc/scratchpad/locked-apply.txt
+
+  Enter a value: 
+Apply cancelled.
+
+$ aws s3 ls s3://ratnesh-tfstate-s19 --recursive; echo "^ the .tflock object is gone once terminal 1 finished"
+2026-10-08 13:50:07      46839 session-19/terraform.tfstate
+^ the .tflock object is gone once terminal 1 finished
+
+$ terraform plan -no-color -lock-timeout=0s -var instance_type=t3.micro | tail -2
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.
+

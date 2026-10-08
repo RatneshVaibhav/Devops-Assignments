@@ -1,0 +1,22 @@
+#CWD ~/Devops-Assignments/session-19-cloud-terraform/terraform
+$ terraform graph | head -12
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_ami.al2023" [label="data.aws_ami.al2023"];
+  "aws_iam_instance_profile.web" [label="aws_iam_instance_profile.web"];
+  "aws_iam_role.web" [label="aws_iam_role.web"];
+  "aws_iam_role_policy.read_site" [label="aws_iam_role_policy.read_site"];
+  "aws_instance.web" [label="aws_instance.web"];
+  "aws_internet_gateway.main" [label="aws_internet_gateway.main"];
+  "aws_route_table.private" [label="aws_route_table.private"];
+  "aws_route_table.public" [label="aws_route_table.public"];
+  "aws_route_table_association.private" [label="aws_route_table_association.private"];
+
+$ terraform graph | dot -Tpng -Gdpi=110 -o ../diagrams/terraform-graph.png && file ../diagrams/terraform-graph.png
+../diagrams/terraform-graph.png: PNG image data, 2229 x 901, 8-bit/color RGB, non-interlaced
+
+$ terraform graph | grep -c -- "->"; echo "^ dependency edges Terraform derived from the references in the code"
+27
+^ dependency edges Terraform derived from the references in the code
+

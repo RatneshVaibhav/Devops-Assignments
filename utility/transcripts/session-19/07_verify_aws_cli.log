@@ -1,0 +1,60 @@
+#CWD ~/Devops-Assignments/session-19-cloud-terraform/terraform
+$ VPC=$(terraform output -raw vpc_id); aws ec2 describe-vpcs --vpc-ids $VPC --query "Vpcs[0].{id:VpcId,cidr:CidrBlock,state:State,name:Tags[?Key==\`Name\`]|[0].Value}"
+{
+    "id": "vpc-6ad621802460087ea",
+    "cidr": "10.20.0.0/16",
+    "state": "available",
+    "name": "s19-campus-web-vpc"
+}
+
+$ aws ec2 describe-subnets --filters Name=vpc-id,Values=$VPC --query "Subnets[].[Tags[?Key==\`Name\`]|[0].Value,CidrBlock,AvailabilityZone,MapPublicIpOnLaunch]" --output table
+-----------------------------------------------------------------------
+|                           DescribeSubnets                           |
++---------------------------+----------------+--------------+---------+
+|  s19-campus-web-public-a  |  10.20.1.0/24  |  ap-south-1a |  True   |
+|  s19-campus-web-private-a |  10.20.11.0/24 |  ap-south-1a |  False  |
+|  s19-campus-web-public-b  |  10.20.2.0/24  |  ap-south-1b |  True   |
++---------------------------+----------------+--------------+---------+
+
+$ aws ec2 describe-route-tables --filters Name=vpc-id,Values=$VPC --query "RouteTables[].[Tags[?Key==\`Name\`]|[0].Value,join(\`, \`,Routes[].DestinationCidrBlock),join(\`, \`,Routes[].GatewayId)]" --output table
+------------------------------------------------------------------------------------------
+|                                   DescribeRouteTables                                  |
++---------------------------+---------------------------+--------------------------------+
+|  None                     |  10.20.0.0/16             |  local                         |
+|  s19-campus-web-private-rt|  10.20.0.0/16             |  local                         |
+|  s19-campus-web-public-rt |  10.20.0.0/16, 0.0.0.0/0  |  local, igw-3776f9c43404361e0  |
++---------------------------+---------------------------+--------------------------------+
+
+$ aws ec2 describe-security-group-rules --filters Name=group-id,Values=$(terraform output -raw web_security_group_id) --query "SecurityGroupRules[].[IsEgress,IpProtocol,FromPort,CidrIpv4,Description]" --output table
+------------------------------------------------------------------------------
+|                         DescribeSecurityGroupRules                         |
++-------+------+------+-------------------+----------------------------------+
+|  True |  -1  |  -1  |  0.0.0.0/0        |  All outbound                    |
+|  False|  tcp |  22  |  203.0.113.10/32  |  SSH from the admin laptop only  |
+|  False|  tcp |  80  |  0.0.0.0/0        |  HTTP                            |
+|  False|  tcp |  443 |  0.0.0.0/0        |  HTTPS                           |
++-------+------+------+-------------------+----------------------------------+
+
+$ aws ec2 describe-instances --instance-ids $(terraform output -raw web_instance_id) --query "Reservations[0].Instances[0].{type:InstanceType,state:State.Name,ami:ImageId,subnet:SubnetId,publicIp:PublicIpAddress,profile:IamInstanceProfile.Arn,imds:MetadataOptions.HttpTokens}"
+{
+    "type": "t3.micro",
+    "state": "running",
+    "ami": "ami-0884624fc54d115f3",
+    "subnet": "subnet-aadd374260209e988",
+    "publicIp": "54.214.104.22",
+    "profile": "arn:aws:iam::123456789012:instance-profile/s19-campus-web-web-profile",
+    "imds": "required"
+}
+
+$ aws s3 ls s3://$(terraform output -raw assets_bucket) --recursive && aws iam get-role-policy --role-name s19-campus-web-web-role --policy-name read-site-assets --query PolicyDocument.Statement
+2026-10-08 13:49:47         77 site/index.html
+[
+    {
+        "Action": [
+            "s3:GetObject"
+        ],
+        "Effect": "Allow",
+        "Resource": "arn:aws:s3:::s19-campus-web-assets-7832df/site/*"
+    }
+]
+

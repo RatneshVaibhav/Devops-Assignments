@@ -1,0 +1,75 @@
+#CWD ~/Devops-Assignments/session-19-cloud-terraform/terraform
+$ terraform apply tfplan
+[0m[1mrandom_id.bucket_suffix: Creating...[0m[0m
+[0m[1mrandom_id.bucket_suffix: Creation complete after 0s [id=eDLf][0m
+[0m[1maws_vpc.main: Creating...[0m[0m
+[0m[1maws_iam_role.web: Creating...[0m[0m
+[0m[1maws_s3_bucket.assets: Creating...[0m[0m
+[0m[1maws_vpc.main: Creation complete after 0s [id=vpc-6ad621802460087ea][0m
+[0m[1maws_internet_gateway.main: Creating...[0m[0m
+[0m[1maws_route_table.private: Creating...[0m[0m
+[0m[1maws_subnet.public["b"]: Creating...[0m[0m
+[0m[1maws_subnet.private["a"]: Creating...[0m[0m
+[0m[1maws_security_group.web: Creating...[0m[0m
+[0m[1maws_subnet.public["a"]: Creating...[0m[0m
+[0m[1maws_subnet.private["a"]: Creation complete after 0s [id=subnet-918a72f0aa64b171e][0m
+[0m[1maws_internet_gateway.main: Creation complete after 0s [id=igw-3776f9c43404361e0][0m
+[0m[1maws_route_table.public: Creating...[0m[0m
+[0m[1maws_iam_role.web: Creation complete after 0s [id=s19-campus-web-web-role][0m
+[0m[1maws_iam_instance_profile.web: Creating...[0m[0m
+[0m[1maws_route_table.private: Creation complete after 0s [id=rtb-44e2c6af87cf9fd33][0m
+[0m[1maws_route_table_association.private["a"]: Creating...[0m[0m
+[0m[1maws_s3_bucket.assets: Creation complete after 1s [id=s19-campus-web-assets-7832df][0m
+[0m[1maws_s3_bucket_public_access_block.assets: Creating...[0m[0m
+[0m[1maws_iam_role_policy.read_site: Creating...[0m[0m
+[0m[1maws_s3_bucket_server_side_encryption_configuration.assets: Creating...[0m[0m
+[0m[1maws_s3_object.index: Creating...[0m[0m
+[0m[1maws_route_table_association.private["a"]: Creation complete after 0s [id=rtbassoc-32109f65060c5a924][0m
+[0m[1maws_s3_bucket_versioning.assets: Creating...[0m[0m
+[0m[1maws_s3_bucket_public_access_block.assets: Creation complete after 0s [id=s19-campus-web-assets-7832df][0m
+[0m[1maws_s3_bucket_server_side_encryption_configuration.assets: Creation complete after 0s [id=s19-campus-web-assets-7832df][0m
+[0m[1maws_iam_role_policy.read_site: Creation complete after 0s [id=s19-campus-web-web-role:read-site-assets][0m
+[0m[1maws_s3_object.index: Creation complete after 0s [id=s19-campus-web-assets-7832df/site/index.html][0m
+[0m[1maws_security_group.web: Creation complete after 1s [id=sg-10b57e60c2b78b6ca][0m
+[0m[1maws_vpc_security_group_egress_rule.all: Creating...[0m[0m
+[0m[1maws_vpc_security_group_ingress_rule.ssh_admin: Creating...[0m[0m
+[0m[1maws_vpc_security_group_ingress_rule.http: Creating...[0m[0m
+[0m[1maws_vpc_security_group_ingress_rule.https: Creating...[0m[0m
+[0m[1maws_vpc_security_group_egress_rule.all: Creation complete after 0s [id=sgr-23a89f136c2e2bdfa][0m
+[0m[1maws_vpc_security_group_ingress_rule.ssh_admin: Creation complete after 0s [id=sgr-f8d422823c3002458][0m
+[0m[1maws_vpc_security_group_ingress_rule.http: Creation complete after 0s [id=sgr-cab113a492595fe4f][0m
+[0m[1maws_vpc_security_group_ingress_rule.https: Creation complete after 0s [id=sgr-95269b0faeadd4daa][0m
+[0m[1maws_route_table.public: Creation complete after 1s [id=rtb-e91548f917f816ffc][0m
+[0m[1maws_s3_bucket_versioning.assets: Creation complete after 1s [id=s19-campus-web-assets-7832df][0m
+[0m[1maws_iam_instance_profile.web: Creation complete after 6s [id=s19-campus-web-web-profile][0m
+[0m[1maws_subnet.public["b"]: Still creating... [00m10s elapsed][0m[0m
+[0m[1maws_subnet.public["a"]: Still creating... [00m10s elapsed][0m[0m
+[0m[1maws_subnet.public["a"]: Creation complete after 10s [id=subnet-aadd374260209e988][0m
+[0m[1maws_subnet.public["b"]: Creation complete after 10s [id=subnet-c8c075fc260d4108c][0m
+[0m[1maws_route_table_association.public["a"]: Creating...[0m[0m
+[0m[1maws_route_table_association.public["b"]: Creating...[0m[0m
+[0m[1maws_route_table_association.public["b"]: Creation complete after 1s [id=rtbassoc-53c8ad984a45178ee][0m
+[0m[1maws_route_table_association.public["a"]: Creation complete after 1s [id=rtbassoc-3ba4d0ee07c92bdb6][0m
+[0m[1maws_instance.web: Creating...[0m[0m
+[0m[1maws_instance.web: Still creating... [00m10s elapsed][0m[0m
+[0m[1maws_instance.web: Creation complete after 10s [id=i-9e9fe1e005683a560][0m
+[0m[1m[32m
+Apply complete! Resources: 25 added, 0 changed, 0 destroyed.[0m
+[0m[1m[32m
+Outputs:
+
+[0mami_id = "ami-0884624fc54d115f3"
+assets_bucket = "s19-campus-web-assets-7832df"
+private_subnet_ids = {
+  "a" = "subnet-918a72f0aa64b171e"
+}
+public_subnet_ids = {
+  "a" = "subnet-aadd374260209e988"
+  "b" = "subnet-c8c075fc260d4108c"
+}
+vpc_id = "vpc-6ad621802460087ea"
+web_instance_id = "i-9e9fe1e005683a560"
+web_public_ip = "54.214.104.22"
+web_security_group_id = "sg-10b57e60c2b78b6ca"
+web_url = "http://54.214.104.22/"
+

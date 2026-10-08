@@ -1,0 +1,846 @@
+#CWD ~/Devops-Assignments/session-19-cloud-terraform/terraform
+$ terraform destroy -var instance_type=t3.small
+[0m[1mrandom_id.bucket_suffix: Refreshing state... [id=eDLf][0m
+[0m[1mdata.aws_ami.al2023: Reading...[0m[0m
+[0m[1maws_iam_role.web: Refreshing state... [id=s19-campus-web-web-role][0m
+[0m[1maws_vpc.main: Refreshing state... [id=vpc-6ad621802460087ea][0m
+[0m[1maws_s3_bucket.assets: Refreshing state... [id=s19-campus-web-assets-7832df][0m
+[0m[1mdata.aws_ami.al2023: Read complete after 0s [id=ami-0884624fc54d115f3][0m
+[0m[1maws_iam_instance_profile.web: Refreshing state... [id=s19-campus-web-web-profile][0m
+[0m[1maws_route_table.private: Refreshing state... [id=rtb-44e2c6af87cf9fd33][0m
+[0m[1maws_internet_gateway.main: Refreshing state... [id=igw-3776f9c43404361e0][0m
+[0m[1maws_subnet.public["a"]: Refreshing state... [id=subnet-aadd374260209e988][0m
+[0m[1maws_subnet.private["a"]: Refreshing state... [id=subnet-918a72f0aa64b171e][0m
+[0m[1maws_subnet.public["b"]: Refreshing state... [id=subnet-c8c075fc260d4108c][0m
+[0m[1maws_security_group.web: Refreshing state... [id=sg-10b57e60c2b78b6ca][0m
+[0m[1maws_route_table.public: Refreshing state... [id=rtb-e91548f917f816ffc][0m
+[0m[1maws_route_table_association.private["a"]: Refreshing state... [id=rtbassoc-32109f65060c5a924][0m
+[0m[1maws_vpc_security_group_egress_rule.all: Refreshing state... [id=sgr-23a89f136c2e2bdfa][0m
+[0m[1maws_vpc_security_group_ingress_rule.http: Refreshing state... [id=sgr-cab113a492595fe4f][0m
+[0m[1maws_vpc_security_group_ingress_rule.https: Refreshing state... [id=sgr-95269b0faeadd4daa][0m
+[0m[1maws_vpc_security_group_ingress_rule.ssh_admin: Refreshing state... [id=sgr-f8d422823c3002458][0m
+[0m[1maws_route_table_association.public["b"]: Refreshing state... [id=rtbassoc-53c8ad984a45178ee][0m
+[0m[1maws_route_table_association.public["a"]: Refreshing state... [id=rtbassoc-3ba4d0ee07c92bdb6][0m
+[0m[1maws_s3_bucket_public_access_block.assets: Refreshing state... [id=s19-campus-web-assets-7832df][0m
+[0m[1maws_s3_bucket_versioning.assets: Refreshing state... [id=s19-campus-web-assets-7832df][0m
+[0m[1maws_iam_role_policy.read_site: Refreshing state... [id=s19-campus-web-web-role:read-site-assets][0m
+[0m[1maws_s3_bucket_server_side_encryption_configuration.assets: Refreshing state... [id=s19-campus-web-assets-7832df][0m
+[0m[1maws_s3_object.index: Refreshing state... [id=s19-campus-web-assets-7832df/site/index.html][0m
+[0m[1maws_instance.web: Refreshing state... [id=i-9e9fe1e005683a560][0m
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  [31m-[0m destroy[0m
+
+Terraform will perform the following actions:
+
+[1m  # aws_iam_instance_profile.web[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_iam_instance_profile" "web" {
+      [31m-[0m[0m arn         = "arn:aws:iam::123456789012:instance-profile/s19-campus-web-web-profile" [90m-> null[0m[0m
+      [31m-[0m[0m create_date = "2026-10-08T08:19:47Z" [90m-> null[0m[0m
+      [31m-[0m[0m id          = "s19-campus-web-web-profile" [90m-> null[0m[0m
+      [31m-[0m[0m name        = "s19-campus-web-web-profile" [90m-> null[0m[0m
+      [31m-[0m[0m path        = "/" [90m-> null[0m[0m
+      [31m-[0m[0m role        = "s19-campus-web-web-role" [90m-> null[0m[0m
+      [31m-[0m[0m tags        = {} [90m-> null[0m[0m
+      [31m-[0m[0m tags_all    = {
+          [31m-[0m[0m "ManagedBy" = "Terraform"
+          [31m-[0m[0m "Owner"     = "Ratnesh Vaibhav"
+          [31m-[0m[0m "Project"   = "s19-campus-web"
+          [31m-[0m[0m "Session"   = "19"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m unique_id   = "06cf2iwi8r313jt2auhz" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+    }
+
+[1m  # aws_iam_role.web[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_iam_role" "web" {
+      [31m-[0m[0m arn                   = "arn:aws:iam::123456789012:role/s19-campus-web-web-role" [90m-> null[0m[0m
+      [31m-[0m[0m assume_role_policy    = jsonencode(
+            {
+              [31m-[0m[0m Statement = [
+                  [31m-[0m[0m {
+                      [31m-[0m[0m Action    = "sts:AssumeRole"
+                      [31m-[0m[0m Effect    = "Allow"
+                      [31m-[0m[0m Principal = {
+                          [31m-[0m[0m Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              [31m-[0m[0m Version   = "2012-10-17"
+            }
+        ) [90m-> null[0m[0m
+      [31m-[0m[0m create_date           = "2026-10-08T08:19:47Z" [90m-> null[0m[0m
+      [31m-[0m[0m force_detach_policies = false [90m-> null[0m[0m
+      [31m-[0m[0m id                    = "s19-campus-web-web-role" [90m-> null[0m[0m
+      [31m-[0m[0m managed_policy_arns   = [] [90m-> null[0m[0m
+      [31m-[0m[0m max_session_duration  = 3600 [90m-> null[0m[0m
+      [31m-[0m[0m name                  = "s19-campus-web-web-role" [90m-> null[0m[0m
+      [31m-[0m[0m path                  = "/" [90m-> null[0m[0m
+      [31m-[0m[0m tags                  = {} [90m-> null[0m[0m
+      [31m-[0m[0m tags_all              = {
+          [31m-[0m[0m "ManagedBy" = "Terraform"
+          [31m-[0m[0m "Owner"     = "Ratnesh Vaibhav"
+          [31m-[0m[0m "Project"   = "s19-campus-web"
+          [31m-[0m[0m "Session"   = "19"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m unique_id             = "AROARZPUZDIKKWMAU4FO6" [90m-> null[0m[0m
+        [90m# (3 unchanged attributes hidden)[0m[0m
+
+      [31m-[0m[0m inline_policy {
+          [31m-[0m[0m name   = "read-site-assets" [90m-> null[0m[0m
+          [31m-[0m[0m policy = jsonencode(
+                {
+                  [31m-[0m[0m Statement = [
+                      [31m-[0m[0m {
+                          [31m-[0m[0m Action   = [
+                              [31m-[0m[0m "s3:GetObject",
+                            ]
+                          [31m-[0m[0m Effect   = "Allow"
+                          [31m-[0m[0m Resource = "arn:aws:s3:::s19-campus-web-assets-7832df/site/*"
+                        },
+                    ]
+                  [31m-[0m[0m Version   = "2012-10-17"
+                }
+            ) [90m-> null[0m[0m
+        }
+    }
+
+[1m  # aws_iam_role_policy.read_site[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_iam_role_policy" "read_site" {
+      [31m-[0m[0m id          = "s19-campus-web-web-role:read-site-assets" [90m-> null[0m[0m
+      [31m-[0m[0m name        = "read-site-assets" [90m-> null[0m[0m
+      [31m-[0m[0m policy      = jsonencode(
+            {
+              [31m-[0m[0m Statement = [
+                  [31m-[0m[0m {
+                      [31m-[0m[0m Action   = [
+                          [31m-[0m[0m "s3:GetObject",
+                        ]
+                      [31m-[0m[0m Effect   = "Allow"
+                      [31m-[0m[0m Resource = "arn:aws:s3:::s19-campus-web-assets-7832df/site/*"
+                    },
+                ]
+              [31m-[0m[0m Version   = "2012-10-17"
+            }
+        ) [90m-> null[0m[0m
+      [31m-[0m[0m role        = "s19-campus-web-web-role" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+    }
+
+[1m  # aws_instance.web[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_instance" "web" {
+      [31m-[0m[0m ami                                  = "ami-0884624fc54d115f3" [90m-> null[0m[0m
+      [31m-[0m[0m arn                                  = "arn:aws:ec2:ap-south-1::instance/i-9e9fe1e005683a560" [90m-> null[0m[0m
+      [31m-[0m[0m associate_public_ip_address          = true [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone                    = "ap-south-1a" [90m-> null[0m[0m
+      [31m-[0m[0m disable_api_stop                     = false [90m-> null[0m[0m
+      [31m-[0m[0m disable_api_termination              = false [90m-> null[0m[0m
+      [31m-[0m[0m ebs_optimized                        = false [90m-> null[0m[0m
+      [31m-[0m[0m force_destroy                        = false [90m-> null[0m[0m
+      [31m-[0m[0m get_password_data                    = false [90m-> null[0m[0m
+      [31m-[0m[0m hibernation                          = false [90m-> null[0m[0m
+      [31m-[0m[0m iam_instance_profile                 = "s19-campus-web-web-profile" [90m-> null[0m[0m
+      [31m-[0m[0m id                                   = "i-9e9fe1e005683a560" [90m-> null[0m[0m
+      [31m-[0m[0m instance_initiated_shutdown_behavior = "stop" [90m-> null[0m[0m
+      [31m-[0m[0m instance_state                       = "running" [90m-> null[0m[0m
+      [31m-[0m[0m instance_type                        = "t3.small" [90m-> null[0m[0m
+      [31m-[0m[0m ipv6_address_count                   = 0 [90m-> null[0m[0m
+      [31m-[0m[0m ipv6_addresses                       = [] [90m-> null[0m[0m
+      [31m-[0m[0m monitoring                           = false [90m-> null[0m[0m
+      [31m-[0m[0m placement_partition_number           = 0 [90m-> null[0m[0m
+      [31m-[0m[0m primary_network_interface_id         = "eni-0df7a68d97897a476" [90m-> null[0m[0m
+      [31m-[0m[0m private_dns                          = "ip-10-20-1-4.ap-south-1.compute.internal" [90m-> null[0m[0m
+      [31m-[0m[0m private_ip                           = "10.20.1.4" [90m-> null[0m[0m
+      [31m-[0m[0m public_dns                           = "ec2-54-214-133-46.ap-south-1.compute.amazonaws.com" [90m-> null[0m[0m
+      [31m-[0m[0m public_ip                            = "54.214.133.46" [90m-> null[0m[0m
+      [31m-[0m[0m region                               = "ap-south-1" [90m-> null[0m[0m
+      [31m-[0m[0m secondary_private_ips                = [] [90m-> null[0m[0m
+      [31m-[0m[0m security_groups                      = [] [90m-> null[0m[0m
+      [31m-[0m[0m source_dest_check                    = true [90m-> null[0m[0m
+      [31m-[0m[0m subnet_id                            = "subnet-aadd374260209e988" [90m-> null[0m[0m
+      [31m-[0m[0m tags                                 = {
+          [31m-[0m[0m "Name" = "s19-campus-web-web"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all                             = {
+          [31m-[0m[0m "ManagedBy" = "Terraform"
+          [31m-[0m[0m "Name"      = "s19-campus-web-web"
+          [31m-[0m[0m "Owner"     = "Ratnesh Vaibhav"
+          [31m-[0m[0m "Project"   = "s19-campus-web"
+          [31m-[0m[0m "Session"   = "19"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tenancy                              = "default" [90m-> null[0m[0m
+      [31m-[0m[0m user_data                            = <<-EOT
+            #!/bin/bash
+            # Runs once at first boot: install nginx and publish the page stored in S3.
+            dnf install -y nginx
+            aws s3 cp "s3://s19-campus-web-assets-7832df/site/index.html" /usr/share/nginx/html/index.html
+            systemctl enable --now nginx
+        EOT [90m-> null[0m[0m
+      [31m-[0m[0m user_data_replace_on_change          = false [90m-> null[0m[0m
+      [31m-[0m[0m vpc_security_group_ids               = [
+          [31m-[0m[0m "sg-10b57e60c2b78b6ca",
+        ] [90m-> null[0m[0m
+        [90m# (8 unchanged attributes hidden)[0m[0m
+
+      [31m-[0m[0m credit_specification {
+          [31m-[0m[0m cpu_credits = "standard" [90m-> null[0m[0m
+        }
+
+      [31m-[0m[0m metadata_options {
+          [31m-[0m[0m http_endpoint               = "enabled" [90m-> null[0m[0m
+          [31m-[0m[0m http_protocol_ipv6          = "disabled" [90m-> null[0m[0m
+          [31m-[0m[0m http_put_response_hop_limit = 1 [90m-> null[0m[0m
+          [31m-[0m[0m http_tokens                 = "required" [90m-> null[0m[0m
+          [31m-[0m[0m instance_metadata_tags      = "disabled" [90m-> null[0m[0m
+        }
+
+      [31m-[0m[0m primary_network_interface {
+          [31m-[0m[0m delete_on_termination = false [90m-> null[0m[0m
+          [31m-[0m[0m network_interface_id  = "eni-0df7a68d97897a476" [90m-> null[0m[0m
+        }
+
+      [31m-[0m[0m root_block_device {
+          [31m-[0m[0m delete_on_termination = true [90m-> null[0m[0m
+          [31m-[0m[0m device_name           = "/dev/xvda" [90m-> null[0m[0m
+          [31m-[0m[0m encrypted             = true [90m-> null[0m[0m
+          [31m-[0m[0m iops                  = 3000 [90m-> null[0m[0m
+          [31m-[0m[0m kms_key_id            = "arn:aws:kms:ap-south-1:123456789012:key/6c5de063-c71d-464c-a1d9-b8f8c3b3f35d" [90m-> null[0m[0m
+          [31m-[0m[0m tags                  = {} [90m-> null[0m[0m
+          [31m-[0m[0m tags_all              = {
+              [31m-[0m[0m "ManagedBy" = "Terraform"
+              [31m-[0m[0m "Owner"     = "Ratnesh Vaibhav"
+              [31m-[0m[0m "Project"   = "s19-campus-web"
+              [31m-[0m[0m "Session"   = "19"
+            } [90m-> null[0m[0m
+          [31m-[0m[0m throughput            = 0 [90m-> null[0m[0m
+          [31m-[0m[0m volume_id             = "vol-37dfa7443d5444da5" [90m-> null[0m[0m
+          [31m-[0m[0m volume_size           = 10 [90m-> null[0m[0m
+          [31m-[0m[0m volume_type           = "gp3" [90m-> null[0m[0m
+        }
+    }
+
+[1m  # aws_internet_gateway.main[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_internet_gateway" "main" {
+      [31m-[0m[0m arn      = "arn:aws:ec2:ap-south-1:123456789012:internet-gateway/igw-3776f9c43404361e0" [90m-> null[0m[0m
+      [31m-[0m[0m id       = "igw-3776f9c43404361e0" [90m-> null[0m[0m
+      [31m-[0m[0m owner_id = "123456789012" [90m-> null[0m[0m
+      [31m-[0m[0m region   = "ap-south-1" [90m-> null[0m[0m
+      [31m-[0m[0m tags     = {
+          [31m-[0m[0m "Name" = "s19-campus-web-igw"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all = {
+          [31m-[0m[0m "ManagedBy" = "Terraform"
+          [31m-[0m[0m "Name"      = "s19-campus-web-igw"
+          [31m-[0m[0m "Owner"     = "Ratnesh Vaibhav"
+          [31m-[0m[0m "Project"   = "s19-campus-web"
+          [31m-[0m[0m "Session"   = "19"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m vpc_id   = "vpc-6ad621802460087ea" [90m-> null[0m[0m
+    }
+
+[1m  # aws_route_table.private[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_route_table" "private" {
+      [31m-[0m[0m arn              = "arn:aws:ec2:ap-south-1:123456789012:route-table/rtb-44e2c6af87cf9fd33" [90m-> null[0m[0m
+      [31m-[0m[0m id               = "rtb-44e2c6af87cf9fd33" [90m-> null[0m[0m
+      [31m-[0m[0m owner_id         = "123456789012" [90m-> null[0m[0m
+      [31m-[0m[0m propagating_vgws = [] [90m-> null[0m[0m
+      [31m-[0m[0m region           = "ap-south-1" [90m-> null[0m[0m
+      [31m-[0m[0m route            = [] [90m-> null[0m[0m
+      [31m-[0m[0m tags             = {
+          [31m-[0m[0m "Name" = "s19-campus-web-private-rt"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all         = {
+          [31m-[0m[0m "ManagedBy" = "Terraform"
+          [31m-[0m[0m "Name"      = "s19-campus-web-private-rt"
+          [31m-[0m[0m "Owner"     = "Ratnesh Vaibhav"
+          [31m-[0m[0m "Project"   = "s19-campus-web"
+          [31m-[0m[0m "Session"   = "19"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m vpc_id           = "vpc-6ad621802460087ea" [90m-> null[0m[0m
+    }
+
+[1m  # aws_route_table.public[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_route_table" "public" {
+      [31m-[0m[0m arn              = "arn:aws:ec2:ap-south-1:123456789012:route-table/rtb-e91548f917f816ffc" [90m-> null[0m[0m
+      [31m-[0m[0m id               = "rtb-e91548f917f816ffc" [90m-> null[0m[0m
+      [31m-[0m[0m owner_id         = "123456789012" [90m-> null[0m[0m
+      [31m-[0m[0m propagating_vgws = [] [90m-> null[0m[0m
+      [31m-[0m[0m region           = "ap-south-1" [90m-> null[0m[0m
+      [31m-[0m[0m route            = [
+          [31m-[0m[0m {
+              [31m-[0m[0m cidr_block                 = "0.0.0.0/0"
+              [31m-[0m[0m gateway_id                 = "igw-3776f9c43404361e0"
+                [90m# (12 unchanged attributes hidden)[0m[0m
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m tags             = {
+          [31m-[0m[0m "Name" = "s19-campus-web-public-rt"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all         = {
+          [31m-[0m[0m "ManagedBy" = "Terraform"
+          [31m-[0m[0m "Name"      = "s19-campus-web-public-rt"
+          [31m-[0m[0m "Owner"     = "Ratnesh Vaibhav"
+          [31m-[0m[0m "Project"   = "s19-campus-web"
+          [31m-[0m[0m "Session"   = "19"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m vpc_id           = "vpc-6ad621802460087ea" [90m-> null[0m[0m
+    }
+
+[1m  # aws_route_table_association.private["a"][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_route_table_association" "private" {
+      [31m-[0m[0m id             = "rtbassoc-32109f65060c5a924" [90m-> null[0m[0m
+      [31m-[0m[0m region         = "ap-south-1" [90m-> null[0m[0m
+      [31m-[0m[0m route_table_id = "rtb-44e2c6af87cf9fd33" [90m-> null[0m[0m
+      [31m-[0m[0m subnet_id      = "subnet-918a72f0aa64b171e" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+    }
+
+[1m  # aws_route_table_association.public["a"][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_route_table_association" "public" {
+      [31m-[0m[0m id             = "rtbassoc-3ba4d0ee07c92bdb6" [90m-> null[0m[0m
+      [31m-[0m[0m region         = "ap-south-1" [90m-> null[0m[0m
+      [31m-[0m[0m route_table_id = "rtb-e91548f917f816ffc" [90m-> null[0m[0m
+      [31m-[0m[0m subnet_id      = "subnet-aadd374260209e988" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+    }
+
+[1m  # aws_route_table_association.public["b"][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_route_table_association" "public" {
+      [31m-[0m[0m id             = "rtbassoc-53c8ad984a45178ee" [90m-> null[0m[0m
+      [31m-[0m[0m region         = "ap-south-1" [90m-> null[0m[0m
+      [31m-[0m[0m route_table_id = "rtb-e91548f917f816ffc" [90m-> null[0m[0m
+      [31m-[0m[0m subnet_id      = "subnet-c8c075fc260d4108c" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+    }
+
+[1m  # aws_s3_bucket.assets[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_s3_bucket" "assets" {
+      [31m-[0m[0m arn                         = "arn:aws:s3:::s19-campus-web-assets-7832df" [90m-> null[0m[0m
+      [31m-[0m[0m bucket                      = "s19-campus-web-assets-7832df" [90m-> null[0m[0m
+      [31m-[0m[0m bucket_domain_name          = "s19-campus-web-assets-7832df.s3.amazonaws.com" [90m-> null[0m[0m
+      [31m-[0m[0m bucket_namespace            = "global" [90m-> null[0m[0m
+      [31m-[0m[0m bucket_region               = "ap-south-1" [90m-> null[0m[0m
+      [31m-[0m[0m bucket_regional_domain_name = "s19-campus-web-assets-7832df.s3.ap-south-1.amazonaws.com" [90m-> null[0m[0m
+      [31m-[0m[0m force_destroy               = true [90m-> null[0m[0m
+      [31m-[0m[0m hosted_zone_id              = "Z11RGJOFQNVJUP" [90m-> null[0m[0m
+      [31m-[0m[0m id                          = "s19-campus-web-assets-7832df" [90m-> null[0m[0m
+      [31m-[0m[0m object_lock_enabled         = false [90m-> null[0m[0m
+      [31m-[0m[0m region                      = "ap-south-1" [90m-> null[0m[0m
+      [31m-[0m[0m tags                        = {
+          [31m-[0m[0m "Name" = "s19-campus-web-assets"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all                    = {
+          [31m-[0m[0m "ManagedBy" = "Terraform"
+          [31m-[0m[0m "Name"      = "s19-campus-web-assets"
+          [31m-[0m[0m "Owner"     = "Ratnesh Vaibhav"
+          [31m-[0m[0m "Project"   = "s19-campus-web"
+          [31m-[0m[0m "Session"   = "19"
+        } [90m-> null[0m[0m
+        [90m# (4 unchanged attributes hidden)[0m[0m
+
+      [31m-[0m[0m grant {
+          [31m-[0m[0m id          = "75aa57f09aa0c8caeab4f8c24e99d10f8e7faeebf76c078efc7c6caea54ba06a" [90m-> null[0m[0m
+          [31m-[0m[0m permissions = [
+              [31m-[0m[0m "FULL_CONTROL",
+            ] [90m-> null[0m[0m
+          [31m-[0m[0m type        = "CanonicalUser" [90m-> null[0m[0m
+            [90m# (1 unchanged attribute hidden)[0m[0m
+        }
+
+      [31m-[0m[0m server_side_encryption_configuration {
+          [31m-[0m[0m rule {
+              [31m-[0m[0m bucket_key_enabled = false [90m-> null[0m[0m
+
+              [31m-[0m[0m apply_server_side_encryption_by_default {
+                  [31m-[0m[0m sse_algorithm     = "AES256" [90m-> null[0m[0m
+                    [90m# (1 unchanged attribute hidden)[0m[0m
+                }
+            }
+        }
+
+      [31m-[0m[0m versioning {
+          [31m-[0m[0m enabled    = true [90m-> null[0m[0m
+          [31m-[0m[0m mfa_delete = false [90m-> null[0m[0m
+        }
+    }
+
+[1m  # aws_s3_bucket_public_access_block.assets[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_s3_bucket_public_access_block" "assets" {
+      [31m-[0m[0m block_public_acls       = true [90m-> null[0m[0m
+      [31m-[0m[0m block_public_policy     = true [90m-> null[0m[0m
+      [31m-[0m[0m bucket                  = "s19-campus-web-assets-7832df" [90m-> null[0m[0m
+      [31m-[0m[0m id                      = "s19-campus-web-assets-7832df" [90m-> null[0m[0m
+      [31m-[0m[0m ignore_public_acls      = true [90m-> null[0m[0m
+      [31m-[0m[0m region                  = "ap-south-1" [90m-> null[0m[0m
+      [31m-[0m[0m restrict_public_buckets = true [90m-> null[0m[0m
+    }
+
+[1m  # aws_s3_bucket_server_side_encryption_configuration.assets[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_s3_bucket_server_side_encryption_configuration" "assets" {
+      [31m-[0m[0m bucket                = "s19-campus-web-assets-7832df" [90m-> null[0m[0m
+      [31m-[0m[0m id                    = "s19-campus-web-assets-7832df" [90m-> null[0m[0m
+      [31m-[0m[0m region                = "ap-south-1" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+
+      [31m-[0m[0m rule {
+          [31m-[0m[0m blocked_encryption_types = [] [90m-> null[0m[0m
+          [31m-[0m[0m bucket_key_enabled       = false [90m-> null[0m[0m
+
+          [31m-[0m[0m apply_server_side_encryption_by_default {
+              [31m-[0m[0m sse_algorithm     = "AES256" [90m-> null[0m[0m
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            }
+        }
+    }
+
+[1m  # aws_s3_bucket_versioning.assets[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_s3_bucket_versioning" "assets" {
+      [31m-[0m[0m bucket                = "s19-campus-web-assets-7832df" [90m-> null[0m[0m
+      [31m-[0m[0m id                    = "s19-campus-web-assets-7832df" [90m-> null[0m[0m
+      [31m-[0m[0m region                = "ap-south-1" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+
+      [31m-[0m[0m versioning_configuration {
+          [31m-[0m[0m mfa_delete = "Disabled" [90m-> null[0m[0m
+          [31m-[0m[0m status     = "Enabled" [90m-> null[0m[0m
+        }
+    }
+
+[1m  # aws_s3_object.index[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_s3_object" "index" {
+      [31m-[0m[0m arn                           = "arn:aws:s3:::s19-campus-web-assets-7832df/site/index.html" [90m-> null[0m[0m
+      [31m-[0m[0m bucket                        = "s19-campus-web-assets-7832df" [90m-> null[0m[0m
+      [31m-[0m[0m bucket_key_enabled            = false [90m-> null[0m[0m
+      [31m-[0m[0m content                       = <<-EOT
+            <h1>s19-campus-web</h1><p>Provisioned with Terraform by Ratnesh Vaibhav.</p>
+        EOT [90m-> null[0m[0m
+      [31m-[0m[0m content_type                  = "text/html" [90m-> null[0m[0m
+      [31m-[0m[0m etag                          = "d4766f68612ceaf1826d05ddd6d8d620" [90m-> null[0m[0m
+      [31m-[0m[0m force_destroy                 = false [90m-> null[0m[0m
+      [31m-[0m[0m id                            = "s19-campus-web-assets-7832df/site/index.html" [90m-> null[0m[0m
+      [31m-[0m[0m key                           = "site/index.html" [90m-> null[0m[0m
+      [31m-[0m[0m metadata                      = {} [90m-> null[0m[0m
+      [31m-[0m[0m region                        = "ap-south-1" [90m-> null[0m[0m
+      [31m-[0m[0m server_side_encryption        = "AES256" [90m-> null[0m[0m
+      [31m-[0m[0m storage_class                 = "STANDARD" [90m-> null[0m[0m
+      [31m-[0m[0m tags                          = {} [90m-> null[0m[0m
+      [31m-[0m[0m tags_all                      = {
+          [31m-[0m[0m "ManagedBy" = "Terraform"
+          [31m-[0m[0m "Owner"     = "Ratnesh Vaibhav"
+          [31m-[0m[0m "Project"   = "s19-campus-web"
+          [31m-[0m[0m "Session"   = "19"
+        } [90m-> null[0m[0m
+        [90m# (14 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # aws_security_group.web[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_security_group" "web" {
+      [31m-[0m[0m arn                    = "arn:aws:ec2:ap-south-1:123456789012:security-group/sg-10b57e60c2b78b6ca" [90m-> null[0m[0m
+      [31m-[0m[0m description            = "HTTP/HTTPS from the internet, SSH from the admin CIDR only" [90m-> null[0m[0m
+      [31m-[0m[0m egress                 = [
+          [31m-[0m[0m {
+              [31m-[0m[0m cidr_blocks      = [
+                  [31m-[0m[0m "0.0.0.0/0",
+                ]
+              [31m-[0m[0m description      = "All outbound"
+              [31m-[0m[0m from_port        = 0
+              [31m-[0m[0m ipv6_cidr_blocks = []
+              [31m-[0m[0m prefix_list_ids  = []
+              [31m-[0m[0m protocol         = "-1"
+              [31m-[0m[0m security_groups  = []
+              [31m-[0m[0m self             = false
+              [31m-[0m[0m to_port          = 0
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m id                     = "sg-10b57e60c2b78b6ca" [90m-> null[0m[0m
+      [31m-[0m[0m ingress                = [
+          [31m-[0m[0m {
+              [31m-[0m[0m cidr_blocks      = [
+                  [31m-[0m[0m "0.0.0.0/0",
+                ]
+              [31m-[0m[0m description      = "HTTP"
+              [31m-[0m[0m from_port        = 80
+              [31m-[0m[0m ipv6_cidr_blocks = []
+              [31m-[0m[0m prefix_list_ids  = []
+              [31m-[0m[0m protocol         = "tcp"
+              [31m-[0m[0m security_groups  = []
+              [31m-[0m[0m self             = false
+              [31m-[0m[0m to_port          = 80
+            },
+          [31m-[0m[0m {
+              [31m-[0m[0m cidr_blocks      = [
+                  [31m-[0m[0m "0.0.0.0/0",
+                ]
+              [31m-[0m[0m description      = "HTTPS"
+              [31m-[0m[0m from_port        = 443
+              [31m-[0m[0m ipv6_cidr_blocks = []
+              [31m-[0m[0m prefix_list_ids  = []
+              [31m-[0m[0m protocol         = "tcp"
+              [31m-[0m[0m security_groups  = []
+              [31m-[0m[0m self             = false
+              [31m-[0m[0m to_port          = 443
+            },
+          [31m-[0m[0m {
+              [31m-[0m[0m cidr_blocks      = [
+                  [31m-[0m[0m "203.0.113.10/32",
+                ]
+              [31m-[0m[0m description      = "SSH from the admin laptop only"
+              [31m-[0m[0m from_port        = 22
+              [31m-[0m[0m ipv6_cidr_blocks = []
+              [31m-[0m[0m prefix_list_ids  = []
+              [31m-[0m[0m protocol         = "tcp"
+              [31m-[0m[0m security_groups  = []
+              [31m-[0m[0m self             = false
+              [31m-[0m[0m to_port          = 22
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m name                   = "s19-campus-web-web-sg" [90m-> null[0m[0m
+      [31m-[0m[0m owner_id               = "123456789012" [90m-> null[0m[0m
+      [31m-[0m[0m region                 = "ap-south-1" [90m-> null[0m[0m
+      [31m-[0m[0m revoke_rules_on_delete = false [90m-> null[0m[0m
+      [31m-[0m[0m tags                   = {
+          [31m-[0m[0m "Name" = "s19-campus-web-web-sg"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all               = {
+          [31m-[0m[0m "ManagedBy" = "Terraform"
+          [31m-[0m[0m "Name"      = "s19-campus-web-web-sg"
+          [31m-[0m[0m "Owner"     = "Ratnesh Vaibhav"
+          [31m-[0m[0m "Project"   = "s19-campus-web"
+          [31m-[0m[0m "Session"   = "19"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m vpc_id                 = "vpc-6ad621802460087ea" [90m-> null[0m[0m
+        [90m# (1 unchanged attribute hidden)[0m[0m
+    }
+
+[1m  # aws_subnet.private["a"][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_subnet" "private" {
+      [31m-[0m[0m arn                                            = "arn:aws:ec2:ap-south-1:123456789012:subnet/subnet-918a72f0aa64b171e" [90m-> null[0m[0m
+      [31m-[0m[0m assign_ipv6_address_on_creation                = false [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone                              = "ap-south-1a" [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone_id                           = "aps1-az1" [90m-> null[0m[0m
+      [31m-[0m[0m cidr_block                                     = "10.20.11.0/24" [90m-> null[0m[0m
+      [31m-[0m[0m enable_dns64                                   = false [90m-> null[0m[0m
+      [31m-[0m[0m enable_lni_at_device_index                     = 0 [90m-> null[0m[0m
+      [31m-[0m[0m enable_resource_name_dns_a_record_on_launch    = false [90m-> null[0m[0m
+      [31m-[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false [90m-> null[0m[0m
+      [31m-[0m[0m id                                             = "subnet-918a72f0aa64b171e" [90m-> null[0m[0m
+      [31m-[0m[0m ipv6_native                                    = false [90m-> null[0m[0m
+      [31m-[0m[0m map_customer_owned_ip_on_launch                = false [90m-> null[0m[0m
+      [31m-[0m[0m map_public_ip_on_launch                        = false [90m-> null[0m[0m
+      [31m-[0m[0m owner_id                                       = "123456789012" [90m-> null[0m[0m
+      [31m-[0m[0m private_dns_hostname_type_on_launch            = "ip-name" [90m-> null[0m[0m
+      [31m-[0m[0m region                                         = "ap-south-1" [90m-> null[0m[0m
+      [31m-[0m[0m tags                                           = {
+          [31m-[0m[0m "Name" = "s19-campus-web-private-a"
+          [31m-[0m[0m "Tier" = "private"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all                                       = {
+          [31m-[0m[0m "ManagedBy" = "Terraform"
+          [31m-[0m[0m "Name"      = "s19-campus-web-private-a"
+          [31m-[0m[0m "Owner"     = "Ratnesh Vaibhav"
+          [31m-[0m[0m "Project"   = "s19-campus-web"
+          [31m-[0m[0m "Session"   = "19"
+          [31m-[0m[0m "Tier"      = "private"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m vpc_id                                         = "vpc-6ad621802460087ea" [90m-> null[0m[0m
+        [90m# (4 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # aws_subnet.public["a"][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_subnet" "public" {
+      [31m-[0m[0m arn                                            = "arn:aws:ec2:ap-south-1:123456789012:subnet/subnet-aadd374260209e988" [90m-> null[0m[0m
+      [31m-[0m[0m assign_ipv6_address_on_creation                = false [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone                              = "ap-south-1a" [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone_id                           = "aps1-az1" [90m-> null[0m[0m
+      [31m-[0m[0m cidr_block                                     = "10.20.1.0/24" [90m-> null[0m[0m
+      [31m-[0m[0m enable_dns64                                   = false [90m-> null[0m[0m
+      [31m-[0m[0m enable_lni_at_device_index                     = 0 [90m-> null[0m[0m
+      [31m-[0m[0m enable_resource_name_dns_a_record_on_launch    = false [90m-> null[0m[0m
+      [31m-[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false [90m-> null[0m[0m
+      [31m-[0m[0m id                                             = "subnet-aadd374260209e988" [90m-> null[0m[0m
+      [31m-[0m[0m ipv6_native                                    = false [90m-> null[0m[0m
+      [31m-[0m[0m map_customer_owned_ip_on_launch                = false [90m-> null[0m[0m
+      [31m-[0m[0m map_public_ip_on_launch                        = true [90m-> null[0m[0m
+      [31m-[0m[0m owner_id                                       = "123456789012" [90m-> null[0m[0m
+      [31m-[0m[0m private_dns_hostname_type_on_launch            = "ip-name" [90m-> null[0m[0m
+      [31m-[0m[0m region                                         = "ap-south-1" [90m-> null[0m[0m
+      [31m-[0m[0m tags                                           = {
+          [31m-[0m[0m "Name" = "s19-campus-web-public-a"
+          [31m-[0m[0m "Tier" = "public"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all                                       = {
+          [31m-[0m[0m "ManagedBy" = "Terraform"
+          [31m-[0m[0m "Name"      = "s19-campus-web-public-a"
+          [31m-[0m[0m "Owner"     = "Ratnesh Vaibhav"
+          [31m-[0m[0m "Project"   = "s19-campus-web"
+          [31m-[0m[0m "Session"   = "19"
+          [31m-[0m[0m "Tier"      = "public"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m vpc_id                                         = "vpc-6ad621802460087ea" [90m-> null[0m[0m
+        [90m# (4 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # aws_subnet.public["b"][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_subnet" "public" {
+      [31m-[0m[0m arn                                            = "arn:aws:ec2:ap-south-1:123456789012:subnet/subnet-c8c075fc260d4108c" [90m-> null[0m[0m
+      [31m-[0m[0m assign_ipv6_address_on_creation                = false [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone                              = "ap-south-1b" [90m-> null[0m[0m
+      [31m-[0m[0m availability_zone_id                           = "aps1-az3" [90m-> null[0m[0m
+      [31m-[0m[0m cidr_block                                     = "10.20.2.0/24" [90m-> null[0m[0m
+      [31m-[0m[0m enable_dns64                                   = false [90m-> null[0m[0m
+      [31m-[0m[0m enable_lni_at_device_index                     = 0 [90m-> null[0m[0m
+      [31m-[0m[0m enable_resource_name_dns_a_record_on_launch    = false [90m-> null[0m[0m
+      [31m-[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false [90m-> null[0m[0m
+      [31m-[0m[0m id                                             = "subnet-c8c075fc260d4108c" [90m-> null[0m[0m
+      [31m-[0m[0m ipv6_native                                    = false [90m-> null[0m[0m
+      [31m-[0m[0m map_customer_owned_ip_on_launch                = false [90m-> null[0m[0m
+      [31m-[0m[0m map_public_ip_on_launch                        = true [90m-> null[0m[0m
+      [31m-[0m[0m owner_id                                       = "123456789012" [90m-> null[0m[0m
+      [31m-[0m[0m private_dns_hostname_type_on_launch            = "ip-name" [90m-> null[0m[0m
+      [31m-[0m[0m region                                         = "ap-south-1" [90m-> null[0m[0m
+      [31m-[0m[0m tags                                           = {
+          [31m-[0m[0m "Name" = "s19-campus-web-public-b"
+          [31m-[0m[0m "Tier" = "public"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all                                       = {
+          [31m-[0m[0m "ManagedBy" = "Terraform"
+          [31m-[0m[0m "Name"      = "s19-campus-web-public-b"
+          [31m-[0m[0m "Owner"     = "Ratnesh Vaibhav"
+          [31m-[0m[0m "Project"   = "s19-campus-web"
+          [31m-[0m[0m "Session"   = "19"
+          [31m-[0m[0m "Tier"      = "public"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m vpc_id                                         = "vpc-6ad621802460087ea" [90m-> null[0m[0m
+        [90m# (4 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # aws_vpc.main[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_vpc" "main" {
+      [31m-[0m[0m arn                                  = "arn:aws:ec2:ap-south-1:123456789012:vpc/vpc-6ad621802460087ea" [90m-> null[0m[0m
+      [31m-[0m[0m assign_generated_ipv6_cidr_block     = false [90m-> null[0m[0m
+      [31m-[0m[0m cidr_block                           = "10.20.0.0/16" [90m-> null[0m[0m
+      [31m-[0m[0m default_network_acl_id               = "acl-380da515eda9bcc65" [90m-> null[0m[0m
+      [31m-[0m[0m default_route_table_id               = "rtb-f769f7d922b6073e9" [90m-> null[0m[0m
+      [31m-[0m[0m default_security_group_id            = "sg-970091e67273b46af" [90m-> null[0m[0m
+      [31m-[0m[0m dhcp_options_id                      = "default" [90m-> null[0m[0m
+      [31m-[0m[0m enable_dns_hostnames                 = true [90m-> null[0m[0m
+      [31m-[0m[0m enable_dns_support                   = true [90m-> null[0m[0m
+      [31m-[0m[0m enable_network_address_usage_metrics = false [90m-> null[0m[0m
+      [31m-[0m[0m id                                   = "vpc-6ad621802460087ea" [90m-> null[0m[0m
+      [31m-[0m[0m instance_tenancy                     = "default" [90m-> null[0m[0m
+      [31m-[0m[0m ipv6_netmask_length                  = 0 [90m-> null[0m[0m
+      [31m-[0m[0m main_route_table_id                  = "rtb-f769f7d922b6073e9" [90m-> null[0m[0m
+      [31m-[0m[0m owner_id                             = "123456789012" [90m-> null[0m[0m
+      [31m-[0m[0m region                               = "ap-south-1" [90m-> null[0m[0m
+      [31m-[0m[0m tags                                 = {
+          [31m-[0m[0m "Name" = "s19-campus-web-vpc"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m tags_all                             = {
+          [31m-[0m[0m "ManagedBy" = "Terraform"
+          [31m-[0m[0m "Name"      = "s19-campus-web-vpc"
+          [31m-[0m[0m "Owner"     = "Ratnesh Vaibhav"
+          [31m-[0m[0m "Project"   = "s19-campus-web"
+          [31m-[0m[0m "Session"   = "19"
+        } [90m-> null[0m[0m
+        [90m# (4 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # aws_vpc_security_group_egress_rule.all[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_vpc_security_group_egress_rule" "all" {
+      [31m-[0m[0m arn                    = "arn:aws:ec2:ap-south-1::security-group-rule/sgr-23a89f136c2e2bdfa" [90m-> null[0m[0m
+      [31m-[0m[0m cidr_ipv4              = "0.0.0.0/0" [90m-> null[0m[0m
+      [31m-[0m[0m description            = "All outbound" [90m-> null[0m[0m
+      [31m-[0m[0m id                     = "sgr-23a89f136c2e2bdfa" [90m-> null[0m[0m
+      [31m-[0m[0m ip_protocol            = "-1" [90m-> null[0m[0m
+      [31m-[0m[0m region                 = "ap-south-1" [90m-> null[0m[0m
+      [31m-[0m[0m security_group_id      = "sg-10b57e60c2b78b6ca" [90m-> null[0m[0m
+      [31m-[0m[0m security_group_rule_id = "sgr-23a89f136c2e2bdfa" [90m-> null[0m[0m
+      [31m-[0m[0m tags_all               = {
+          [31m-[0m[0m "ManagedBy" = "Terraform"
+          [31m-[0m[0m "Owner"     = "Ratnesh Vaibhav"
+          [31m-[0m[0m "Project"   = "s19-campus-web"
+          [31m-[0m[0m "Session"   = "19"
+        } [90m-> null[0m[0m
+    }
+
+[1m  # aws_vpc_security_group_ingress_rule.http[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_vpc_security_group_ingress_rule" "http" {
+      [31m-[0m[0m arn                    = "arn:aws:ec2:ap-south-1::security-group-rule/sgr-cab113a492595fe4f" [90m-> null[0m[0m
+      [31m-[0m[0m cidr_ipv4              = "0.0.0.0/0" [90m-> null[0m[0m
+      [31m-[0m[0m description            = "HTTP" [90m-> null[0m[0m
+      [31m-[0m[0m from_port              = 80 [90m-> null[0m[0m
+      [31m-[0m[0m id                     = "sgr-cab113a492595fe4f" [90m-> null[0m[0m
+      [31m-[0m[0m ip_protocol            = "tcp" [90m-> null[0m[0m
+      [31m-[0m[0m region                 = "ap-south-1" [90m-> null[0m[0m
+      [31m-[0m[0m security_group_id      = "sg-10b57e60c2b78b6ca" [90m-> null[0m[0m
+      [31m-[0m[0m security_group_rule_id = "sgr-cab113a492595fe4f" [90m-> null[0m[0m
+      [31m-[0m[0m tags_all               = {
+          [31m-[0m[0m "ManagedBy" = "Terraform"
+          [31m-[0m[0m "Owner"     = "Ratnesh Vaibhav"
+          [31m-[0m[0m "Project"   = "s19-campus-web"
+          [31m-[0m[0m "Session"   = "19"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m to_port                = 80 [90m-> null[0m[0m
+    }
+
+[1m  # aws_vpc_security_group_ingress_rule.https[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_vpc_security_group_ingress_rule" "https" {
+      [31m-[0m[0m arn                    = "arn:aws:ec2:ap-south-1::security-group-rule/sgr-95269b0faeadd4daa" [90m-> null[0m[0m
+      [31m-[0m[0m cidr_ipv4              = "0.0.0.0/0" [90m-> null[0m[0m
+      [31m-[0m[0m description            = "HTTPS" [90m-> null[0m[0m
+      [31m-[0m[0m from_port              = 443 [90m-> null[0m[0m
+      [31m-[0m[0m id                     = "sgr-95269b0faeadd4daa" [90m-> null[0m[0m
+      [31m-[0m[0m ip_protocol            = "tcp" [90m-> null[0m[0m
+      [31m-[0m[0m region                 = "ap-south-1" [90m-> null[0m[0m
+      [31m-[0m[0m security_group_id      = "sg-10b57e60c2b78b6ca" [90m-> null[0m[0m
+      [31m-[0m[0m security_group_rule_id = "sgr-95269b0faeadd4daa" [90m-> null[0m[0m
+      [31m-[0m[0m tags_all               = {
+          [31m-[0m[0m "ManagedBy" = "Terraform"
+          [31m-[0m[0m "Owner"     = "Ratnesh Vaibhav"
+          [31m-[0m[0m "Project"   = "s19-campus-web"
+          [31m-[0m[0m "Session"   = "19"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m to_port                = 443 [90m-> null[0m[0m
+    }
+
+[1m  # aws_vpc_security_group_ingress_rule.ssh_admin[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "aws_vpc_security_group_ingress_rule" "ssh_admin" {
+      [31m-[0m[0m arn                    = "arn:aws:ec2:ap-south-1::security-group-rule/sgr-f8d422823c3002458" [90m-> null[0m[0m
+      [31m-[0m[0m cidr_ipv4              = "203.0.113.10/32" [90m-> null[0m[0m
+      [31m-[0m[0m description            = "SSH from the admin laptop only" [90m-> null[0m[0m
+      [31m-[0m[0m from_port              = 22 [90m-> null[0m[0m
+      [31m-[0m[0m id                     = "sgr-f8d422823c3002458" [90m-> null[0m[0m
+      [31m-[0m[0m ip_protocol            = "tcp" [90m-> null[0m[0m
+      [31m-[0m[0m region                 = "ap-south-1" [90m-> null[0m[0m
+      [31m-[0m[0m security_group_id      = "sg-10b57e60c2b78b6ca" [90m-> null[0m[0m
+      [31m-[0m[0m security_group_rule_id = "sgr-f8d422823c3002458" [90m-> null[0m[0m
+      [31m-[0m[0m tags_all               = {
+          [31m-[0m[0m "ManagedBy" = "Terraform"
+          [31m-[0m[0m "Owner"     = "Ratnesh Vaibhav"
+          [31m-[0m[0m "Project"   = "s19-campus-web"
+          [31m-[0m[0m "Session"   = "19"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m to_port                = 22 [90m-> null[0m[0m
+    }
+
+[1m  # random_id.bucket_suffix[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "random_id" "bucket_suffix" {
+      [31m-[0m[0m b64_std     = "eDLf" [90m-> null[0m[0m
+      [31m-[0m[0m b64_url     = "eDLf" [90m-> null[0m[0m
+      [31m-[0m[0m byte_length = 3 [90m-> null[0m[0m
+      [31m-[0m[0m dec         = "7877343" [90m-> null[0m[0m
+      [31m-[0m[0m hex         = "7832df" [90m-> null[0m[0m
+      [31m-[0m[0m id          = "eDLf" [90m-> null[0m[0m
+    }
+
+[1mPlan:[0m [0m0 to add, 0 to change, 25 to destroy.
+
+Changes to Outputs:
+  [31m-[0m[0m ami_id                = "ami-0884624fc54d115f3" [90m-> null[0m[0m
+  [31m-[0m[0m assets_bucket         = "s19-campus-web-assets-7832df" [90m-> null[0m[0m
+  [31m-[0m[0m private_subnet_ids    = {
+      [31m-[0m[0m a = "subnet-918a72f0aa64b171e"
+    } [90m-> null[0m[0m
+  [31m-[0m[0m public_subnet_ids     = {
+      [31m-[0m[0m a = "subnet-aadd374260209e988"
+      [31m-[0m[0m b = "subnet-c8c075fc260d4108c"
+    } [90m-> null[0m[0m
+  [31m-[0m[0m vpc_id                = "vpc-6ad621802460087ea" [90m-> null[0m[0m
+  [31m-[0m[0m web_instance_id       = "i-9e9fe1e005683a560" [90m-> null[0m[0m
+  [31m-[0m[0m web_public_ip         = "54.214.133.46" [90m-> null[0m[0m
+  [31m-[0m[0m web_security_group_id = "sg-10b57e60c2b78b6ca" [90m-> null[0m[0m
+  [31m-[0m[0m web_url               = "http://54.214.133.46/" [90m-> null[0m[0m
+[0m[1m
+Do you really want to destroy all resources?[0m
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  [1mEnter a value:[0m [0myes
+
+[0m[1maws_iam_role_policy.read_site: Destroying... [id=s19-campus-web-web-role:read-site-assets][0m[0m
+[0m[1maws_s3_bucket_public_access_block.assets: Destroying... [id=s19-campus-web-assets-7832df][0m[0m
+[0m[1maws_s3_bucket_versioning.assets: Destroying... [id=s19-campus-web-assets-7832df][0m[0m
+[0m[1maws_s3_bucket_server_side_encryption_configuration.assets: Destroying... [id=s19-campus-web-assets-7832df][0m[0m
+[0m[1maws_vpc_security_group_ingress_rule.ssh_admin: Destroying... [id=sgr-f8d422823c3002458][0m[0m
+[0m[1maws_vpc_security_group_egress_rule.all: Destroying... [id=sgr-23a89f136c2e2bdfa][0m[0m
+[0m[1maws_vpc_security_group_ingress_rule.https: Destroying... [id=sgr-95269b0faeadd4daa][0m[0m
+[0m[1maws_route_table_association.private["a"]: Destroying... [id=rtbassoc-32109f65060c5a924][0m[0m
+[0m[1maws_vpc_security_group_ingress_rule.http: Destroying... [id=sgr-cab113a492595fe4f][0m[0m
+[0m[1maws_instance.web: Destroying... [id=i-9e9fe1e005683a560][0m[0m
+[0m[1maws_s3_bucket_server_side_encryption_configuration.assets: Destruction complete after 0s[0m
+[0m[1maws_s3_bucket_versioning.assets: Destruction complete after 0s[0m
+[0m[1maws_iam_role_policy.read_site: Destruction complete after 0s[0m
+[0m[1maws_vpc_security_group_ingress_rule.http: Destruction complete after 0s[0m
+[0m[1maws_vpc_security_group_ingress_rule.https: Destruction complete after 0s[0m
+[0m[1maws_vpc_security_group_egress_rule.all: Destruction complete after 0s[0m
+[0m[1maws_route_table_association.private["a"]: Destruction complete after 0s[0m
+[0m[1maws_vpc_security_group_ingress_rule.ssh_admin: Destruction complete after 0s[0m
+[0m[1maws_route_table.private: Destroying... [id=rtb-44e2c6af87cf9fd33][0m[0m
+[0m[1maws_subnet.private["a"]: Destroying... [id=subnet-918a72f0aa64b171e][0m[0m
+[0m[1maws_s3_bucket_public_access_block.assets: Destruction complete after 0s[0m
+[0m[1maws_subnet.private["a"]: Destruction complete after 0s[0m
+[0m[1maws_route_table.private: Destruction complete after 0s[0m
+[0m[1maws_instance.web: Still destroying... [id=i-9e9fe1e005683a560, 00m10s elapsed][0m[0m
+[0m[1maws_instance.web: Destruction complete after 10s[0m
+[0m[1maws_route_table_association.public["b"]: Destroying... [id=rtbassoc-53c8ad984a45178ee][0m[0m
+[0m[1maws_route_table_association.public["a"]: Destroying... [id=rtbassoc-3ba4d0ee07c92bdb6][0m[0m
+[0m[1maws_iam_instance_profile.web: Destroying... [id=s19-campus-web-web-profile][0m[0m
+[0m[1maws_s3_object.index: Destroying... [id=s19-campus-web-assets-7832df/site/index.html][0m[0m
+[0m[1maws_security_group.web: Destroying... [id=sg-10b57e60c2b78b6ca][0m[0m
+[0m[1maws_s3_object.index: Destruction complete after 0s[0m
+[0m[1maws_s3_bucket.assets: Destroying... [id=s19-campus-web-assets-7832df][0m[0m
+[0m[1maws_route_table_association.public["a"]: Destruction complete after 0s[0m
+[0m[1maws_route_table_association.public["b"]: Destruction complete after 0s[0m
+[0m[1maws_route_table.public: Destroying... [id=rtb-e91548f917f816ffc][0m[0m
+[0m[1maws_subnet.public["b"]: Destroying... [id=subnet-c8c075fc260d4108c][0m[0m
+[0m[1maws_subnet.public["a"]: Destroying... [id=subnet-aadd374260209e988][0m[0m
+[0m[1maws_iam_instance_profile.web: Destruction complete after 0s[0m
+[0m[1maws_iam_role.web: Destroying... [id=s19-campus-web-web-role][0m[0m
+[0m[1maws_s3_bucket.assets: Destruction complete after 0s[0m
+[0m[1mrandom_id.bucket_suffix: Destroying... [id=eDLf][0m[0m
+[0m[1mrandom_id.bucket_suffix: Destruction complete after 0s[0m
+[0m[1maws_security_group.web: Destruction complete after 0s[0m
+[0m[1maws_subnet.public["a"]: Destruction complete after 0s[0m
+[0m[1maws_subnet.public["b"]: Destruction complete after 0s[0m
+[0m[1maws_iam_role.web: Destruction complete after 0s[0m
+[0m[1maws_route_table.public: Destruction complete after 0s[0m
+[0m[1maws_internet_gateway.main: Destroying... [id=igw-3776f9c43404361e0][0m[0m
+[0m[1maws_internet_gateway.main: Destruction complete after 0s[0m
+[0m[1maws_vpc.main: Destroying... [id=vpc-6ad621802460087ea][0m[0m
+[0m[1maws_vpc.main: Destruction complete after 0s[0m
+[0m[1m[32m
+Destroy complete! Resources: 25 destroyed.[0m
+
+$ terraform state list | wc -l; terraform state pull | jq "{serial, resources: (.resources | length)}"
+0
+{
+  "serial": 5,
+  "resources": 0
+}
+
+$ aws ec2 describe-instances --query "Reservations[].Instances[].[InstanceId,State.Name]" --output text; aws ec2 describe-vpcs --filters Name=tag:Project,Values=s19-campus-web --query "length(Vpcs)"
+i-9e9fe1e005683a560	terminated
+0
+
+$ aws s3 ls; echo "^ only the state bucket remains (it was created outside Terraform, on purpose)"
+2026-10-08 13:48:39 ratnesh-tfstate-s19
+^ only the state bucket remains (it was created outside Terraform, on purpose)
+
+$ rm -f tfplan tfplan-change && ls -a
+.
+..
+backend-aws.hcl.example
+backend-emulator.hcl
+compute.tf
+network.tf
+outputs.tf
+providers.tf
+security.tf
+storage.tf
+.terraform
+.terraform.lock.hcl
+terraform.tfvars
+user_data.sh
+variables.tf
+versions.tf
+

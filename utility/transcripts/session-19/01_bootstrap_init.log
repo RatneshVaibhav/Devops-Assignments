@@ -1,0 +1,67 @@
+#CWD ~/Devops-Assignments/session-19-cloud-terraform/terraform
+$ ../../utility/aws-emulator/start.sh && source ../../utility/aws-emulator/env.sh && aws sts get-caller-identity --query Account --output text
+AWS emulator (moto) listening on http://localhost:4566
+123456789012
+
+$ ../bootstrap/create-state-bucket.sh ratnesh-tfstate-s19
+/ratnesh-tfstate-s19
+state bucket ratnesh-tfstate-s19 ready (versioning enabled, public access blocked)
+
+$ cat backend-emulator.hcl | grep -v "^#" | grep -v "^$"
+bucket       = "ratnesh-tfstate-s19"
+key          = "session-19/terraform.tfstate"
+region       = "ap-south-1"
+encrypt      = true
+use_lockfile = true # S3-native lock: a <key>.tflock object, no DynamoDB table needed
+endpoints = {
+  s3 = "http://localhost:4566"
+}
+use_path_style              = true
+skip_credentials_validation = true
+skip_requesting_account_id  = true
+skip_metadata_api_check     = true
+
+$ terraform init -backend-config=backend-emulator.hcl
+[0m[1mInitializing the backend...[0m
+[0m[32m
+Successfully configured the backend "s3"! Terraform will automatically
+use this backend unless the backend configuration changes.[0m
+
+[0m[1mInitializing provider plugins...[0m
+- Finding hashicorp/aws versions matching "~> 6.0"...
+- Finding hashicorp/random versions matching "~> 3.7"...
+- Installing hashicorp/aws v6.68.0...
+- Installed hashicorp/aws v6.68.0 (signed by HashiCorp)
+- Installing hashicorp/random v3.9.1...
+- Installed hashicorp/random v3.9.1 (signed by HashiCorp)
+
+Terraform has created a lock file [1m.terraform.lock.hcl[0m to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.[0m
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+
+$ terraform providers
+
+Providers required by configuration:
+.
+├── provider[registry.terraform.io/hashicorp/aws] ~> 6.0
+└── provider[registry.terraform.io/hashicorp/random] ~> 3.7
+
+
+$ terraform fmt -recursive -check && echo "fmt: all files formatted"
+fmt: all files formatted
+
+$ terraform validate
+[32m[1mSuccess![0m The configuration is valid.
+[0m
+

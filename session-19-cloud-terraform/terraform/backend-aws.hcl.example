@@ -1,0 +1,6 @@
+# copy to backend-aws.hcl and: terraform init -backend-config=backend-aws.hcl
+bucket       = "<your-state-bucket>"
+key          = "session-19/terraform.tfstate"
+region       = "ap-south-1"
+encrypt      = true
+use_lockfile = true

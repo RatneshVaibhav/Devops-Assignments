@@ -1,0 +1,42 @@
+#CWD ~/Devops-Assignments/session-19-cloud-terraform/terraform
+$ terraform plan -out=tfplan -no-color > ../../utility/transcripts/session-19/raw/plan.txt; echo "plan exit code: $?"
+plan exit code: 0
+
+$ grep -E "^  # |^Plan:|^Changes to Outputs|Saved the plan" ../../utility/transcripts/session-19/raw/plan.txt
+  # aws_iam_instance_profile.web will be created
+  # aws_iam_role.web will be created
+  # aws_iam_role_policy.read_site will be created
+  # aws_instance.web will be created
+  # aws_internet_gateway.main will be created
+  # aws_route_table.private will be created
+  # aws_route_table.public will be created
+  # aws_route_table_association.private["a"] will be created
+  # aws_route_table_association.public["a"] will be created
+  # aws_route_table_association.public["b"] will be created
+  # aws_s3_bucket.assets will be created
+  # aws_s3_bucket_public_access_block.assets will be created
+  # aws_s3_bucket_server_side_encryption_configuration.assets will be created
+  # aws_s3_bucket_versioning.assets will be created
+  # aws_s3_object.index will be created
+  # aws_security_group.web will be created
+  # aws_subnet.private["a"] will be created
+  # aws_subnet.public["a"] will be created
+  # aws_subnet.public["b"] will be created
+  # aws_vpc.main will be created
+  # aws_vpc_security_group_egress_rule.all will be created
+  # aws_vpc_security_group_ingress_rule.http will be created
+  # aws_vpc_security_group_ingress_rule.https will be created
+  # aws_vpc_security_group_ingress_rule.ssh_admin will be created
+  # random_id.bucket_suffix will be created
+Plan: 25 to add, 0 to change, 0 to destroy.
+Changes to Outputs:
+Saved the plan to: tfplan
+
+$ terraform show -json tfplan | jq -r "[.resource_changes[].change.actions[0]] | group_by(.) | map({action: .[0], count: length})"
+[
+  {
+    "action": "create",
+    "count": 25
+  }
+]
+

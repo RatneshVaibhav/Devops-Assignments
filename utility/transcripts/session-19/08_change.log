@@ -1,0 +1,22 @@
+#CWD ~/Devops-Assignments/session-19-cloud-terraform/terraform
+$ terraform plan -no-color -var instance_type=t3.small -out=tfplan-change | sed -n "/Terraform will perform/,\$p" | grep -E "^  # |^\s+~ (instance_type|tags)|^Plan:|~ update"
+  # aws_instance.web will be updated in-place
+      ~ instance_type                        = "t3.micro" -> "t3.small"
+  # aws_s3_bucket.assets will be updated in-place
+      ~ tags                        = {
+      ~ tags_all                    = {
+Plan: 0 to add, 2 to change, 0 to destroy.
+
+$ terraform apply -no-color tfplan-change | grep -E "Modifying|Modifications complete|Apply complete"
+aws_s3_bucket.assets: Modifying... [id=s19-campus-web-assets-7832df]
+aws_s3_bucket.assets: Modifications complete after 0s [id=s19-campus-web-assets-7832df]
+aws_instance.web: Modifying... [id=i-9e9fe1e005683a560]
+aws_instance.web: Modifications complete after 20s [id=i-9e9fe1e005683a560]
+Apply complete! Resources: 0 added, 2 changed, 0 destroyed.
+
+$ aws ec2 describe-instances --instance-ids $(terraform output -raw web_instance_id) --query "Reservations[0].Instances[0].[InstanceId,InstanceType,State.Name]" --output text
+i-9e9fe1e005683a560	t3.small	running
+
+$ terraform plan -no-color -var instance_type=t3.small -detailed-exitcode > /dev/null; echo "plan exit code: $? (0 = infrastructure matches the code)"
+plan exit code: 0 (0 = infrastructure matches the code)
+
