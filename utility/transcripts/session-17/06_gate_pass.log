@@ -1,0 +1,23 @@
+#CWD ~/Devops-Assignments/session-17-devsecops
+$ security/scan-local.sh session17-lost-and-found:local
+bandit.json
+gitleaks.json
+pip-audit.json
+semgrep.json
+trivy-fs.json
+trivy-image.json
+
+$ security/security-gate.sh reports; echo "gate exit code: $?"
+
+CHECK     TOOL          FINDINGS  BLOCKING  RESULT
+-------   ----------    --------  --------  ------
+SAST      bandit               0         0  PASS
+SAST      semgrep              0         0  PASS
+SCA       pip-audit            0         0  PASS
+SCA       trivy-fs             0         0  PASS
+SECRETS   gitleaks             0         0  PASS
+IMAGE     trivy-image          0         0  PASS
+
+SECURITY GATE: PASSED - image may be pushed and deployed
+gate exit code: 0
+

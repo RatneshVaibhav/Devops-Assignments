@@ -1,0 +1,23 @@
+#CWD ~/Devops-Assignments/session-17-devsecops
+$ rm -f app/insecure_admin.py app/settings_local.py && grep -v -E "^(PyYAML|requests)==" requirements.txt > requirements.tmp && mv requirements.tmp requirements.txt && cat requirements.txt && ls app
+Flask==3.1.3
+gunicorn==26.2.0
+__init__.py
+main.py
+__pycache__
+store.py
+
+$ security/scan-local.sh session17-lost-and-found:local > /dev/null && security/security-gate.sh reports; echo "gate exit code: $?"
+
+CHECK     TOOL          FINDINGS  BLOCKING  RESULT
+-------   ----------    --------  --------  ------
+SAST      bandit               0         0  PASS
+SAST      semgrep              0         0  PASS
+SCA       pip-audit            0         0  PASS
+SCA       trivy-fs             0         0  PASS
+SECRETS   gitleaks             0         0  PASS
+IMAGE     trivy-image          0         0  PASS
+
+SECURITY GATE: PASSED - image may be pushed and deployed
+gate exit code: 0
+

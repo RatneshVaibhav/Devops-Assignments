@@ -1,0 +1,34 @@
+#CWD ~/Devops-Assignments/session-17-devsecops
+$ jq -r ".results[] | \"\(.issue_severity)\t\(.test_id)\t\(.filename):\(.line_number)\t\(.issue_text)\"" reports/bandit.json | sed -E "s/cmp_live_[a-f0-9]{32}/cmp_live_<REDACTED>/"
+LOW	B404	app/insecure_admin.py:7	Consider possible security implications associated with the subprocess module.
+HIGH	B602	app/insecure_admin.py:14	subprocess call with shell=True identified, security issue.
+MEDIUM	B506	app/insecure_admin.py:19	Use of unsafe yaml load. Allows instantiation of arbitrary objects. Consider yaml.safe_load().
+HIGH	B324	app/insecure_admin.py:24	Use of weak MD5 hash for security. Consider usedforsecurity=False
+MEDIUM	B104	app/insecure_admin.py:29	Possible binding to all interfaces.
+LOW	B105	app/settings_local.py:1	Possible hardcoded password: 'cmp_live_<REDACTED>'
+
+$ jq -r ".results[] | \"\(.extra.severity)\t\(.check_id | split(\".\") | last)\t\(.path):\(.start.line)\"" reports/semgrep.json
+ERROR	subprocess-shell-true	app/insecure_admin.py:14
+ERROR	subprocess-shell-true	app/insecure_admin.py:14
+ERROR	avoid-pyyaml-load	app/insecure_admin.py:19
+WARNING	insecure-hash-algorithm-md5	app/insecure_admin.py:24
+WARNING	md5-used-as-password	app/insecure_admin.py:24
+WARNING	avoid_app_run_with_bad_host	app/insecure_admin.py:29
+ERROR	flask-debug-enabled	app/insecure_admin.py:29
+ERROR	hardcoded-credential-assignment	app/settings_local.py:1
+
+$ jq -r ".dependencies[] | select(.vulns | length > 0) | \"\(.name) \(.version): \([.vulns[].id] | unique | join(\", \"))\"" reports/pip-audit.json
+pyyaml 5.3.1: PYSEC-2021-142
+requests 2.19.1: PYSEC-2018-28, PYSEC-2023-74, PYSEC-2026-1872, PYSEC-2026-1873, PYSEC-2026-2275
+idna 2.7: PYSEC-2024-60, PYSEC-2026-215
+urllib3 1.23: PYSEC-2019-132, PYSEC-2019-133, PYSEC-2020-148, PYSEC-2023-192, PYSEC-2023-207, PYSEC-2023-212, PYSEC-2026-141, PYSEC-2026-1994, PYSEC-2026-1995, PYSEC-2026-1996, PYSEC-2026-1999, PYSEC-2026-4177
+
+$ jq -r ".[] | \"\(.RuleID)\t\(.File):\(.StartLine)\t\(.Secret)\"" reports/gitleaks.json
+campus-portal-token	app/settings_local.py:1	REDACTED
+generic-api-key	app/settings_local.py:1	REDACTED
+
+$ jq -r "[.Results[]?.Vulnerabilities[]?] | group_by(.PkgName) | map(\"\(.[0].PkgName) \(.[0].InstalledVersion): \(length) HIGH/CRITICAL, e.g. \(.[0].VulnerabilityID) fixed in \(.[0].FixedVersion)\") | .[]" reports/trivy-image.json
+PyYAML 5.3.1: 1 HIGH/CRITICAL, e.g. CVE-2020-14343 fixed in 5.4
+requests 2.19.1: 1 HIGH/CRITICAL, e.g. CVE-2018-18074 fixed in 2.20.0
+urllib3 1.23: 6 HIGH/CRITICAL, e.g. CVE-2019-11324 fixed in 1.24.2
+

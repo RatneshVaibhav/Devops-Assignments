@@ -1,0 +1,1276 @@
+time="2026-10-08T13:27:46+05:30" level=info msg="Using docker host 'unix:///home/ratnesh/.docker/desktop/docker.sock', and daemon socket 'unix:///var/run/docker.sock'"
+time="2026-10-08T13:27:46+05:30" level=info msg="Start server on http://100.128.167.30:34567"
+[Session 17 - DevSecOps pipeline/1 Build] ⭐ Run Set up job
+[Session 17 - DevSecOps pipeline/1 Build] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 17 - DevSecOps pipeline/1 Build]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 17 - DevSecOps pipeline/1 Build]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 17 - DevSecOps pipeline/1 Build]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 17 - DevSecOps pipeline/1 Build]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 17 - DevSecOps pipeline/1 Build]   ✅  Success - Set up job
+[Session 17 - DevSecOps pipeline/1 Build]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v5
+[Session 17 - DevSecOps pipeline/1 Build] ⭐ Run Main actions/checkout@v4
+[Session 17 - DevSecOps pipeline/1 Build]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 17 - DevSecOps pipeline/1 Build]   ✅  Success - Main actions/checkout@v4 [602.752531ms]
+[Session 17 - DevSecOps pipeline/1 Build] ⭐ Run Main actions/setup-python@v5
+[Session 17 - DevSecOps pipeline/1 Build]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-setup-python@v5/ dst=/var/run/act/actions/actions-setup-python@v5/
+[Session 17 - DevSecOps pipeline/1 Build]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/setup/index.js] user= workdir=
+[Session 17 - DevSecOps pipeline/1 Build]   ❓  ::group::Installed versions
+[Session 17 - DevSecOps pipeline/1 Build]   | (node:31) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 17 - DevSecOps pipeline/1 Build]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 17 - DevSecOps pipeline/1 Build]   | Successfully set up CPython (3.12.15)
+[Session 17 - DevSecOps pipeline/1 Build]   ❓  ::endgroup::
+[Session 17 - DevSecOps pipeline/1 Build]   ❓ add-matcher /run/act/actions/actions-setup-python@v5/.github/python.json
+[Session 17 - DevSecOps pipeline/1 Build]   ✅  Success - Main actions/setup-python@v5 [1.054492178s]
+[Session 17 - DevSecOps pipeline/1 Build]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 17 - DevSecOps pipeline/1 Build]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+[Session 17 - DevSecOps pipeline/1 Build]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 17 - DevSecOps pipeline/1 Build]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 17 - DevSecOps pipeline/1 Build]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 17 - DevSecOps pipeline/1 Build]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib
+[Session 17 - DevSecOps pipeline/1 Build]   ⚙  ::set-output:: python-version=3.12.15
+[Session 17 - DevSecOps pipeline/1 Build]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.12.15/x64/bin/python
+[Session 17 - DevSecOps pipeline/1 Build]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64
+[Session 17 - DevSecOps pipeline/1 Build]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64/bin
+[Session 17 - DevSecOps pipeline/1 Build] ⭐ Run Main Install runtime dependencies
+[Session 17 - DevSecOps pipeline/1 Build]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/1 Build]   | Requirement already satisfied: Flask==3.1.3 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from -r requirements.txt (line 1)) (3.1.3)
+[Session 17 - DevSecOps pipeline/1 Build]   | Requirement already satisfied: gunicorn==26.2.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from -r requirements.txt (line 2)) (26.2.0)
+[Session 17 - DevSecOps pipeline/1 Build]   | Requirement already satisfied: blinker>=1.9.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r requirements.txt (line 1)) (1.9.0)
+[Session 17 - DevSecOps pipeline/1 Build]   | Requirement already satisfied: click>=8.1.3 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r requirements.txt (line 1)) (8.5.0)
+[Session 17 - DevSecOps pipeline/1 Build]   | Requirement already satisfied: itsdangerous>=2.2.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r requirements.txt (line 1)) (2.2.0)
+[Session 17 - DevSecOps pipeline/1 Build]   | Requirement already satisfied: jinja2>=3.1.2 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r requirements.txt (line 1)) (3.1.6)
+[Session 17 - DevSecOps pipeline/1 Build]   | Requirement already satisfied: markupsafe>=2.1.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r requirements.txt (line 1)) (3.0.4)
+[Session 17 - DevSecOps pipeline/1 Build]   | Requirement already satisfied: werkzeug>=3.1.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r requirements.txt (line 1)) (3.1.9)
+[Session 17 - DevSecOps pipeline/1 Build]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[Session 17 - DevSecOps pipeline/1 Build]   ✅  Success - Main Install runtime dependencies [935.371488ms]
+[Session 17 - DevSecOps pipeline/1 Build] ⭐ Run Main Compile the application
+[Session 17 - DevSecOps pipeline/1 Build]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/1 Build]   | app compiles
+[Session 17 - DevSecOps pipeline/1 Build]   ✅  Success - Main Compile the application [169.161404ms]
+[Session 17 - DevSecOps pipeline/1 Build] ⭐ Run Post actions/setup-python@v5
+[Session 17 - DevSecOps pipeline/1 Build]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/cache-save/index.js] user= workdir=
+[Session 17 - DevSecOps pipeline/1 Build]   | (node:74) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 17 - DevSecOps pipeline/1 Build]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 17 - DevSecOps pipeline/1 Build]   ✅  Success - Post actions/setup-python@v5 [220.078428ms]
+[Session 17 - DevSecOps pipeline/1 Build] ⭐ Run Complete job
+[Session 17 - DevSecOps pipeline/1 Build] Cleaning up container for job 1 Build
+[Session 17 - DevSecOps pipeline/1 Build]   ✅  Success - Complete job
+[Session 17 - DevSecOps pipeline/1 Build] 🏁  Job succeeded
+[Session 17 - DevSecOps pipeline/2 Unit tests] ⭐ Run Set up job
+[Session 17 - DevSecOps pipeline/2 Unit tests] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 17 - DevSecOps pipeline/2 Unit tests]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 17 - DevSecOps pipeline/2 Unit tests]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 17 - DevSecOps pipeline/2 Unit tests]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 17 - DevSecOps pipeline/2 Unit tests]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ✅  Success - Set up job
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v5
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[Session 17 - DevSecOps pipeline/2 Unit tests] ⭐ Run Main actions/checkout@v4
+[Session 17 - DevSecOps pipeline/2 Unit tests]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ✅  Success - Main actions/checkout@v4 [639.147439ms]
+[Session 17 - DevSecOps pipeline/2 Unit tests] ⭐ Run Main actions/setup-python@v5
+[Session 17 - DevSecOps pipeline/2 Unit tests]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-setup-python@v5/ dst=/var/run/act/actions/actions-setup-python@v5/
+[Session 17 - DevSecOps pipeline/2 Unit tests]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/setup/index.js] user= workdir=
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ❓  ::group::Installed versions
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | (node:30) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Successfully set up CPython (3.12.15)
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ❓  ::endgroup::
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ❓ add-matcher /run/act/actions/actions-setup-python@v5/.github/python.json
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ✅  Success - Main actions/setup-python@v5 [984.795615ms]
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ⚙  ::set-output:: python-version=3.12.15
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.12.15/x64/bin/python
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64/bin
+[Session 17 - DevSecOps pipeline/2 Unit tests] ⭐ Run Main Install dependencies
+[Session 17 - DevSecOps pipeline/2 Unit tests]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Requirement already satisfied: Flask==3.1.3 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from -r /home/ratnesh/Devops-Assignments/session-17-devsecops/requirements.txt (line 1)) (3.1.3)
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Requirement already satisfied: gunicorn==26.2.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from -r /home/ratnesh/Devops-Assignments/session-17-devsecops/requirements.txt (line 2)) (26.2.0)
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Requirement already satisfied: pytest==9.1.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from -r requirements-dev.txt (line 2)) (9.1.1)
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Requirement already satisfied: pytest-cov==7.1.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from -r requirements-dev.txt (line 3)) (7.1.0)
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Requirement already satisfied: blinker>=1.9.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-17-devsecops/requirements.txt (line 1)) (1.9.0)
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Requirement already satisfied: click>=8.1.3 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-17-devsecops/requirements.txt (line 1)) (8.5.0)
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Requirement already satisfied: itsdangerous>=2.2.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-17-devsecops/requirements.txt (line 1)) (2.2.0)
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Requirement already satisfied: jinja2>=3.1.2 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-17-devsecops/requirements.txt (line 1)) (3.1.6)
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Requirement already satisfied: markupsafe>=2.1.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-17-devsecops/requirements.txt (line 1)) (3.0.4)
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Requirement already satisfied: werkzeug>=3.1.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-17-devsecops/requirements.txt (line 1)) (3.1.9)
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Requirement already satisfied: iniconfig>=1.0.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (2.3.1)
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Requirement already satisfied: packaging>=22 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (26.3)
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Requirement already satisfied: pluggy<2,>=1.5 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (1.6.0)
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Requirement already satisfied: pygments>=2.7.2 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (2.21.0)
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Requirement already satisfied: coverage>=7.10.6 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from coverage[toml]>=7.10.6->pytest-cov==7.1.0->-r requirements-dev.txt (line 3)) (7.16.2)
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ✅  Success - Main Install dependencies [828.693426ms]
+[Session 17 - DevSecOps pipeline/2 Unit tests] ⭐ Run Main Run pytest
+[Session 17 - DevSecOps pipeline/2 Unit tests]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | ============================= test session starts ==============================
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | platform linux -- Python 3.12.15, pytest-9.1.1, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.12.15/x64/bin/python
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | cachedir: .pytest_cache
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | rootdir: /home/ratnesh/Devops-Assignments/session-17-devsecops
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | configfile: pytest.ini
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | testpaths: tests
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | plugins: cov-7.1.0
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | collecting ... collected 9 items
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | 
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | tests/test_api.py::test_health PASSED                                    [ 11%]
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | tests/test_api.py::test_security_headers PASSED                          [ 22%]
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | tests/test_api.py::test_report_and_get_item PASSED                       [ 33%]
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | tests/test_api.py::test_report_requires_title PASSED                     [ 44%]
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | tests/test_api.py::test_report_rejects_unknown_category PASSED           [ 55%]
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | tests/test_api.py::test_report_rejects_markup_in_location PASSED         [ 66%]
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | tests/test_api.py::test_search_by_text_and_category PASSED               [ 77%]
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | tests/test_api.py::test_claim_once_only PASSED                           [ 88%]
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | tests/test_api.py::test_missing_item_is_404 PASSED                       [100%]
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | 
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | - generated xml file: /home/ratnesh/Devops-Assignments/session-17-devsecops/reports/junit.xml -
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | ================================ tests coverage ================================
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | _______________ coverage: platform linux, python 3.12.15-final-0 _______________
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | 
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Name              Stmts   Miss  Cover
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | -------------------------------------
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | app/__init__.py       1      0   100%
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | app/main.py          42      1    98%
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | app/store.py         55      2    96%
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | -------------------------------------
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | TOTAL                98      3    97%
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | ============================== 9 passed in 0.35s ===============================
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ✅  Success - Main Run pytest [834.177811ms]
+[Session 17 - DevSecOps pipeline/2 Unit tests] ⭐ Run Main Upload test report
+[Session 17 - DevSecOps pipeline/2 Unit tests]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[Session 17 - DevSecOps pipeline/2 Unit tests]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | (node:73) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | With the provided path, there will be 1 file uploaded
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Artifact name is valid!
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Root directory input is valid!
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Beginning upload of artifact content to blob storage
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | (node:73) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Uploaded bytes 456
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Finished uploading artifact content to blob storage!
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | SHA256 digest of uploaded artifact zip is 9c6417ef516c42f9a6f75ffd6052968446e5abc6f4d6e01880093fef9290cdd3
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Finalizing artifact upload
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Artifact unit-test-report.zip successfully finalized. Artifact ID 3167768447
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Artifact unit-test-report has been successfully uploaded! Final size is 456 bytes. Artifact ID is 3167768447
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | Artifact download URL: https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/3167768447
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ✅  Success - Main Upload test report [852.584521ms]
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ⚙  ::set-output:: artifact-id=3167768447
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ⚙  ::set-output:: artifact-digest=9c6417ef516c42f9a6f75ffd6052968446e5abc6f4d6e01880093fef9290cdd3
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ⚙  ::set-output:: artifact-url=https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/3167768447
+[Session 17 - DevSecOps pipeline/2 Unit tests] ⭐ Run Post actions/setup-python@v5
+[Session 17 - DevSecOps pipeline/2 Unit tests]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/cache-save/index.js] user= workdir=
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | (node:90) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 17 - DevSecOps pipeline/2 Unit tests]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ✅  Success - Post actions/setup-python@v5 [279.044086ms]
+[Session 17 - DevSecOps pipeline/2 Unit tests] ⭐ Run Complete job
+[Session 17 - DevSecOps pipeline/2 Unit tests] Cleaning up container for job 2 Unit tests
+[Session 17 - DevSecOps pipeline/2 Unit tests]   ✅  Success - Complete job
+[Session 17 - DevSecOps pipeline/2 Unit tests] 🏁  Job succeeded
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ] ⭐ Run Set up job
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)] ⭐ Run Set up job
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ] ⭐ Run Set up job
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   ✅  Success - Set up job
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ✅  Success - Set up job
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ✅  Success - Set up job
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v5
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v5
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ] ⭐ Run Main actions/checkout@v4
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   ✅  Success - Main actions/checkout@v4 [617.337187ms]
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ] ⭐ Run Main Install pinned, checksum-verified scanners
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/1.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ] ⭐ Run Main actions/checkout@v4
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ✅  Success - Main actions/checkout@v4 [458.559095ms]
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ] ⭐ Run Main actions/setup-python@v5
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-setup-python@v5/ dst=/var/run/act/actions/actions-setup-python@v5/
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/setup/index.js] user= workdir=
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)] ⭐ Run Main actions/checkout@v4
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ❓  ::group::Installed versions
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | (node:31) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Successfully set up CPython (3.12.15)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ❓  ::endgroup::
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ❓ add-matcher /run/act/actions/actions-setup-python@v5/.github/python.json
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ✅  Success - Main actions/setup-python@v5 [1.127121317s]
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ⚙  ::set-output:: python-version=3.12.15
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.12.15/x64/bin/python
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64/bin
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ] ⭐ Run Main Install scanners
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ✅  Success - Main actions/checkout@v4 [708.023052ms]
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)] ⭐ Run Main actions/setup-python@v5
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-setup-python@v5/ dst=/var/run/act/actions/actions-setup-python@v5/
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting bandit==1.9.4
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/setup/index.js] user= workdir=
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ❓  ::group::Installed versions
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | (node:30) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Successfully set up CPython (3.12.15)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ❓  ::endgroup::
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ❓ add-matcher /run/act/actions/actions-setup-python@v5/.github/python.json
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ✅  Success - Main actions/setup-python@v5 [1.254073089s]
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ⚙  ::set-output:: python-version=3.12.15
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.12.15/x64/bin/python
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64/bin
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)] ⭐ Run Main Install pinned, checksum-verified scanners
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading bandit-1.9.4-py3-none-any.whl.metadata (7.1 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting semgrep==1.179.0
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading semgrep-1.179.0-cp310.cp311.cp312.cp313.cp314.py310.py311.py312.py313.py314-none-manylinux_2_34_x86_64.whl.metadata (22 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting PyYAML>=5.3.1 (from bandit==1.9.4)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting stevedore>=1.20.0 (from bandit==1.9.4)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading stevedore-5.9.1-py3-none-any.whl.metadata (2.3 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting rich (from bandit==1.9.4)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting attrs>=21.3 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting boltons~=21.0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading boltons-21.0.0-py2.py3-none-any.whl.metadata (1.5 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting click-option-group~=0.5 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading click_option_group-0.5.9-py3-none-any.whl.metadata (5.8 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting click~=8.4.2 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading click-8.4.2-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting colorama~=0.4.0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading colorama-0.4.6-py2.py3-none-any.whl.metadata (17 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting exceptiongroup~=1.2.0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading exceptiongroup-1.2.2-py3-none-any.whl.metadata (6.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting glom>=23.3 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading glom-25.12.0-py3-none-any.whl.metadata (5.2 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting jsonschema~=4.25.1 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading jsonschema-4.25.1-py3-none-any.whl.metadata (7.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting mcp==1.29.0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading mcp-1.29.0-py3-none-any.whl.metadata (9.3 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-api~=1.37.0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_api-1.37.0-py3-none-any.whl.metadata (1.5 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-sdk~=1.37.0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_sdk-1.37.0-py3-none-any.whl.metadata (1.5 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-exporter-otlp-proto-http~=1.37.0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_exporter_otlp_proto_http-1.37.0-py3-none-any.whl.metadata (2.3 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_requests-0.66b1-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation-threading~=0.58b0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_threading-0.66b1-py3-none-any.whl.metadata (2.1 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Requirement already satisfied: packaging>=21.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (26.3)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting peewee~=3.14 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading peewee-3.19.0-py3-none-any.whl.metadata (7.0 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting pyjwt<3,>=2.15.0 (from pyjwt[crypto]<3,>=2.15.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading pyjwt-2.15.1-py3-none-any.whl.metadata (3.5 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting requests~=2.22 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting ruamel.yaml>=0.18.15 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading ruamel_yaml-0.19.1-py3-none-any.whl.metadata (16 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting ruamel.yaml.clib==0.2.15 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading ruamel_yaml_clib-0.2.15-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (3.5 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting semantic-version~=2.10.0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading semantic_version-2.10.0-py2.py3-none-any.whl.metadata (9.7 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting tomli~=2.4.0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading tomli-2.4.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (10 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting typing-extensions~=4.2 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting urllib3~=2.0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting wcmatch~=8.3 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading wcmatch-8.5.2-py3-none-any.whl.metadata (4.8 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting anyio>=4.5 (from mcp==1.29.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading anyio-4.15.1-py3-none-any.whl.metadata (4.7 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting httpx-sse>=0.4 (from mcp==1.29.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading httpx_sse-0.4.3-py3-none-any.whl.metadata (9.7 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting httpx<1.0.0,>=0.27.1 (from mcp==1.29.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   | installed trivy (sha256 verified)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting pydantic-settings>=2.5.2 (from mcp==1.29.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading pydantic_settings-2.15.0-py3-none-any.whl.metadata (3.9 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting pydantic<3.0.0,>=2.11.0 (from mcp==1.29.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading pydantic-2.13.5-py3-none-any.whl.metadata (110 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting python-multipart>=0.0.9 (from mcp==1.29.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading python_multipart-0.0.32-py3-none-any.whl.metadata (2.1 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting sse-starlette>=1.6.1 (from mcp==1.29.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading sse_starlette-3.5.0-py3-none-any.whl.metadata (15 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting starlette>=0.27 (from mcp==1.29.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading starlette-1.7.0-py3-none-any.whl.metadata (6.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting typing-inspection>=0.4.1 (from mcp==1.29.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading typing_inspection-0.4.4-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting uvicorn>=0.31.1 (from mcp==1.29.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting certifi (from httpx<1.0.0,>=0.27.1->mcp==1.29.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting httpcore==1.* (from httpx<1.0.0,>=0.27.1->mcp==1.29.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting idna (from httpx<1.0.0,>=0.27.1->mcp==1.29.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0,>=0.27.1->mcp==1.29.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting jsonschema-specifications>=2023.03.6 (from jsonschema~=4.25.1->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting referencing>=0.28.4 (from jsonschema~=4.25.1->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting rpds-py>=0.7.1 (from jsonschema~=4.25.1->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting importlib-metadata<8.8.0,>=6.0 (from opentelemetry-api~=1.37.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading importlib_metadata-8.7.1-py3-none-any.whl.metadata (4.7 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting zipp>=3.20 (from importlib-metadata<8.8.0,>=6.0->opentelemetry-api~=1.37.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading zipp-4.1.1-py3-none-any.whl.metadata (3.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting googleapis-common-protos~=1.52 (from opentelemetry-exporter-otlp-proto-http~=1.37.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading googleapis_common_protos-1.75.5-py3-none-any.whl.metadata (8.5 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-exporter-otlp-proto-common==1.37.0 (from opentelemetry-exporter-otlp-proto-http~=1.37.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_exporter_otlp_proto_common-1.37.0-py3-none-any.whl.metadata (1.8 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-proto==1.37.0 (from opentelemetry-exporter-otlp-proto-http~=1.37.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_proto-1.37.0-py3-none-any.whl.metadata (2.3 kB)
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   | installed gitleaks (sha256 verified)
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   | Version: 0.75.0
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting protobuf<7.0,>=5.0 (from opentelemetry-proto==1.37.0->opentelemetry-exporter-otlp-proto-http~=1.37.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading protobuf-6.33.6-cp39-abi3-manylinux2014_x86_64.whl.metadata (593 bytes)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation==0.66b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation-0.66b1-py3-none-any.whl.metadata (7.2 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-semantic-conventions==0.66b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_semantic_conventions-0.66b1-py3-none-any.whl.metadata (2.4 kB)
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   | gitleaks 8.30.1
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   ✅  Success - Main Install pinned, checksum-verified scanners [15.251005178s]
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-util-http==0.66b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   ⚙  ::add-path:: /root/.local/bin
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_util_http-0.66b1-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ] ⭐ Run Main Gitleaks
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   | [90m7:58AM[0m [32mINF[0m [1mscanned ~17153 bytes (17.15 KB) in 18.1ms[0m
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   | [90m7:58AM[0m [32mINF[0m [1mno leaks found[0m
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   | gitleaks: 0 secrets found
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   ✅  Success - Main Gitleaks [633.086036ms]
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ] ⭐ Run Main actions/upload-artifact@v4
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting wrapt<3.0.0,>=1.0.0 (from opentelemetry-instrumentation==0.66b1->opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading wrapt-2.5.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (7.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | INFO: pip is looking at multiple versions of opentelemetry-semantic-conventions to determine which version is compatible with other requirements. This could take a while.
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_requests-0.66b0-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation==0.66b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation-0.66b0-py3-none-any.whl.metadata (7.2 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-semantic-conventions==0.66b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_semantic_conventions-0.66b0-py3-none-any.whl.metadata (2.4 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-util-http==0.66b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_util_http-0.66b0-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_requests-0.65b0-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation==0.65b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation-0.65b0-py3-none-any.whl.metadata (7.2 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-semantic-conventions==0.65b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_semantic_conventions-0.65b0-py3-none-any.whl.metadata (2.4 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-util-http==0.65b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_util_http-0.65b0-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_requests-0.64b0-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation==0.64b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation-0.64b0-py3-none-any.whl.metadata (7.2 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-semantic-conventions==0.64b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_semantic_conventions-0.64b0-py3-none-any.whl.metadata (2.4 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-util-http==0.64b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_util_http-0.64b0-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_requests-0.63b1-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation==0.63b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation-0.63b1-py3-none-any.whl.metadata (7.2 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-semantic-conventions==0.63b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_semantic_conventions-0.63b1-py3-none-any.whl.metadata (2.4 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-util-http==0.63b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   | (node:110) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   | With the provided path, there will be 1 file uploaded
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   | Artifact name is valid!
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   | Root directory input is valid!
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_util_http-0.63b1-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   | Beginning upload of artifact content to blob storage
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   | (node:110) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   | Uploaded bytes 145
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   | Finished uploading artifact content to blob storage!
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   | SHA256 digest of uploaded artifact zip is f704bbcce50dda768c8e5c332ef7a8e444cb2b46bd7baf3fddb8ede52fbbdea7
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   | Finalizing artifact upload
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   | Artifact security-secrets.zip successfully finalized. Artifact ID 1319986419
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   | Artifact security-secrets has been successfully uploaded! Final size is 145 bytes. Artifact ID is 1319986419
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   | Artifact download URL: https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/1319986419
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   ✅  Success - Main actions/upload-artifact@v4 [1.183733989s]
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_requests-0.63b0-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   ⚙  ::set-output:: artifact-id=1319986419
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   ⚙  ::set-output:: artifact-digest=f704bbcce50dda768c8e5c332ef7a8e444cb2b46bd7baf3fddb8ede52fbbdea7
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   ⚙  ::set-output:: artifact-url=https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/1319986419
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation==0.63b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ] ⭐ Run Complete job
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ] Cleaning up container for job 5 Secret scan (Gitleaks)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation-0.63b0-py3-none-any.whl.metadata (7.2 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-semantic-conventions==0.63b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_semantic_conventions-0.63b0-py3-none-any.whl.metadata (2.4 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-util-http==0.63b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_util_http-0.63b0-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_requests-0.62b1-py3-none-any.whl.metadata (2.7 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation==0.62b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation-0.62b1-py3-none-any.whl.metadata (7.2 kB)
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ]   ✅  Success - Complete job
+[Session 17 - DevSecOps pipeline/5 Secret scan (Gitleaks)    ] 🏁  Job succeeded
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-semantic-conventions==0.62b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_semantic_conventions-0.62b1-py3-none-any.whl.metadata (2.5 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-util-http==0.62b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_util_http-0.62b1-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_requests-0.62b0-py3-none-any.whl.metadata (2.7 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation==0.62b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation-0.62b0-py3-none-any.whl.metadata (7.2 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-semantic-conventions==0.62b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_semantic_conventions-0.62b0-py3-none-any.whl.metadata (2.5 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-util-http==0.62b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_util_http-0.62b0-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | INFO: pip is still looking at multiple versions of opentelemetry-semantic-conventions to determine which version is compatible with other requirements. This could take a while.
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_requests-0.61b0-py3-none-any.whl.metadata (2.7 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation==0.61b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation-0.61b0-py3-none-any.whl.metadata (7.2 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-semantic-conventions==0.61b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_semantic_conventions-0.61b0-py3-none-any.whl.metadata (2.5 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-util-http==0.61b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_util_http-0.61b0-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_requests-0.60b1-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation==0.60b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation-0.60b1-py3-none-any.whl.metadata (7.2 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-semantic-conventions==0.60b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_semantic_conventions-0.60b1-py3-none-any.whl.metadata (2.4 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-util-http==0.60b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_util_http-0.60b1-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_requests-0.60b0-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation==0.60b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation-0.60b0-py3-none-any.whl.metadata (7.2 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-semantic-conventions==0.60b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_semantic_conventions-0.60b0-py3-none-any.whl.metadata (2.4 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-util-http==0.60b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_util_http-0.60b0-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_requests-0.59b0-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation==0.59b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation-0.59b0-py3-none-any.whl.metadata (7.1 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-semantic-conventions==0.59b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_semantic_conventions-0.59b0-py3-none-any.whl.metadata (2.4 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-util-http==0.59b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_util_http-0.59b0-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_requests-0.58b0-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation==0.58b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation-0.58b0-py3-none-any.whl.metadata (7.1 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-semantic-conventions==0.58b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_semantic_conventions-0.58b0-py3-none-any.whl.metadata (2.4 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-util-http==0.58b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_util_http-0.58b0-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting wrapt<2.0.0,>=1.0.0 (from opentelemetry-instrumentation==0.58b0->opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading wrapt-1.17.3-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.4 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | INFO: pip is looking at multiple versions of opentelemetry-instrumentation-threading to determine which version is compatible with other requirements. This could take a while.
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting opentelemetry-instrumentation-threading~=0.58b0 (from semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_threading-0.66b0-py3-none-any.whl.metadata (2.1 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_threading-0.65b0-py3-none-any.whl.metadata (2.1 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_threading-0.64b0-py3-none-any.whl.metadata (2.1 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_threading-0.63b1-py3-none-any.whl.metadata (2.1 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_threading-0.63b0-py3-none-any.whl.metadata (2.1 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_threading-0.62b1-py3-none-any.whl.metadata (2.2 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_threading-0.62b0-py3-none-any.whl.metadata (2.2 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | INFO: pip is still looking at multiple versions of opentelemetry-instrumentation-threading to determine which version is compatible with other requirements. This could take a while.
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_threading-0.61b0-py3-none-any.whl.metadata (2.2 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_threading-0.60b1-py3-none-any.whl.metadata (2.1 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_threading-0.60b0-py3-none-any.whl.metadata (2.1 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_threading-0.59b0-py3-none-any.whl.metadata (2.1 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading opentelemetry_instrumentation_threading-0.58b0-py3-none-any.whl.metadata (2.1 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting annotated-types>=0.6.0 (from pydantic<3.0.0,>=2.11.0->mcp==1.29.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting pydantic-core==2.46.5 (from pydantic<3.0.0,>=2.11.0->mcp==1.29.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading pydantic_core-2.46.5-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting cryptography>=3.4.0 (from pyjwt[crypto]<3,>=2.15.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading cryptography-50.0.2-cp311-abi3-manylinux_2_34_x86_64.whl.metadata (4.4 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting charset_normalizer<4,>=2 (from requests~=2.22->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (46 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting bracex>=2.1.1 (from wcmatch~=8.3->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading bracex-3.0.1-py3-none-any.whl.metadata (3.3 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting cffi>=2.0.0 (from cryptography>=3.4.0->pyjwt[crypto]<3,>=2.15.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.5 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting pycparser (from cffi>=2.0.0->cryptography>=3.4.0->pyjwt[crypto]<3,>=2.15.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading pycparser-3.0-py3-none-any.whl.metadata (8.2 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting face>=20.1.1 (from glom>=23.3->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading face-26.0.1-py3-none-any.whl.metadata (1.8 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting python-dotenv>=0.21.0 (from pydantic-settings>=2.5.2->mcp==1.29.0->semgrep==1.179.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading python_dotenv-1.2.4-py3-none-any.whl.metadata (29 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting markdown-it-py>=2.2.0 (from rich->bandit==1.9.4)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading markdown_it_py-4.2.0-py3-none-any.whl.metadata (7.4 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from rich->bandit==1.9.4) (2.21.0)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich->bandit==1.9.4)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Downloading mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading bandit-1.9.4-py3-none-any.whl (134 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading semgrep-1.179.0-cp310.cp311.cp312.cp313.cp314.py310.py311.py312.py313.py314-none-manylinux_2_34_x86_64.whl (70.8 MB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | installed trivy (sha256 verified)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | installed gitleaks (sha256 verified)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Version: 0.75.0
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | gitleaks 8.30.1
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting pip-audit==2.10.1
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading pip_audit-2.10.1-py3-none-any.whl.metadata (28 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting CacheControl>=0.13.0 (from CacheControl[filecache]>=0.13.0->pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading cachecontrol-0.14.4-py3-none-any.whl.metadata (3.1 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting cyclonedx-python-lib<12,>=5 (from pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading cyclonedx_python_lib-11.12.0-py3-none-any.whl.metadata (6.9 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: packaging>=23.0.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pip-audit==2.10.1) (26.3)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting pip-api>=0.0.28 (from pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading pip_api-0.0.35-py3-none-any.whl.metadata (17 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting pip-requirements-parser>=32.0.0 (from pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading pip_requirements_parser-32.0.1-py3-none-any.whl.metadata (9.3 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting requests>=2.31.0 (from pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting rich>=12.4 (from pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting tomli>=2.2.1 (from pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading tomli-2.5.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (10 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting tomli-w>=1.2.0 (from pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading tomli_w-1.2.0-py3-none-any.whl.metadata (5.7 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting platformdirs>=4.2.0 (from pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading platformdirs-4.12.4-py3-none-any.whl.metadata (5.5 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting license-expression<31,>=30 (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading license_expression-30.4.4-py3-none-any.whl.metadata (11 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting packageurl-python<2,>=0.11 (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading packageurl_python-0.17.6-py3-none-any.whl.metadata (5.1 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting py-serializable<3.0.0,>=2.1.0 (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading py_serializable-2.1.0-py3-none-any.whl.metadata (4.3 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting sortedcontainers<3.0.0,>=2.4.0 (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading sortedcontainers-2.4.0-py2.py3-none-any.whl.metadata (10 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting typing_extensions<5.0,>=4.6 (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting boolean.py>=4.0 (from license-expression<31,>=30->cyclonedx-python-lib<12,>=5->pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading boolean_py-5.0-py3-none-any.whl.metadata (2.3 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting defusedxml<0.8.0,>=0.7.1 (from py-serializable<3.0.0,>=2.1.0->cyclonedx-python-lib<12,>=5->pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading defusedxml-0.7.1-py2.py3-none-any.whl.metadata (32 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting msgpack<2.0.0,>=0.5.2 (from CacheControl>=0.13.0->CacheControl[filecache]>=0.13.0->pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading msgpack-1.2.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.3 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting filelock>=3.8.0 (from CacheControl[filecache]>=0.13.0->pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading filelock-4.0.12-py3-none-any.whl.metadata (2.0 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pip-api>=0.0.28->pip-audit==2.10.1) (26.2.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting pyparsing (from pip-requirements-parser>=32.0.0->pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading pyparsing-3.3.3-py3-none-any.whl.metadata (5.9 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting charset_normalizer<4,>=2 (from requests>=2.31.0->pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (46 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting idna<4,>=2.5 (from requests>=2.31.0->pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting urllib3<3,>=1.26 (from requests>=2.31.0->pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting certifi>=2023.5.7 (from requests>=2.31.0->pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting markdown-it-py>=2.2.0 (from rich>=12.4->pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading markdown_it_py-4.2.0-py3-none-any.whl.metadata (7.4 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from rich>=12.4->pip-audit==2.10.1) (2.21.0)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=12.4->pip-audit==2.10.1)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |   Downloading mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading pip_audit-2.10.1-py3-none-any.whl (62 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading cyclonedx_python_lib-11.12.0-py3-none-any.whl (529 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   |    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 529.5/529.5 kB 2.7 MB/s  0:00:00
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading license_expression-30.4.4-py3-none-any.whl (120 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading packageurl_python-0.17.6-py3-none-any.whl (36 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading py_serializable-2.1.0-py3-none-any.whl (23 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading defusedxml-0.7.1-py2.py3-none-any.whl (25 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading sortedcontainers-2.4.0-py2.py3-none-any.whl (29 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading boolean_py-5.0-py3-none-any.whl (26 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading cachecontrol-0.14.4-py3-none-any.whl (22 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading msgpack-1.2.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (472 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading filelock-4.0.12-py3-none-any.whl (111 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading pip_api-0.0.35-py3-none-any.whl (123 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading pip_requirements_parser-32.0.1-py3-none-any.whl (35 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading platformdirs-4.12.4-py3-none-any.whl (32 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (257 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading idna-3.20-py3-none-any.whl (69 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading certifi-2026.7.22-py3-none-any.whl (136 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading rich-15.0.0-py3-none-any.whl (310 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading tomli-2.5.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (286 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading tomli_w-1.2.0-py3-none-any.whl (6.7 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Downloading pyparsing-3.3.3-py3-none-any.whl (126 kB)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Installing collected packages: sortedcontainers, boolean.py, urllib3, typing_extensions, tomli-w, tomli, pyparsing, platformdirs, pip-api, packageurl-python, msgpack, mdurl, license-expression, idna, filelock, defusedxml, charset_normalizer, certifi, requests, py-serializable, pip-requirements-parser, markdown-it-py, rich, cyclonedx-python-lib, CacheControl, pip-audit
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | 
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Successfully installed CacheControl-0.14.4 boolean.py-5.0 certifi-2026.7.22 charset_normalizer-3.5.2 cyclonedx-python-lib-11.12.0 defusedxml-0.7.1 filelock-4.0.12 idna-3.20 license-expression-30.4.4 markdown-it-py-4.2.0 mdurl-0.1.2 msgpack-1.2.3 packageurl-python-0.17.6 pip-api-0.0.35 pip-audit-2.10.1 pip-requirements-parser-32.0.1 platformdirs-4.12.4 py-serializable-2.1.0 pyparsing-3.3.3 requests-2.34.2 rich-15.0.0 sortedcontainers-2.4.0 tomli-2.5.0 tomli-w-1.2.0 typing_extensions-4.16.0 urllib3-2.8.0
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ✅  Success - Main Install pinned, checksum-verified scanners [32.689676802s]
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ⚙  ::add-path:: /root/.local/bin
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)] ⭐ Run Main pip-audit
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 70.8/70.8 MB 3.6 MB/s  0:00:20
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading mcp-1.29.0-py3-none-any.whl (223 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading ruamel_yaml_clib-0.2.15-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (788 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 788.2/788.2 kB 6.8 MB/s  0:00:00
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading boltons-21.0.0-py2.py3-none-any.whl (193 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading click-8.4.2-py3-none-any.whl (119 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading click_option_group-0.5.9-py3-none-any.whl (11 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading colorama-0.4.6-py2.py3-none-any.whl (25 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading exceptiongroup-1.2.2-py3-none-any.whl (16 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading jsonschema-4.25.1-py3-none-any.whl (90 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading opentelemetry_api-1.37.0-py3-none-any.whl (65 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading importlib_metadata-8.7.1-py3-none-any.whl (27 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading opentelemetry_exporter_otlp_proto_http-1.37.0-py3-none-any.whl (19 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading opentelemetry_exporter_otlp_proto_common-1.37.0-py3-none-any.whl (18 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading opentelemetry_proto-1.37.0-py3-none-any.whl (72 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading googleapis_common_protos-1.75.5-py3-none-any.whl (307 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading opentelemetry_instrumentation_requests-0.58b0-py3-none-any.whl (12 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading opentelemetry_semantic_conventions-0.58b0-py3-none-any.whl (207 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading opentelemetry_instrumentation-0.58b0-py3-none-any.whl (33 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading opentelemetry_util_http-0.58b0-py3-none-any.whl (7.7 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading opentelemetry_instrumentation_threading-0.58b0-py3-none-any.whl (9.3 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading opentelemetry_sdk-1.37.0-py3-none-any.whl (131 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading peewee-3.19.0-py3-none-any.whl (411 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading protobuf-6.33.6-cp39-abi3-manylinux2014_x86_64.whl (323 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading pydantic-2.13.5-py3-none-any.whl (472 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading pydantic_core-2.46.5-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 5.4 MB/s  0:00:00
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading pyjwt-2.15.1-py3-none-any.whl (33 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (257 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading idna-3.20-py3-none-any.whl (69 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading semantic_version-2.10.0-py2.py3-none-any.whl (15 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading tomli-2.4.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (253 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading wcmatch-8.5.2-py3-none-any.whl (39 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading wrapt-1.17.3-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (88 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading anyio-4.15.1-py3-none-any.whl (132 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading bracex-3.0.1-py3-none-any.whl (11 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading certifi-2026.7.22-py3-none-any.whl (136 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading cryptography-50.0.2-cp311-abi3-manylinux_2_34_x86_64.whl (4.8 MB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.8/4.8 MB 8.7 MB/s  0:00:00
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (221 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading glom-25.12.0-py3-none-any.whl (103 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading face-26.0.1-py3-none-any.whl (57 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading httpx_sse-0.4.3-py3-none-any.whl (9.0 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading pydantic_settings-2.15.0-py3-none-any.whl (69 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading python_dotenv-1.2.4-py3-none-any.whl (23 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading python_multipart-0.0.32-py3-none-any.whl (30 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (807 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 807.9/807.9 kB 9.7 MB/s  0:00:00
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading referencing-0.37.0-py3-none-any.whl (26 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading rich-15.0.0-py3-none-any.whl (310 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (371 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading ruamel_yaml-0.19.1-py3-none-any.whl (118 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading sse_starlette-3.5.0-py3-none-any.whl (17 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading starlette-1.7.0-py3-none-any.whl (78 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading stevedore-5.9.1-py3-none-any.whl (54 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading typing_inspection-0.4.4-py3-none-any.whl (14 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading uvicorn-0.54.0-py3-none-any.whl (87 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading zipp-4.1.1-py3-none-any.whl (10 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Downloading pycparser-3.0-py3-none-any.whl (48 kB)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Installing collected packages: peewee, boltons, zipp, wrapt, urllib3, typing-extensions, tomli, stevedore, semantic-version, ruamel.yaml.clib, ruamel.yaml, rpds-py, PyYAML, python-multipart, python-dotenv, pyjwt, pycparser, protobuf, opentelemetry-util-http, mdurl, idna, httpx-sse, h11, face, exceptiongroup, colorama, click, charset_normalizer, certifi, bracex, attrs, annotated-types, wcmatch, uvicorn, typing-inspection, requests, referencing, pydantic-core, opentelemetry-proto, markdown-it-py, importlib-metadata, httpcore, googleapis-common-protos, glom, click-option-group, cffi, anyio, starlette, rich, pydantic, opentelemetry-exporter-otlp-proto-common, opentelemetry-api, jsonschema-specifications, httpx, cryptography, sse-starlette, pydantic-settings, opentelemetry-semantic-conventions, jsonschema, bandit, opentelemetry-sdk, opentelemetry-instrumentation, mcp, opentelemetry-instrumentation-threading, opentelemetry-instrumentation-requests, opentelemetry-exporter-otlp-proto-http, semgrep
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Attempting uninstall: click
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |     Found existing installation: click 8.5.0
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |     Uninstalling click-8.5.0:
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |       Successfully uninstalled click-8.5.0
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | No known vulnerabilities found
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | pip-audit: 0 known vulnerabilities in 8 dependencies
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ✅  Success - Main pip-audit [10.061196068s]
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)] ⭐ Run Main Trivy filesystem scan
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/4.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | 
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Successfully installed PyYAML-6.0.3 annotated-types-0.8.0 anyio-4.15.1 attrs-26.1.0 bandit-1.9.4 boltons-21.0.0 bracex-3.0.1 certifi-2026.7.22 cffi-2.1.1 charset_normalizer-3.5.2 click-8.4.2 click-option-group-0.5.9 colorama-0.4.6 cryptography-50.0.2 exceptiongroup-1.2.2 face-26.0.1 glom-25.12.0 googleapis-common-protos-1.75.5 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 httpx-sse-0.4.3 idna-3.20 importlib-metadata-8.7.1 jsonschema-4.25.1 jsonschema-specifications-2025.9.1 markdown-it-py-4.2.0 mcp-1.29.0 mdurl-0.1.2 opentelemetry-api-1.37.0 opentelemetry-exporter-otlp-proto-common-1.37.0 opentelemetry-exporter-otlp-proto-http-1.37.0 opentelemetry-instrumentation-0.58b0 opentelemetry-instrumentation-requests-0.58b0 opentelemetry-instrumentation-threading-0.58b0 opentelemetry-proto-1.37.0 opentelemetry-sdk-1.37.0 opentelemetry-semantic-conventions-0.58b0 opentelemetry-util-http-0.58b0 peewee-3.19.0 protobuf-6.33.6 pycparser-3.0 pydantic-2.13.5 pydantic-core-2.46.5 pydantic-settings-2.15.0 pyjwt-2.15.1 python-dotenv-1.2.4 python-multipart-0.0.32 referencing-0.37.0 requests-2.34.2 rich-15.0.0 rpds-py-2026.9.1 ruamel.yaml-0.19.1 ruamel.yaml.clib-0.2.15 semantic-version-2.10.0 semgrep-1.179.0 sse-starlette-3.5.0 starlette-1.7.0 stevedore-5.9.1 tomli-2.5.0 typing-extensions-4.16.0 typing-inspection-0.4.4 urllib3-2.8.0 uvicorn-0.54.0 wcmatch-8.5.2 wrapt-1.17.3 zipp-4.1.1
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ✅  Success - Main Install scanners [49.232162684s]
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ] ⭐ Run Main Bandit
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ✅  Success - Main Bandit [598.152783ms]
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ] ⭐ Run Main Semgrep (p/python + project rules)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/4.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |                
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |                
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | ┌─────────────┐
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | │ Scan Status │
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | └─────────────┘
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Scanning 3 files tracked by git with 154 Code rules:
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |   Scanning 3 files with 154 python rules.
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |                 
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |                 
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | ┌──────────────┐
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | │ Scan Summary │
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | └──────────────┘
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | ✅ Scan completed successfully.
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |  • Findings: 0 (0 blocking)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |  • Rules run: 154
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |  • Targets scanned: 3
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |  • Parsed lines: ~100.0%
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |  • Scan was limited to files tracked by git
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   |  • For a detailed list of skipped files and lines, run semgrep with the --verbose flag
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Ran 154 rules on 3 files: 0 findings.
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | (need more rules? `semgrep login` for additional free Semgrep Registry rules)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | 
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | If Semgrep missed a finding, please send us feedback to let us know!
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | See https://semgrep.dev/docs/reporting-false-negatives/
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | semgrep: 0 findings in 3 files
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ✅  Success - Main Semgrep (p/python + project rules) [3.491828855s]
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ] ⭐ Run Main actions/upload-artifact@v4
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | (node:190) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | With the provided path, there will be 2 files uploaded
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Artifact name is valid!
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Root directory input is valid!
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Beginning upload of artifact content to blob storage
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | (node:190) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Uploaded bytes 1008
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Finished uploading artifact content to blob storage!
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | SHA256 digest of uploaded artifact zip is 1341961635e730b15ff6543a3f979e9c7e76c0f0aa68e135c80e95ec7b93cc20
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Finalizing artifact upload
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Artifact security-sast.zip successfully finalized. Artifact ID 1668390657
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Artifact security-sast has been successfully uploaded! Final size is 1008 bytes. Artifact ID is 1668390657
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | Artifact download URL: https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/1668390657
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ✅  Success - Main actions/upload-artifact@v4 [1.042889448s]
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ⚙  ::set-output:: artifact-id=1668390657
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ⚙  ::set-output:: artifact-digest=1341961635e730b15ff6543a3f979e9c7e76c0f0aa68e135c80e95ec7b93cc20
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ⚙  ::set-output:: artifact-url=https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/1668390657
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ] ⭐ Run Post actions/setup-python@v5
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/cache-save/index.js] user= workdir=
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | (node:207) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ✅  Success - Post actions/setup-python@v5 [249.312105ms]
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ] ⭐ Run Complete job
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ] Cleaning up container for job 3 SAST (Bandit + Semgrep)
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ]   ✅  Success - Complete job
+[Session 17 - DevSecOps pipeline/3 SAST (Bandit + Semgrep)   ] 🏁  Job succeeded
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | 
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Report Summary
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | 
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | ┌──────────────────┬──────┬─────────────────┐
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | │      Target      │ Type │ Vulnerabilities │
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | ├──────────────────┼──────┼─────────────────┤
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | │ requirements.txt │ pip  │        0        │
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | └──────────────────┴──────┴─────────────────┘
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Legend:
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | - '-': Not scanned
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | - '0': Clean (no security findings detected)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | 
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ✅  Success - Main Trivy filesystem scan [22.849583193s]
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)] ⭐ Run Main actions/upload-artifact@v4
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | (node:221) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | With the provided path, there will be 2 files uploaded
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Artifact name is valid!
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Root directory input is valid!
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Beginning upload of artifact content to blob storage
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | (node:221) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Uploaded bytes 869
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Finished uploading artifact content to blob storage!
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | SHA256 digest of uploaded artifact zip is 740d8a23adb1b90489b14a6cc2abf3abbd1b3c0c88a6f1f4405dd2e9324b5b38
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Finalizing artifact upload
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Artifact security-sca.zip successfully finalized. Artifact ID 1671357395
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Artifact security-sca has been successfully uploaded! Final size is 869 bytes. Artifact ID is 1671357395
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | Artifact download URL: https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/1671357395
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ✅  Success - Main actions/upload-artifact@v4 [852.790316ms]
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ⚙  ::set-output:: artifact-url=https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/1671357395
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ⚙  ::set-output:: artifact-id=1671357395
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ⚙  ::set-output:: artifact-digest=740d8a23adb1b90489b14a6cc2abf3abbd1b3c0c88a6f1f4405dd2e9324b5b38
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)] ⭐ Run Post actions/setup-python@v5
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/cache-save/index.js] user= workdir=
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | (node:238) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ✅  Success - Post actions/setup-python@v5 [251.244438ms]
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)] ⭐ Run Complete job
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)] Cleaning up container for job 4 SCA (pip-audit + Trivy fs)
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)]   ✅  Success - Complete job
+[Session 17 - DevSecOps pipeline/4 SCA (pip-audit + Trivy fs)] 🏁  Job succeeded
+[Session 17 - DevSecOps pipeline/6 Docker build              ] ⭐ Run Set up job
+[Session 17 - DevSecOps pipeline/6 Docker build              ] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   ✅  Success - Set up job
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[Session 17 - DevSecOps pipeline/6 Docker build              ] ⭐ Run Main actions/checkout@v4
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   ✅  Success - Main actions/checkout@v4 [687.683877ms]
+[Session 17 - DevSecOps pipeline/6 Docker build              ] ⭐ Run Main Build image
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/1.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #0 building with "default" instance using docker driver
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | 
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #1 [internal] load build definition from Dockerfile
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #1 transferring dockerfile: 643B 0.0s done
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #1 DONE 0.0s
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | 
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #2 [internal] load metadata for docker.io/library/python:3.12-alpine
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #2 DONE 0.1s
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | 
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #3 [internal] load .dockerignore
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #3 transferring context: 105B 0.0s done
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #3 DONE 0.0s
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | 
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #4 [1/5] FROM docker.io/library/python:3.12-alpine@sha256:1b668429b3511ab407d8e00648891631b0b1a4d7e15e3ca70f38ab5b91ad4ab4
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #4 resolve docker.io/library/python:3.12-alpine@sha256:1b668429b3511ab407d8e00648891631b0b1a4d7e15e3ca70f38ab5b91ad4ab4 0.0s done
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #4 DONE 0.0s
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | 
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #5 [internal] load build context
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #5 transferring context: 4.51kB done
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #5 DONE 0.0s
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | 
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #6 [2/5] WORKDIR /srv
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #6 CACHED
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | 
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #7 [3/5] COPY requirements.txt .
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #7 CACHED
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | 
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 [4/5] RUN pip install --no-cache-dir -r requirements.txt  && adduser -D -H -u 10001 -s /sbin/nologin appuser
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 3.153 Collecting Flask==3.1.3 (from -r requirements.txt (line 1))
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 3.449   Downloading flask-3.1.3-py3-none-any.whl.metadata (3.2 kB)
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 3.492 Collecting gunicorn==26.2.0 (from -r requirements.txt (line 2))
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 3.514   Downloading gunicorn-26.2.0-py3-none-any.whl.metadata (5.5 kB)
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 3.560 Collecting blinker>=1.9.0 (from Flask==3.1.3->-r requirements.txt (line 1))
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 3.668   Downloading blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 3.722 Collecting click>=8.1.3 (from Flask==3.1.3->-r requirements.txt (line 1))
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 3.778   Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 3.809 Collecting itsdangerous>=2.2.0 (from Flask==3.1.3->-r requirements.txt (line 1))
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 3.895   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 3.931 Collecting jinja2>=3.1.2 (from Flask==3.1.3->-r requirements.txt (line 1))
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 3.964   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 4.063 Collecting markupsafe>=2.1.1 (from Flask==3.1.3->-r requirements.txt (line 1))
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 4.086   Downloading markupsafe-3.0.4-cp312-cp312-musllinux_1_2_x86_64.whl.metadata (2.7 kB)
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 4.138 Collecting werkzeug>=3.1.0 (from Flask==3.1.3->-r requirements.txt (line 1))
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 4.186   Downloading werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 4.221 Downloading flask-3.1.3-py3-none-any.whl (103 kB)
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 4.329 Downloading gunicorn-26.2.0-py3-none-any.whl (228 kB)
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 4.428 Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 4.454 Downloading click-8.5.0-py3-none-any.whl (125 kB)
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 4.494 Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 4.530 Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 4.582 Downloading markupsafe-3.0.4-cp312-cp312-musllinux_1_2_x86_64.whl (23 kB)
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 4.615 Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 4.694 Installing collected packages: markupsafe, itsdangerous, gunicorn, click, blinker, werkzeug, jinja2, Flask
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 5.469 Successfully installed Flask-3.1.3 blinker-1.9.0 click-8.5.0 gunicorn-26.2.0 itsdangerous-2.2.0 jinja2-3.1.6 markupsafe-3.0.4 werkzeug-3.1.9
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 5.469 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 5.676 
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 5.676 [notice] A new release of pip is available: 25.0.1 -> 26.2.1
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 5.676 [notice] To update, run: pip install --upgrade pip
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #8 DONE 5.8s
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | 
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #9 [5/5] COPY app ./app
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #9 DONE 0.0s
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | 
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #10 exporting to image
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #10 exporting layers
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #10 exporting layers 0.3s done
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #10 exporting manifest sha256:40d064aed996ce1df7a9d0f3d0a99faf388aac8f04e48f80c2ebe6a215304c41 0.0s done
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #10 exporting config sha256:291f0055652a1683194f78ac79ebf567713df7be159e2f309deabca3cfe90ff8 0.0s done
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #10 exporting attestation manifest sha256:5140834b68bee1438014be8c34e2564d7d6a10ecb20443da265028aa5b0158cd 0.0s done
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #10 exporting manifest list sha256:c1d794607074ba8f623fcf81bf892b9253f270090fee62b522b1051286dcf6b7 0.0s done
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #10 naming to docker.io/library/session17-lost-and-found:48197fa7f3757a4d8e756c4f0a6dae882f2440d8 done
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #10 unpacking to docker.io/library/session17-lost-and-found:48197fa7f3757a4d8e756c4f0a6dae882f2440d8 0.1s done
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | #10 DONE 0.6s
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   ✅  Success - Main Build image [7.796692152s]
+[Session 17 - DevSecOps pipeline/6 Docker build              ] ⭐ Run Main Save image
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | -rw------- 1 root root 22M Oct  8 07:59 image.tar
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   ✅  Success - Main Save image [1.118991503s]
+[Session 17 - DevSecOps pipeline/6 Docker build              ] ⭐ Run Main actions/upload-artifact@v4
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | (node:105) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | With the provided path, there will be 1 file uploaded
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | Artifact name is valid!
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | Root directory input is valid!
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | Beginning upload of artifact content to blob storage
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | (node:105) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | Uploaded bytes 8388608
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | Uploaded bytes 16777216
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | Uploaded bytes 22772511
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | Finished uploading artifact content to blob storage!
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | SHA256 digest of uploaded artifact zip is c6259157152874ed59054c4e646dbe96b378012348504f14321b3a3f31aba1f9
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | Finalizing artifact upload
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | Artifact docker-image.zip successfully finalized. Artifact ID 3572604477
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | Artifact docker-image has been successfully uploaded! Final size is 22772511 bytes. Artifact ID is 3572604477
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   | Artifact download URL: https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/3572604477
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   ✅  Success - Main actions/upload-artifact@v4 [1.566949278s]
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   ⚙  ::set-output:: artifact-url=https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/3572604477
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   ⚙  ::set-output:: artifact-id=3572604477
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   ⚙  ::set-output:: artifact-digest=c6259157152874ed59054c4e646dbe96b378012348504f14321b3a3f31aba1f9
+[Session 17 - DevSecOps pipeline/6 Docker build              ] ⭐ Run Complete job
+[Session 17 - DevSecOps pipeline/6 Docker build              ] Cleaning up container for job 6 Docker build
+[Session 17 - DevSecOps pipeline/6 Docker build              ]   ✅  Success - Complete job
+[Session 17 - DevSecOps pipeline/6 Docker build              ] 🏁  Job succeeded
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)] ⭐ Run Set up job
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   ✅  Success - Set up job
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   ☁  git clone 'https://github.com/actions/download-artifact' # ref=v4
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)] ⭐ Run Main actions/checkout@v4
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   ✅  Success - Main actions/checkout@v4 [470.149245ms]
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)] ⭐ Run Main actions/download-artifact@v4
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-download-artifact@v4/ dst=/var/run/act/actions/actions-download-artifact@v4/
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-download-artifact@v4/dist/index.js] user= workdir=
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | Downloading single artifact
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | (node:31) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | Preparing to download the following artifacts:
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | - docker-image (ID: 3572604477, Size: 4096, Expected Digest: undefined)
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | Redirecting to blob download url: http://100.128.167.30:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | Starting download of artifact to: /home/ratnesh/Devops-Assignments/session-17-devsecops
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | (node:31) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | SHA256 digest of downloaded artifact is c6259157152874ed59054c4e646dbe96b378012348504f14321b3a3f31aba1f9
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | Artifact download completed successfully.
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | Total of 1 artifact(s) downloaded
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | Download artifact has finished successfully
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   ✅  Success - Main actions/download-artifact@v4 [957.801673ms]
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   ⚙  ::set-output:: download-path=/home/ratnesh/Devops-Assignments/session-17-devsecops
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)] ⭐ Run Main Install pinned, checksum-verified scanners
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | installed trivy (sha256 verified)
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | installed gitleaks (sha256 verified)
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | Version: 0.75.0
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | gitleaks 8.30.1
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   ✅  Success - Main Install pinned, checksum-verified scanners [36.017417677s]
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   ⚙  ::add-path:: /root/.local/bin
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)] ⭐ Run Main Trivy image scan (scans the exact tarball that will be pushed)
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | 
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | Report Summary
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | 
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | ┌──────────────────────────────────────────────────────────────────────────────┬────────────┬─────────────────┐
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | │                                    Target                                    │    Type    │ Vulnerabilities │
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | ├──────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | │ image.tar (alpine 3.24.2)                                                    │   alpine   │        0        │
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | ├──────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | │ usr/local/lib/python3.12/site-packages/blinker-1.9.0.dist-info/METADATA      │ python-pkg │        0        │
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | ├──────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | │ usr/local/lib/python3.12/site-packages/click-8.5.0.dist-info/METADATA        │ python-pkg │        0        │
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | ├──────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | │ usr/local/lib/python3.12/site-packages/flask-3.1.3.dist-info/METADATA        │ python-pkg │        0        │
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | ├──────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | │ usr/local/lib/python3.12/site-packages/gunicorn-26.2.0.dist-info/METADATA    │ python-pkg │        0        │
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | ├──────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | │ usr/local/lib/python3.12/site-packages/itsdangerous-2.2.0.dist-info/METADATA │ python-pkg │        0        │
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | ├──────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | │ usr/local/lib/python3.12/site-packages/jinja2-3.1.6.dist-info/METADATA       │ python-pkg │        0        │
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | ├──────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | │ usr/local/lib/python3.12/site-packages/markupsafe-3.0.4.dist-info/METADATA   │ python-pkg │        0        │
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | ├──────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | │ usr/local/lib/python3.12/site-packages/pip-25.0.1.dist-info/METADATA         │ python-pkg │        0        │
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | ├──────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | │ usr/local/lib/python3.12/site-packages/werkzeug-3.1.9.dist-info/METADATA     │ python-pkg │        0        │
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | └──────────────────────────────────────────────────────────────────────────────┴────────────┴─────────────────┘
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | Legend:
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | - '-': Not scanned
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | - '0': Clean (no security findings detected)
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | 
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   ✅  Success - Main Trivy image scan (scans the exact tarball that will be pushed) [20.872669795s]
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)] ⭐ Run Main actions/upload-artifact@v4
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | (node:145) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | With the provided path, there will be 1 file uploaded
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | Artifact name is valid!
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | Root directory input is valid!
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | Beginning upload of artifact content to blob storage
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | (node:145) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | Uploaded bytes 15851
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | Finished uploading artifact content to blob storage!
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | SHA256 digest of uploaded artifact zip is 84cb80951d7441e14f74120bc8b7af0a8f761cfdc6d289163729d27eecc67b9e
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | Finalizing artifact upload
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | Artifact security-image.zip successfully finalized. Artifact ID 1132629671
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | Artifact security-image has been successfully uploaded! Final size is 15851 bytes. Artifact ID is 1132629671
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   | Artifact download URL: https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/1132629671
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   ✅  Success - Main actions/upload-artifact@v4 [995.918972ms]
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   ⚙  ::set-output:: artifact-id=1132629671
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   ⚙  ::set-output:: artifact-digest=84cb80951d7441e14f74120bc8b7af0a8f761cfdc6d289163729d27eecc67b9e
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   ⚙  ::set-output:: artifact-url=https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/1132629671
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)] ⭐ Run Complete job
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)] Cleaning up container for job 7 Container image scan (Trivy)
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)]   ✅  Success - Complete job
+[Session 17 - DevSecOps pipeline/7 Container image scan (Trivy)] 🏁  Job succeeded
+[Session 17 - DevSecOps pipeline/8 Security gate               ] ⭐ Run Set up job
+[Session 17 - DevSecOps pipeline/8 Security gate               ] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   ✅  Success - Set up job
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   ☁  git clone 'https://github.com/actions/download-artifact' # ref=v4
+[Session 17 - DevSecOps pipeline/8 Security gate               ] ⭐ Run Main actions/checkout@v4
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   ✅  Success - Main actions/checkout@v4 [757.823643ms]
+[Session 17 - DevSecOps pipeline/8 Security gate               ] ⭐ Run Main Collect every scanner report
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-download-artifact@v4/ dst=/var/run/act/actions/actions-download-artifact@v4/
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-download-artifact@v4/dist/index.js] user= workdir=
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | (node:30) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | Found 10 artifact(s)
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | Filtering artifacts by pattern 'security-*'
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | Preparing to download the following artifacts:
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | - security-sca (ID: 1671357395, Size: 4096, Expected Digest: undefined)
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | - security-sast (ID: 1668390657, Size: 4096, Expected Digest: undefined)
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | - security-secrets (ID: 1319986419, Size: 4096, Expected Digest: undefined)
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | - security-image (ID: 1132629671, Size: 4096, Expected Digest: undefined)
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | Redirecting to blob download url: http://100.128.167.30:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | Starting download of artifact to: /home/ratnesh/Devops-Assignments/session-17-devsecops/reports
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | (node:30) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | Redirecting to blob download url: http://100.128.167.30:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | Starting download of artifact to: /home/ratnesh/Devops-Assignments/session-17-devsecops/reports
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | Redirecting to blob download url: http://100.128.167.30:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | Starting download of artifact to: /home/ratnesh/Devops-Assignments/session-17-devsecops/reports
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | Redirecting to blob download url: http://100.128.167.30:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | Starting download of artifact to: /home/ratnesh/Devops-Assignments/session-17-devsecops/reports
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | SHA256 digest of downloaded artifact is 740d8a23adb1b90489b14a6cc2abf3abbd1b3c0c88a6f1f4405dd2e9324b5b38
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | Artifact download completed successfully.
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | SHA256 digest of downloaded artifact is 1341961635e730b15ff6543a3f979e9c7e76c0f0aa68e135c80e95ec7b93cc20
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | Artifact download completed successfully.
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | SHA256 digest of downloaded artifact is f704bbcce50dda768c8e5c332ef7a8e444cb2b46bd7baf3fddb8ede52fbbdea7
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | Artifact download completed successfully.
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | SHA256 digest of downloaded artifact is 84cb80951d7441e14f74120bc8b7af0a8f761cfdc6d289163729d27eecc67b9e
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | Artifact download completed successfully.
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | Total of 4 artifact(s) downloaded
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | Download artifact has finished successfully
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   ✅  Success - Main Collect every scanner report [657.833651ms]
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   ⚙  ::set-output:: download-path=/home/ratnesh/Devops-Assignments/session-17-devsecops/reports
+[Session 17 - DevSecOps pipeline/8 Security gate               ] ⭐ Run Main Apply the security policy
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | bandit.json
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | gitleaks.json
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | pip-audit.json
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | semgrep.json
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | trivy-fs.json
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | trivy-image.json
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | 
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | CHECK     TOOL          FINDINGS  BLOCKING  RESULT
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | -------   ----------    --------  --------  ------
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | SAST      bandit               0         0  PASS
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | SAST      semgrep              0         0  PASS
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | SCA       pip-audit            0         0  PASS
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | SCA       trivy-fs             0         0  PASS
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | SECRETS   gitleaks             0         0  PASS
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | IMAGE     trivy-image          0         0  PASS
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | 
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   | SECURITY GATE: PASSED - image may be pushed and deployed
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   ✅  Success - Main Apply the security policy [392.345133ms]
+[Session 17 - DevSecOps pipeline/8 Security gate               ] ⭐ Run Main Publish the gate result
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   ✅  Success - Main Publish the gate result [162.258356ms]
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   ⚙  Summary - ### Security gate
+```
+
+CHECK     TOOL          FINDINGS  BLOCKING  RESULT
+-------   ----------    --------  --------  ------
+SAST      bandit               0         0  PASS
+SAST      semgrep              0         0  PASS
+SCA       pip-audit            0         0  PASS
+SCA       trivy-fs             0         0  PASS
+SECRETS   gitleaks             0         0  PASS
+IMAGE     trivy-image          0         0  PASS
+
+SECURITY GATE: PASSED - image may be pushed and deployed
+```
+[Session 17 - DevSecOps pipeline/8 Security gate               ] ⭐ Run Complete job
+[Session 17 - DevSecOps pipeline/8 Security gate               ] Cleaning up container for job 8 Security gate
+[Session 17 - DevSecOps pipeline/8 Security gate               ]   ✅  Success - Complete job
+[Session 17 - DevSecOps pipeline/8 Security gate               ] 🏁  Job succeeded
+[Session 17 - DevSecOps pipeline/9 Push image                  ] ⭐ Run Set up job
+[Session 17 - DevSecOps pipeline/9 Push image                  ] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   ✅  Success - Set up job
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   ☁  git clone 'https://github.com/actions/download-artifact' # ref=v4
+[Session 17 - DevSecOps pipeline/9 Push image                  ] ⭐ Run Main actions/download-artifact@v4
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-download-artifact@v4/ dst=/var/run/act/actions/actions-download-artifact@v4/
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-download-artifact@v4/dist/index.js] user= workdir=
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | Downloading single artifact
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | (node:31) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | Preparing to download the following artifacts:
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | - docker-image (ID: 3572604477, Size: 4096, Expected Digest: undefined)
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | Redirecting to blob download url: http://100.128.167.30:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | Starting download of artifact to: /home/ratnesh/Devops-Assignments/session-17-devsecops
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | (node:31) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | SHA256 digest of downloaded artifact is c6259157152874ed59054c4e646dbe96b378012348504f14321b3a3f31aba1f9
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | Artifact download completed successfully.
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | Total of 1 artifact(s) downloaded
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | Download artifact has finished successfully
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   ✅  Success - Main actions/download-artifact@v4 [838.136321ms]
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   ⚙  ::set-output:: download-path=/home/ratnesh/Devops-Assignments/session-17-devsecops
+[Session 17 - DevSecOps pipeline/9 Push image                  ] ⭐ Run Main Load image
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/1.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | Loaded image: session17-lost-and-found:48197fa7f3757a4d8e756c4f0a6dae882f2440d8
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   ✅  Success - Main Load image [671.282511ms]
+[Session 17 - DevSecOps pipeline/9 Push image                  ] ⭐ Run Main Tag and push
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | The push refers to repository [localhost:5001/ratneshvaibhav/session17-lost-and-found]
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | bce3d672089f: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | c069847eeb14: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 4f4fb700ef54: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | e2de96513ba9: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | f7bc3e76f1f9: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 283ac05c32e6: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | e203d50c86bd: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 8f794154e2f6: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 483ae4c3882d: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | e2de96513ba9: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | f7bc3e76f1f9: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 283ac05c32e6: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | e203d50c86bd: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 8f794154e2f6: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 483ae4c3882d: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | bce3d672089f: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | c069847eeb14: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 4f4fb700ef54: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | e2de96513ba9: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | f7bc3e76f1f9: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 283ac05c32e6: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | e203d50c86bd: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 8f794154e2f6: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 483ae4c3882d: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | bce3d672089f: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | c069847eeb14: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 4f4fb700ef54: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | bce3d672089f: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | c069847eeb14: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 4f4fb700ef54: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | e2de96513ba9: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | f7bc3e76f1f9: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 283ac05c32e6: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | e203d50c86bd: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 8f794154e2f6: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 483ae4c3882d: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | c069847eeb14: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 4f4fb700ef54: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | e2de96513ba9: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | f7bc3e76f1f9: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 283ac05c32e6: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | e203d50c86bd: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 8f794154e2f6: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 483ae4c3882d: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | bce3d672089f: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 8f794154e2f6: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 483ae4c3882d: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | bce3d672089f: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | c069847eeb14: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 4f4fb700ef54: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | e2de96513ba9: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | f7bc3e76f1f9: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 283ac05c32e6: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | e203d50c86bd: Waiting
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | f7bc3e76f1f9: Pushed
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | e203d50c86bd: Pushed
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 8f794154e2f6: Pushed
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 483ae4c3882d: Pushed
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | bce3d672089f: Pushed
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | c069847eeb14: Pushed
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 4f4fb700ef54: Pushed
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | e2de96513ba9: Pushed
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 283ac05c32e6: Pushed
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | 48197fa7f3757a4d8e756c4f0a6dae882f2440d8: digest: sha256:c1d794607074ba8f623fcf81bf892b9253f270090fee62b522b1051286dcf6b7 size: 856
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   | pushed localhost:5001/ratneshvaibhav/session17-lost-and-found:48197fa7f3757a4d8e756c4f0a6dae882f2440d8
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   ✅  Success - Main Tag and push [1.097243725s]
+[Session 17 - DevSecOps pipeline/9 Push image                  ] ⭐ Run Complete job
+[Session 17 - DevSecOps pipeline/9 Push image                  ] Cleaning up container for job 9 Push image
+[Session 17 - DevSecOps pipeline/9 Push image                  ]   ✅  Success - Complete job
+[Session 17 - DevSecOps pipeline/9 Push image                  ] 🏁  Job succeeded
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ] ⭐ Run Set up job
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   ✅  Success - Set up job
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   ☁  git clone 'https://github.com/azure/setup-kubectl' # ref=v4
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   ☁  git clone 'https://github.com/helm/kind-action' # ref=v1
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ] ⭐ Run Main actions/checkout@v4
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   ✅  Success - Main actions/checkout@v4 [459.78005ms]
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ] ⭐ Run Main azure/setup-kubectl@v4
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   🐳  docker cp src=/home/ratnesh/.cache/act/azure-setup-kubectl@v4/ dst=/var/run/act/actions/azure-setup-kubectl@v4/
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/azure-setup-kubectl@v4/lib/index.js] user= workdir=
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   ✅  Success - Main azure/setup-kubectl@v4 [977.325224ms]
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   ⚙  ::set-output:: kubectl-path=/opt/hostedtoolcache/kubectl/1.31.0/x64/kubectl
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   ⚙  ::add-path:: /opt/hostedtoolcache/kubectl/1.31.0/x64
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ] ⭐ Run Main Image reference
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   ✅  Success - Main Image reference [231.503276ms]
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   ⚙  ::set-env:: IMAGE=localhost:5001/ratneshvaibhav/session17-lost-and-found:48197fa7f3757a4d8e756c4f0a6dae882f2440d8
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ] ⭐ Run Main Use the cluster from the KUBE_CONFIG secret
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   | NAME                       STATUS   ROLES           AGE   VERSION
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   | devops-lab-control-plane   Ready    control-plane   16h   v1.37.0
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   ✅  Success - Main Use the cluster from the KUBE_CONFIG secret [370.382695ms]
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ] ⭐ Run Main Deploy (namespace enforces Pod Security "restricted")
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/6.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   | namespace/session17 created
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   | deployment.apps/lost-and-found created
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   | service/lost-and-found created
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   | Waiting for deployment "lost-and-found" rollout to finish: 0 of 2 updated replicas are available...
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   | Waiting for deployment "lost-and-found" rollout to finish: 1 of 2 updated replicas are available...
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   | deployment "lost-and-found" successfully rolled out
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   | NAME                              READY   STATUS    RESTARTS   AGE   IP             NODE                       NOMINATED NODE   READINESS GATES
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   | lost-and-found-66f9449f95-l8h9b   1/1     Running   0          8s    10.244.0.134   devops-lab-control-plane   <none>           <none>
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   | lost-and-found-66f9449f95-rs7n8   1/1     Running   0          8s    10.244.0.135   devops-lab-control-plane   <none>           <none>
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   ✅  Success - Main Deploy (namespace enforces Pod Security "restricted") [8.37891581s]
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ] ⭐ Run Main Smoke test
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/7.sh] user= workdir=session-17-devsecops
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   | {"build":"48197fa7f375","status":"ok","version":"1.0.0"}
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   | 
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   | {"category":"other","id":1,"location":"Main gate","reported_at":"2026-10-08T08:01:04+00:00","status":"found","title":"Smoke test umbrella"}
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   | 
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   ✅  Success - Main Smoke test [4.17858801s]
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ] ⭐ Run Complete job
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ] Cleaning up container for job 10 Deploy to Kubernetes
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ]   ✅  Success - Complete job
+[Session 17 - DevSecOps pipeline/10 Deploy to Kubernetes       ] 🏁  Job succeeded

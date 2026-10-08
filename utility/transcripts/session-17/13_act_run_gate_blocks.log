@@ -1,0 +1,53 @@
+#CWD ~/Devops-Assignments
+$ session-17-devsecops/security/demo/inject-issues.sh && git status --short session-17-devsecops
+injected: app/insecure_admin.py, app/settings_local.py, vulnerable pins in requirements.txt
+ M session-17-devsecops/requirements.txt
+?? session-17-devsecops/app/insecure_admin.py
+?? session-17-devsecops/app/settings_local.py
+
+$ act push -W .github/workflows/session-17-devsecops.yml -P ubuntu-latest=ghcr.io/catthehacker/ubuntu:act-latest --pull=false --container-daemon-socket unix:///var/run/docker.sock --var REGISTRY=localhost:5001 -s KUBE_CONFIG="$(kind get kubeconfig --name devops-lab)" --artifact-server-path .artifacts > utility/transcripts/session-17/raw/act-run-2-gate-blocks.txt 2>&1; echo "act exit code: $?"
+act exit code: 1
+
+$ grep -E "Job succeeded|Job failed|Error: Job" utility/transcripts/session-17/raw/act-run-2-gate-blocks.txt | sed -E "s/^\[Session 17 - DevSecOps pipeline\//[/"
+[1 Build] 🏁  Job succeeded
+[2 Unit tests] 🏁  Job succeeded
+[3 SAST (Bandit + Semgrep)   ] 🏁  Job succeeded
+[5 Secret scan (Gitleaks)    ] 🏁  Job succeeded
+[4 SCA (pip-audit + Trivy fs)] 🏁  Job succeeded
+[6 Docker build              ] 🏁  Job succeeded
+[7 Container image scan (Trivy)] 🏁  Job succeeded
+[8 Security gate               ] 🏁  Job failed
+Error: Job '8 Security gate' failed
+
+$ grep -E "bandit: |  HIGH B|semgrep: |pip-audit: |gitleaks: " utility/transcripts/session-17/raw/act-run-2-gate-blocks.txt | sed -E "s/^\[Session 17 - DevSecOps pipeline\//[/"
+[3 SAST (Bandit + Semgrep)   ]   | bandit: 6 findings (2 HIGH) in 125 lines of code
+[3 SAST (Bandit + Semgrep)   ]   |   HIGH B602 app/insecure_admin.py:14 subprocess_popen_with_shell_equals_true
+[3 SAST (Bandit + Semgrep)   ]   |   HIGH B324 app/insecure_admin.py:24 hashlib
+[3 SAST (Bandit + Semgrep)   ]   | semgrep: 8 findings in 5 files
+[5 Secret scan (Gitleaks)    ]   | gitleaks: 2 secrets found
+[4 SCA (pip-audit + Trivy fs)]   | pip-audit: 39 known vulnerabilities in 14 dependencies
+
+$ grep -A10 "8 Security gate *\]   | CHECK" utility/transcripts/session-17/raw/act-run-2-gate-blocks.txt | sed -E "s/^\[Session 17 - DevSecOps pipeline\//[/"
+[8 Security gate               ]   | CHECK     TOOL          FINDINGS  BLOCKING  RESULT
+[8 Security gate               ]   | -------   ----------    --------  --------  ------
+[8 Security gate               ]   | SAST      bandit               6         2  FAIL
+[8 Security gate               ]   | SAST      semgrep              8         5  FAIL
+[8 Security gate               ]   | SCA       pip-audit           39        39  FAIL
+[8 Security gate               ]   | SCA       trivy-fs             2         2  FAIL
+[8 Security gate               ]   | SECRETS   gitleaks             2         2  FAIL
+[8 Security gate               ]   | IMAGE     trivy-image          8         8  FAIL
+[8 Security gate               ]   | 
+[8 Security gate               ]   | SECURITY GATE: FAILED - the image will not be pushed or deployed
+[8 Security gate               ]   ❌  Failure - Main Apply the security policy [476.734634ms]
+
+$ grep -c -E "9 Push image|10 Deploy to Kubernetes" utility/transcripts/session-17/raw/act-run-2-gate-blocks.txt; echo "^ log lines from the push and deploy jobs"
+0
+^ log lines from the push and deploy jobs
+
+$ curl -s http://localhost:5001/v2/ratneshvaibhav/session17-lost-and-found/tags/list; echo
+{"name":"ratneshvaibhav/session17-lost-and-found","tags":["48197fa7f3757a4d8e756c4f0a6dae882f2440d8"]}
+
+
+$ rm -f session-17-devsecops/app/insecure_admin.py session-17-devsecops/app/settings_local.py && git checkout -- session-17-devsecops/requirements.txt && git status --short session-17-devsecops && echo "working tree restored"
+working tree restored
+

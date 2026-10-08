@@ -1,0 +1,35 @@
+#CWD ~/Devops-Assignments
+$ grep -E "passed in|TOTAL|sha256 verified|No issues identified|semgrep:|pip-audit:|gitleaks:" utility/transcripts/session-17/raw/act-run-1-success.txt | sed -E "s/^\[Session 17 - DevSecOps pipeline\//[/" | sort -u -t"|" -k2 | sort
+[2 Unit tests]   | ============================== 9 passed in 0.35s ===============================
+[2 Unit tests]   | TOTAL                98      3    97%
+[3 SAST (Bandit + Semgrep)   ]   | semgrep: 0 findings in 3 files
+[4 SCA (pip-audit + Trivy fs)]   | pip-audit: 0 known vulnerabilities in 8 dependencies
+[5 Secret scan (Gitleaks)    ]   | gitleaks: 0 secrets found
+[5 Secret scan (Gitleaks)    ]   | installed gitleaks (sha256 verified)
+[5 Secret scan (Gitleaks)    ]   | installed trivy (sha256 verified)
+
+$ grep -A12 "^\[Session 17 - DevSecOps pipeline/8 Security gate *\]   | CHECK" utility/transcripts/session-17/raw/act-run-1-success.txt | sed -E "s/^\[Session 17 - DevSecOps pipeline\//[/"
+[8 Security gate               ]   | CHECK     TOOL          FINDINGS  BLOCKING  RESULT
+[8 Security gate               ]   | -------   ----------    --------  --------  ------
+[8 Security gate               ]   | SAST      bandit               0         0  PASS
+[8 Security gate               ]   | SAST      semgrep              0         0  PASS
+[8 Security gate               ]   | SCA       pip-audit            0         0  PASS
+[8 Security gate               ]   | SCA       trivy-fs             0         0  PASS
+[8 Security gate               ]   | SECRETS   gitleaks             0         0  PASS
+[8 Security gate               ]   | IMAGE     trivy-image          0         0  PASS
+[8 Security gate               ]   | 
+[8 Security gate               ]   | SECURITY GATE: PASSED - image may be pushed and deployed
+[8 Security gate               ]   ✅  Success - Main Apply the security policy [392.345133ms]
+[8 Security gate               ] ⭐ Run Main Publish the gate result
+[8 Security gate               ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3.sh] user= workdir=session-17-devsecops
+
+$ grep -E "pushed |successfully rolled out|lost-and-found-[a-z0-9]+-[a-z0-9]+ |\"status\":\"ok\"|Smoke test umbrella" utility/transcripts/session-17/raw/act-run-1-success.txt | sed -E "s/^\[Session 17 - DevSecOps pipeline\//[/" | cut -c1-175
+[8 Security gate               ]   | SECURITY GATE: PASSED - image may be pushed and deployed
+SECURITY GATE: PASSED - image may be pushed and deployed
+[9 Push image                  ]   | pushed localhost:5001/ratneshvaibhav/session17-lost-and-found:48197fa7f3757a4d8e756c4f0a6dae882f2440d8
+[10 Deploy to Kubernetes       ]   | deployment "lost-and-found" successfully rolled out
+[10 Deploy to Kubernetes       ]   | lost-and-found-66f9449f95-l8h9b   1/1     Running   0          8s    10.244.0.134   devops-lab-control-plane   <none>           <none>
+[10 Deploy to Kubernetes       ]   | lost-and-found-66f9449f95-rs7n8   1/1     Running   0          8s    10.244.0.135   devops-lab-control-plane   <none>           <none>
+[10 Deploy to Kubernetes       ]   | {"build":"48197fa7f375","status":"ok","version":"1.0.0"}
+[10 Deploy to Kubernetes       ]   | {"category":"other","id":1,"location":"Main gate","reported_at":"2026-10-08T08:01:04+00:00","status":"found","title":"Smoke test umbrella"
+

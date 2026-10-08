@@ -1,0 +1,67 @@
+#CWD ~/Devops-Assignments/session-17-devsecops
+$ tree -a -I ".venv|__pycache__|.pytest_cache" .
+.
+├── app
+│   ├── __init__.py
+│   ├── main.py
+│   └── store.py
+├── Dockerfile
+├── .dockerignore
+├── k8s
+│   ├── deployment.yaml
+│   ├── namespace.yaml
+│   └── service.yaml
+├── pytest.ini
+├── requirements-dev.txt
+├── requirements.txt
+├── security
+│   ├── bandit.yaml
+│   ├── demo
+│   │   ├── inject-issues.sh
+│   │   ├── insecure_admin.py
+│   │   └── vulnerable-requirements.txt
+│   ├── .gitleaks.toml
+│   ├── install-tools.sh
+│   ├── security-gate.sh
+│   ├── semgrep-rules.yml
+│   └── trivy.yaml
+└── tests
+    └── test_api.py
+
+6 directories, 21 files
+
+$ python3 -m venv .venv && . .venv/bin/activate && pip install -q -r requirements-dev.txt && python -m compileall -q app && echo "build OK: app compiles"
+build OK: app compiles
+
+$ pytest -v --cov=app --cov-report=term
+=========================================================== test session starts ============================================================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0 -- /home/ratnesh/Devops-Assignments/session-17-devsecops/.venv/bin/python3.12
+cachedir: .pytest_cache
+rootdir: /home/ratnesh/Devops-Assignments/session-17-devsecops
+configfile: pytest.ini
+testpaths: tests
+plugins: cov-7.1.0
+collecting ... collected 9 items
+
+tests/test_api.py::test_health PASSED                                                                                                [ 11%]
+tests/test_api.py::test_security_headers PASSED                                                                                      [ 22%]
+tests/test_api.py::test_report_and_get_item PASSED                                                                                   [ 33%]
+tests/test_api.py::test_report_requires_title PASSED                                                                                 [ 44%]
+tests/test_api.py::test_report_rejects_unknown_category PASSED                                                                       [ 55%]
+tests/test_api.py::test_report_rejects_markup_in_location PASSED                                                                     [ 66%]
+tests/test_api.py::test_search_by_text_and_category PASSED                                                                           [ 77%]
+tests/test_api.py::test_claim_once_only PASSED                                                                                       [ 88%]
+tests/test_api.py::test_missing_item_is_404 PASSED                                                                                   [100%]
+
+============================================================== tests coverage ==============================================================
+_____________________________________________ coverage: platform linux, python 3.12.3-final-0 ______________________________________________
+
+Name              Stmts   Miss  Cover
+-------------------------------------
+app/__init__.py       1      0   100%
+app/main.py          42      1    98%
+app/store.py         55      2    96%
+-------------------------------------
+TOTAL                98      3    97%
+============================================================ 9 passed in 0.43s =============================================================
+

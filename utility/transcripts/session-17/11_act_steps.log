@@ -1,0 +1,37 @@
+#CWD ~/Devops-Assignments
+$ grep -E "(✅|❌)  (Success|Failure) - Main" utility/transcripts/session-17/raw/act-run-1-success.txt | grep -v -E "actions/(checkout|setup-python)" | sed -E "s/ \[[0-9.]+[a-z]*s\]$//; s/^\[Session 17 - DevSecOps pipeline\//[/"
+[1 Build]   ✅  Success - Main Install runtime dependencies
+[1 Build]   ✅  Success - Main Compile the application
+[2 Unit tests]   ✅  Success - Main Install dependencies
+[2 Unit tests]   ✅  Success - Main Run pytest
+[2 Unit tests]   ✅  Success - Main Upload test report
+[5 Secret scan (Gitleaks)    ]   ✅  Success - Main Install pinned, checksum-verified scanners
+[5 Secret scan (Gitleaks)    ]   ✅  Success - Main Gitleaks
+[5 Secret scan (Gitleaks)    ]   ✅  Success - Main actions/upload-artifact@v4
+[4 SCA (pip-audit + Trivy fs)]   ✅  Success - Main Install pinned, checksum-verified scanners
+[4 SCA (pip-audit + Trivy fs)]   ✅  Success - Main pip-audit
+[3 SAST (Bandit + Semgrep)   ]   ✅  Success - Main Install scanners
+[3 SAST (Bandit + Semgrep)   ]   ✅  Success - Main Bandit
+[3 SAST (Bandit + Semgrep)   ]   ✅  Success - Main Semgrep (p/python + project rules)
+[3 SAST (Bandit + Semgrep)   ]   ✅  Success - Main actions/upload-artifact@v4
+[4 SCA (pip-audit + Trivy fs)]   ✅  Success - Main Trivy filesystem scan
+[4 SCA (pip-audit + Trivy fs)]   ✅  Success - Main actions/upload-artifact@v4
+[6 Docker build              ]   ✅  Success - Main Build image
+[6 Docker build              ]   ✅  Success - Main Save image
+[6 Docker build              ]   ✅  Success - Main actions/upload-artifact@v4
+[7 Container image scan (Trivy)]   ✅  Success - Main actions/download-artifact@v4
+[7 Container image scan (Trivy)]   ✅  Success - Main Install pinned, checksum-verified scanners
+[7 Container image scan (Trivy)]   ✅  Success - Main Trivy image scan (scans the exact tarball that will be pushed)
+[7 Container image scan (Trivy)]   ✅  Success - Main actions/upload-artifact@v4
+[8 Security gate               ]   ✅  Success - Main Collect every scanner report
+[8 Security gate               ]   ✅  Success - Main Apply the security policy
+[8 Security gate               ]   ✅  Success - Main Publish the gate result
+[9 Push image                  ]   ✅  Success - Main actions/download-artifact@v4
+[9 Push image                  ]   ✅  Success - Main Load image
+[9 Push image                  ]   ✅  Success - Main Tag and push
+[10 Deploy to Kubernetes       ]   ✅  Success - Main azure/setup-kubectl@v4
+[10 Deploy to Kubernetes       ]   ✅  Success - Main Image reference
+[10 Deploy to Kubernetes       ]   ✅  Success - Main Use the cluster from the KUBE_CONFIG secret
+[10 Deploy to Kubernetes       ]   ✅  Success - Main Deploy (namespace enforces Pod Security "restricted")
+[10 Deploy to Kubernetes       ]   ✅  Success - Main Smoke test
+

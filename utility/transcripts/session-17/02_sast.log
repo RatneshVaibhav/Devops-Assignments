@@ -1,0 +1,46 @@
+#CWD ~/Devops-Assignments/session-17-devsecops
+$ bandit --version | head -1 && bandit -r app -c security/bandit.yaml
+bandit 1.9.4
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[main]	INFO	using config: security/bandit.yaml
+[main]	INFO	running on Python 3.12.3
+Run started:2026-10-08 07:50:34.396899+00:00
+
+Test results:
+	No issues identified.
+
+Code scanned:
+	Total lines of code: 108
+	Total lines skipped (#nosec): 0
+	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 0
+
+Run metrics:
+	Total issues (by severity):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+Files skipped (0):
+
+$ semgrep scan --config p/python --config security/semgrep-rules.yml --metrics off --quiet app; echo "semgrep exit code: $?"
+semgrep exit code: 0
+
+$ semgrep scan --config p/python --config security/semgrep-rules.yml --metrics off --json app 2>/dev/null | jq "{files_scanned: .paths.scanned, findings: (.results | length), errors: (.errors | length)}"
+{
+  "files_scanned": [
+    "app/__init__.py",
+    "app/main.py",
+    "app/store.py"
+  ],
+  "findings": 0,
+  "errors": 0
+}
+

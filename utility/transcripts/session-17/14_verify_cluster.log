@@ -1,0 +1,43 @@
+#CWD ~/Devops-Assignments/session-17-devsecops
+$ kubectl get ns session17 --show-labels
+NAME        STATUS   AGE   LABELS
+session17   Active   25m   kubernetes.io/metadata.name=session17,pod-security.kubernetes.io/enforce-version=latest,pod-security.kubernetes.io/enforce=restricted
+
+$ kubectl get deploy,pods,svc -n session17 -o wide
+NAME                             READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                                                                            SELECTOR
+deployment.apps/lost-and-found   2/2     2            2           25m   api          localhost:5001/ratneshvaibhav/session17-lost-and-found:48197fa7f3757a4d8e756c4f0a6dae882f2440d8   app=lost-and-found
+
+NAME                                  READY   STATUS    RESTARTS   AGE   IP             NODE                       NOMINATED NODE   READINESS GATES
+pod/lost-and-found-66f9449f95-l8h9b   1/1     Running   0          25m   10.244.0.134   devops-lab-control-plane   <none>           <none>
+pod/lost-and-found-66f9449f95-rs7n8   1/1     Running   0          25m   10.244.0.135   devops-lab-control-plane   <none>           <none>
+
+NAME                     TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE   SELECTOR
+service/lost-and-found   NodePort   10.96.173.243   <none>        80:30002/TCP   25m   app=lost-and-found
+
+$ kubectl get deploy lost-and-found -n session17 -o jsonpath="{.spec.template.spec.containers[0].image}{\"\n\"}"
+localhost:5001/ratneshvaibhav/session17-lost-and-found:48197fa7f3757a4d8e756c4f0a6dae882f2440d8
+
+$ POD=$(kubectl get pod -n session17 -l app=lost-and-found -o jsonpath="{.items[0].metadata.name}"); kubectl exec -n session17 $POD -- id
+uid=10001(appuser) gid=10001(appuser) groups=10001(appuser)
+
+$ kubectl exec -n session17 $POD -- touch /srv/app/hacked.py
+touch: /srv/app/hacked.py: Read-only file system
+command terminated with exit code 1
+
+$ curl -s http://localhost:30002/health; echo
+{"build":"48197fa7f375","status":"ok","version":"1.0.0"}
+
+
+$ curl -s -i -X POST http://localhost:30002/api/items -H "Content-Type: application/json" -d "{\"title\":\"Grey hoodie\",\"category\":\"clothing\",\"location\":\"Block C canteen\"}" | grep -E "HTTP/|X-Content|X-Frame|^\{"
+HTTP/1.1 201 CREATED
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+{"category":"clothing","id":2,"location":"Block C canteen","reported_at":"2026-10-08T08:26:37+00:00","status":"found","title":"Grey hoodie"}
+
+$ curl -s -X POST http://localhost:30002/api/items -H "Content-Type: application/json" -d "{\"title\":\"x\",\"category\":\"keys\",\"location\":\"<script>alert(1)</script>\"}"; echo
+{"error":"'location' contains unsupported characters"}
+
+
+$ kubectl run root-shell -n session17 --image=busybox:1.36 --overrides="{\"spec\":{\"containers\":[{\"name\":\"root-shell\",\"image\":\"busybox:1.36\",\"command\":[\"sleep\",\"3600\"],\"securityContext\":{\"privileged\":true,\"runAsUser\":0}}]}}"
+Error from server (Forbidden): pods "root-shell" is forbidden: violates PodSecurity "restricted:latest": privileged (container "root-shell" must not set securityContext.privileged=true), allowPrivilegeEscalation != false (container "root-shell" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "root-shell" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "root-shell" must set securityContext.runAsNonRoot=true), runAsUser=0 (container "root-shell" must not set runAsUser=0), seccompProfile (pod or container "root-shell" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
+

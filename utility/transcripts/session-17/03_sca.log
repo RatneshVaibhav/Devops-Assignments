@@ -1,0 +1,28 @@
+#CWD ~/Devops-Assignments/session-17-devsecops
+$ pip-audit --version && pip-audit -r requirements.txt
+pip-audit 2.10.1
+No known vulnerabilities found
+
+$ trivy fs --config security/trivy.yaml --quiet .
+
+Report Summary
+
+┌──────────────────┬──────┬─────────────────┐
+│      Target      │ Type │ Vulnerabilities │
+├──────────────────┼──────┼─────────────────┤
+│ requirements.txt │ pip  │        0        │
+└──────────────────┴──────┴─────────────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+
+$ trivy fs --config security/trivy.yaml --quiet --format json . | jq "[.Results[]? | {target: .Target, type: .Type, vulns: (.Vulnerabilities // [] | length)}]"
+[
+  {
+    "target": "requirements.txt",
+    "type": "pip",
+    "vulns": 0
+  }
+]
+

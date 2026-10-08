@@ -1,0 +1,22 @@
+#CWD ~/Devops-Assignments/session-17-devsecops
+$ security/demo/inject-issues.sh && git status --short .
+injected: app/insecure_admin.py, app/settings_local.py, vulnerable pins in requirements.txt
+?? ./
+
+$ docker build -q -t session17-lost-and-found:insecure . && security/scan-local.sh session17-lost-and-found:insecure > /dev/null
+sha256:e35665875f7729b192c06b07e2c133d1e9805dc356319c1db0c38f8bcd8918e2
+
+$ security/security-gate.sh reports; echo "gate exit code: $?"
+
+CHECK     TOOL          FINDINGS  BLOCKING  RESULT
+-------   ----------    --------  --------  ------
+SAST      bandit               6         2  FAIL
+SAST      semgrep              8         5  FAIL
+SCA       pip-audit           39        39  FAIL
+SCA       trivy-fs             2         2  FAIL
+SECRETS   gitleaks             2         2  FAIL
+IMAGE     trivy-image          8         8  FAIL
+
+SECURITY GATE: FAILED - the image will not be pushed or deployed
+gate exit code: 1
+
