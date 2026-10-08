@@ -1,0 +1,138 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ cat ~/traffic.out; date +%T
+worker 1: 4350 requests
+worker 2: 4350 requests
+worker 3: 4350 requests
+worker 4: 4307 requests
+17:04:17
+
+$ kubectl get pods -n shelfshare; kubectl get hpa -n shelfshare
+NAME                                   READY   STATUS             RESTARTS        AGE
+shelfshare-backend-84b54d4988-clcrx    0/1     Error              1 (2m40s ago)   16m
+shelfshare-backend-84b54d4988-drx88    0/1     CrashLoopBackOff   3 (2m12s ago)   19m
+shelfshare-backend-84b54d4988-gmlq5    1/1     Running            1 (9m14s ago)   20m
+shelfshare-backend-84b54d4988-kgkw8    0/1     Running            0               16m
+shelfshare-frontend-6c76759dc8-2987z   1/1     Running            1 (10m ago)     31m
+shelfshare-frontend-6c76759dc8-cxnqm   0/1     Error              2 (3m27s ago)   31m
+shelfshare-postgres-0                  1/1     Running            0               25m
+NAME                 REFERENCE                       TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+shelfshare-backend   Deployment/shelfshare-backend   cpu: <unknown>/70%   2         4         4          83m
+
+$ kubectl get apiservice v1beta1.metrics.k8s.io -o jsonpath="{.status.conditions[0].reason}: {.status.conditions[0].message}{\"\n\"}"
+MissingEndpoints: endpointslices for service/metrics-server in "kube-system" have no addresses with port name "https"
+
+$ kubectl get events -n shelfshare --field-selector reason=Unhealthy -o custom-columns=LAST:.lastTimestamp,COUNT:.count,OBJECT:.involvedObject.name,MESSAGE:.message --sort-by=.lastTimestamp | tail -6 | cut -c1-175
+2026-10-08T11:30:23Z   2       shelfshare-postgres-0                  Readiness probe failed: command timed out: "sh -c pg_isready -U \"$POSTGRES_USER\" -d \"$POSTGRES_DB\"" t
+2026-10-08T11:32:02Z   1       shelfshare-backend-84b54d4988-clcrx    Readiness probe failed: Get "http://10.244.0.2:8000/ready": dial tcp 10.244.0.2:8000: connect: connection
+2026-10-08T11:32:29Z   11      shelfshare-frontend-6c76759dc8-2987z   Readiness probe failed: Get "http://10.244.0.238:8080/healthz": context deadline exceeded (Client.Timeout
+2026-10-08T11:33:17Z   16      shelfshare-backend-84b54d4988-kgkw8    Liveness probe failed: Get "http://10.244.0.4:8000/health": context deadline exceeded (Client.Timeout exc
+2026-10-08T11:34:09Z   8       shelfshare-backend-84b54d4988-gmlq5    Liveness probe failed: Get "http://10.244.0.249:8000/health": context deadline exceeded (Client.Timeout e
+2026-10-08T11:34:09Z   14      shelfshare-frontend-6c76759dc8-2987z   Liveness probe failed: Get "http://10.244.0.238:8080/healthz": context deadline exceeded (Client.Timeout 
+
+$ docker stats --no-stream --format "{{.Name}}  mem {{.MemUsage}}  cpu {{.CPUPerc}}" devops-lab-control-plane; docker exec devops-lab-control-plane sh -c "grep -E \"MemAvailable|SwapFree\" /proc/meminfo; echo memory-pressure:; cat /proc/pressure/memory"
+devops-lab-control-plane  mem 2.708GiB / 3.204GiB  cpu 344.77%
+MemAvailable:     201412 kB
+SwapFree:         146096 kB
+memory-pressure:
+some avg10=15.00 avg60=15.10 avg300=15.55 total=766399616
+full avg10=12.04 avg60=12.57 avg300=13.14 total=667214666
+
+$ docker exec devops-lab-control-plane sh -c "ps -eo rss,comm --sort=-rss | head -9" | awk "NR>1{printf \"%6.0f MB  %s\n\", \$1/1024, \$2}"
+   952 MB  kube-apiserver
+   373 MB  prometheus
+   165 MB  grafana
+   103 MB  kube-controller
+   100 MB  kubelet
+    96 MB  gitea
+    81 MB  etcd
+    71 MB  python
+
+$ echo "MITIGATION 1: the HPA has no metrics (metrics-server is down), so it will not fight a manual scale-down to its minimum of 2."; kubectl scale deploy shelfshare-backend -n shelfshare --replicas=2
+MITIGATION 1: the HPA has no metrics (metrics-server is down), so it will not fight a manual scale-down to its minimum of 2.
+deployment.apps/shelfshare-backend scaled
+
+$ until [ "$(kubectl get deploy shelfshare-backend -n shelfshare -o jsonpath="{.status.readyReplicas}")" = 2 ] && [ "$(kubectl get deploy shelfshare-frontend -n shelfshare -o jsonpath="{.status.readyReplicas}")" = 2 ]; do sleep 5; done; date +%T; kubectl get pods -n shelfshare
+17:12:12
+NAME                                   READY   STATUS    RESTARTS        AGE
+shelfshare-backend-84b54d4988-gmlq5    1/1     Running   4 (2m3s ago)    28m
+shelfshare-backend-84b54d4988-kgkw8    1/1     Running   0               24m
+shelfshare-frontend-6c76759dc8-2987z   1/1     Running   5 (2m4s ago)    39m
+shelfshare-frontend-6c76759dc8-cxnqm   1/1     Running   6 (2m41s ago)   39m
+shelfshare-postgres-0                  1/1     Running   0               33m
+
+$ docker exec devops-lab-control-plane sh -c "top -bn1 | sed -n 3p; ps -o rss=,comm= -C kube-apiserver"
+%Cpu(s): 17.8 us, 15.2 sy,  0.0 ni,  0.5 id, 54.8 wa,  0.0 hi,  0.5 si, 11.2 st 
+974816 kube-apiserver
+
+$ echo "MITIGATION 2: the node is thrashing (I/O wait, no page cache left) and kube-apiserver holds ~950 MB; it is a static pod, so stopping its container makes the kubelet start a fresh one."; docker exec devops-lab-control-plane sh -c "crictl stop \$(crictl ps -q --name kube-apiserver) >/dev/null && echo kube-apiserver container stopped"
+MITIGATION 2: the node is thrashing (I/O wait, no page cache left) and kube-apiserver holds ~950 MB; it is a static pod, so stopping its container makes the kubelet start a fresh one.
+E1008 11:43:29.929682  428538 remote_runtime.go:506] "ListContainers with filter from runtime service failed" err="rpc error: code = DeadlineExceeded desc = context deadline exceeded" filter="state:{state:CONTAINER_RUNNING}"
+time="2026-10-08T11:43:30Z" level=fatal msg="listing containers: list containers: call list containers RPC: rpc error: code = DeadlineExceeded desc = context deadline exceeded"
+you must specify at least one CONTAINER-ID or use --all
+
+$ until kubectl get --raw /readyz >/dev/null 2>&1; do sleep 3; done; date +"%T API server ready again"; until kubectl get apiservice v1beta1.metrics.k8s.io -o jsonpath="{.status.conditions[0].status}" | grep -q True; do sleep 5; done; date +"%T metrics API available"
+17:13:38 API server ready again
+17:16:31 metrics API available
+
+$ docker exec devops-lab-control-plane sh -c "top -bn1 | sed -n 3p; ps -o rss=,comm= -C kube-apiserver; grep MemAvailable /proc/meminfo"
+%Cpu(s):  2.2 us,  7.9 sy,  0.0 ni, 59.0 id, 25.2 wa,  0.0 hi,  0.0 si,  5.8 st 
+973556 kube-apiserver
+MemAvailable:     284060 kB
+
+$ until kubectl get hpa shelfshare-backend -n shelfshare -o jsonpath="{.status.currentMetrics[0].resource.current.averageUtilization}" | grep -q "[0-9]"; do sleep 5; done; kubectl get hpa,pods -n shelfshare; curl -s http://shelfshare.localhost:8088/api/books/stats | jq -c "{total, by_status}"
+NAME                                                     REFERENCE                       TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/shelfshare-backend   Deployment/shelfshare-backend   cpu: 11%/70%   2         4         2          95m
+
+NAME                                       READY   STATUS    RESTARTS        AGE
+pod/shelfshare-backend-84b54d4988-gmlq5    1/1     Running   4 (6m36s ago)   32m
+pod/shelfshare-backend-84b54d4988-kgkw8    1/1     Running   0               28m
+pod/shelfshare-frontend-6c76759dc8-2987z   1/1     Running   5 (6m37s ago)   44m
+pod/shelfshare-frontend-6c76759dc8-cxnqm   1/1     Running   7 (4m46s ago)   44m
+pod/shelfshare-postgres-0                  1/1     Running   0               38m
+{"total":6,"by_status":{"available":4,"reserved":1,"exchanged":1}}
+
+$ docker exec devops-lab-control-plane crictl ps --name kube-apiserver -o table | cut -c1-110
+CONTAINER           IMAGE               CREATED             STATE               NAME                ATTEMPT   
+d18c51373ea69       bec5f0e1e2eeb       20 hours ago        Running             kube-apiserver      1         
+
+$ echo "CORRECTION: mitigation 2 never happened - containerd was too slow to even list containers (DeadlineExceeded), so crictl stopped nothing and the API server above is the same container (same 973 MB). The cluster recovered from mitigation 1 alone: the load stopped and 2 replicas fewer freed enough memory for metrics-server and the probes."
+CORRECTION: mitigation 2 never happened - containerd was too slow to even list containers (DeadlineExceeded), so crictl stopped nothing and the API server above is the same container (same 973 MB). The cluster recovered from mitigation 1 alone: the load stopped and 2 replicas fewer freed enough memory for metrics-server and the probes.
+
+$ kubectl get pod -n monitoring -l app.kubernetes.io/name=grafana -o jsonpath="{range .items[0].status.containerStatuses[*]}{.name} restarts={.restartCount} last={.lastState.terminated.reason}{\"\n\"}{end}"; docker exec devops-lab-control-plane sh -c "grep MemAvailable /proc/meminfo; ps -o rss=,comm= -C kube-apiserver"
+grafana restarts=1 last=OOMKilled
+grafana-sc-dashboard restarts=0 last=
+grafana-sc-datasources restarts=0 last=
+MemAvailable:     260268 kB
+987960 kube-apiserver
+
+$ echo "MITIGATION 2, retried now that containerd answers again:"; docker exec devops-lab-control-plane sh -c "crictl stop \$(crictl ps -q --name kube-apiserver)"
+MITIGATION 2, retried now that containerd answers again:
+E1008 11:49:31.757981  431190 remote_runtime.go:459] "StopContainer from runtime service failed" err="rpc error: code = DeadlineExceeded desc = context deadline exceeded" containerID="d18c51373ea69aa1ee0d6dfb1af47cc23056a77af93cfbda3408d37998a921c8"
+time="2026-10-08T11:49:31Z" level=fatal msg="stopping the container \"d18c51373ea69aa1ee0d6dfb1af47cc23056a77af93cfbda3408d37998a921c8\": rpc error: code = DeadlineExceeded desc = context deadline exceeded"
+
+$ until kubectl get --raw /readyz >/dev/null 2>&1; do sleep 3; done; date +"%T API server ready"; docker exec devops-lab-control-plane sh -c "crictl ps --name kube-apiserver -o table | cut -c1-110; ps -o rss=,comm= -C kube-apiserver; grep MemAvailable /proc/meminfo"
+17:19:42 API server ready
+CONTAINER           IMAGE               CREATED             STATE               NAME                ATTEMPT   
+f35979eff1a54       bec5f0e1e2eeb       9 seconds ago       Running             kube-apiserver      2         
+461824 kube-apiserver
+MemAvailable:     458448 kB
+
+$ echo "This time the stop went through (crictl gave up waiting for the graceful shutdown, the container still exited): new container, attempt 2, kube-apiserver 988 MB -> 462 MB, node MemAvailable 260 MB -> 458 MB."
+This time the stop went through (crictl gave up waiting for the graceful shutdown, the container still exited): new container, attempt 2, kube-apiserver 988 MB -> 462 MB, node MemAvailable 260 MB -> 458 MB.
+
+$ until [ "$(kubectl get pods -n monitoring --no-headers | grep -vc "Running")" = 0 ] && kubectl -n monitoring wait --for=condition=Ready pod --all --timeout=10s >/dev/null 2>&1; do sleep 5; done; date +%T; kubectl get pods -n monitoring; kubectl get pods -n shelfshare
+17:24:40
+NAME                                      READY   STATUS    RESTARTS        AGE
+alertmanager-kps-alertmanager-0           2/2     Running   0               38m
+kps-grafana-76f5fd766-6hhv4               3/3     Running   1 (6m19s ago)   38m
+kps-kube-state-metrics-785f74f8db-dr9wl   1/1     Running   0               38m
+kps-operator-65fbff976c-mmmt6             1/1     Running   16 (5m7s ago)   3h19m
+kps-prometheus-node-exporter-8mt86        1/1     Running   5 (15m ago)     3h19m
+prometheus-kps-prometheus-0               2/2     Running   0               38m
+NAME                                   READY   STATUS    RESTARTS      AGE
+shelfshare-backend-84b54d4988-gmlq5    1/1     Running   4 (14m ago)   40m
+shelfshare-backend-84b54d4988-kgkw8    1/1     Running   0             36m
+shelfshare-frontend-6c76759dc8-2987z   1/1     Running   5 (14m ago)   51m
+shelfshare-frontend-6c76759dc8-cxnqm   1/1     Running   7 (12m ago)   52m
+shelfshare-postgres-0                  1/1     Running   0             45m
+

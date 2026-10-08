@@ -2,7 +2,7 @@
   "title": "ShelfShare - Service Overview",
   "uid": "shelfshare",
   "schemaVersion": 39,
-  "version": 1,
+  "version": 2,
   "editable": false,
   "refresh": "10s",
   "time": {
@@ -115,7 +115,7 @@
     {
       "id": 3,
       "type": "stat",
-      "title": "Books listed (total)",
+      "title": "Books listed (time range)",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -153,14 +153,14 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "sum(shelfshare_books_listed_total{namespace=\"__NAMESPACE__\"})"
+          "expr": "round(sum(increase(shelfshare_books_listed_total{namespace=\"__NAMESPACE__\"}[$__range])))"
         }
       ]
     },
     {
       "id": 4,
       "type": "stat",
-      "title": "Books reserved (total)",
+      "title": "Books reserved (time range)",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -198,7 +198,7 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "sum(shelfshare_books_reserved_total{namespace=\"__NAMESPACE__\"})"
+          "expr": "round(sum(increase(shelfshare_books_reserved_total{namespace=\"__NAMESPACE__\"}[$__range])))"
         }
       ]
     },

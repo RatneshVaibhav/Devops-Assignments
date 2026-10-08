@@ -1,0 +1,20 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ curl -s http://shelfshare.localhost:8088/api/books/stats | jq -c "{total, by_status}"; echo "^ data created while Helm managed the release"
+{"total":6,"by_status":{"available":4,"reserved":1,"exchanged":1}}
+^ data created while Helm managed the release
+
+$ helm uninstall shelfshare -n shelfshare && kubectl get pvc,secret -n shelfshare
+release "shelfshare" uninstalled
+NAME                                               STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/data-shelfshare-postgres-0   Bound    pvc-29c4b257-9552-4950-81f8-b3b0ca6c68e7   1Gi        RWO            standard       <unset>                 28m
+
+NAME                   TYPE     DATA   AGE
+secret/shelfshare-db   Opaque   1      28m
+
+$ gitops/bootstrap.sh
+created ratnesh/shelfshare-gitops
+27be9f0 Bootstrap: shelfshare chart 1.0.0 and dev environment
+application.argoproj.io/shelfshare-dev created
+
+$ until [ "$(kubectl get application shelfshare-dev -n argocd -o jsonpath="{.status.sync.status}/{.status.health.status}")" = "Synced/Healthy" ]; do sleep 5; done; argocd app get shelfshare-dev | sed -n "/^Source/,\$p"
+(stopped: the sync never reached Healthy - see 17_incident_frontend_oomkilled)

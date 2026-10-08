@@ -1,0 +1,51 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ date +%T; monitoring/traffic.sh 360 4 > ~/traffic.out 2>&1 & echo "traffic.sh started: 4 workers for 6 min"
+16:47:18
+traffic.sh started: 4 workers for 6 min
+
+$ pq() { curl -s http://prometheus.localhost:8088/api/v1/query --data-urlencode "query=$1" | jq -r ".data.result[] | \"\(.metric | del(.__name__) | to_entries | map(\"\(.key)=\(.value)\") | join(\",\"))  =>  \(.value[1])\""; }; until [ "$(pq "sum(rate(http_requests_total{namespace=\"shelfshare\"}[1m])) > 1" | wc -l)" -ge 1 ]; do sleep 5; done; date +%T
+16:47:49
+
+$ pq "up{namespace=\"shelfshare\"}" | sed -E "s/,(endpoint|job|service|namespace)=[^,]*//g"
+container=api,instance=10.244.0.249:8000,pod=shelfshare-backend-84b54d4988-gmlq5
+container=api,instance=10.244.0.250:8000,pod=shelfshare-backend-84b54d4988-drx88
+
+$ pq "sum by (handler, method) (rate(http_requests_total{namespace=\"shelfshare\"}[1m]))" | sort
+handler=/api/books/{book_id},method=DELETE  =>  0.8545400572871578
+handler=/api/books/{book_id},method=GET  =>  8.376049145868244
+handler=/api/books/{book_id}/reserve,method=POST  =>  0.8375705565941278
+handler=/api/books,method=GET  =>  16.493089242290505
+handler=/api/books,method=POST  =>  0.7908636837876948
+handler=/api/books/stats,method=GET  =>  8.160494587935728
+
+$ pq "sum by (status) (rate(http_requests_total{namespace=\"shelfshare\"}[1m]))"
+status=2xx  =>  27.164546481264523
+status=4xx  =>  8.384743340479663
+
+$ for q in 0.50 0.95 0.99; do echo "p${q#0.}: $(pq "histogram_quantile($q, sum by (le) (rate(http_request_duration_highr_seconds_bucket{namespace=\"shelfshare\"}[2m])))" | sed "s/.*=> //") s"; done
+p50:  0.016440466125799514 s
+p95:  0.09196344136087711 s
+p99:  0.160350459722209 s
+
+$ pq "sum(shelfshare_books_listed_total)"; pq "sum(shelfshare_books_reserved_total)"
+  =>  56
+  =>  57
+
+$ curl -s http://prometheus.localhost:8088/api/v1/rules | jq -r ".data.groups[] | select(.name==\"shelfshare.alerts\") | .rules[] | \"\(.name)  state=\(.state)  health=\(.health)\""
+ShelfShareBackendDown  state=inactive  health=ok
+ShelfShareDatabaseDown  state=inactive  health=ok
+ShelfShareHighErrorRate  state=inactive  health=ok
+ShelfShareHighLatency  state=inactive  health=ok
+
+$ until [ "$(kubectl get hpa shelfshare-backend -n shelfshare -o jsonpath="{.status.desiredReplicas}")" -gt 2 ]; do sleep 5; done; date +%T; kubectl get hpa -n shelfshare; kubectl describe hpa shelfshare-backend -n shelfshare | grep -E "SuccessfulRescale" | tail -2
+16:47:58
+NAME                 REFERENCE                       TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+shelfshare-backend   Deployment/shelfshare-backend   cpu: 417%/70%   2         4         2          66m
+  Normal   SuccessfulRescale             6s                  horizontal-pod-autoscaler  New size: 4; reason: cpu resource utilization (percentage of request) above target
+
+$ kubectl rollout status deploy/shelfshare-backend -n shelfshare --timeout=180s; kubectl top pods -n shelfshare -l app.kubernetes.io/component=backend
+Waiting for deployment "shelfshare-backend" rollout to finish: 2 of 4 updated replicas are available...
+Waiting for deployment "shelfshare-backend" rollout to finish: 3 of 4 updated replicas are available...
+error: timed out waiting for the condition
+error: Metrics API not available
+

@@ -1,0 +1,40 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ cat troubleshooting/01-wrong-db-user.values.yaml
+# Fault 1 - a "harmless" rename of the database user in the environment values.
+# The database (created on first start) still only knows the user "shelfshare".
+database:
+  user: shelfshare_app
+
+$ troubleshooting/inject.sh troubleshooting/01-wrong-db-user.values.yaml && git -C ~/shelfshare-gitops show --format= HEAD | tail -n +5
+4771a87 Fault 1 - a "harmless" rename of the database user in the environment values.
+@@ -8,3 +8,5 @@ backend:
+   env:
+     APP_ENV: development
+     LOG_LEVEL: INFO
++database:
++  user: shelfshare_app
+
+$ until [ "$(kubectl get application shelfshare-dev -n argocd -o jsonpath="{.status.sync.revision}")" = "$(git -C ~/shelfshare-gitops rev-parse HEAD)" ]; do sleep 3; done; date +"%T Argo CD applied the commit"; argocd app get shelfshare-dev | sed -n "/Sync Status/,/Health Status/p"
+16:37:43 Argo CD applied the commit
+Sync Status:        Synced to main (4771a87)
+Health Status:      Progressing
+
+$ until kubectl get pods -n shelfshare | grep -q CrashLoopBackOff; do sleep 3; done; date +%T; kubectl get pods -n shelfshare
+16:38:08
+NAME                                   READY   STATUS             RESTARTS     AGE
+shelfshare-backend-6ddc7fc8db-2g6cw    0/1     CrashLoopBackOff   1 (5s ago)   28s
+shelfshare-backend-84b54d4988-2srhm    1/1     Running            0            5m39s
+shelfshare-backend-84b54d4988-567cx    1/1     Running            0            5m23s
+shelfshare-frontend-6c76759dc8-2987z   1/1     Running            0            5m26s
+shelfshare-frontend-6c76759dc8-cxnqm   1/1     Running            0            5m39s
+shelfshare-postgres-0                  1/1     Running            0            27s
+
+$ for i in 1 2 3 4 5; do curl -s -o /dev/null -w "%{http_code} " http://shelfshare.localhost:8088/api/books/stats; done; echo "<- users still served by the old pods"
+200 200 200 200 200 <- users still served by the old pods
+
+$ argocd app get shelfshare-dev | grep -E "^Health Status|Deployment|StatefulSet"
+Health Status:      Progressing
+apps                   Deployment               shelfshare  shelfshare-frontend   Synced  Healthy            deployment.apps/shelfshare-frontend unchanged
+apps                   Deployment               shelfshare  shelfshare-backend    Synced  Progressing        deployment.apps/shelfshare-backend configured
+apps                   StatefulSet              shelfshare  shelfshare-postgres   Synced  Healthy            statefulset.apps/shelfshare-postgres configured
+

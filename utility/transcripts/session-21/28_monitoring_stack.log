@@ -1,0 +1,49 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ echo "Argo CD is paused while the monitoring stack runs (3.2 GiB VM, see incident 17-20); ShelfShare keeps running."; kubectl -n argocd scale statefulset argocd-application-controller --replicas=0; kubectl -n argocd scale deploy argocd-server argocd-repo-server argocd-redis --replicas=0
+Argo CD is paused while the monitoring stack runs (3.2 GiB VM, see incident 17-20); ShelfShare keeps running.
+statefulset.apps/argocd-application-controller scaled
+deployment.apps/argocd-server scaled
+deployment.apps/argocd-repo-server scaled
+deployment.apps/argocd-redis scaled
+
+$ kubectl -n monitoring patch prometheus kps-prometheus --type merge -p "{\"spec\":{\"replicas\":1}}" && kubectl -n monitoring patch alertmanager kps-alertmanager --type merge -p "{\"spec\":{\"replicas\":1}}" && kubectl -n monitoring scale deploy kps-kube-state-metrics kps-grafana --replicas=1
+prometheus.monitoring.coreos.com/kps-prometheus patched
+alertmanager.monitoring.coreos.com/kps-alertmanager patched
+deployment.apps/kps-kube-state-metrics scaled
+deployment.apps/kps-grafana scaled
+
+$ until kubectl -n monitoring get pod prometheus-kps-prometheus-0 >/dev/null 2>&1; do sleep 3; done; kubectl -n monitoring wait --for=condition=Ready pod --all --timeout=420s >/dev/null; kubectl get pods -n monitoring
+NAME                                      READY   STATUS    RESTARTS      AGE
+alertmanager-kps-alertmanager-0           2/2     Running   0             26s
+kps-grafana-76f5fd766-6hhv4               3/3     Running   0             25s
+kps-kube-state-metrics-785f74f8db-dr9wl   1/1     Running   0             25s
+kps-operator-65fbff976c-mmmt6             1/1     Running   7 (38m ago)   160m
+kps-prometheus-node-exporter-8mt86        1/1     Running   1 (42m ago)   160m
+prometheus-kps-prometheus-0               2/2     Running   0             27s
+
+$ kubectl get servicemonitor,prometheusrule -n shelfshare; kubectl get configmap -n shelfshare -l grafana_dashboard=1
+NAME                                                      AGE
+servicemonitor.monitoring.coreos.com/shelfshare-backend   65m
+
+NAME                                              AGE
+prometheusrule.monitoring.coreos.com/shelfshare   65m
+NAME                   DATA   AGE
+shelfshare-dashboard   1      65m
+
+$ kubectl get svc shelfshare-backend -n shelfshare -o jsonpath="{.spec.ports}{\"\n\"}"; kubectl get servicemonitor shelfshare-backend -n shelfshare -o jsonpath="{.spec.endpoints}{\"\n\"}"
+[{"name":"http","port":8000,"protocol":"TCP","targetPort":"http"}]
+[{"interval":"15s","path":"/metrics","port":"http"}]
+
+$ kubectl exec -n shelfshare deploy/shelfshare-backend -c api -- python -c "import urllib.request; print(urllib.request.urlopen(\"http://127.0.0.1:8000/metrics\").read().decode())" | grep -E "^(shelfshare_|http_requests_total)" | head -8
+shelfshare_books_listed_total 0.0
+shelfshare_books_listed_created 1.7914580630337718e+09
+shelfshare_books_reserved_total 0.0
+shelfshare_books_reserved_created 1.7914580630338004e+09
+
+$ curl -s http://shelfshare.localhost:8088/metrics | head -c 60; echo; echo "metric lines served publicly: $(curl -s http://shelfshare.localhost:8088/metrics | grep -c "^shelfshare_")  (/metrics falls through to the React app; the API metrics are only reachable inside the cluster)"
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset=
+metric lines served publicly: 0  (/metrics falls through to the React app; the API metrics are only reachable inside the cluster)
+

@@ -1,0 +1,37 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ for t in 1.0.0 1.0.1; do printf "%s: " $t; docker run --rm --entrypoint sh localhost:5001/ratneshvaibhav/shelfshare-frontend:$t -c "apk --version"; done
+1.0.0: apk-tools 3.0.6-r0, compiled for x86_64.
+1.0.1: apk-tools 3.0.8-r0, compiled for x86_64.
+
+$ grep -n "apk" /dev/null $(docker run --rm --entrypoint sh localhost:5001/ratneshvaibhav/shelfshare-frontend:1.0.1 -c "cat /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh" > /tmp/ipv6.sh; echo /tmp/ipv6.sh) | head -3; rm -f /tmp/ipv6.sh
+/tmp/ipv6.sh:50:        CHECKSUM=$(apk manifest nginx 2>/dev/null| grep $DEFAULT_CONF_FILE | cut -d' ' -f 1 | cut -d ':' -f 2)
+
+$ for t in 1.0.0 1.0.1; do printf "%s: " $t; docker run --rm -m 48m --entrypoint sh localhost:5001/ratneshvaibhav/shelfshare-frontend:$t -c "apk manifest nginx >/dev/null 2>&1; echo apk manifest exit=\$?"; done
+1.0.0: apk manifest exit=0
+1.0.1: apk manifest exit=0
+
+$ for t in 1.0.0 1.0.1; do docker run -d --name fe-$t -m 48m -e BACKEND_URL=http://127.0.0.1:8000 localhost:5001/ratneshvaibhav/shelfshare-frontend:$t >/dev/null; done; sleep 10; for t in 1.0.0 1.0.1; do echo "$t: $(docker inspect fe-$t --format "running={{.State.Running}} oomkilled={{.State.OOMKilled}}") workers=$(docker exec fe-$t sh -c "ps | grep -c [n]ginx:\ worker")"; done; docker stats --no-stream --format "{{.Name}} {{.MemUsage}}" fe-1.0.0 fe-1.0.1; docker rm -f fe-1.0.0 fe-1.0.1 >/dev/null
+1.0.0: running=true oomkilled=false workers=12
+1.0.1: running=true oomkilled=false workers=12
+fe-1.0.0 2.992MiB / 48MiB
+fe-1.0.1 2.059MiB / 48MiB
+
+$ kubectl get events -n shelfshare --sort-by=.lastTimestamp | grep -c "context deadline exceeded"; kubectl get events -n shelfshare --sort-by=.lastTimestamp | grep "context deadline exceeded" | awk "{print \$5}" | sort | uniq -c
+19
+      8 Liveness
+     11 Readiness
+
+$ kubectl get pod -n shelfshare -l app.kubernetes.io/component=frontend -o jsonpath="{range .items[*]}{.spec.containers[0].image} restarts={.status.containerStatuses[0].restartCount} last={.status.containerStatuses[0].lastState.terminated.reason}{\"\n\"}{end}"
+localhost:5001/ratneshvaibhav/shelfshare-frontend:1.0.0 restarts=1 last=Completed
+localhost:5001/ratneshvaibhav/shelfshare-frontend:1.0.0 restarts=0 last=
+
+$ kubectl get pods -A --no-headers | wc -l; kubectl get pods -A --no-headers | awk "{print \$1}" | sort | uniq -c | sort -rn | head -8
+23
+      9 kube-system
+      5 shelfshare
+      4 argocd
+      2 monitoring
+      1 local-path-storage
+      1 ingress-nginx
+      1 gitea
+

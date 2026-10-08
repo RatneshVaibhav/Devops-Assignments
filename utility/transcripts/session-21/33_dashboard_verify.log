@@ -1,0 +1,26 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ kubectl -n argocd scale statefulset argocd-application-controller --replicas=0; kubectl -n argocd scale deploy argocd-server argocd-repo-server argocd-redis --replicas=0; kubectl -n monitoring patch prometheus kps-prometheus --type merge -p "{\"spec\":{\"replicas\":1}}"; kubectl -n monitoring patch alertmanager kps-alertmanager --type merge -p "{\"spec\":{\"replicas\":1}}"; kubectl -n monitoring scale deploy kps-kube-state-metrics kps-grafana --replicas=1
+statefulset.apps/argocd-application-controller scaled
+deployment.apps/argocd-server scaled
+deployment.apps/argocd-repo-server scaled
+deployment.apps/argocd-redis scaled
+prometheus.monitoring.coreos.com/kps-prometheus patched
+alertmanager.monitoring.coreos.com/kps-alertmanager patched
+deployment.apps/kps-kube-state-metrics scaled
+deployment.apps/kps-grafana scaled
+
+$ until kubectl -n monitoring get pod prometheus-kps-prometheus-0 >/dev/null 2>&1; do sleep 3; done; kubectl -n monitoring wait --for=condition=Ready pod --all --timeout=420s >/dev/null; until curl -sf http://grafana.localhost:8088/api/dashboards/uid/shelfshare >/dev/null; do sleep 3; done; curl -s http://grafana.localhost:8088/api/dashboards/uid/shelfshare | jq -r "\"dashboard version \(.dashboard.version): \" + ([.dashboard.panels[] | select(.id==3 or .id==4) | .title] | join(\", \"))"
+dashboard version 1: Books listed (time range), Books reserved (time range)
+
+$ F=$(date -d "2026-10-08 16:44" +%s); T=$(date -d "2026-10-08 17:25:51" +%s); for m in listed reserved; do echo "books $m 16:44-17:25 = $(curl -s http://prometheus.localhost:8088/api/v1/query --data-urlencode "query=round(sum(increase(shelfshare_books_${m}_total{namespace=\"shelfshare\"}[$((T-F))s])))" -d time=$T | jq -r ".data.result[0].value[1]")"; done
+books listed 16:44-17:25 = null
+books reserved 16:44-17:25 = null
+
+$ curl -s http://prometheus.localhost:8088/api/v1/status/tsdb | jq -r "\"TSDB head starts: \" + (.data.headStats.minTime/1000 | strftime(\"%H:%M:%S UTC\"))"; kubectl get pod prometheus-kps-prometheus-0 -n monitoring -o jsonpath="{range .spec.volumes[?(@.name==\"prometheus-kps-prometheus-db\")]}{.name}: emptyDir={.emptyDir}{\"\n\"}{end}"; kubectl get pvc -n monitoring
+TSDB head starts: 11:58:27 UTC
+prometheus-kps-prometheus-db: emptyDir={}
+No resources found in monitoring namespace.
+
+$ echo "ROOT CAUSE: kube-prometheus-stack keeps the TSDB in an emptyDir unless prometheusSpec.storageSpec is set. Pausing the stack (replicas 0) deleted the pod and every sample of the load test with it; the Grafana screenshot taken before the pause is the only record."
+ROOT CAUSE: kube-prometheus-stack keeps the TSDB in an emptyDir unless prometheusSpec.storageSpec is set. Pausing the stack (replicas 0) deleted the pod and every sample of the load test with it; the Grafana screenshot taken before the pause is the only record.
+

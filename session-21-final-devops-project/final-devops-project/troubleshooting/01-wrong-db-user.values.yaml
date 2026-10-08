@@ -1,0 +1,4 @@
+# Fault 1 - a "harmless" rename of the database user in the environment values.
+# The database (created on first start) still only knows the user "shelfshare".
+database:
+  user: shelfshare_app

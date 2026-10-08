@@ -1,0 +1,51 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ pq() { curl -s http://prometheus.localhost:8088/api/v1/query --data-urlencode "query=$1" -d time=$(date -d "2026-10-08 17:25:51" +%s) | jq -r ".data.result[0].value[1] // \"empty\""; }; echo "Grafana showed Books listed = 0 at 17:25:51. Same instant, two queries:"; echo "sum(counter)            = $(pq "sum(shelfshare_books_listed_total{namespace=\"shelfshare\"})")"; echo "sum(increase(counter))  = $(pq "sum(increase(shelfshare_books_listed_total{namespace=\"shelfshare\"}[42m]))")"
+Grafana showed Books listed = 0 at 17:25:51. Same instant, two queries:
+sum(counter)            = 0
+sum(increase(counter))  = 410.12009276029937
+
+$ python3 -c "
+import math, re
+total = 0
+for line in open(\"$HOME/traffic.out\"):
+    sent = int(re.search(r\"(\d+) requests\", line).group(1))
+    n = next(n for n in range(1, 5000) if 4*n + 3*math.ceil(n/10) == sent)   # rounds of the worker loop
+    total += math.ceil(n/10)                                                # one listing every 10 rounds
+print(\"listings created by traffic.sh:\", total)"
+listings created by traffic.sh: 407
+
+$ echo "ROOT CAUSE: a Prometheus counter lives in the process; every backend pod restarted during the overload, so the sum of the current counters fell back to 0. increase() over the dashboard range follows each series across resets."
+ROOT CAUSE: a Prometheus counter lives in the process; every backend pod restarted during the overload, so the sum of the current counters fell back to 0. increase() over the dashboard range follows each series across resets.
+
+$ python3 - <<"PY"
+import json
+path = "helm/shelfshare/files/grafana-dashboard.json"
+d = json.load(open(path))
+for p in d["panels"]:
+    if p["id"] in (3, 4):
+        metric = "listed" if p["id"] == 3 else "reserved"
+        p["title"] = f"Books {metric} (time range)"
+        p["targets"][0]["expr"] = f"round(sum(increase(shelfshare_books_{metric}_total{{namespace=\"__NAMESPACE__\"}}[$__range])))"
+d["version"] += 1
+json.dump(d, open(path, "w"), indent=2); open(path, "a").write("\n")
+PY
+git diff --stat; git diff -U0 helm/shelfshare/files/grafana-dashboard.json | grep "^[-+] "
+ session-21-final-devops-project/final-devops-project/helm/shelfshare/files/grafana-dashboard.json | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+-  "version": 1,
++  "version": 2,
+-      "title": "Books listed (total)",
++      "title": "Books listed (time range)",
+-          "expr": "sum(shelfshare_books_listed_total{namespace=\"__NAMESPACE__\"})"
++          "expr": "round(sum(increase(shelfshare_books_listed_total{namespace=\"__NAMESPACE__\"}[$__range])))"
+-      "title": "Books reserved (total)",
++      "title": "Books reserved (time range)",
+-          "expr": "sum(shelfshare_books_reserved_total{namespace=\"__NAMESPACE__\"})"
++          "expr": "round(sum(increase(shelfshare_books_reserved_total{namespace=\"__NAMESPACE__\"}[$__range])))"
+
+$ sed -i "s/^version: 1.0.1/version: 1.0.2/" helm/shelfshare/Chart.yaml && grep ^version helm/shelfshare/Chart.yaml && helm lint helm/shelfshare -f helm/shelfshare/values-dev.yaml | tail -1 && helm template shelfshare helm/shelfshare -n shelfshare | grep -o "round(sum(increase([^]]*\]))" 
+version: 1.0.2
+1 chart(s) linted, 0 chart(s) failed
+round(sum(increase(shelfshare_books_listed_total{namespace=\"shelfshare\"}[$__range]))
+round(sum(increase(shelfshare_books_reserved_total{namespace=\"shelfshare\"}[$__range]))
+

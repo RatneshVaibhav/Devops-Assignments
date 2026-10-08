@@ -1,0 +1,39 @@
+#CWD ~/Devops-Assignments
+$ F=utility/transcripts/session-21/raw/act-pipeline-run.txt; grep -E "passed|TOTAL|built in|bandit:|semgrep:|pip-audit:|gitleaks:|\{\"info\"|image: [0-9]+ HIGH|sha256 verified" $F | grep -v -E "PASSED|::" | sed -E "s/^\[Session 21 - ShelfShare pipeline\//[/; s/ +\]/]/" | sort -u -t"|" -k2 | sort
+[Backend tests (pytest)]   | ============================== 10 passed in 0.54s ==============================
+[Backend tests (pytest)]   | TOTAL               186     10    95%
+[Docker build (backend + frontend)]   | #12 1.385 ✓ built in 239ms
+[Frontend build (Vite)]   | [32m✓ built in 304ms[39m
+[Image scan (Trivy)]   | backend image: 0 HIGH/CRITICAL (alpine 3.24.2)
+[Image scan (Trivy)]   | frontend image: 0 HIGH/CRITICAL (alpine 3.23.4)
+[SAST (Bandit + Semgrep)]   | bandit: 0 findings (0 HIGH) in 203 lines
+[SAST (Bandit + Semgrep)]   | semgrep: 0 findings in 9 files
+[SCA (pip-audit + npm audit + Trivy fs)]   | {"info":0,"low":0,"moderate":0,"high":0,"critical":0,"total":0}
+[SCA (pip-audit + npm audit + Trivy fs)]   | pip-audit: 0 vulnerabilities in 29 packages
+[Secret scan (Gitleaks)]   | gitleaks: 0 secrets found
+[Secret scan (Gitleaks)]   | installed gitleaks (sha256 verified)
+[Secret scan (Gitleaks)]   | installed trivy (sha256 verified)
+
+$ grep -A11 "Security gate *\]   | CHECK" utility/transcripts/session-21/raw/act-pipeline-run.txt | sed -E "s/^\[Session 21 - ShelfShare pipeline\//[/; s/ +\]/]/"
+[Security gate]   | CHECK    TOOL                    FINDINGS  BLOCKING  RESULT
+[Security gate]   | ------   --------------------    --------  --------  ------
+[Security gate]   | SAST     bandit (backend)               0         0  PASS
+[Security gate]   | SAST     semgrep (both)                 0         0  PASS
+[Security gate]   | SCA      pip-audit (backend)            0         0  PASS
+[Security gate]   | SCA      npm audit (frontend)           0         0  PASS
+[Security gate]   | SCA      trivy fs                       0         0  PASS
+[Security gate]   | SECRETS  gitleaks                       0         0  PASS
+[Security gate]   | IMAGE    trivy backend image            0         0  PASS
+[Security gate]   | IMAGE    trivy frontend image           0         0  PASS
+[Security gate]   | 
+[Security gate]   | SECURITY GATE: PASSED - images may be pushed and deployed
+
+$ grep -E "pushed |values.yaml \||dev now wants" utility/transcripts/session-21/raw/act-pipeline-run.txt | sed -E "s/^\[Session 21 - ShelfShare pipeline\//[/; s/ +\]/]/"
+[Image scan (Trivy)]   ✅  Success - Main Trivy - the exact tarballs that will be pushed [32.042358411s]
+[Security gate]   | SECURITY GATE: PASSED - images may be pushed and deployed
+SECURITY GATE: PASSED - images may be pushed and deployed
+[Push images (tag = commit SHA)]   | pushed localhost:5001/ratneshvaibhav/shelfshare-backend:15295481756c72f32c9864c3c61759b67627722a
+[Push images (tag = commit SHA)]   | pushed localhost:5001/ratneshvaibhav/shelfshare-frontend:15295481756c72f32c9864c3c61759b67627722a
+[Deploy (gitops)]   |  environments/dev/values.yaml | 2 +-
+[Deploy (gitops)]   | dev now wants image tag 15295481756c72f32c9864c3c61759b67627722a (3c52022)
+

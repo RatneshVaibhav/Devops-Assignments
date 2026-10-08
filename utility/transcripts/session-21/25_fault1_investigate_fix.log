@@ -1,0 +1,59 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ POD=$(kubectl get pods -n shelfshare -l app.kubernetes.io/component=backend -o jsonpath="{.items[?(@.status.containerStatuses[0].restartCount>0)].metadata.name}"); echo $POD; kubectl describe pod $POD -n shelfshare | sed -n "/^Events/,\$p" | tail -6
+shelfshare-backend-6ddc7fc8db-2g6cw
+  Normal   Started    41s                kubelet            spec.initContainers{wait-for-db}: Container started
+  Normal   Pulled     8s (x3 over 32s)   kubelet            spec.containers{api}: Container image "localhost:5001/ratneshvaibhav/shelfshare-backend:15295481756c72f32c9864c3c61759b67627722a" already present on machine and can be accessed by the pod
+  Normal   Created    8s (x3 over 32s)   kubelet            spec.containers{api}: Container created
+  Normal   Started    8s (x3 over 32s)   kubelet            spec.containers{api}: Container started
+  Warning  Unhealthy  2s (x10 over 32s)  kubelet            spec.containers{api}: Startup probe failed: Get "http://10.244.0.240:8000/health": dial tcp 10.244.0.240:8000: connect: connection refused
+  Warning  BackOff    0s (x5 over 18s)   kubelet            spec.containers{api}: Back-off restarting failed container api in pod shelfshare-backend-6ddc7fc8db-2g6cw_shelfshare(7b0af1c1-3aff-486b-baa1-17cf6fa04be2)
+
+$ kubectl logs $POD -n shelfshare -c api --previous | grep -E "Error|FATAL" | cut -c1-150 | tail -3
+psycopg.OperationalError: connection failed: connection to server at "10.244.0.241", port 5432 failed: FATAL:  password authentication failed for user
+sqlalchemy.exc.OperationalError: (psycopg.OperationalError) connection failed: connection to server at "10.244.0.241", port 5432 failed: FATAL:  passw
+
+$ kubectl get configmap shelfshare-backend -n shelfshare -o jsonpath="DB_USER={.data.DB_USER}{\"\n\"}"; kubectl exec -n shelfshare shelfshare-postgres-0 -- printenv POSTGRES_USER
+DB_USER=shelfshare_app
+shelfshare_app
+
+$ kubectl logs -n shelfshare shelfshare-postgres-0 | grep -E "Skipping initialization|FATAL|DETAIL" | tail -3
+2026-10-08 11:08:20.371 UTC [120] DETAIL:  Role "shelfshare_app" does not exist.
+2026-10-08 11:08:22.046 UTC [127] FATAL:  role "shelfshare_app" does not exist
+2026-10-08 11:08:22.385 UTC [134] FATAL:  role "shelfshare_app" does not exist
+
+$ kubectl exec -n shelfshare shelfshare-postgres-0 -- sh -c "psql -U shelfshare -d shelfshare -Atc \"select rolname from pg_roles where rolname like 'shelfshare%'\""
+shelfshare
+
+$ echo "ROOT CAUSE: POSTGRES_USER is only used by initdb on an EMPTY data volume. The PVC already holds the database, so the role shelfshare_app was never created; the backend now logs in as a user that does not exist."
+ROOT CAUSE: POSTGRES_USER is only used by initdb on an EMPTY data volume. The PVC already holds the database, so the role shelfshare_app was never created; the backend now logs in as a user that does not exist.
+
+$ cd ~/shelfshare-gitops && git revert --no-edit HEAD && git push -q && git log --oneline -3; cd - >/dev/null
+[main 1565540] Revert "Fault 1 - a "harmless" rename of the database user in the environment values."
+ Date: Thu Oct 8 16:38:26 2026 +0530
+ 1 file changed, 2 deletions(-)
+1565540 Revert "Fault 1 - a "harmless" rename of the database user in the environment values."
+4771a87 Fault 1 - a "harmless" rename of the database user in the environment values.
+3c52022 Deploy shelfshare 1529548 to dev (pipeline run 1)
+
+$ until [ "$(kubectl get application shelfshare-dev -n argocd -o jsonpath="{.status.sync.revision}/{.status.health.status}")" = "$(git -C ~/shelfshare-gitops rev-parse HEAD)/Healthy" ]; do sleep 3; done; date +%T; argocd app get shelfshare-dev | sed -n "/Sync Status/,/Health Status/p"
+16:38:55
+Sync Status:        Synced to main (1565540)
+Health Status:      Healthy
+
+$ kubectl get pods -n shelfshare; kubectl get configmap shelfshare-backend -n shelfshare -o jsonpath="DB_USER={.data.DB_USER}{\"\n\"}"
+NAME                                   READY   STATUS    RESTARTS   AGE
+shelfshare-backend-84b54d4988-2srhm    1/1     Running   0          6m27s
+shelfshare-backend-84b54d4988-567cx    1/1     Running   0          6m11s
+shelfshare-frontend-6c76759dc8-2987z   1/1     Running   0          6m14s
+shelfshare-frontend-6c76759dc8-cxnqm   1/1     Running   0          6m27s
+shelfshare-postgres-0                  1/1     Running   0          9s
+DB_USER=shelfshare
+
+$ curl -s http://shelfshare.localhost:8088/api/books/stats | jq -c "{total, by_status}"; curl -s -o /dev/null -w "ready: %{http_code}\n" http://shelfshare.localhost:8088/api/books
+{"total":6,"by_status":{"available":4,"reserved":1,"exchanged":1}}
+ready: 200
+
+$ kubectl logs -n shelfshare shelfshare-postgres-0 | grep -m1 "Skipping initialization"; echo "^ the postgres entrypoint never re-runs initdb on an existing volume (this restart, too)"
+PostgreSQL Database directory appears to contain a database; Skipping initialization
+^ the postgres entrypoint never re-runs initdb on an existing volume (this restart, too)
+

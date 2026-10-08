@@ -1,0 +1,53 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ git diff -U1 monitoring/kube-prometheus-stack-values.yaml | tail -n +5
+@@ -30,2 +30,11 @@ prometheus:
+     retention: 12h
++    retentionSize: 1500MB
++    # without a storageSpec the TSDB is an emptyDir: every restart or pause of the
++    # Prometheus pod threw the metrics history away (found in Session 21, transcript 33)
++    storageSpec:
++      volumeClaimTemplate:
++        spec:
++          accessModes: [ReadWriteOnce]
++          resources:
++            requests: {storage: 2Gi}
+     scrapeInterval: 15s
+
+$ helm upgrade kps prometheus-community/kube-prometheus-stack --version 92.1.0 -n monitoring -f monitoring/kube-prometheus-stack-values.yaml 2>&1 | grep -vi "^W1008" | head -12
+Release "kps" has been upgraded. Happy Helming!
+NAME: kps
+LAST DEPLOYED: Thu Oct  8 17:29:49 2026
+NAMESPACE: monitoring
+STATUS: deployed
+REVISION: 5
+DESCRIPTION: Upgrade complete
+NOTES:
+kube-prometheus-stack has been installed. Check its status by running:
+  kubectl --namespace monitoring get pods -l "release=kps"
+
+Get Grafana 'admin' user password by running:
+
+$ until kubectl get pvc -n monitoring 2>/dev/null | grep -q Bound && kubectl -n monitoring wait --for=condition=Ready pod/prometheus-kps-prometheus-0 --timeout=10s >/dev/null 2>&1; do sleep 5; done; kubectl get pvc -n monitoring; kubectl get pod prometheus-kps-prometheus-0 -n monitoring -o jsonpath="{range .spec.volumes[?(@.name==\"prometheus-kps-prometheus-db\")]}{.name}: pvc={.persistentVolumeClaim.claimName}{\"\n\"}{end}"
+NAME                                                       STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+prometheus-kps-prometheus-db-prometheus-kps-prometheus-0   Bound    pvc-115e29a9-6bd5-490c-a38f-ea5a205f160f   2Gi        RWO            standard       <unset>                 23s
+prometheus-kps-prometheus-db: pvc=prometheus-kps-prometheus-db-prometheus-kps-prometheus-0
+
+$ pq() { curl -s http://prometheus.localhost:8088/api/v1/query --data-urlencode "query=$1" | jq -r ".data.result[0].value[1] // \"empty\""; }; until [ "$(pq "count_over_time(up{job=\"shelfshare-backend\"}[10m])")" -ge 4 ] 2>/dev/null; do sleep 5; done; date +%T; echo "samples of up{shelfshare-backend} in the last 10 min: $(pq "sum(count_over_time(up{job=\"shelfshare-backend\"}[10m]))")"; T0=$(date +%s)
+17:31:05
+samples of up{shelfshare-backend} in the last 10 min: 7
+
+$ kubectl delete pod prometheus-kps-prometheus-0 -n monitoring && until kubectl -n monitoring wait --for=condition=Ready pod/prometheus-kps-prometheus-0 --timeout=10s >/dev/null 2>&1; do sleep 5; done; until curl -sf http://prometheus.localhost:8088/-/ready >/dev/null; do sleep 3; done; date +"%T new Prometheus pod ready"
+pod "prometheus-kps-prometheus-0" deleted from monitoring namespace
+17:31:29 new Prometheus pod ready
+
+$ echo "samples of up{shelfshare-backend} up to $(date -d @$T0 +%T), asked after the restart: $(curl -s http://prometheus.localhost:8088/api/v1/query --data-urlencode "query=sum(count_over_time(up{job=\"shelfshare-backend\"}[10m]))" -d time=$T0 | jq -r ".data.result[0].value[1] // \"empty\"")  -> history survived the pod restart"
+samples of up{shelfshare-backend} up to 17:31:05, asked after the restart: 7  -> history survived the pod restart
+
+$ date +%T; monitoring/traffic.sh 90 1; date +%T
+17:31:38
+worker 1: 4100 requests
+17:33:08
+
+$ curl -s http://prometheus.localhost:8088/api/v1/query --data-urlencode "query=round(sum(increase(shelfshare_books_listed_total{namespace=\"shelfshare\"}[3m])))" | jq -r "\"books listed in the last 3 min (dashboard query): \" + .data.result[0].value[1]"
+books listed in the last 3 min (dashboard query): 96
+

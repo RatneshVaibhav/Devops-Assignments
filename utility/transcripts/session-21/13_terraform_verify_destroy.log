@@ -1,0 +1,66 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project/terraform
+$ aws eks describe-cluster --name shelfshare-eks --query "cluster.{name:name,version:version,status:status,auth:accessConfig.authenticationMode,publicAccessCidrs:resourcesVpcConfig.publicAccessCidrs,subnets:length(resourcesVpcConfig.subnetIds),logging:logging.clusterLogging[0].types}"
+{
+    "name": "shelfshare-eks",
+    "version": "1.34",
+    "status": "ACTIVE",
+    "auth": null,
+    "publicAccessCidrs": [
+        "0.0.0.0/0"
+    ],
+    "subnets": 4,
+    "logging": [
+        "audit",
+        "api",
+        "authenticator"
+    ]
+}
+
+$ aws eks describe-nodegroup --cluster-name shelfshare-eks --nodegroup-name shelfshare-default --query "nodegroup.{status:status,instanceTypes:instanceTypes,capacity:capacityType,scaling:scalingConfig,subnets:length(subnets),labels:labels}"
+{
+    "status": "ACTIVE",
+    "instanceTypes": [
+        "t3.medium"
+    ],
+    "capacity": "ON_DEMAND",
+    "scaling": {
+        "minSize": 1,
+        "maxSize": 3,
+        "desiredSize": 2
+    },
+    "subnets": 2,
+    "labels": {
+        "workload": "general"
+    }
+}
+
+$ aws ec2 describe-subnets --filters Name=vpc-id,Values=$(terraform output -raw vpc_id) --query "Subnets[].[Tags[?Key==\`Name\`]|[0].Value,CidrBlock,AvailabilityZone,Tags[?starts_with(Key,\`kubernetes.io/role\`)]|[0].Key]" --output table
+---------------------------------------------------------------------------------------------
+|                                      DescribeSubnets                                      |
++-----------------------+----------------+--------------+-----------------------------------+
+|  shelfshare-public-a  |  10.40.1.0/24  |  ap-south-1a |  kubernetes.io/role/elb           |
+|  shelfshare-private-a |  10.40.11.0/24 |  ap-south-1a |  kubernetes.io/role/internal-elb  |
+|  shelfshare-private-b |  10.40.12.0/24 |  ap-south-1b |  kubernetes.io/role/internal-elb  |
+|  shelfshare-public-b  |  10.40.2.0/24  |  ap-south-1b |  kubernetes.io/role/elb           |
++-----------------------+----------------+--------------+-----------------------------------+
+
+$ aws ec2 describe-route-tables --filters Name=vpc-id,Values=$(terraform output -raw vpc_id) --query "RouteTables[?Tags[?Key==\`Name\`]].[Tags[?Key==\`Name\`]|[0].Value,join(\`, \`,Routes[].[GatewayId||NatGatewayId][])]" --output text
+shelfshare-public-rt	local, igw-2b206ef843b9e3a85
+shelfshare-private-rt	local, nat-1430b84e058bac7d9
+
+$ aws iam list-attached-role-policies --role-name shelfshare-eks-node --query "AttachedPolicies[].PolicyName"
+[
+    "AmazonEC2ContainerRegistryReadOnly",
+    "AmazonEKSWorkerNodePolicy",
+    "AmazonEKS_CNI_Policy"
+]
+
+$ terraform plan -destroy -out=destroy.tfplan -no-color | grep -E "^Plan:" && timeout 300 terraform apply -no-color destroy.tfplan | tail -1
+Plan: 0 to add, 0 to change, 22 to destroy.
+Apply complete! Resources: 0 added, 0 changed, 22 destroyed.
+
+$ aws eks list-clusters --query clusters; aws ec2 describe-vpcs --filters Name=tag:Project,Values=shelfshare --query "length(Vpcs)"; terraform state list | wc -l; rm -f tfplan destroy.tfplan
+[]
+0
+0
+

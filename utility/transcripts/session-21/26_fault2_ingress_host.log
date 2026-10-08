@@ -1,0 +1,87 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ troubleshooting/inject.sh troubleshooting/02-ingress-host-typo.values.yaml && git -C ~/shelfshare-gitops show --format= HEAD | tail -n +5
+f44a0aa Fault 2 - the ingress host is changed to a name nobody uses.
+@@ -8,3 +8,5 @@ backend:
+   env:
+     APP_ENV: development
+     LOG_LEVEL: INFO
++ingress:
++  host: shelfshare.local
+
+$ until [ "$(kubectl get application shelfshare-dev -n argocd -o jsonpath="{.status.sync.revision}/{.status.health.status}")" = "$(git -C ~/shelfshare-gitops rev-parse HEAD)/Healthy" ]; do sleep 3; done; date +%T; argocd app get shelfshare-dev | sed -n "/Sync Status/,/Health Status/p"; echo "^ Argo CD and every probe say all is well..."
+16:40:22
+Sync Status:        Synced to main (f44a0aa)
+Health Status:      Healthy
+^ Argo CD and every probe say all is well...
+
+$ curl -s -w "\nHTTP %{http_code}\n" http://shelfshare.localhost:8088/api/books/stats; curl -s -o /dev/null -w "UI: HTTP %{http_code}\n" http://shelfshare.localhost:8088/
+<html>
+<head><title>404 Not Found</title></head>
+<body>
+<center><h1>404 Not Found</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+HTTP 404
+UI: HTTP 404
+
+$ kubectl get pods,endpointslices -n shelfshare -l app.kubernetes.io/instance=shelfshare
+NAME                                       READY   STATUS    RESTARTS   AGE
+pod/shelfshare-backend-5dd65594ff-2dpb6    1/1     Running   0          20s
+pod/shelfshare-backend-5dd65594ff-drwmg    1/1     Running   0          37s
+pod/shelfshare-frontend-6c76759dc8-2987z   1/1     Running   0          7m41s
+pod/shelfshare-frontend-6c76759dc8-cxnqm   1/1     Running   0          7m54s
+pod/shelfshare-postgres-0                  1/1     Running   0          96s
+
+NAME                                                       ADDRESSTYPE   PORTS   ENDPOINTS                   AGE
+endpointslice.discovery.k8s.io/shelfshare-backend-mlqbm    IPv4          8000    10.244.0.243,10.244.0.244   58m
+endpointslice.discovery.k8s.io/shelfshare-frontend-j6cm9   IPv4          8080    10.244.0.236,10.244.0.238   58m
+endpointslice.discovery.k8s.io/shelfshare-postgres-z2dqq   IPv4          5432    10.244.0.242                58m
+
+$ kubectl get ingress -n shelfshare; kubectl describe ingress shelfshare -n shelfshare | sed -n "/^Rules/,/^Annotations/p"
+NAME         CLASS   HOSTS              ADDRESS     PORTS   AGE
+shelfshare   nginx   shelfshare.local   localhost   80      58m
+Rules:
+  Host              Path  Backends
+  ----              ----  --------
+  shelfshare.local  
+                    /api   shelfshare-backend:http (10.244.0.243:8000,10.244.0.244:8000)
+                    /      shelfshare-frontend:http (10.244.0.236:8080,10.244.0.238:8080)
+Annotations:        argocd.argoproj.io/tracking-id: shelfshare-dev:networking.k8s.io/Ingress:shelfshare/shelfshare
+
+$ kubectl logs -n ingress-nginx deploy/ingress-nginx-controller --since=2m | grep "/api/books/stats" | tail -1 | cut -c1-200
+172.21.0.1 - - [08/Oct/2026:11:08:56 +0000] "GET /api/books/stats HTTP/1.1" 200 252 "-" "curl/8.5.0" 103 0.072 [shelfshare-shelfshare-backend-http] [] 10.244.0.239:8000 252 0.071 200 1153bc75da008a742
+
+$ curl -s -H "Host: shelfshare.local" http://localhost:8088/api/books/stats | jq -c "{total}"; echo "^ the app answers when asked for the host the Ingress now expects -> the routing rule is wrong, not the app"
+{"total":6}
+^ the app answers when asked for the host the Ingress now expects -> the routing rule is wrong, not the app
+
+$ git -C ~/shelfshare-gitops log -1 --format="%h %an %ar: %s"; echo "ROOT CAUSE: the commit above changed ingress.host to shelfshare.local; clients and docs use shelfshare.localhost, so ingress-nginx has no rule for them and serves its default 404."
+f44a0aa Ratnesh Vaibhav 51 seconds ago: Fault 2 - the ingress host is changed to a name nobody uses.
+ROOT CAUSE: the commit above changed ingress.host to shelfshare.local; clients and docs use shelfshare.localhost, so ingress-nginx has no rule for them and serves its default 404.
+
+$ cd ~/shelfshare-gitops && git revert --no-edit HEAD && git push -q && git log --oneline -1; cd - >/dev/null
+[main 2261881] Revert "Fault 2 - the ingress host is changed to a name nobody uses."
+ Date: Thu Oct 8 16:40:26 2026 +0530
+ 1 file changed, 2 deletions(-)
+2261881 Revert "Fault 2 - the ingress host is changed to a name nobody uses."
+
+$ until [ "$(kubectl get ingress shelfshare -n shelfshare -o jsonpath="{.spec.rules[0].host}")" = shelfshare.localhost ] && [ "$(kubectl get application shelfshare-dev -n argocd -o jsonpath="{.status.sync.revision}")" = "$(git -C ~/shelfshare-gitops rev-parse HEAD)" ]; do sleep 3; done; date +%T; kubectl get ingress -n shelfshare
+16:41:12
+NAME         CLASS   HOSTS                  ADDRESS     PORTS   AGE
+shelfshare   nginx   shelfshare.localhost   localhost   80      59m
+
+$ until [ "$(curl -s -o /dev/null -w "%{http_code}" http://shelfshare.localhost:8088/api/books/stats)" = 200 ]; do sleep 2; done; curl -s -w "\nHTTP %{http_code}\n" http://shelfshare.localhost:8088/api/books/stats | cut -c1-120; curl -s -o /dev/null -w "UI: HTTP %{http_code}\n" http://shelfshare.localhost:8088/
+{"total":6,"by_status":{"available":4,"reserved":1,"exchanged":1},"top_courses":[{"course_code":"CS301","books":2},{"cou
+HTTP 200
+UI: HTTP 200
+
+$ echo "Why was the last access-log line a 200 from before the change? Re-checked with unique paths:"; P=/probe-$RANDOM; for h in nobody.localhost shelfshare.localhost; do curl -s -o /dev/null -w "$h$P -> HTTP %{http_code}, " -H "Host: $h" http://localhost:8088$P$h; echo "access-log lines: $(kubectl logs -n ingress-nginx deploy/ingress-nginx-controller --since=1m | grep -c "GET $P$h ")"; done
+Why was the last access-log line a 200 from before the change? Re-checked with unique paths:
+nobody.localhost/probe-21437 -> HTTP 404, access-log lines: 0
+shelfshare.localhost/probe-21437 -> HTTP 200, access-log lines: 1
+
+$ echo "^ the request to a host without an Ingress rule is never logged (the catch-all 404 server has access_log off); a request missing from the log means no rule matched its Host"
+^ the request to a host without an Ingress rule is never logged (the catch-all 404 server has access_log off); a request missing from the log means no rule matched its Host
+

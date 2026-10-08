@@ -1,0 +1,1069 @@
+time="2026-10-08T16:24:14+05:30" level=info msg="Using docker host 'unix:///home/ratnesh/.docker/desktop/docker.sock', and daemon socket 'unix:///var/run/docker.sock'"
+time="2026-10-08T16:24:14+05:30" level=info msg="Start server on http://100.128.167.30:34567"
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ] ⭐ Run Set up job
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)] ⭐ Run Set up job
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ✅  Success - Set up job
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   ✅  Success - Set up job
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   ☁  git clone 'https://github.com/actions/setup-node' # ref=v4
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v5
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ] ⭐ Run Main actions/checkout@v4
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)] ⭐ Run Main actions/checkout@v4
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   ✅  Success - Main actions/checkout@v4 [1.639108269s]
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ] ⭐ Run Main actions/setup-node@v4
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-setup-node@v4/ dst=/var/run/act/actions/actions-setup-node@v4/
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ✅  Success - Main actions/checkout@v4 [1.739093081s]
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)] ⭐ Run Main actions/setup-python@v5
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-setup-python@v5/ dst=/var/run/act/actions/actions-setup-python@v5/
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-node@v4/dist/setup/index.js] user= workdir=
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | Attempting to download 24...
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | (node:29) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/setup/index.js] user= workdir=
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ❓  ::group::Installed versions
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | (node:31) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Successfully set up CPython (3.12.15)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ❓  ::endgroup::
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ❓ add-matcher /run/act/actions/actions-setup-python@v5/.github/python.json
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ✅  Success - Main actions/setup-python@v5 [1.683001355s]
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ⚙  ::set-output:: python-version=3.12.15
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.12.15/x64/bin/python
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64/bin
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)] ⭐ Run Main Install dependencies
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=session-21-final-devops-project/final-devops-project
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Collecting fastapi==0.142.4 (from -r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 1))
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | Acquiring 24.21.0 - x64 from https://github.com/actions/node-versions/releases/download/24.21.0-34304089047/node-24.21.0-linux-x64.tar.gz
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |   Downloading fastapi-0.142.4-py3-none-any.whl.metadata (26 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Requirement already satisfied: uvicorn==0.54.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from uvicorn[standard]==0.54.0->-r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 2)) (0.54.0)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Collecting sqlalchemy==2.1.4 (from -r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 3))
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |   Downloading sqlalchemy-2.1.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (9.7 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Collecting psycopg==3.3.6 (from psycopg[binary]==3.3.6->-r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 4))
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |   Downloading psycopg-3.3.6-py3-none-any.whl.metadata (4.4 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Collecting alembic==1.20.0 (from -r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 5))
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |   Downloading alembic-1.20.0-py3-none-any.whl.metadata (7.3 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Requirement already satisfied: pydantic==2.13.5 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from -r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 6)) (2.13.5)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Requirement already satisfied: pydantic-settings==2.15.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from -r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 7)) (2.15.0)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Collecting prometheus-fastapi-instrumentator==8.1.0 (from -r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 8))
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |   Downloading prometheus_fastapi_instrumentator-8.1.0-py3-none-any.whl.metadata (13 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Requirement already satisfied: pytest==9.1.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from -r application/backend/requirements-dev.txt (line 2)) (9.1.1)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Requirement already satisfied: pytest-cov==7.1.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from -r application/backend/requirements-dev.txt (line 3)) (7.1.0)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Collecting httpx2==2.13.1 (from -r application/backend/requirements-dev.txt (line 4))
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |   Downloading httpx2-2.13.1-py3-none-any.whl.metadata (9.8 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Requirement already satisfied: starlette>=0.46.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from fastapi==0.142.4->-r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 1)) (1.7.0)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Requirement already satisfied: typing-extensions>=4.8.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from fastapi==0.142.4->-r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 1)) (4.16.0)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Requirement already satisfied: typing-inspection>=0.4.2 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from fastapi==0.142.4->-r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 1)) (0.4.4)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Collecting annotated-doc>=0.0.2 (from fastapi==0.142.4->-r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 1))
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |   Downloading annotated_doc-0.0.5-py3-none-any.whl.metadata (6.5 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Collecting opentelemetry-api>=1.44.0 (from fastapi==0.142.4->-r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 1))
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |   Downloading opentelemetry_api-1.45.1-py3-none-any.whl.metadata (1.4 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Requirement already satisfied: click>=7.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from uvicorn==0.54.0->uvicorn[standard]==0.54.0->-r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 2)) (8.4.2)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Requirement already satisfied: h11>=0.8 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from uvicorn==0.54.0->uvicorn[standard]==0.54.0->-r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 2)) (0.16.0)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Collecting Mako (from alembic==1.20.0->-r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 5))
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |   Downloading mako-1.4.3-py3-none-any.whl.metadata (2.9 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Requirement already satisfied: annotated-types>=0.6.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pydantic==2.13.5->-r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 6)) (0.8.0)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Requirement already satisfied: pydantic-core==2.46.5 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pydantic==2.13.5->-r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 6)) (2.46.5)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Requirement already satisfied: python-dotenv>=0.21.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pydantic-settings==2.15.0->-r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 7)) (1.2.4)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Collecting prometheus-client<1.0.0,>=0.8.0 (from prometheus-fastapi-instrumentator==8.1.0->-r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 8))
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |   Downloading prometheus_client-0.26.0-py3-none-any.whl.metadata (2.1 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Requirement already satisfied: iniconfig>=1.0.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pytest==9.1.1->-r application/backend/requirements-dev.txt (line 2)) (2.3.1)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Requirement already satisfied: packaging>=22 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pytest==9.1.1->-r application/backend/requirements-dev.txt (line 2)) (26.3)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Requirement already satisfied: pluggy<2,>=1.5 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pytest==9.1.1->-r application/backend/requirements-dev.txt (line 2)) (1.6.0)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Requirement already satisfied: pygments>=2.7.2 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pytest==9.1.1->-r application/backend/requirements-dev.txt (line 2)) (2.21.0)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Requirement already satisfied: coverage>=7.10.6 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from coverage[toml]>=7.10.6->pytest-cov==7.1.0->-r application/backend/requirements-dev.txt (line 3)) (7.16.2)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Requirement already satisfied: anyio>=4.10 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from httpx2==2.13.1->-r application/backend/requirements-dev.txt (line 4)) (4.15.1)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Collecting httpcore2==2.13.1 (from httpx2==2.13.1->-r application/backend/requirements-dev.txt (line 4))
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |   Downloading httpcore2-2.13.1-py3-none-any.whl.metadata (26 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Requirement already satisfied: idna>=3.18 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from httpx2==2.13.1->-r application/backend/requirements-dev.txt (line 4)) (3.20)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Collecting truststore>=0.10 (from httpx2==2.13.1->-r application/backend/requirements-dev.txt (line 4))
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |   Downloading truststore-0.10.4-py3-none-any.whl.metadata (4.4 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Collecting psycopg-binary==3.3.6 (from psycopg[binary]==3.3.6->-r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 4))
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |   Downloading psycopg_binary-3.3.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.7 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Collecting httptools>=0.8.0 (from uvicorn[standard]==0.54.0->-r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 2))
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |   Downloading httptools-0.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (3.5 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Requirement already satisfied: pyyaml>=5.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from uvicorn[standard]==0.54.0->-r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 2)) (5.3.1)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Collecting uvloop>=0.15.1 (from uvicorn[standard]==0.54.0->-r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 2))
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |   Downloading uvloop-0.23.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (5.1 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Collecting watchfiles>=0.20 (from uvicorn[standard]==0.54.0->-r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 2))
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |   Downloading watchfiles-1.3.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Collecting websockets>=13.0 (from uvicorn[standard]==0.54.0->-r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 2))
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |   Downloading websockets-17.2-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.3 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Requirement already satisfied: MarkupSafe>=2.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Mako->alembic==1.20.0->-r /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/requirements.txt (line 5)) (3.0.4)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Downloading fastapi-0.142.4-py3-none-any.whl (144 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Downloading sqlalchemy-2.1.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.7 MB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.7/4.7 MB 3.3 MB/s  0:00:02
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Downloading psycopg-3.3.6-py3-none-any.whl (215 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Downloading alembic-1.20.0-py3-none-any.whl (268 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Downloading prometheus_fastapi_instrumentator-8.1.0-py3-none-any.whl (19 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Downloading httpx2-2.13.1-py3-none-any.whl (95 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Downloading httpcore2-2.13.1-py3-none-any.whl (83 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Downloading psycopg_binary-3.3.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.2 MB)
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | Extracting ...
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /tmp/e1cda194-6581-47ab-9483-260ded3800e3 -f /tmp/124fd63c-5eb9-47fb-b6db-54cd5a2dba92
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.2/5.2 MB 3.6 MB/s  0:00:01
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Downloading prometheus_client-0.26.0-py3-none-any.whl (64 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Downloading annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Downloading httptools-0.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (523 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Downloading opentelemetry_api-1.45.1-py3-none-any.whl (60 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Downloading truststore-0.10.4-py3-none-any.whl (18 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Downloading uvloop-0.23.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.5 MB)
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | Adding to the cache ...
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 2.7 MB/s  0:00:01
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Downloading watchfiles-1.3.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (458 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Downloading websockets-17.2-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (225 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Downloading mako-1.4.3-py3-none-any.whl (80 kB)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Installing collected packages: websockets, uvloop, truststore, sqlalchemy, psycopg-binary, psycopg, prometheus-client, opentelemetry-api, Mako, httptools, annotated-doc, watchfiles, httpcore2, alembic, prometheus-fastapi-instrumentator, httpx2, fastapi
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   ❓  ::group::Environment details
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |   Attempting uninstall: opentelemetry-api
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |     Found existing installation: opentelemetry-api 1.37.0
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |     Uninstalling opentelemetry-api-1.37.0:
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   |       Successfully uninstalled opentelemetry-api-1.37.0
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | node: v24.21.0
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | npm: 11.19.0
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | yarn: 
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   ❓  ::endgroup::
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   ❓ add-matcher /run/act/actions/actions-setup-node@v4/.github/tsc.json
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   ❓ add-matcher /run/act/actions/actions-setup-node@v4/.github/eslint-stylish.json
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   ❓ add-matcher /run/act/actions/actions-setup-node@v4/.github/eslint-compact.json
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   ✅  Success - Main actions/setup-node@v4 [24.425343279s]
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   ⚙  ::set-output:: node-version=v24.21.0
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   ⚙  ::add-path:: /opt/hostedtoolcache/node/24.21.0/x64/bin
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ] ⭐ Run Main npm ci and build
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=session-21-final-devops-project/final-devops-project/application/frontend
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | 
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | opentelemetry-sdk 1.37.0 requires opentelemetry-api==1.37.0, but you have opentelemetry-api 1.45.1 which is incompatible.
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | semgrep 1.179.0 requires opentelemetry-api~=1.37.0, but you have opentelemetry-api 1.45.1 which is incompatible.
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | opentelemetry-semantic-conventions 0.58b0 requires opentelemetry-api==1.37.0, but you have opentelemetry-api 1.45.1 which is incompatible.
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Successfully installed Mako-1.4.3 alembic-1.20.0 annotated-doc-0.0.5 fastapi-0.142.4 httpcore2-2.13.1 httptools-0.8.0 httpx2-2.13.1 opentelemetry-api-1.45.1 prometheus-client-0.26.0 prometheus-fastapi-instrumentator-8.1.0 psycopg-3.3.6 psycopg-binary-3.3.6 sqlalchemy-2.1.4 truststore-0.10.4 uvloop-0.23.0 watchfiles-1.3.0 websockets-17.2
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ✅  Success - Main Install dependencies [22.100243936s]
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)] ⭐ Run Main Run pytest (SQLite test database)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3.sh] user= workdir=session-21-final-devops-project/final-devops-project/application/backend
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | ============================= test session starts ==============================
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | platform linux -- Python 3.12.15, pytest-9.1.1, pluggy-1.6.0
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | rootdir: /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | configfile: pytest.ini
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | testpaths: tests
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | plugins: cov-7.1.0, platformdirs-4.12.4, anyio-4.15.1
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | collected 10 items
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | 
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | tests/test_api.py ..........                                             [100%]
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | 
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | - generated xml file: /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/backend/reports/junit.xml -
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | ================================ tests coverage ================================
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | _______________ coverage: platform linux, python 3.12.15-final-0 _______________
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | 
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Name              Stmts   Miss  Cover
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | -------------------------------------
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | app/__init__.py       1      0   100%
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | app/config.py        22      1    95%
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | app/db.py            12      4    67%
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | app/main.py          98      5    95%
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | app/models.py        18      0   100%
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | app/schemas.py       35      0   100%
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | -------------------------------------
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | TOTAL               186     10    95%
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Coverage XML written to file reports/coverage.xml
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | ============================== 10 passed in 0.54s ==============================
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ✅  Success - Main Run pytest (SQLite test database) [3.685804549s]
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)] ⭐ Run Main actions/upload-artifact@v4
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | (node:98) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | With the provided path, there will be 2 files uploaded
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Artifact name is valid!
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Root directory input is valid!
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Beginning upload of artifact content to blob storage
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | (node:98) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Uploaded bytes 1544
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Finished uploading artifact content to blob storage!
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | SHA256 digest of uploaded artifact zip is 0e55ef8962c4f04fbfd5e52b5b157d3be7db184d9863d516924fc0af76d9a27d
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Finalizing artifact upload
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Artifact backend-test-report.zip successfully finalized. Artifact ID 674919351
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Artifact backend-test-report has been successfully uploaded! Final size is 1544 bytes. Artifact ID is 674919351
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | Artifact download URL: https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/674919351
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ✅  Success - Main actions/upload-artifact@v4 [1.47481491s]
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ⚙  ::set-output:: artifact-digest=0e55ef8962c4f04fbfd5e52b5b157d3be7db184d9863d516924fc0af76d9a27d
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ⚙  ::set-output:: artifact-url=https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/674919351
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ⚙  ::set-output:: artifact-id=674919351
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)] ⭐ Run Post actions/setup-python@v5
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/cache-save/index.js] user= workdir=
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | (node:115) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ✅  Success - Post actions/setup-python@v5 [275.141746ms]
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)] ⭐ Run Complete job
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)] Cleaning up container for job Backend tests (pytest)
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | 
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | added 21 packages in 7s
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | 
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | > shelfshare-frontend@1.0.0 build
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | > vite build
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | 
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | [36mvite v8.3.3 [32mbuilding client environment for production...[36m[39m
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | transforming...
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | ✓ 17 modules transformed.
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | rendering chunks...
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | computing gzip size...
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | dist/index.html                   0.46 kB │ gzip:  0.30 kB
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | dist/assets/index-Dps687Y4.css    3.78 kB │ gzip:  1.24 kB
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | dist/assets/index-WLctG6Pr.js   225.64 kB │ gzip: 70.57 kB
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | 
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | [32m✓ built in 304ms[39m
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | total 236
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | drwxr-xr-x 2 root root   4096 Oct  8 10:55 .
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | drwxr-xr-x 3 root root   4096 Oct  8 10:55 ..
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | -rw-r--r-- 1 root root   3788 Oct  8 10:55 index-Dps687Y4.css
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | -rw-r--r-- 1 root root 225649 Oct  8 10:55 index-WLctG6Pr.js
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   ✅  Success - Main npm ci and build [8.199638839s]
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)]   ✅  Success - Complete job
+[Session 21 - ShelfShare pipeline/Backend tests (pytest)] 🏁  Job succeeded
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ] ⭐ Run Main actions/upload-artifact@v4
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | (node:139) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | With the provided path, there will be 4 files uploaded
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | Artifact name is valid!
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | Root directory input is valid!
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | Beginning upload of artifact content to blob storage
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | (node:139) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | Uploaded bytes 71980
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | Finished uploading artifact content to blob storage!
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | SHA256 digest of uploaded artifact zip is 2ec6970f349c942e0850eefc14ef721f7ad1f7dc851bd4b24050c57aa859d11c
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | Finalizing artifact upload
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | Artifact frontend-dist.zip successfully finalized. Artifact ID 1427224128
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | Artifact frontend-dist has been successfully uploaded! Final size is 71980 bytes. Artifact ID is 1427224128
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | Artifact download URL: https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/1427224128
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   ✅  Success - Main actions/upload-artifact@v4 [1.092488815s]
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   ⚙  ::set-output:: artifact-id=1427224128
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   ⚙  ::set-output:: artifact-digest=2ec6970f349c942e0850eefc14ef721f7ad1f7dc851bd4b24050c57aa859d11c
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   ⚙  ::set-output:: artifact-url=https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/1427224128
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ] ⭐ Run Post actions/setup-node@v4
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-node@v4/dist/cache-save/index.js] user= workdir=
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | (node:156) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   ✅  Success - Post actions/setup-node@v4 [281.022436ms]
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ] ⭐ Run Complete job
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ] Cleaning up container for job Frontend build (Vite)
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ]   ✅  Success - Complete job
+[Session 21 - ShelfShare pipeline/Frontend build (Vite) ] 🏁  Job succeeded
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ] ⭐ Run Set up job
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ] ⭐ Run Set up job
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ✅  Success - Set up job
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   ✅  Success - Set up job
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v5
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ] ⭐ Run Main actions/checkout@v4
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   ✅  Success - Main actions/checkout@v4 [1.633077213s]
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ] ⭐ Run Main Install pinned, checksum-verified scanners
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/1.sh] user= workdir=session-21-final-devops-project/final-devops-project
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ] ⭐ Run Main actions/checkout@v4
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ✅  Success - Main actions/checkout@v4 [1.809134512s]
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ] ⭐ Run Main actions/setup-python@v5
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-setup-python@v5/ dst=/var/run/act/actions/actions-setup-python@v5/
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/setup/index.js] user= workdir=
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ❓  ::group::Installed versions
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | (node:32) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Successfully set up CPython (3.12.15)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ❓  ::endgroup::
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ❓ add-matcher /run/act/actions/actions-setup-python@v5/.github/python.json
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ✅  Success - Main actions/setup-python@v5 [1.710017349s]
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ⚙  ::set-output:: python-version=3.12.15
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.12.15/x64/bin/python
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64/bin
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ] ⭐ Run Main pip install bandit==1.9.4 semgrep==1.179.0
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=session-21-final-devops-project/final-devops-project
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: bandit==1.9.4 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (1.9.4)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: semgrep==1.179.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (1.179.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: PyYAML>=5.3.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from bandit==1.9.4) (5.3.1)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: stevedore>=1.20.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from bandit==1.9.4) (5.9.1)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: rich in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from bandit==1.9.4) (15.0.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: attrs>=21.3 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (26.1.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: boltons~=21.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (21.0.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: click-option-group~=0.5 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (0.5.9)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: click~=8.4.2 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (8.4.2)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: colorama~=0.4.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (0.4.6)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: exceptiongroup~=1.2.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (1.2.2)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: glom>=23.3 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (25.12.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: jsonschema~=4.25.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (4.25.1)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: mcp==1.29.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (1.29.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Collecting opentelemetry-api~=1.37.0 (from semgrep==1.179.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   |   Downloading opentelemetry_api-1.37.0-py3-none-any.whl.metadata (1.5 kB)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: opentelemetry-sdk~=1.37.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (1.37.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: opentelemetry-exporter-otlp-proto-http~=1.37.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (1.37.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: opentelemetry-instrumentation-requests~=0.58b0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (0.58b0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: opentelemetry-instrumentation-threading~=0.58b0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (0.58b0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: packaging>=21.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (26.3)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: peewee~=3.14 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (3.19.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: pyjwt<3,>=2.15.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pyjwt[crypto]<3,>=2.15.0->semgrep==1.179.0) (2.15.1)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: requests~=2.22 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (2.34.2)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: ruamel.yaml>=0.18.15 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (0.19.1)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: ruamel.yaml.clib==0.2.15 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (0.2.15)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: semantic-version~=2.10.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (2.10.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: tomli~=2.4.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (2.4.1)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: typing-extensions~=4.2 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (4.16.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: urllib3~=2.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (2.8.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: wcmatch~=8.3 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from semgrep==1.179.0) (8.5.2)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: anyio>=4.5 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from mcp==1.29.0->semgrep==1.179.0) (4.15.1)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: httpx-sse>=0.4 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from mcp==1.29.0->semgrep==1.179.0) (0.4.3)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: httpx<1.0.0,>=0.27.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from mcp==1.29.0->semgrep==1.179.0) (0.28.1)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: pydantic-settings>=2.5.2 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from mcp==1.29.0->semgrep==1.179.0) (2.15.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: pydantic<3.0.0,>=2.11.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from mcp==1.29.0->semgrep==1.179.0) (2.13.5)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: python-multipart>=0.0.9 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from mcp==1.29.0->semgrep==1.179.0) (0.0.32)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: sse-starlette>=1.6.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from mcp==1.29.0->semgrep==1.179.0) (3.5.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: starlette>=0.27 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from mcp==1.29.0->semgrep==1.179.0) (1.7.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: typing-inspection>=0.4.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from mcp==1.29.0->semgrep==1.179.0) (0.4.4)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: uvicorn>=0.31.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from mcp==1.29.0->semgrep==1.179.0) (0.54.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: certifi in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from httpx<1.0.0,>=0.27.1->mcp==1.29.0->semgrep==1.179.0) (2026.7.22)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: httpcore==1.* in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from httpx<1.0.0,>=0.27.1->mcp==1.29.0->semgrep==1.179.0) (1.0.9)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: idna in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from httpx<1.0.0,>=0.27.1->mcp==1.29.0->semgrep==1.179.0) (3.20)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: h11>=0.16 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from httpcore==1.*->httpx<1.0.0,>=0.27.1->mcp==1.29.0->semgrep==1.179.0) (0.16.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from jsonschema~=4.25.1->semgrep==1.179.0) (2025.9.1)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: referencing>=0.28.4 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from jsonschema~=4.25.1->semgrep==1.179.0) (0.37.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: rpds-py>=0.7.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from jsonschema~=4.25.1->semgrep==1.179.0) (2026.9.1)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: importlib-metadata<8.8.0,>=6.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from opentelemetry-api~=1.37.0->semgrep==1.179.0) (8.7.1)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: zipp>=3.20 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from importlib-metadata<8.8.0,>=6.0->opentelemetry-api~=1.37.0->semgrep==1.179.0) (4.1.1)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: googleapis-common-protos~=1.52 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from opentelemetry-exporter-otlp-proto-http~=1.37.0->semgrep==1.179.0) (1.75.5)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: opentelemetry-exporter-otlp-proto-common==1.37.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from opentelemetry-exporter-otlp-proto-http~=1.37.0->semgrep==1.179.0) (1.37.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: opentelemetry-proto==1.37.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from opentelemetry-exporter-otlp-proto-http~=1.37.0->semgrep==1.179.0) (1.37.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: protobuf<7.0,>=5.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from opentelemetry-proto==1.37.0->opentelemetry-exporter-otlp-proto-http~=1.37.0->semgrep==1.179.0) (6.33.6)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: opentelemetry-instrumentation==0.58b0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0) (0.58b0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: opentelemetry-semantic-conventions==0.58b0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0) (0.58b0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: opentelemetry-util-http==0.58b0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0) (0.58b0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: wrapt<2.0.0,>=1.0.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from opentelemetry-instrumentation==0.58b0->opentelemetry-instrumentation-requests~=0.58b0->semgrep==1.179.0) (1.17.3)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: annotated-types>=0.6.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pydantic<3.0.0,>=2.11.0->mcp==1.29.0->semgrep==1.179.0) (0.8.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: pydantic-core==2.46.5 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pydantic<3.0.0,>=2.11.0->mcp==1.29.0->semgrep==1.179.0) (2.46.5)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: cryptography>=3.4.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pyjwt[crypto]<3,>=2.15.0->semgrep==1.179.0) (50.0.2)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: charset_normalizer<4,>=2 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from requests~=2.22->semgrep==1.179.0) (3.5.2)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: bracex>=2.1.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from wcmatch~=8.3->semgrep==1.179.0) (3.0.1)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: cffi>=2.0.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from cryptography>=3.4.0->pyjwt[crypto]<3,>=2.15.0->semgrep==1.179.0) (2.1.1)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: pycparser in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from cffi>=2.0.0->cryptography>=3.4.0->pyjwt[crypto]<3,>=2.15.0->semgrep==1.179.0) (3.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: face>=20.1.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from glom>=23.3->semgrep==1.179.0) (26.0.1)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: python-dotenv>=0.21.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pydantic-settings>=2.5.2->mcp==1.29.0->semgrep==1.179.0) (1.2.4)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: markdown-it-py>=2.2.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from rich->bandit==1.9.4) (4.2.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from rich->bandit==1.9.4) (2.21.0)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Requirement already satisfied: mdurl~=0.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from markdown-it-py>=2.2.0->rich->bandit==1.9.4) (0.1.2)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Downloading opentelemetry_api-1.37.0-py3-none-any.whl (65 kB)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Installing collected packages: opentelemetry-api
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   |   Attempting uninstall: opentelemetry-api
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   |     Found existing installation: opentelemetry-api 1.45.1
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   |     Uninstalling opentelemetry-api-1.45.1:
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   |       Successfully uninstalled opentelemetry-api-1.45.1
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | fastapi 0.142.4 requires opentelemetry-api>=1.44.0, but you have opentelemetry-api 1.37.0 which is incompatible.
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Successfully installed opentelemetry-api-1.37.0
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ✅  Success - Main pip install bandit==1.9.4 semgrep==1.179.0 [3.695051051s]
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ] ⭐ Run Main Bandit (backend)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3.sh] user= workdir=session-21-final-devops-project/final-devops-project
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | bandit: 0 findings (0 HIGH) in 203 lines
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ✅  Success - Main Bandit (backend) [503.42891ms]
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ] ⭐ Run Main Semgrep (backend + frontend)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/4.sh] user= workdir=session-21-final-devops-project/final-devops-project
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   | installed trivy (sha256 verified)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   |                
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   |                
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | ┌─────────────┐
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | │ Scan Status │
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | └─────────────┘
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   |   Scanning 10 files tracked by git with 158 Code rules:
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   |                                                                                                                         
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   |   Language   Rules   Files          Origin      Rules                                                                   
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   |  ──────────────────────────        ───────────────────                                                                  
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   |   python       153       6          Community     155                                                                   
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   |   js             5       3          Custom          3                                                                   
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   |                                                                                                                         
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   |                 
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   |                 
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | ┌──────────────┐
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | │ Scan Summary │
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | └──────────────┘
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | ✅ Scan completed successfully.
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   |  • Findings: 0 (0 blocking)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   |  • Rules run: 158
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   |  • Targets scanned: 9
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   |  • Parsed lines: ~100.0%
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   |  • Scan was limited to files tracked by git
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   |  • For a detailed list of skipped files and lines, run semgrep with the --verbose flag
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Ran 158 rules on 9 files: 0 findings.
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | (need more rules? `semgrep login` for additional free Semgrep Registry rules)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | 
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | If Semgrep missed a finding, please send us feedback to let us know!
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | See https://semgrep.dev/docs/reporting-false-negatives/
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | semgrep: 0 findings in 9 files
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ✅  Success - Main Semgrep (backend + frontend) [6.948417674s]
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ] ⭐ Run Main actions/upload-artifact@v4
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | (node:221) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | With the provided path, there will be 2 files uploaded
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Artifact name is valid!
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Root directory input is valid!
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Beginning upload of artifact content to blob storage
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | (node:221) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Uploaded bytes 1118
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Finished uploading artifact content to blob storage!
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | SHA256 digest of uploaded artifact zip is e85718751d0030565d6bf62c2ce504eaaad5d4faf8056b859923249164b768ff
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Finalizing artifact upload
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Artifact security-sast.zip successfully finalized. Artifact ID 1668390657
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Artifact security-sast has been successfully uploaded! Final size is 1118 bytes. Artifact ID is 1668390657
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | Artifact download URL: https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/1668390657
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ✅  Success - Main actions/upload-artifact@v4 [1.356223118s]
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ⚙  ::set-output:: artifact-id=1668390657
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ⚙  ::set-output:: artifact-digest=e85718751d0030565d6bf62c2ce504eaaad5d4faf8056b859923249164b768ff
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ⚙  ::set-output:: artifact-url=https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/1668390657
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ] ⭐ Run Post actions/setup-python@v5
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/cache-save/index.js] user= workdir=
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | (node:238) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ✅  Success - Post actions/setup-python@v5 [268.907446ms]
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ] ⭐ Run Complete job
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ] Cleaning up container for job SAST (Bandit + Semgrep)
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   | installed gitleaks (sha256 verified)
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ]   ✅  Success - Complete job
+[Session 21 - ShelfShare pipeline/SAST (Bandit + Semgrep)               ] 🏁  Job succeeded
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)] ⭐ Run Set up job
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   | Version: 0.75.0
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   | gitleaks 8.30.1
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   ✅  Success - Main Install pinned, checksum-verified scanners [20.822666485s]
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   ⚙  ::add-path:: /root/.local/bin
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ] ⭐ Run Main Gitleaks
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=session-21-final-devops-project/final-devops-project
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ✅  Success - Set up job
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v5
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   | [90m10:56AM[0m [32mINF[0m [1mscanned ~108053 bytes (108.05 KB) in 44ms[0m
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   | [90m10:56AM[0m [32mINF[0m [1mno leaks found[0m
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   | gitleaks: 0 secrets found
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   ✅  Success - Main Gitleaks [1.029021661s]
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ] ⭐ Run Main actions/upload-artifact@v4
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   | (node:111) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   | With the provided path, there will be 1 file uploaded
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   | Artifact name is valid!
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   | Root directory input is valid!
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ☁  git clone 'https://github.com/actions/setup-node' # ref=v4
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   | Beginning upload of artifact content to blob storage
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   | (node:111) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   | Uploaded bytes 145
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   | Finished uploading artifact content to blob storage!
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   | SHA256 digest of uploaded artifact zip is e9b779a8ecb860d80b05fefe5b8f2401092618245a0191a12a95c43c9803dafa
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   | Finalizing artifact upload
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   | Artifact security-secrets.zip successfully finalized. Artifact ID 1319986419
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   | Artifact security-secrets has been successfully uploaded! Final size is 145 bytes. Artifact ID is 1319986419
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   | Artifact download URL: https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/1319986419
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   ✅  Success - Main actions/upload-artifact@v4 [1.227339731s]
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   ⚙  ::set-output:: artifact-digest=e9b779a8ecb860d80b05fefe5b8f2401092618245a0191a12a95c43c9803dafa
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   ⚙  ::set-output:: artifact-url=https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/1319986419
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   ⚙  ::set-output:: artifact-id=1319986419
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ] ⭐ Run Complete job
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ] Cleaning up container for job Secret scan (Gitleaks)
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ]   ✅  Success - Complete job
+[Session 21 - ShelfShare pipeline/Secret scan (Gitleaks)                ] 🏁  Job succeeded
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)] ⭐ Run Main actions/checkout@v4
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ✅  Success - Main actions/checkout@v4 [1.563710166s]
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)] ⭐ Run Main actions/setup-python@v5
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-setup-python@v5/ dst=/var/run/act/actions/actions-setup-python@v5/
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/setup/index.js] user= workdir=
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ❓  ::group::Installed versions
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | (node:31) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Successfully set up CPython (3.12.15)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ❓  ::endgroup::
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ❓ add-matcher /run/act/actions/actions-setup-python@v5/.github/python.json
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ✅  Success - Main actions/setup-python@v5 [1.512546045s]
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ⚙  ::set-output:: python-version=3.12.15
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.12.15/x64/bin/python
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64/bin
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)] ⭐ Run Main actions/setup-node@v4
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-setup-node@v4/ dst=/var/run/act/actions/actions-setup-node@v4/
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-node@v4/dist/setup/index.js] user= workdir=
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Found in cache @ /opt/hostedtoolcache/node/24.21.0/x64
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | (node:44) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ❓  ::group::Environment details
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | node: v24.21.0
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | npm: 11.19.0
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | yarn: 
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ❓  ::endgroup::
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ❓ add-matcher /run/act/actions/actions-setup-node@v4/.github/tsc.json
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ❓ add-matcher /run/act/actions/actions-setup-node@v4/.github/eslint-stylish.json
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ❓ add-matcher /run/act/actions/actions-setup-node@v4/.github/eslint-compact.json
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ✅  Success - Main actions/setup-node@v4 [2.654579938s]
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ⚙  ::set-output:: node-version=v24.21.0
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ⚙  ::add-path:: /opt/hostedtoolcache/node/24.21.0/x64/bin
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)] ⭐ Run Main Install pinned, checksum-verified scanners
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3.sh] user= workdir=session-21-final-devops-project/final-devops-project
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | installed trivy (sha256 verified)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | installed gitleaks (sha256 verified)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Version: 0.75.0
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | gitleaks 8.30.1
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: pip-audit==2.10.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (2.10.1)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: CacheControl>=0.13.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from CacheControl[filecache]>=0.13.0->pip-audit==2.10.1) (0.14.4)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: cyclonedx-python-lib<12,>=5 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pip-audit==2.10.1) (11.12.0)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: packaging>=23.0.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pip-audit==2.10.1) (26.3)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: pip-api>=0.0.28 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pip-audit==2.10.1) (0.0.35)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: pip-requirements-parser>=32.0.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pip-audit==2.10.1) (32.0.1)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: requests>=2.31.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pip-audit==2.10.1) (2.34.2)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: rich>=12.4 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pip-audit==2.10.1) (15.0.0)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: tomli>=2.2.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pip-audit==2.10.1) (2.4.1)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: tomli-w>=1.2.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pip-audit==2.10.1) (1.2.0)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: platformdirs>=4.2.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pip-audit==2.10.1) (4.12.4)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: license-expression<31,>=30 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1) (30.4.4)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: packageurl-python<2,>=0.11 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1) (0.17.6)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: py-serializable<3.0.0,>=2.1.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1) (2.1.0)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: sortedcontainers<3.0.0,>=2.4.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1) (2.4.0)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: typing_extensions<5.0,>=4.6 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1) (4.16.0)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: boolean.py>=4.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from license-expression<31,>=30->cyclonedx-python-lib<12,>=5->pip-audit==2.10.1) (5.0)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: defusedxml<0.8.0,>=0.7.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from py-serializable<3.0.0,>=2.1.0->cyclonedx-python-lib<12,>=5->pip-audit==2.10.1) (0.7.1)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: msgpack<2.0.0,>=0.5.2 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from CacheControl>=0.13.0->CacheControl[filecache]>=0.13.0->pip-audit==2.10.1) (1.2.3)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: filelock>=3.8.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from CacheControl[filecache]>=0.13.0->pip-audit==2.10.1) (4.0.12)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pip-api>=0.0.28->pip-audit==2.10.1) (26.2.1)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: pyparsing in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pip-requirements-parser>=32.0.0->pip-audit==2.10.1) (3.3.3)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: charset_normalizer<4,>=2 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from requests>=2.31.0->pip-audit==2.10.1) (3.5.2)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: idna<4,>=2.5 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from requests>=2.31.0->pip-audit==2.10.1) (3.20)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: urllib3<3,>=1.26 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from requests>=2.31.0->pip-audit==2.10.1) (2.8.0)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: certifi>=2023.5.7 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from requests>=2.31.0->pip-audit==2.10.1) (2026.7.22)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: markdown-it-py>=2.2.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from rich>=12.4->pip-audit==2.10.1) (4.2.0)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from rich>=12.4->pip-audit==2.10.1) (2.21.0)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Requirement already satisfied: mdurl~=0.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from markdown-it-py>=2.2.0->rich>=12.4->pip-audit==2.10.1) (0.1.2)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ✅  Success - Main Install pinned, checksum-verified scanners [1m0.471862783s]
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ⚙  ::add-path:: /root/.local/bin
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)] ⭐ Run Main pip-audit (backend)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/4.sh] user= workdir=session-21-final-devops-project/final-devops-project
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | No known vulnerabilities found
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | pip-audit: 0 vulnerabilities in 29 packages
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ✅  Success - Main pip-audit (backend) [28.980968374s]
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)] ⭐ Run Main npm audit (frontend runtime dependencies)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/5.sh] user= workdir=session-21-final-devops-project/final-devops-project/application/frontend
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | {"info":0,"low":0,"moderate":0,"high":0,"critical":0,"total":0}
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ✅  Success - Main npm audit (frontend runtime dependencies) [2.441316441s]
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)] ⭐ Run Main Trivy filesystem scan (requirements.txt + package-lock.json)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/6.sh] user= workdir=session-21-final-devops-project/final-devops-project
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | 
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Report Summary
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | 
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | ┌────────────────────────────┬──────┬─────────────────┐
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | │           Target           │ Type │ Vulnerabilities │
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | ├────────────────────────────┼──────┼─────────────────┤
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | │ backend/requirements.txt   │ pip  │        0        │
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | ├────────────────────────────┼──────┼─────────────────┤
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | │ frontend/package-lock.json │ npm  │        0        │
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | └────────────────────────────┴──────┴─────────────────┘
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Legend:
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | - '-': Not scanned
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | - '0': Clean (no security findings detected)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | 
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ✅  Success - Main Trivy filesystem scan (requirements.txt + package-lock.json) [41.840915123s]
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)] ⭐ Run Main actions/upload-artifact@v4
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | (node:266) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | With the provided path, there will be 3 files uploaded
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Artifact name is valid!
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Root directory input is valid!
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Beginning upload of artifact content to blob storage
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | (node:266) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Uploaded bytes 1937
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Finished uploading artifact content to blob storage!
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | SHA256 digest of uploaded artifact zip is 6a90be3c0bbb9684b7af441fcc35e400e74e3e439009f52e590d95f2ed989e74
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Finalizing artifact upload
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Artifact security-sca.zip successfully finalized. Artifact ID 1671357395
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Artifact security-sca has been successfully uploaded! Final size is 1937 bytes. Artifact ID is 1671357395
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | Artifact download URL: https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/1671357395
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ✅  Success - Main actions/upload-artifact@v4 [1.594995107s]
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ⚙  ::set-output:: artifact-digest=6a90be3c0bbb9684b7af441fcc35e400e74e3e439009f52e590d95f2ed989e74
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ⚙  ::set-output:: artifact-url=https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/1671357395
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ⚙  ::set-output:: artifact-id=1671357395
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)] ⭐ Run Post actions/setup-node@v4
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-node@v4/dist/cache-save/index.js] user= workdir=
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | (node:283) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ✅  Success - Post actions/setup-node@v4 [240.726819ms]
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)] ⭐ Run Post actions/setup-python@v5
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/cache-save/index.js] user= workdir=
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | (node:296) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ✅  Success - Post actions/setup-python@v5 [273.331263ms]
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)] ⭐ Run Complete job
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)] Cleaning up container for job SCA (pip-audit + npm audit + Trivy fs)
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)]   ✅  Success - Complete job
+[Session 21 - ShelfShare pipeline/SCA (pip-audit + npm audit + Trivy fs)] 🏁  Job succeeded
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ] ⭐ Run Set up job
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   ✅  Success - Set up job
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ] ⭐ Run Main actions/checkout@v4
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   ✅  Success - Main actions/checkout@v4 [1.552263816s]
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ] ⭐ Run Main Build both images
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/1.sh] user= workdir=session-21-final-devops-project/final-devops-project
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #0 building with "default" instance using docker driver
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #1 [internal] load build definition from backend.Dockerfile
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #1 transferring dockerfile: 902B done
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #1 DONE 0.0s
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #2 [internal] load metadata for docker.io/library/python:3.12-alpine
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #2 DONE 0.4s
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #3 [internal] load .dockerignore
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #3 transferring context: 299B done
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #3 DONE 0.0s
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #4 [deps 1/4] FROM docker.io/library/python:3.12-alpine@sha256:1b668429b3511ab407d8e00648891631b0b1a4d7e15e3ca70f38ab5b91ad4ab4
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #4 resolve docker.io/library/python:3.12-alpine@sha256:1b668429b3511ab407d8e00648891631b0b1a4d7e15e3ca70f38ab5b91ad4ab4 0.0s done
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #4 DONE 0.0s
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #5 [internal] load build context
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #5 transferring context: 14.06kB 0.0s done
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #5 DONE 0.0s
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #6 [deps 2/4] WORKDIR /build
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #6 CACHED
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #7 [deps 3/4] COPY application/backend/requirements.txt .
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #7 CACHED
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #8 [deps 4/4] RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #8 CACHED
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #9 [stage-1 2/7] COPY --from=deps /install /usr/local
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #9 CACHED
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #10 [stage-1 3/7] WORKDIR /srv
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #10 CACHED
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #11 [stage-1 4/7] COPY application/backend/alembic.ini ./
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #11 CACHED
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #12 [stage-1 5/7] COPY application/backend/alembic ./alembic
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #12 DONE 0.2s
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #13 [stage-1 6/7] COPY application/backend/app ./app
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #13 DONE 0.1s
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #14 [stage-1 7/7] RUN adduser -D -H -u 10001 appuser
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #14 DONE 0.4s
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #15 exporting to image
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #15 exporting layers
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #15 exporting layers 0.2s done
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #15 exporting manifest sha256:0fef83c8d29cee1646d149702ce8aa659895ed3cb511e15041648663b90e7ed3 0.0s done
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #15 exporting config sha256:f9d96cd4d48992b10194d1db62ae14344ee7a9f90b28d4a5bb726e9d83530d99 0.0s done
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #15 exporting attestation manifest sha256:23d4dd968f6f91e69cd12ff6dd43b3b24042df0dec77822e711bbdac6ab785b1 0.0s done
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #15 exporting manifest list sha256:f3bf70026736f5a029998f94d9985161c9b1970da2906fd0fca5f6884271a450 0.0s done
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #15 naming to docker.io/library/shelfshare-backend:15295481756c72f32c9864c3c61759b67627722a done
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #15 unpacking to docker.io/library/shelfshare-backend:15295481756c72f32c9864c3c61759b67627722a 0.1s done
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #15 DONE 0.4s
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #0 building with "default" instance using docker driver
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #1 [internal] load build definition from frontend.Dockerfile
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #1 transferring dockerfile: 962B done
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #1 DONE 0.0s
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #2 [internal] load metadata for docker.io/library/node:24-alpine
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #2 ...
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #3 [internal] load metadata for docker.io/nginxinc/nginx-unprivileged:1.29-alpine
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #3 DONE 0.7s
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #2 [internal] load metadata for docker.io/library/node:24-alpine
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #2 DONE 0.7s
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #4 [internal] load .dockerignore
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #4 transferring context: 299B done
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #4 DONE 0.0s
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #5 [build 1/6] FROM docker.io/library/node:24-alpine@sha256:ebfe2f90462722a7a4de65e91990e97fe0d401c70e0e762c5b53302f905ec1c1
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #5 resolve docker.io/library/node:24-alpine@sha256:ebfe2f90462722a7a4de65e91990e97fe0d401c70e0e762c5b53302f905ec1c1 0.0s done
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #5 DONE 0.0s
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #6 [stage-1 1/4] FROM docker.io/nginxinc/nginx-unprivileged:1.29-alpine@sha256:0c79d56aee561a1d81c63f00eee5fb5fe29279560cdc55e91425133104c7fbe6
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #6 resolve docker.io/nginxinc/nginx-unprivileged:1.29-alpine@sha256:0c79d56aee561a1d81c63f00eee5fb5fe29279560cdc55e91425133104c7fbe6 0.0s done
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #6 DONE 0.0s
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #7 [internal] load build context
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #7 transferring context: 42.62kB done
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #7 DONE 0.0s
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #8 [build 2/6] WORKDIR /app
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #8 CACHED
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #9 [build 3/6] COPY application/frontend/package.json application/frontend/package-lock.json ./
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #9 CACHED
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #10 [build 4/6] RUN npm ci --no-audit --no-fund
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #10 CACHED
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #11 [build 5/6] COPY application/frontend/ ./
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #11 DONE 0.0s
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #12 [build 6/6] RUN npm run build
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #12 0.596 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #12 0.596 > shelfshare-frontend@1.0.0 build
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #12 0.596 > vite build
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #12 0.596 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #12 1.143 vite v8.3.3 building client environment for production...
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #12 1.164 transforming...
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #12 1.261 ✓ 17 modules transformed.
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #12 1.336 rendering chunks...
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #12 1.379 computing gzip size...
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #12 1.384 dist/index.html                   0.46 kB │ gzip:  0.30 kB
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #12 1.384 dist/assets/index-Dps687Y4.css    3.78 kB │ gzip:  1.24 kB
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #12 1.384 dist/assets/index-WLctG6Pr.js   225.64 kB │ gzip: 70.57 kB
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #12 1.384 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #12 1.385 ✓ built in 239ms
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #12 DONE 1.4s
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #13 [stage-1 3/4] COPY docker/nginx/default.conf.template /etc/nginx/templates/default.conf.template
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #13 CACHED
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #14 [stage-1 2/4] RUN apk upgrade --no-cache && apk del --no-cache curl
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #14 CACHED
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #15 [stage-1 4/4] COPY --from=build /app/dist /usr/share/nginx/html
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #15 CACHED
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | 
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #16 exporting to image
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #16 exporting layers done
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #16 exporting manifest sha256:af07385fff643251ff98644c8903545790edc17fbd43877cda624913944588e2 done
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #16 exporting config sha256:119fc4b3509f0e221a50a2a0ddb4ec75560a91424e908aa4e1b42db7509d43b0 done
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #16 exporting attestation manifest sha256:4d48a292752d10383030d087e7cd3ad38472c28799f99630a134c7a2b3d13750
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #16 exporting attestation manifest sha256:4d48a292752d10383030d087e7cd3ad38472c28799f99630a134c7a2b3d13750 0.0s done
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #16 exporting manifest list sha256:7f7d7db62531564332d9b5ac2be03c8c995e0ec9c8c5a402eb8cfdf2f2adebaa 0.0s done
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #16 naming to docker.io/library/shelfshare-frontend:15295481756c72f32c9864c3c61759b67627722a done
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #16 unpacking to docker.io/library/shelfshare-frontend:15295481756c72f32c9864c3c61759b67627722a 0.0s done
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | #16 DONE 0.1s
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | localhost:5001/ratneshvaibhav/shelfshare-backend:1.0.0                                             68d48e53d729        201MB         47.8MB        
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | localhost:5001/ratneshvaibhav/shelfshare-backend:1.0.1                                             68d48e53d729        201MB         47.8MB        
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | localhost:5001/ratneshvaibhav/shelfshare-frontend:1.0.0                                            cf67fd866624       81.9MB         23.2MB        
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | localhost:5001/ratneshvaibhav/shelfshare-frontend:1.0.1                                            05a7c878013c        111MB         31.2MB        
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | shelfshare-backend:15295481756c72f32c9864c3c61759b67627722a                                        f3bf70026736        201MB         47.8MB        
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | shelfshare-backend:compose                                                                         b698b6b79597        201MB         47.8MB        
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | shelfshare-frontend:15295481756c72f32c9864c3c61759b67627722a                                       7f7d7db62531        111MB         31.2MB        
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | shelfshare-frontend:compose                                                                        1e6bf51f74a5       81.9MB         23.2MB        
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   ✅  Success - Main Build both images [6.303031249s]
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ] ⭐ Run Main Save images
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=session-21-final-devops-project/final-devops-project
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | total 76M
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | -rw------- 1 root root 46M Oct  8 10:58 backend.tar
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | -rw------- 1 root root 30M Oct  8 10:58 frontend.tar
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   ✅  Success - Main Save images [2.829353118s]
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ] ⭐ Run Main actions/upload-artifact@v4
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | (node:185) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | With the provided path, there will be 2 files uploaded
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | Artifact name is valid!
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | Root directory input is valid!
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | Beginning upload of artifact content to blob storage
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | (node:185) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | Uploaded bytes 8388608
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | Uploaded bytes 16777216
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | Uploaded bytes 25165824
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | Uploaded bytes 33554432
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | Uploaded bytes 41943040
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | Uploaded bytes 50331648
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | Uploaded bytes 58720256
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | Uploaded bytes 67108864
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | Uploaded bytes 75497472
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | Uploaded bytes 78721377
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | Finished uploading artifact content to blob storage!
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | SHA256 digest of uploaded artifact zip is e72e127e32fced915e32e352443ccf0854c805b385bf3704d41bd9794f11f141
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | Finalizing artifact upload
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | Artifact docker-images.zip successfully finalized. Artifact ID 2254189770
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | Artifact docker-images has been successfully uploaded! Final size is 78721377 bytes. Artifact ID is 2254189770
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   | Artifact download URL: https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/2254189770
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   ✅  Success - Main actions/upload-artifact@v4 [4.059749387s]
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   ⚙  ::set-output:: artifact-id=2254189770
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   ⚙  ::set-output:: artifact-digest=e72e127e32fced915e32e352443ccf0854c805b385bf3704d41bd9794f11f141
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   ⚙  ::set-output:: artifact-url=https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/2254189770
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ] ⭐ Run Complete job
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ] Cleaning up container for job Docker build (backend + frontend)
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ]   ✅  Success - Complete job
+[Session 21 - ShelfShare pipeline/Docker build (backend + frontend)     ] 🏁  Job succeeded
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ] ⭐ Run Set up job
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   ✅  Success - Set up job
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   ☁  git clone 'https://github.com/actions/download-artifact' # ref=v4
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ] ⭐ Run Main actions/checkout@v4
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   ✅  Success - Main actions/checkout@v4 [1.543678789s]
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ] ⭐ Run Main actions/download-artifact@v4
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-download-artifact@v4/ dst=/var/run/act/actions/actions-download-artifact@v4/
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-download-artifact@v4/dist/index.js] user= workdir=
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | Downloading single artifact
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | (node:31) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | Preparing to download the following artifacts:
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | - docker-images (ID: 2254189770, Size: 4096, Expected Digest: undefined)
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | Redirecting to blob download url: http://100.128.167.30:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | Starting download of artifact to: /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/images
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | (node:31) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | SHA256 digest of downloaded artifact is e72e127e32fced915e32e352443ccf0854c805b385bf3704d41bd9794f11f141
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | Artifact download completed successfully.
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | Total of 1 artifact(s) downloaded
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | Download artifact has finished successfully
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   ✅  Success - Main actions/download-artifact@v4 [2.059879601s]
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   ⚙  ::set-output:: download-path=/home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/images
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ] ⭐ Run Main Install pinned, checksum-verified scanners
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=session-21-final-devops-project/final-devops-project
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | installed trivy (sha256 verified)
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | installed gitleaks (sha256 verified)
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | Version: 0.75.0
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | gitleaks 8.30.1
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   ✅  Success - Main Install pinned, checksum-verified scanners [20.564547239s]
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   ⚙  ::add-path:: /root/.local/bin
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ] ⭐ Run Main Trivy - the exact tarballs that will be pushed
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3.sh] user= workdir=session-21-final-devops-project/final-devops-project
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | backend image: 0 HIGH/CRITICAL (alpine 3.24.2)
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | frontend image: 0 HIGH/CRITICAL (alpine 3.23.4)
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   ✅  Success - Main Trivy - the exact tarballs that will be pushed [32.042358411s]
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ] ⭐ Run Main actions/upload-artifact@v4
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | (node:148) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | With the provided path, there will be 2 files uploaded
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | Artifact name is valid!
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | Root directory input is valid!
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | Beginning upload of artifact content to blob storage
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | (node:148) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | Uploaded bytes 38126
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | Finished uploading artifact content to blob storage!
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | SHA256 digest of uploaded artifact zip is a3698e271a3a68748bede10dd3521e1da14306babf7b8e5c45ef329a52dae0e4
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | Finalizing artifact upload
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | Artifact security-images.zip successfully finalized. Artifact ID 445044668
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | Artifact security-images has been successfully uploaded! Final size is 38126 bytes. Artifact ID is 445044668
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   | Artifact download URL: https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/445044668
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   ✅  Success - Main actions/upload-artifact@v4 [1.455078636s]
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   ⚙  ::set-output:: artifact-url=https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/445044668
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   ⚙  ::set-output:: artifact-id=445044668
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   ⚙  ::set-output:: artifact-digest=a3698e271a3a68748bede10dd3521e1da14306babf7b8e5c45ef329a52dae0e4
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ] ⭐ Run Complete job
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ] Cleaning up container for job Image scan (Trivy)
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ]   ✅  Success - Complete job
+[Session 21 - ShelfShare pipeline/Image scan (Trivy)                    ] 🏁  Job succeeded
+[Session 21 - ShelfShare pipeline/Security gate                         ] ⭐ Run Set up job
+[Session 21 - ShelfShare pipeline/Security gate                         ] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 21 - ShelfShare pipeline/Security gate                         ]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 21 - ShelfShare pipeline/Security gate                         ]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 21 - ShelfShare pipeline/Security gate                         ]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 21 - ShelfShare pipeline/Security gate                         ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 21 - ShelfShare pipeline/Security gate                         ]   ✅  Success - Set up job
+[Session 21 - ShelfShare pipeline/Security gate                         ]   ☁  git clone 'https://github.com/actions/download-artifact' # ref=v4
+[Session 21 - ShelfShare pipeline/Security gate                         ] ⭐ Run Main actions/checkout@v4
+[Session 21 - ShelfShare pipeline/Security gate                         ]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 21 - ShelfShare pipeline/Security gate                         ]   ✅  Success - Main actions/checkout@v4 [1.520880369s]
+[Session 21 - ShelfShare pipeline/Security gate                         ] ⭐ Run Main actions/download-artifact@v4
+[Session 21 - ShelfShare pipeline/Security gate                         ]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-download-artifact@v4/ dst=/var/run/act/actions/actions-download-artifact@v4/
+[Session 21 - ShelfShare pipeline/Security gate                         ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-download-artifact@v4/dist/index.js] user= workdir=
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | (node:31) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | Found 14 artifact(s)
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | Filtering artifacts by pattern 'security-*'
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | Preparing to download the following artifacts:
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | - security-sca (ID: 1671357395, Size: 4096, Expected Digest: undefined)
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | - security-sast (ID: 1668390657, Size: 4096, Expected Digest: undefined)
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | - security-secrets (ID: 1319986419, Size: 4096, Expected Digest: undefined)
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | - security-image (ID: 1132629671, Size: 4096, Expected Digest: undefined)
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | - security-images (ID: 445044668, Size: 4096, Expected Digest: undefined)
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | Redirecting to blob download url: http://100.128.167.30:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | Starting download of artifact to: /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/reports
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | Redirecting to blob download url: http://100.128.167.30:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | Starting download of artifact to: /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/reports
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | Redirecting to blob download url: http://100.128.167.30:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | Starting download of artifact to: /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/reports
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | (node:31) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | Redirecting to blob download url: http://100.128.167.30:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | Starting download of artifact to: /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/reports
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | Redirecting to blob download url: http://100.128.167.30:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | Starting download of artifact to: /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/reports
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | SHA256 digest of downloaded artifact is 6a90be3c0bbb9684b7af441fcc35e400e74e3e439009f52e590d95f2ed989e74
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | Artifact download completed successfully.
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | SHA256 digest of downloaded artifact is e85718751d0030565d6bf62c2ce504eaaad5d4faf8056b859923249164b768ff
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | Artifact download completed successfully.
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | SHA256 digest of downloaded artifact is e9b779a8ecb860d80b05fefe5b8f2401092618245a0191a12a95c43c9803dafa
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | Artifact download completed successfully.
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | SHA256 digest of downloaded artifact is a3698e271a3a68748bede10dd3521e1da14306babf7b8e5c45ef329a52dae0e4
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | Artifact download completed successfully.
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | SHA256 digest of downloaded artifact is 5ec6599094226ee4331cce414e76fce08321be86fd7c437fbec8f5c21c94f8b3
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | Artifact download completed successfully.
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | Total of 5 artifact(s) downloaded
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | Download artifact has finished successfully
+[Session 21 - ShelfShare pipeline/Security gate                         ]   ✅  Success - Main actions/download-artifact@v4 [1.009235623s]
+[Session 21 - ShelfShare pipeline/Security gate                         ]   ⚙  ::set-output:: download-path=/home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/reports
+[Session 21 - ShelfShare pipeline/Security gate                         ] ⭐ Run Main Apply the security policy
+[Session 21 - ShelfShare pipeline/Security gate                         ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=session-21-final-devops-project/final-devops-project
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | 
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | CHECK    TOOL                    FINDINGS  BLOCKING  RESULT
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | ------   --------------------    --------  --------  ------
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | SAST     bandit (backend)               0         0  PASS
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | SAST     semgrep (both)                 0         0  PASS
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | SCA      pip-audit (backend)            0         0  PASS
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | SCA      npm audit (frontend)           0         0  PASS
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | SCA      trivy fs                       0         0  PASS
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | SECRETS  gitleaks                       0         0  PASS
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | IMAGE    trivy backend image            0         0  PASS
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | IMAGE    trivy frontend image           0         0  PASS
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | 
+[Session 21 - ShelfShare pipeline/Security gate                         ]   | SECURITY GATE: PASSED - images may be pushed and deployed
+[Session 21 - ShelfShare pipeline/Security gate                         ]   ✅  Success - Main Apply the security policy [594.805841ms]
+[Session 21 - ShelfShare pipeline/Security gate                         ] ⭐ Run Main Publish the gate result
+[Session 21 - ShelfShare pipeline/Security gate                         ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3.sh] user= workdir=session-21-final-devops-project/final-devops-project
+[Session 21 - ShelfShare pipeline/Security gate                         ]   ✅  Success - Main Publish the gate result [130.303313ms]
+[Session 21 - ShelfShare pipeline/Security gate                         ]   ⚙  Summary - ### Security gate
+```
+
+CHECK    TOOL                    FINDINGS  BLOCKING  RESULT
+------   --------------------    --------  --------  ------
+SAST     bandit (backend)               0         0  PASS
+SAST     semgrep (both)                 0         0  PASS
+SCA      pip-audit (backend)            0         0  PASS
+SCA      npm audit (frontend)           0         0  PASS
+SCA      trivy fs                       0         0  PASS
+SECRETS  gitleaks                       0         0  PASS
+IMAGE    trivy backend image            0         0  PASS
+IMAGE    trivy frontend image           0         0  PASS
+
+SECURITY GATE: PASSED - images may be pushed and deployed
+```
+[Session 21 - ShelfShare pipeline/Security gate                         ] ⭐ Run Complete job
+[Session 21 - ShelfShare pipeline/Security gate                         ] Cleaning up container for job Security gate
+[Session 21 - ShelfShare pipeline/Security gate                         ]   ✅  Success - Complete job
+[Session 21 - ShelfShare pipeline/Security gate                         ] 🏁  Job succeeded
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ] ⭐ Run Set up job
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   ✅  Success - Set up job
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   ☁  git clone 'https://github.com/actions/download-artifact' # ref=v4
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ] ⭐ Run Main actions/download-artifact@v4
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-download-artifact@v4/ dst=/var/run/act/actions/actions-download-artifact@v4/
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-download-artifact@v4/dist/index.js] user= workdir=
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   | Downloading single artifact
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   | (node:31) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   | Preparing to download the following artifacts:
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   | - docker-images (ID: 2254189770, Size: 4096, Expected Digest: undefined)
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   | Redirecting to blob download url: http://100.128.167.30:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   | Starting download of artifact to: /home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/images
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   | (node:31) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   | SHA256 digest of downloaded artifact is e72e127e32fced915e32e352443ccf0854c805b385bf3704d41bd9794f11f141
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   | Artifact download completed successfully.
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   | Total of 1 artifact(s) downloaded
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   | Download artifact has finished successfully
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   ✅  Success - Main actions/download-artifact@v4 [1.631661881s]
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   ⚙  ::set-output:: download-path=/home/ratnesh/Devops-Assignments/session-21-final-devops-project/final-devops-project/images
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ] ⭐ Run Main Load images
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/1.sh] user= workdir=session-21-final-devops-project/final-devops-project
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   | Loaded image: shelfshare-backend:15295481756c72f32c9864c3c61759b67627722a
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   | Loaded image: shelfshare-frontend:15295481756c72f32c9864c3c61759b67627722a
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   ✅  Success - Main Load images [2.37983351s]
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ] ⭐ Run Main Tag and push
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3.sh] user= workdir=session-21-final-devops-project/final-devops-project
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   | localhost:5001/ratneshvaibhav/shelfshare-backend:15295481756c72f32c9864c3c61759b67627722a
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   | pushed localhost:5001/ratneshvaibhav/shelfshare-backend:15295481756c72f32c9864c3c61759b67627722a
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   | localhost:5001/ratneshvaibhav/shelfshare-frontend:15295481756c72f32c9864c3c61759b67627722a
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   | pushed localhost:5001/ratneshvaibhav/shelfshare-frontend:15295481756c72f32c9864c3c61759b67627722a
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   ✅  Success - Main Tag and push [2.086320693s]
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ] ⭐ Run Complete job
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ] Cleaning up container for job Push images (tag = commit SHA)
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ]   ✅  Success - Complete job
+[Session 21 - ShelfShare pipeline/Push images (tag = commit SHA)        ] 🏁  Job succeeded
+[Session 21 - ShelfShare pipeline/Deploy (gitops)                       ] ⭐ Run Set up job
+[Session 21 - ShelfShare pipeline/Deploy (gitops)                       ] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 21 - ShelfShare pipeline/Deploy (gitops)                       ]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 21 - ShelfShare pipeline/Deploy (gitops)                       ]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 21 - ShelfShare pipeline/Deploy (gitops)                       ]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 21 - ShelfShare pipeline/Deploy (gitops)                       ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 21 - ShelfShare pipeline/Deploy (gitops)                       ]   ✅  Success - Set up job
+[Session 21 - ShelfShare pipeline/Deploy (gitops)                       ]   ☁  git clone 'https://github.com/helm/kind-action' # ref=v1
+[Session 21 - ShelfShare pipeline/Deploy (gitops)                       ]   ☁  git clone 'https://github.com/azure/setup-helm' # ref=v4
+[Session 21 - ShelfShare pipeline/Deploy (gitops)                       ] ⭐ Run Main actions/checkout@v4
+[Session 21 - ShelfShare pipeline/Deploy (gitops)                       ]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 21 - ShelfShare pipeline/Deploy (gitops)                       ]   ✅  Success - Main actions/checkout@v4 [1.487999232s]
+[Session 21 - ShelfShare pipeline/Deploy (gitops)                       ] ⭐ Run Main Promote the new tag in the GitOps repository
+[Session 21 - ShelfShare pipeline/Deploy (gitops)                       ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/1.sh] user= workdir=session-21-final-devops-project/final-devops-project
+[Session 21 - ShelfShare pipeline/Deploy (gitops)                       ]   |  environments/dev/values.yaml | 2 +-
+[Session 21 - ShelfShare pipeline/Deploy (gitops)                       ]   |  1 file changed, 1 insertion(+), 1 deletion(-)
+[Session 21 - ShelfShare pipeline/Deploy (gitops)                       ]   | dev now wants image tag 15295481756c72f32c9864c3c61759b67627722a (3c52022)
+[Session 21 - ShelfShare pipeline/Deploy (gitops)                       ]   ✅  Success - Main Promote the new tag in the GitOps repository [1.055252292s]
+[Session 21 - ShelfShare pipeline/Deploy (gitops)                       ] ⭐ Run Complete job
+[Session 21 - ShelfShare pipeline/Deploy (gitops)                       ] Cleaning up container for job Deploy (gitops)
+[Session 21 - ShelfShare pipeline/Deploy (gitops)                       ]   ✅  Success - Complete job
+[Session 21 - ShelfShare pipeline/Deploy (gitops)                       ] 🏁  Job succeeded

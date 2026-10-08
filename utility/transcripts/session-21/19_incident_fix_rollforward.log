@@ -1,0 +1,64 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ rsync -a --delete helm/shelfshare/ ~/shelfshare-gitops/charts/shelfshare/ && cd ~/shelfshare-gitops && sed -i "s/tag: \"1.0.0\"/tag: \"1.0.1\"/" environments/dev/values.yaml && git add -A && git diff --cached --stat && git diff --cached | grep -E "^[+-] " | grep -v "^+++\|^---"
+ charts/shelfshare/Chart.yaml                         | 2 +-
+ charts/shelfshare/templates/frontend-deployment.yaml | 4 ++++
+ charts/shelfshare/values.yaml                        | 2 +-
+ environments/dev/values.yaml                         | 2 +-
+ 4 files changed, 7 insertions(+), 3 deletions(-)
++            # size nginx's worker_processes to the container's CPU limit instead of the
++            # node's 12 CPUs (12 workers per pod made the 48Mi limit fragile - see README)
++            - name: NGINX_ENTRYPOINT_WORKER_PROCESSES_AUTOTUNE
++              value: "1"
+-    limits: {cpu: 100m, memory: 48Mi}
++    limits: {cpu: 100m, memory: 64Mi}   # 48Mi left no headroom under node memory pressure
+-  tag: "1.0.0"
++  tag: "1.0.1"
+
+#CWD ~/shelfshare-gitops
+$ git commit -q -m "Frontend: autotune nginx workers, 64Mi limit; roll dev forward to 1.0.1 (CVE-patched frontend)" && git push -q && git log --oneline -3 && cd - >/dev/null
+ace65d2 Frontend: autotune nginx workers, 64Mi limit; roll dev forward to 1.0.1 (CVE-patched frontend)
+2b697b3 Roll back dev to 1.0.0: frontend 1.0.1 is OOMKilled at start-up
+27be9f0 Bootstrap: shelfshare chart 1.0.0 and dev environment
+
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ until [ "$(kubectl get application shelfshare-dev -n argocd -o jsonpath="{.status.sync.revision}")" = "$(git -C ~/shelfshare-gitops rev-parse HEAD)" ] && [ "$(kubectl get application shelfshare-dev -n argocd -o jsonpath="{.status.health.status}")" = "Healthy" ]; do sleep 5; done; argocd app get shelfshare-dev | sed -n "/Sync Status/,/Health Status/p"
+Sync Status:        OutOfSync from main (ace65d2)
+Health Status:      Healthy
+
+$ kubectl get pods -n shelfshare -o custom-columns=POD:.metadata.name,READY:.status.containerStatuses[0].ready,RESTARTS:.status.containerStatuses[0].restartCount,IMAGE:.spec.containers[0].image
+POD                                    READY   RESTARTS   IMAGE
+shelfshare-backend-7685b8bfbd-z2fbt    true    0          localhost:5001/ratneshvaibhav/shelfshare-backend:1.0.0
+shelfshare-backend-845f5dd454-ksjqm    true    0          localhost:5001/ratneshvaibhav/shelfshare-backend:1.0.1
+shelfshare-backend-845f5dd454-rkmcs    true    0          localhost:5001/ratneshvaibhav/shelfshare-backend:1.0.1
+shelfshare-frontend-7bbb9fc7c4-7fkb4   true    0          localhost:5001/ratneshvaibhav/shelfshare-frontend:1.0.1
+shelfshare-frontend-7bbb9fc7c4-c2qgx   true    0          localhost:5001/ratneshvaibhav/shelfshare-frontend:1.0.1
+shelfshare-postgres-0                  true    0          postgres:17-alpine
+
+$ F=$(kubectl get pod -n shelfshare -l app.kubernetes.io/component=frontend -o jsonpath="{.items[0].metadata.name}"); kubectl logs -n shelfshare $F | grep -E "tune-worker|worker process" ; kubectl top pod -n shelfshare $F
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+2026/10/08 10:43:36 [notice] 1#1: start worker processes
+2026/10/08 10:43:36 [notice] 1#1: start worker process 92
+NAME                                   CPU(cores)   MEMORY(bytes)   
+shelfshare-frontend-7bbb9fc7c4-7fkb4   1m           4Mi             
+
+$ curl -s -o /dev/null -w "UI via ingress: HTTP %{http_code}\n" http://shelfshare.localhost:8088/ && curl -s http://shelfshare.localhost:8088/api/books/stats | jq -c "{total, by_status}"
+UI via ingress: HTTP 200
+{"total":6,"by_status":{"available":4,"reserved":1,"exchanged":1}}
+
+$ until [ "$(kubectl get application shelfshare-dev -n argocd -o jsonpath="{.status.sync.status}/{.status.health.status}")" = "Synced/Healthy" ] && [ "$(kubectl get pods -n shelfshare --no-headers | wc -l)" = 5 ]; do sleep 5; done; argocd app get shelfshare-dev | sed -n "/Sync Status/,/Health Status/p"; kubectl get pods -n shelfshare
+Sync Status:        Synced to main (ace65d2)
+Health Status:      Healthy
+NAME                                   READY   STATUS    RESTARTS   AGE
+shelfshare-backend-845f5dd454-ksjqm    1/1     Running   0          8m16s
+shelfshare-backend-845f5dd454-rkmcs    1/1     Running   0          7m57s
+shelfshare-frontend-7bbb9fc7c4-7fkb4   1/1     Running   0          8m16s
+shelfshare-frontend-7bbb9fc7c4-c2qgx   1/1     Running   0          8m3s
+shelfshare-postgres-0                  1/1     Running   0          40m
+
+$ argocd app history shelfshare-dev
+SOURCE  http://gitea-http.gitea.svc.cluster.local:3000/ratnesh/shelfshare-gitops.git
+ID      DATE                           REVISION
+0       2026-10-08 15:41:25 +0530 IST  main (27be9f0)
+1       2026-10-08 15:57:39 +0530 IST  main (2b697b3)
+2       2026-10-08 16:21:29 +0530 IST  main (ace65d2)
+

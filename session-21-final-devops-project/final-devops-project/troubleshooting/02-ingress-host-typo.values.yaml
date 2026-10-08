@@ -1,0 +1,3 @@
+# Fault 2 - the ingress host is changed to a name nobody uses.
+ingress:
+  host: shelfshare.local

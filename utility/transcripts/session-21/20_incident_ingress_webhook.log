@@ -1,0 +1,27 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ kubectl get application shelfshare-dev -n argocd -o jsonpath="{.status.operationState.syncResult.resources[?(@.kind==\"Ingress\")].message}{\"\n\"}" | cut -c1-200
+ingress.networking.k8s.io/shelfshare configured
+
+$ kubectl get events -n ingress-nginx --sort-by=.lastTimestamp | grep -E "Unhealthy|Killing|Started" | tail -6 | cut -c1-170
+59m         Warning   Unhealthy           pod/ingress-nginx-controller-596f5b6bcf-dp94p    Readiness probe failed: Get "http://10.244.0.4:10254/healthz": context deadline
+22m         Normal    Killing             pod/ingress-nginx-controller-596f5b6bcf-dp94p    Container controller failed liveness probe, will be restarted
+21m         Normal    Started             pod/ingress-nginx-controller-596f5b6bcf-dp94p    Container started
+14m         Warning   Unhealthy           pod/ingress-nginx-controller-596f5b6bcf-dp94p    Liveness probe failed: Get "http://10.244.0.4:10254/healthz": context deadline 
+72s         Normal    Killing             pod/ingress-nginx-controller-596f5b6bcf-dp94p    Stopping container controller
+71s         Normal    Started             pod/ingress-nginx-controller-556844c449-l7lkc    Container started
+
+$ kubectl rollout history deploy/ingress-nginx-controller -n ingress-nginx | tail -3; kubectl get pods -n ingress-nginx
+1         <none>
+2         <none>
+
+NAME                                        READY   STATUS    RESTARTS   AGE
+ingress-nginx-controller-556844c449-l7lkc   1/1     Running   0          72s
+
+$ kubectl get endpointslice -n ingress-nginx -l kubernetes.io/service-name=ingress-nginx-controller-admission -o jsonpath="admission webhook endpoint ready={.items[0].endpoints[0].conditions.ready}{\"\n\"}"
+admission webhook endpoint ready=true
+
+$ argocd app get shelfshare-dev | grep -E "Sync Status|Health Status|Ingress"
+Sync Status:        Synced to main (ace65d2)
+Health Status:      Healthy
+networking.k8s.io      Ingress                  shelfshare  shelfshare            Synced  Healthy        ingress.networking.k8s.io/shelfshare configured
+

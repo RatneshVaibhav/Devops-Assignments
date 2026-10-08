@@ -1,0 +1,12 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ docker build -q -f docker/backend.Dockerfile --build-arg BUILD_SHA=$(git rev-parse HEAD) -t localhost:5001/ratneshvaibhav/shelfshare-backend:1.0.0 . && docker build -q -f docker/frontend.Dockerfile -t localhost:5001/ratneshvaibhav/shelfshare-frontend:1.0.0 .
+sha256:68d48e53d7298df358b1c755d52462307ebd718ef6a7508a6f2afbf726faf7e4
+sha256:cf67fd86662498d3a72ebd74aef14ce4d48e4304f6d31ef670f14c764e08b2a0
+
+$ docker push -q localhost:5001/ratneshvaibhav/shelfshare-backend:1.0.0 && docker push -q localhost:5001/ratneshvaibhav/shelfshare-frontend:1.0.0
+localhost:5001/ratneshvaibhav/shelfshare-backend:1.0.0
+localhost:5001/ratneshvaibhav/shelfshare-frontend:1.0.0
+
+$ curl -s localhost:5001/v2/_catalog | jq -c .repositories
+["nginx","ratneshvaibhav/session16-cgpa-calculator","ratneshvaibhav/session17-lost-and-found","ratneshvaibhav/shelfshare-backend","ratneshvaibhav/shelfshare-frontend","session20-campus-status"]
+

@@ -1,0 +1,44 @@
+#CWD ~/Devops-Assignments
+$ git -C ~/shelfshare-gitops pull -q && git -C ~/shelfshare-gitops log --format="%h %an: %s" -3 && git -C ~/shelfshare-gitops show --stat --format= HEAD
+3c52022 shelfshare-ci: Deploy shelfshare 1529548 to dev (pipeline run 1)
+ace65d2 Ratnesh Vaibhav: Frontend: autotune nginx workers, 64Mi limit; roll dev forward to 1.0.1 (CVE-patched frontend)
+2b697b3 Ratnesh Vaibhav: Roll back dev to 1.0.0: frontend 1.0.1 is OOMKilled at start-up
+ environments/dev/values.yaml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+$ kubectl -n argocd scale statefulset argocd-application-controller --replicas=1 && kubectl -n argocd scale deploy argocd-server argocd-repo-server argocd-redis --replicas=1 && kubectl -n argocd rollout status deploy/argocd-repo-server --timeout=180s
+statefulset.apps/argocd-application-controller scaled
+deployment.apps/argocd-server scaled
+deployment.apps/argocd-repo-server scaled
+deployment.apps/argocd-redis scaled
+Waiting for deployment "argocd-repo-server" rollout to finish: 0 of 1 updated replicas are available...
+deployment "argocd-repo-server" successfully rolled out
+
+$ until [ "$(kubectl get application shelfshare-dev -n argocd -o jsonpath="{.status.sync.revision}")" = "$(git -C ~/shelfshare-gitops rev-parse HEAD)" ] && [ "$(kubectl get application shelfshare-dev -n argocd -o jsonpath="{.status.sync.status}/{.status.health.status}")" = "Synced/Healthy" ]; do sleep 5; done; argocd app get shelfshare-dev | sed -n "/Sync Status/,/Health Status/p"
+Sync Status:        Synced to main (3c52022)
+Health Status:      Healthy
+
+$ kubectl get pods -n shelfshare -o custom-columns=POD:.metadata.name,READY:.status.containerStatuses[0].ready,IMAGE:.spec.containers[0].image
+POD                                    READY   IMAGE
+shelfshare-backend-84b54d4988-2srhm    true    localhost:5001/ratneshvaibhav/shelfshare-backend:15295481756c72f32c9864c3c61759b67627722a
+shelfshare-backend-84b54d4988-567cx    true    localhost:5001/ratneshvaibhav/shelfshare-backend:15295481756c72f32c9864c3c61759b67627722a
+shelfshare-frontend-6c76759dc8-2987z   true    localhost:5001/ratneshvaibhav/shelfshare-frontend:15295481756c72f32c9864c3c61759b67627722a
+shelfshare-frontend-6c76759dc8-cxnqm   true    localhost:5001/ratneshvaibhav/shelfshare-frontend:15295481756c72f32c9864c3c61759b67627722a
+shelfshare-postgres-0                  true    postgres:17-alpine
+
+$ curl -s http://shelfshare.localhost:8088/api/books/stats | jq -c "{total, by_status}"; kubectl exec -n shelfshare deploy/shelfshare-backend -c api -- python -c "import urllib.request,json; print(json.load(urllib.request.urlopen(\"http://127.0.0.1:8000/health\")))"
+{"total":6,"by_status":{"available":4,"reserved":1,"exchanged":1}}
+{'status': 'ok', 'version': '1.0.0', 'build': '15295481756c'}
+
+$ git rev-parse --short=12 HEAD; echo "^ the running build is the commit the pipeline scanned and built"
+15295481756c
+^ the running build is the commit the pipeline scanned and built
+
+$ argocd app history shelfshare-dev
+SOURCE  http://gitea-http.gitea.svc.cluster.local:3000/ratnesh/shelfshare-gitops.git
+ID      DATE                           REVISION
+0       2026-10-08 15:41:25 +0530 IST  main (27be9f0)
+1       2026-10-08 15:57:39 +0530 IST  main (2b697b3)
+2       2026-10-08 16:21:29 +0530 IST  main (ace65d2)
+3       2026-10-08 16:32:29 +0530 IST  main (3c52022)
+

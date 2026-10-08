@@ -1,0 +1,92 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project/terraform
+$ ls; terraform version | head -1
+eks.tf
+iam.tf
+outputs.tf
+providers.tf
+terraform.tfvars
+terraform.tfvars.example
+variables.tf
+versions.tf
+vpc.tf
+Terraform v1.16.5
+
+$ terraform fmt -check -recursive && terraform validate
+[32m[1mSuccess![0m The configuration is valid.
+[0m
+
+$ terraform plan -out=tfplan -no-color > ../../../utility/transcripts/session-21/raw/terraform-plan.txt; grep -E "^  # .* will be created|^Plan:" ../../../utility/transcripts/session-21/raw/terraform-plan.txt
+  # aws_eip.nat will be created
+  # aws_eks_cluster.main will be created
+  # aws_eks_node_group.default will be created
+  # aws_iam_role.cluster will be created
+  # aws_iam_role.node will be created
+  # aws_iam_role_policy_attachment.cluster will be created
+  # aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"] will be created
+  # aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"] will be created
+  # aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"] will be created
+  # aws_internet_gateway.main will be created
+  # aws_nat_gateway.main will be created
+  # aws_route_table.private will be created
+  # aws_route_table.public will be created
+  # aws_route_table_association.private["a"] will be created
+  # aws_route_table_association.private["b"] will be created
+  # aws_route_table_association.public["a"] will be created
+  # aws_route_table_association.public["b"] will be created
+  # aws_subnet.private["a"] will be created
+  # aws_subnet.private["b"] will be created
+  # aws_subnet.public["a"] will be created
+  # aws_subnet.public["b"] will be created
+  # aws_vpc.main will be created
+Plan: 22 to add, 0 to change, 0 to destroy.
+
+$ timeout 400 terraform apply -no-color tfplan | grep -E "Creation complete|Apply complete" | sed -E "s/\[id=.*\]//"
+aws_iam_role.cluster: Creation complete after 5s 
+aws_iam_role.node: Creation complete after 5s 
+aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"]: Creation complete after 0s 
+aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"]: Creation complete after 0s 
+aws_iam_role_policy_attachment.cluster: Creation complete after 0s 
+aws_iam_role_policy_attachment.node["arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"]: Creation complete after 0s 
+aws_eip.nat: Creation complete after 5s 
+aws_vpc.main: Creation complete after 6s 
+aws_subnet.private["b"]: Creation complete after 0s 
+aws_subnet.private["a"]: Creation complete after 0s 
+aws_internet_gateway.main: Creation complete after 0s 
+aws_route_table.public: Creation complete after 0s 
+aws_subnet.public["a"]: Creation complete after 10s 
+aws_subnet.public["b"]: Creation complete after 10s 
+aws_nat_gateway.main: Creation complete after 1s 
+aws_route_table_association.public["b"]: Creation complete after 1s 
+aws_route_table_association.public["a"]: Creation complete after 1s 
+aws_route_table.private: Creation complete after 1s 
+aws_route_table_association.private["b"]: Creation complete after 0s 
+aws_route_table_association.private["a"]: Creation complete after 0s 
+aws_eks_cluster.main: Creation complete after 5s 
+aws_eks_node_group.default: Creation complete after 0s 
+Apply complete! Resources: 22 added, 0 changed, 0 destroyed.
+
+$ terraform output
+cluster_endpoint = "https://DRJX2hHEutHMja0deJ3W.y6H.ap-south-1.eks.amazonaws.com/"
+cluster_name = "shelfshare-eks"
+cluster_version = "1.34"
+kubeconfig_command = "aws eks update-kubeconfig --region ap-south-1 --name shelfshare-eks"
+nat_gateway_public_ip = "127.238.158.190"
+node_group = {
+  "name" = "shelfshare-default"
+  "scaling" = {
+    "desired" = 2
+    "max" = 3
+    "min" = 1
+  }
+  "status" = "ACTIVE"
+}
+private_subnet_ids = [
+  "subnet-4aed3ab57812e3051",
+  "subnet-6555a27a7d1cd474c",
+]
+public_subnet_ids = [
+  "subnet-5650aad0676110743",
+  "subnet-f18455c68673e7cb9",
+]
+vpc_id = "vpc-960c850fec91e29cd"
+

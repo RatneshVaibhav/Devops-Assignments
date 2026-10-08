@@ -1,0 +1,56 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ kubectl create namespace shelfshare && kubectl create secret generic shelfshare-db -n shelfshare --from-literal=password="$(openssl rand -hex 16)"
+namespace/shelfshare created
+secret/shelfshare-db created
+
+$ helm lint helm/shelfshare -f helm/shelfshare/values-dev.yaml | tail -1
+1 chart(s) linted, 0 chart(s) failed
+
+$ helm upgrade --install shelfshare helm/shelfshare -n shelfshare -f helm/shelfshare/values-dev.yaml --wait --timeout 6m
+Release "shelfshare" does not exist. Installing it now.
+NAME: shelfshare
+LAST DEPLOYED: Thu Oct  8 15:12:59 2026
+NAMESPACE: shelfshare
+STATUS: deployed
+REVISION: 1
+DESCRIPTION: Install complete
+NOTES:
+ShelfShare 1.0.0 is deployed as release "shelfshare" (revision 1).
+
+  UI : http://shelfshare.localhost:8088/
+  API: http://shelfshare.localhost:8088/api/books
+
+Check it:  helm test shelfshare -n shelfshare
+
+$ helm list -n shelfshare
+NAME      	NAMESPACE 	REVISION	UPDATED                                	STATUS  	CHART           	APP VERSION
+shelfshare	shelfshare	1       	2026-10-08 15:12:59.459324374 +0530 IST	deployed	shelfshare-1.0.0	1.0.0      
+
+$ kubectl get pods,svc,ingress,hpa,pvc -n shelfshare
+NAME                                       READY   STATUS    RESTARTS   AGE
+pod/shelfshare-backend-6f6795c4f9-7mknc    1/1     Running   0          48s
+pod/shelfshare-backend-6f6795c4f9-kc6t6    1/1     Running   0          48s
+pod/shelfshare-frontend-56bbfc8584-cb9h8   1/1     Running   0          48s
+pod/shelfshare-frontend-56bbfc8584-ngxsp   1/1     Running   0          48s
+pod/shelfshare-postgres-0                  1/1     Running   0          48s
+
+NAME                          TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+service/shelfshare-backend    ClusterIP   10.96.31.99    <none>        8000/TCP   48s
+service/shelfshare-frontend   ClusterIP   10.96.202.28   <none>        80/TCP     48s
+service/shelfshare-postgres   ClusterIP   None           <none>        5432/TCP   48s
+
+NAME                                   CLASS   HOSTS                  ADDRESS     PORTS   AGE
+ingress.networking.k8s.io/shelfshare   nginx   shelfshare.localhost   localhost   80      48s
+
+NAME                                                     REFERENCE                       TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/shelfshare-backend   Deployment/shelfshare-backend   cpu: <unknown>/70%   2         4         2          48s
+
+NAME                                               STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/data-shelfshare-postgres-0   Bound    pvc-29c4b257-9552-4950-81f8-b3b0ca6c68e7   1Gi        RWO            standard       <unset>                 48s
+
+$ helm test shelfshare -n shelfshare | sed -n "/TEST SUITE/,\$p"
+TEST SUITE:     shelfshare-test-api
+Last Started:   Thu Oct  8 15:13:49 2026
+Last Completed: Thu Oct  8 15:14:07 2026
+Phase:          Succeeded
+

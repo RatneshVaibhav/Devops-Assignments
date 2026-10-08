@@ -1,0 +1,45 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ argocd app get shelfshare-dev | sed -n "/Sync Status/,/Health Status/p"; kubectl get pods -n shelfshare
+Sync Status:        Synced to main (27be9f0)
+Health Status:      Degraded
+NAME                                  READY   STATUS             RESTARTS        AGE
+shelfshare-backend-84f8b68489-vp9jt   1/1     Running            0               15m
+shelfshare-backend-84f8b68489-wzs76   1/1     Running            0               15m
+shelfshare-frontend-dfb8c9576-5jgqd   0/1     CrashLoopBackOff   7 (2m11s ago)   15m
+shelfshare-frontend-dfb8c9576-jc7wv   0/1     CrashLoopBackOff   8 (2m23s ago)   15m
+shelfshare-postgres-0                 1/1     Running            0               15m
+
+$ kubectl get pod -n shelfshare -l app.kubernetes.io/component=frontend -o jsonpath="{range .items[*]}{.metadata.name}: {.status.containerStatuses[0].lastState.terminated.reason} exit={.status.containerStatuses[0].lastState.terminated.exitCode} restarts={.status.containerStatuses[0].restartCount}{\"\n\"}{end}"
+shelfshare-frontend-dfb8c9576-5jgqd: OOMKilled exit=137 restarts=7
+shelfshare-frontend-dfb8c9576-jc7wv: OOMKilled exit=137 restarts=8
+
+$ kubectl get deploy shelfshare-frontend -n shelfshare -o jsonpath="image={.spec.template.spec.containers[0].image} memory limit={.spec.template.spec.containers[0].resources.limits.memory}{\"\n\"}"
+image=localhost:5001/ratneshvaibhav/shelfshare-frontend:1.0.1 memory limit=48Mi
+
+$ kubectl logs -n shelfshare deploy/shelfshare-frontend --previous 2>/dev/null | tail -3
+/docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+
+$ cd ~/shelfshare-gitops && sed -i "s/tag: \"1.0.1\"/tag: \"1.0.0\"/" environments/dev/values.yaml && git commit -q -am "Roll back dev to 1.0.0: frontend 1.0.1 is OOMKilled at start-up" && git push -q && git log --oneline -1 && cd - >/dev/null
+2b697b3 Roll back dev to 1.0.0: frontend 1.0.1 is OOMKilled at start-up
+
+$ until [ "$(kubectl get application shelfshare-dev -n argocd -o jsonpath="{.status.sync.revision}")" = "$(git -C ~/shelfshare-gitops rev-parse HEAD)" ] && [ "$(kubectl get application shelfshare-dev -n argocd -o jsonpath="{.status.health.status}")" = "Healthy" ]; do sleep 5; done; argocd app get shelfshare-dev | sed -n "/Sync Status/,/Health Status/p"
+(the wait above was interrupted while the node was overloaded - see README; resumed below)
+
+$ argocd app get shelfshare-dev | sed -n "/Sync Status/,/Health Status/p"
+Sync Status:        Synced to main (2b697b3)
+Health Status:      Healthy
+
+$ kubectl get pods -n shelfshare -o custom-columns=POD:.metadata.name,READY:.status.containerStatuses[0].ready,IMAGE:.spec.containers[0].image
+POD                                    READY   IMAGE
+shelfshare-backend-7685b8bfbd-svgtr    true    localhost:5001/ratneshvaibhav/shelfshare-backend:1.0.0
+shelfshare-backend-7685b8bfbd-z2fbt    true    localhost:5001/ratneshvaibhav/shelfshare-backend:1.0.0
+shelfshare-frontend-56bbfc8584-5jlgv   true    localhost:5001/ratneshvaibhav/shelfshare-frontend:1.0.0
+shelfshare-frontend-56bbfc8584-xn9pn   true    localhost:5001/ratneshvaibhav/shelfshare-frontend:1.0.0
+shelfshare-postgres-0                  true    postgres:17-alpine
+
+$ curl -s http://shelfshare.localhost:8088/api/books/stats | jq -c "{total, by_status}"; echo "^ the 6 books created under Helm survived the handover and the rollback"
+{"total":6,"by_status":{"available":4,"reserved":1,"exchanged":1}}
+^ the 6 books created under Helm survived the handover and the rollback
+

@@ -1,0 +1,37 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ echo "Swap: pause monitoring, resume Argo CD (both do not fit in the VM at once)"; kubectl -n monitoring patch prometheus kps-prometheus --type merge -p "{\"spec\":{\"replicas\":0}}"; kubectl -n monitoring patch alertmanager kps-alertmanager --type merge -p "{\"spec\":{\"replicas\":0}}"; kubectl -n monitoring scale deploy kps-kube-state-metrics kps-grafana --replicas=0
+Swap: pause monitoring, resume Argo CD (both do not fit in the VM at once)
+prometheus.monitoring.coreos.com/kps-prometheus patched
+alertmanager.monitoring.coreos.com/kps-alertmanager patched
+deployment.apps/kps-kube-state-metrics scaled
+deployment.apps/kps-grafana scaled
+
+$ rsync -a --delete helm/shelfshare/ ~/shelfshare-gitops/charts/shelfshare/ && cd ~/shelfshare-gitops && git add -A && git status --short && git commit -qm "Chart 1.0.2: dashboard counts books over the selected range (counters reset when pods restart)" && git push -q && git log --oneline -1; cd - >/dev/null
+M  charts/shelfshare/Chart.yaml
+M  charts/shelfshare/files/grafana-dashboard.json
+fa92134 Chart 1.0.2: dashboard counts books over the selected range (counters reset when pods restart)
+
+$ kubectl -n argocd scale statefulset argocd-application-controller --replicas=1 && kubectl -n argocd scale deploy argocd-server argocd-repo-server argocd-redis --replicas=1 && kubectl -n argocd rollout status deploy/argocd-server --timeout=300s
+statefulset.apps/argocd-application-controller scaled
+deployment.apps/argocd-server scaled
+deployment.apps/argocd-repo-server scaled
+deployment.apps/argocd-redis scaled
+Waiting for deployment "argocd-server" rollout to finish: 0 of 1 updated replicas are available...
+deployment "argocd-server" successfully rolled out
+
+$ until [ "$(kubectl get application shelfshare-dev -n argocd -o jsonpath="{.status.sync.revision}/{.status.sync.status}/{.status.health.status}")" = "$(git -C ~/shelfshare-gitops rev-parse HEAD)/Synced/Healthy" ]; do sleep 5; done; date +%T; argocd app get shelfshare-dev | sed -n "/Sync Status/,/Health Status/p"
+17:28:16
+Sync Status:        Synced to main (fa92134)
+Health Status:      Healthy
+
+$ kubectl get configmap shelfshare-dashboard -n shelfshare -o jsonpath="{.metadata.labels.helm\.sh/chart}{\"\n\"}"; kubectl get configmap shelfshare-dashboard -n shelfshare -o json | jq -r ".data[]" | jq -r ".panels[] | select(.id==3 or .id==4) | \"\(.title): \(.targets[0].expr)\""
+shelfshare-1.0.2
+Books listed (time range): round(sum(increase(shelfshare_books_listed_total{namespace="shelfshare"}[$__range])))
+Books reserved (time range): round(sum(increase(shelfshare_books_reserved_total{namespace="shelfshare"}[$__range])))
+
+$ argocd app history shelfshare-dev | tail -4
+7       2026-10-08 16:41:08 +0530 IST  main (2261881)
+8       2026-10-08 16:43:15 +0530 IST  main (78d5ed6)
+9       2026-10-08 16:44:09 +0530 IST  main (d0c16f5)
+10      2026-10-08 17:27:40 +0530 IST  main (fa92134)
+

@@ -1,0 +1,25 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ git -C ~/shelfshare-gitops fetch -q && git -C ~/shelfshare-gitops status -sb | head -1; git -C ~/shelfshare-gitops bundle create "$PWD/gitops/shelfshare-gitops.bundle" HEAD main 2>&1 | tail -1; git bundle verify gitops/shelfshare-gitops.bundle 2>&1 | tail -1; ls -la gitops/shelfshare-gitops.bundle | cut -d" " -f5-
+## main...origin/main
+The bundle uses this hash algorithm: sha1
+13488 Oct  8 17:40 gitops/shelfshare-gitops.bundle
+
+$ rm -rf /tmp/bundle-check && git clone -q gitops/shelfshare-gitops.bundle /tmp/bundle-check && git -C /tmp/bundle-check log --oneline | wc -l && echo "bundle HEAD $(git -C /tmp/bundle-check rev-parse --short HEAD) = Gitea HEAD $(git -C ~/shelfshare-gitops rev-parse --short origin/main)"
+11
+bundle HEAD fa92134 = Gitea HEAD fa92134
+
+$ gitleaks git /tmp/bundle-check --no-banner --redact 2>&1 | tail -2; diff -r /tmp/bundle-check/charts/shelfshare helm/shelfshare && echo "charts/shelfshare in the bundle == helm/shelfshare in this repo"; cat /tmp/bundle-check/environments/dev/values.yaml; rm -rf /tmp/bundle-check
+[90m5:40PM[0m [32mINF[0m [1mscanned ~29789 bytes (29.79 KB) in 171ms[0m
+[90m5:40PM[0m [32mINF[0m [1mno leaks found[0m
+charts/shelfshare in the bundle == helm/shelfshare in this repo
+# Desired state of the "dev" environment.
+# image.tag is rewritten by the CI pipeline after every build that passes the security gate.
+image:
+  registry: localhost:5001
+  owner: ratneshvaibhav
+  tag: "15295481756c72f32c9864c3c61759b67627722a"
+backend:
+  env:
+    APP_ENV: development
+    LOG_LEVEL: INFO
+

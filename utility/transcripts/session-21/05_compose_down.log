@@ -1,0 +1,23 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project/docker
+$ docker compose down -v
+ Container shelfshare-frontend-1 Stopping 
+ Container shelfshare-frontend-1 Stopped 
+ Container shelfshare-frontend-1 Removing 
+ Container shelfshare-frontend-1 Removed 
+ Container shelfshare-backend-1 Stopping 
+ Container shelfshare-backend-1 Stopped 
+ Container shelfshare-backend-1 Removing 
+ Container shelfshare-backend-1 Removed 
+ Container shelfshare-db-1 Stopping 
+ Container shelfshare-db-1 Stopped 
+ Container shelfshare-db-1 Removing 
+ Container shelfshare-db-1 Removed 
+ Network shelfshare_default Removing 
+ Volume shelfshare_db-data Removing 
+ Volume shelfshare_db-data Removed 
+ Network shelfshare_default Removed 
+
+$ docker compose ps -a; docker volume ls | grep shelfshare || echo "no shelfshare volumes left"
+NAME      IMAGE     COMMAND   SERVICE   CREATED   STATUS    PORTS
+no shelfshare volumes left
+

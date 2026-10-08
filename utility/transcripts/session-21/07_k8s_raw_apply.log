@@ -1,0 +1,75 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ printf "password=%s\n" "$(openssl rand -hex 16)" > kubernetes/db.env && git check-ignore -q kubernetes/db.env && echo "kubernetes/db.env created (git-ignored)"
+kubernetes/db.env created (git-ignored)
+
+$ kubectl kustomize kubernetes | grep -E "^kind:" | sort | uniq -c
+      1 kind: ConfigMap
+      2 kind: Deployment
+      1 kind: HorizontalPodAutoscaler
+      1 kind: Ingress
+      1 kind: Namespace
+      1 kind: Secret
+      3 kind: Service
+      1 kind: StatefulSet
+
+$ kubectl apply -k kubernetes
+namespace/shelfshare-raw created
+configmap/shelfshare-backend-config created
+secret/shelfshare-db created
+service/shelfshare-backend created
+service/shelfshare-frontend created
+service/shelfshare-postgres created
+deployment.apps/shelfshare-backend created
+deployment.apps/shelfshare-frontend created
+statefulset.apps/shelfshare-postgres created
+horizontalpodautoscaler.autoscaling/shelfshare-backend created
+ingress.networking.k8s.io/shelfshare created
+
+$ kubectl rollout status statefulset/shelfshare-postgres -n shelfshare-raw --timeout=180s && kubectl rollout status deployment/shelfshare-backend -n shelfshare-raw --timeout=180s && kubectl rollout status deployment/shelfshare-frontend -n shelfshare-raw --timeout=120s
+Waiting for 1 pods to be ready...
+partitioned roll out complete: 1 new pods have been updated...
+Waiting for deployment "shelfshare-backend" rollout to finish: 0 of 2 updated replicas are available...
+Waiting for deployment "shelfshare-backend" rollout to finish: 1 of 2 updated replicas are available...
+deployment "shelfshare-backend" successfully rolled out
+deployment "shelfshare-frontend" successfully rolled out
+
+$ kubectl get all,ingress,pvc,configmap,secret,hpa -n shelfshare-raw
+NAME                                       READY   STATUS    RESTARTS      AGE
+pod/shelfshare-backend-7fd7768db8-djqnw    1/1     Running   3 (55s ago)   110s
+pod/shelfshare-backend-7fd7768db8-r69gn    1/1     Running   3 (55s ago)   110s
+pod/shelfshare-frontend-5cc6445d99-6djb9   1/1     Running   0             110s
+pod/shelfshare-frontend-5cc6445d99-rdbpk   1/1     Running   0             110s
+pod/shelfshare-postgres-0                  1/1     Running   0             110s
+
+NAME                          TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/shelfshare-backend    ClusterIP   10.96.94.144    <none>        8000/TCP   112s
+service/shelfshare-frontend   ClusterIP   10.96.139.159   <none>        80/TCP     112s
+service/shelfshare-postgres   ClusterIP   None            <none>        5432/TCP   112s
+
+NAME                                  READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/shelfshare-backend    2/2     2            2           112s
+deployment.apps/shelfshare-frontend   2/2     2            2           112s
+
+NAME                                             DESIRED   CURRENT   READY   AGE
+replicaset.apps/shelfshare-backend-7fd7768db8    2         2         2       112s
+replicaset.apps/shelfshare-frontend-5cc6445d99   2         2         2       112s
+
+NAME                                   READY   AGE
+statefulset.apps/shelfshare-postgres   1/1     111s
+
+NAME                                                     REFERENCE                       TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/shelfshare-backend   Deployment/shelfshare-backend   cpu: <unknown>/70%   2         4         2          111s
+
+NAME                                   CLASS   HOSTS                  ADDRESS     PORTS   AGE
+ingress.networking.k8s.io/shelfshare   nginx   shelfshare.localhost   localhost   80      111s
+
+NAME                                               STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/data-shelfshare-postgres-0   Bound    pvc-c571eb49-8e2c-4c08-8a3d-a51ef7dde8bc   1Gi        RWO            standard       <unset>                 111s
+
+NAME                                  DATA   AGE
+configmap/kube-root-ca.crt            1      112s
+configmap/shelfshare-backend-config   7      112s
+
+NAME                   TYPE     DATA   AGE
+secret/shelfshare-db   Opaque   1      112s
+

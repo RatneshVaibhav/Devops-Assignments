@@ -1,0 +1,4 @@
+# Fault 3 - "simplify" the backend by dropping its resource settings.
+# Without CPU requests the HPA cannot compute utilisation.
+backend:
+  resources: null

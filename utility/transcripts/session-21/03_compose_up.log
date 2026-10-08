@@ -1,0 +1,60 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project/docker
+$ cat .env.example && [ -f .env ] || printf "DB_PASSWORD=%s\n" "$(openssl rand -hex 16)" > .env; git check-ignore -q .env && echo ".env is git-ignored"
+# copy to docker/.env (git-ignored) and choose a password
+DB_PASSWORD=change-me
+.env is git-ignored
+
+$ docker compose up --build -d 2>&1 | grep -v -E "^#[0-9]+ (sha256|extracting|resolve|\[internal\])" | tail -n 30
+#31 exporting manifest list sha256:7c8321287484b190486638145c120e1a21f83c5e6b6cdbab1e697afbd0baf726 0.1s done
+#31 naming to docker.io/library/shelfshare-backend:compose 0.0s done
+#31 unpacking to docker.io/library/shelfshare-backend:compose
+#31 unpacking to docker.io/library/shelfshare-backend:compose 1.9s done
+#31 DONE 9.9s
+
+#32 [backend] resolving provenance for metadata file
+#32 DONE 0.1s
+ Image shelfshare-backend:compose Built 
+ Image shelfshare-frontend:compose Built 
+ Network shelfshare_default Creating 
+ Network shelfshare_default Created 
+ Volume shelfshare_db-data Creating 
+ Volume shelfshare_db-data Created 
+ Container shelfshare-db-1 Creating 
+ Container shelfshare-db-1 Created 
+ Container shelfshare-backend-1 Creating 
+ Container shelfshare-backend-1 Created 
+ Container shelfshare-frontend-1 Creating 
+ Container shelfshare-frontend-1 Created 
+ Container shelfshare-db-1 Starting 
+ Container shelfshare-db-1 Started 
+ Container shelfshare-db-1 Waiting 
+ Container shelfshare-db-1 Healthy 
+ Container shelfshare-backend-1 Starting 
+ Container shelfshare-backend-1 Started 
+ Container shelfshare-backend-1 Waiting 
+ Container shelfshare-backend-1 Healthy 
+ Container shelfshare-frontend-1 Starting 
+ Container shelfshare-frontend-1 Started 
+
+$ docker compose ps --format "table {{.Service}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}"
+SERVICE    IMAGE                         STATUS                    PORTS
+backend    shelfshare-backend:compose    Up 21 seconds (healthy)   0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+db         postgres:17-alpine            Up 28 seconds (healthy)   5432/tcp
+frontend   shelfshare-frontend:compose   Up 1 second               0.0.0.0:3000->8080/tcp, [::]:3000->8080/tcp
+
+$ docker compose logs backend | grep -E "alembic|Running upgrade|Uvicorn running|Application startup"
+backend-1  | INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+backend-1  | INFO  [alembic.runtime.migration] Will assume transactional DDL.
+backend-1  | INFO  [alembic.runtime.migration] Running upgrade  -> 0001, create books table
+backend-1  | INFO:     Application startup complete.
+backend-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+
+$ docker compose exec backend id; docker compose exec frontend id
+uid=10001(appuser) gid=10001(appuser) groups=10001(appuser)
+uid=101(nginx) gid=101(nginx) groups=101(nginx)
+
+$ docker images --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}" | grep -E "REPOSITORY|shelfshare-(backend|frontend)"
+REPOSITORY                                                TAG                                        SIZE
+shelfshare-backend                                        compose                                    201MB
+shelfshare-frontend                                       compose                                    81.9MB
+

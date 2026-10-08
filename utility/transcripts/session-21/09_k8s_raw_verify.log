@@ -1,0 +1,29 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ for p in $(kubectl get pods -n shelfshare-raw -l app=shelfshare-backend -o name); do echo "$p: $(kubectl logs -n shelfshare-raw $p -c api 2>&1 | grep -c "Running upgrade") migration(s) run"; done
+pod/shelfshare-backend-6f9cc6b8d-lkklx: 0 migration(s) run
+pod/shelfshare-backend-6f9cc6b8d-zxmf2: 1 migration(s) run
+
+$ curl -s -o /dev/null -w "GET / via ingress -> HTTP %{http_code}\n" http://shelfshare.localhost:8088/ && curl -s http://shelfshare.localhost:8088/api/books/stats; echo
+GET / via ingress -> HTTP 200
+{"total":0,"by_status":{"available":0,"reserved":0,"exchanged":0},"top_courses":[]}
+
+$ curl -s -X POST http://shelfshare.localhost:8088/api/books -H "Content-Type: application/json" -d "{\"title\":\"Clean Code\",\"author\":\"Robert C. Martin\",\"course_code\":\"CS310\",\"owner_name\":\"Ratnesh\"}" | jq -c "{id, title, status}"
+{"id":1,"title":"Clean Code","status":"available"}
+
+$ kubectl delete pod shelfshare-postgres-0 -n shelfshare-raw && kubectl wait --for=condition=Ready pod/shelfshare-postgres-0 -n shelfshare-raw --timeout=120s
+pod "shelfshare-postgres-0" deleted from shelfshare-raw namespace
+pod/shelfshare-postgres-0 condition met
+
+$ until curl -sf http://shelfshare.localhost:8088/api/books >/dev/null; do sleep 2; done; curl -s http://shelfshare.localhost:8088/api/books | jq -c "[.[] | {id, title}]"; echo "^ data survived the Postgres pod being deleted (PVC data-shelfshare-postgres-0)"
+[{"id":1,"title":"Clean Code"}]
+^ data survived the Postgres pod being deleted (PVC data-shelfshare-postgres-0)
+
+$ kubectl describe pod -n shelfshare-raw -l app=shelfshare-backend | grep -E "^\s+(Startup|Readiness|Liveness):" | sort -u
+    Liveness:   http-get http://:http/health delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:  http-get http://:http/ready delay=0s timeout=1s period=5s #success=1 #failure=2
+    Startup:    http-get http://:http/health delay=0s timeout=1s period=2s #success=1 #failure=30
+
+$ kubectl get hpa -n shelfshare-raw
+NAME                 REFERENCE                       TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+shelfshare-backend   Deployment/shelfshare-backend   cpu: <unknown>/70%   2         4         2          73s
+

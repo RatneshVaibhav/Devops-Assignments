@@ -28,6 +28,15 @@ prometheus:
     paths: [/]
   prometheusSpec:
     retention: 12h
+    retentionSize: 1500MB
+    # without a storageSpec the TSDB is an emptyDir: every restart or pause of the
+    # Prometheus pod threw the metrics history away (found in Session 21, transcript 33)
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes: [ReadWriteOnce]
+          resources:
+            requests: {storage: 2Gi}
     scrapeInterval: 15s
     evaluationInterval: 15s
     # pick up ServiceMonitors / PrometheusRules from every namespace, not only this release's

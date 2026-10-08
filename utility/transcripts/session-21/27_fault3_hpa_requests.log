@@ -1,0 +1,77 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ kubectl get hpa -n shelfshare
+NAME                 REFERENCE                       TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+shelfshare-backend   Deployment/shelfshare-backend   cpu: 6%/70%   2         4         2          61m
+
+$ troubleshooting/inject.sh troubleshooting/03-hpa-without-requests.values.yaml && git -C ~/shelfshare-gitops show --format= HEAD | tail -n +5
+78d5ed6 Fault 3 - "simplify" the backend by dropping its resource settings.
+@@ -8,3 +8,4 @@ backend:
+   env:
+     APP_ENV: development
+     LOG_LEVEL: INFO
++  resources: null
+
+$ until [ "$(kubectl get application shelfshare-dev -n argocd -o jsonpath="{.status.sync.revision}")" = "$(git -C ~/shelfshare-gitops rev-parse HEAD)" ] && kubectl rollout status deploy/shelfshare-backend -n shelfshare --timeout=300s >/dev/null; do sleep 3; done; date +%T; kubectl get pods -n shelfshare -l app.kubernetes.io/component=backend
+16:43:27
+NAME                                  READY   STATUS        RESTARTS   AGE
+shelfshare-backend-7fd8975c9f-bjxpg   1/1     Running       0          7s
+shelfshare-backend-7fd8975c9f-v9spx   1/1     Running       0          13s
+shelfshare-backend-84b54d4988-cxh2z   1/1     Terminating   0          2m4s
+
+$ until kubectl describe hpa shelfshare-backend -n shelfshare | grep -q FailedGetResourceMetric; do sleep 5; done; kubectl get hpa -n shelfshare
+NAME                 REFERENCE                       TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+shelfshare-backend   Deployment/shelfshare-backend   cpu: <unknown>/70%   2         4         2          62m
+
+$ kubectl describe hpa shelfshare-backend -n shelfshare | sed -n "/^Conditions/,\$p" | cut -c1-210
+Conditions:
+  Type            Status  Reason                   Message
+  ----            ------  ------                   -------
+  AbleToScale     True    SucceededGetScale        the HPA controller was able to get the target's current scale
+  ScaledToZero    False   NotScaledToZero          the HPA controller did not scale the workload to zero
+  ScalingActive   False   FailedGetResourceMetric  the HPA was unable to compute the replica count: failed to get cpu utilization: missing request for cpu in container api of Pod shelfshare-backend-7fd8975c9f-v
+  ScalingLimited  False   DesiredWithinRange       the desired count is within the acceptable range
+Events:
+  Type     Reason                        Age                 From                       Message
+  ----     ------                        ----                ----                       -------
+  Warning  FailedGetResourceMetric       50m (x6 over 61m)   horizontal-pod-autoscaler  failed to get cpu utilization: unable to get metrics for resource cpu: no metrics returned from resource metrics API
+  Warning  FailedComputeMetricsReplicas  50m (x6 over 61m)   horizontal-pod-autoscaler  invalid metrics (1 invalid out of 1), first error is: failed to get cpu resource metric value: failed to get cpu utilizati
+  Warning  FailedComputeMetricsReplicas  49m (x6 over 50m)   horizontal-pod-autoscaler  invalid metrics (1 invalid out of 1), first error is: failed to get cpu resource metric value: failed to get cpu utilizati
+  Warning  FailedGetResourceMetric       36m (x50 over 50m)  horizontal-pod-autoscaler  failed to get cpu utilization: unable to get metrics for resource cpu: unable to fetch metrics from resource metrics API: 
+  Warning  FailedGetResourceMetric       97s (x6 over 61m)   horizontal-pod-autoscaler  failed to get cpu utilization: did not receive metrics for targeted pods (pods might be unready)
+  Warning  FailedComputeMetricsReplicas  97s (x6 over 61m)   horizontal-pod-autoscaler  invalid metrics (1 invalid out of 1), first error is: failed to get cpu resource metric value: failed to get cpu utilizati
+
+$ argocd app get shelfshare-dev | grep -E "^Health Status|HorizontalPodAutoscaler"
+Health Status:      Degraded
+autoscaling            HorizontalPodAutoscaler  shelfshare  shelfshare-backend    Synced  Degraded        horizontalpodautoscaler.autoscaling/shelfshare-backend unchanged
+
+$ kubectl get pod -n shelfshare -l app.kubernetes.io/component=backend -o jsonpath="{range .items[*]}{.metadata.name}  qos={.status.qosClass}  api.resources={.spec.containers[0].resources}{\"\n\"}{end}"
+shelfshare-backend-7fd8975c9f-bjxpg  qos=Burstable  api.resources={}
+shelfshare-backend-7fd8975c9f-v9spx  qos=Burstable  api.resources={}
+
+$ echo "ROOT CAUSE: the HPA target is 70% of the CPU *request*. With backend.resources set to null the api container has no request, so utilisation cannot be computed and the HPA will never scale; the container also lost its memory limit."
+ROOT CAUSE: the HPA target is 70% of the CPU *request*. With backend.resources set to null the api container has no request, so utilisation cannot be computed and the HPA will never scale; the container also lost its memory limit.
+
+$ cd ~/shelfshare-gitops && git revert --no-edit HEAD && git push -q && git log --oneline -1; cd - >/dev/null
+[main d0c16f5] Revert "Fault 3 - "simplify" the backend by dropping its resource settings."
+ Date: Thu Oct 8 16:43:29 2026 +0530
+ 1 file changed, 1 deletion(-)
+d0c16f5 Revert "Fault 3 - "simplify" the backend by dropping its resource settings."
+
+$ until [ "$(kubectl get application shelfshare-dev -n argocd -o jsonpath="{.status.sync.revision}/{.status.health.status}")" = "$(git -C ~/shelfshare-gitops rev-parse HEAD)/Healthy" ]; do sleep 3; done; kubectl rollout status deploy/shelfshare-backend -n shelfshare --timeout=300s; date +%T
+deployment "shelfshare-backend" successfully rolled out
+16:44:54
+
+$ until kubectl get hpa shelfshare-backend -n shelfshare -o jsonpath="{.status.currentMetrics[0].resource.current.averageUtilization}" | grep -q "[0-9]"; do sleep 5; done; kubectl get hpa -n shelfshare; kubectl get hpa shelfshare-backend -n shelfshare -o jsonpath="{range .status.conditions[*]}{.type}={.status} ({.reason}){\"\n\"}{end}"
+NAME                 REFERENCE                       TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+shelfshare-backend   Deployment/shelfshare-backend   cpu: 6%/70%   2         4         2          63m
+AbleToScale=True (ScaleDownStabilized)
+ScaledToZero=False (NotScaledToZero)
+ScalingActive=True (ValidMetricFound)
+ScalingLimited=False (DesiredWithinRange)
+
+$ kubectl get pod -n shelfshare -l app.kubernetes.io/component=backend -o jsonpath="{range .items[*]}{.metadata.name}  qos={.status.qosClass}  api.resources={.spec.containers[0].resources}{\"\n\"}{end}"; argocd app get shelfshare-dev | sed -n "/Sync Status/,/Health Status/p"
+shelfshare-backend-84b54d4988-drx88  qos=Burstable  api.resources={"limits":{"cpu":"300m","memory":"192Mi"},"requests":{"cpu":"50m","memory":"96Mi"}}
+shelfshare-backend-84b54d4988-gmlq5  qos=Burstable  api.resources={"limits":{"cpu":"300m","memory":"192Mi"},"requests":{"cpu":"50m","memory":"96Mi"}}
+Sync Status:        Synced to main (d0c16f5)
+Health Status:      Healthy
+

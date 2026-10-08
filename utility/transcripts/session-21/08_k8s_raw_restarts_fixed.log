@@ -1,0 +1,37 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ kubectl get pods -n shelfshare-raw -l app=shelfshare-backend
+NAME                                  READY   STATUS    RESTARTS      AGE
+shelfshare-backend-7fd7768db8-djqnw   1/1     Running   3 (93s ago)   2m28s
+shelfshare-backend-7fd7768db8-r69gn   1/1     Running   3 (93s ago)   2m28s
+
+$ kubectl logs -n shelfshare-raw deploy/shelfshare-backend --previous 2>&1 | tail -2
+sqlalchemy.exc.OperationalError: (psycopg.OperationalError) failed to resolve host 'shelfshare-postgres': [Errno -2] Name does not resolve
+(Background on this error at: https://sqlalche.me/e/21/e3q8)
+
+$ kubectl get endpointslice -n shelfshare-raw -l kubernetes.io/service-name=shelfshare-postgres -o jsonpath="{.items[0].endpoints[0].addresses[0]} ready={.items[0].endpoints[0].conditions.ready}{\"\n\"}"; echo "^ a headless Service only gets a DNS record for ready endpoints"
+10.244.0.194 ready=true
+^ a headless Service only gets a DNS record for ready endpoints
+
+$ git diff --stat -- kubernetes/backend.yaml; git diff -- kubernetes/backend.yaml | grep -E "^\+" | grep -E "initContainers|wait-for-db|pg_isready"
+
+$ kubectl delete -k kubernetes --wait=true >/dev/null && kubectl apply -k kubernetes >/dev/null && kubectl rollout status deployment/shelfshare-backend -n shelfshare-raw --timeout=240s
+Waiting for deployment "shelfshare-backend" rollout to finish: 0 of 2 updated replicas are available...
+Waiting for deployment "shelfshare-backend" rollout to finish: 1 of 2 updated replicas are available...
+deployment "shelfshare-backend" successfully rolled out
+
+$ kubectl get pods -n shelfshare-raw
+NAME                                   READY   STATUS    RESTARTS   AGE
+shelfshare-backend-6f9cc6b8d-lkklx     1/1     Running   0          41s
+shelfshare-backend-6f9cc6b8d-zxmf2     1/1     Running   0          41s
+shelfshare-frontend-5cc6445d99-nnb7d   1/1     Running   0          41s
+shelfshare-frontend-5cc6445d99-t96gd   1/1     Running   0          41s
+shelfshare-postgres-0                  1/1     Running   0          40s
+
+$ kubectl logs -n shelfshare-raw deploy/shelfshare-backend -c wait-for-db | tail -3; kubectl logs -n shelfshare-raw deploy/shelfshare-backend -c api | grep -E "Running upgrade|Uvicorn running"
+Found 2 pods, using pod/shelfshare-backend-6f9cc6b8d-lkklx
+shelfshare-postgres:5432 - no response
+waiting for shelfshare-postgres
+shelfshare-postgres:5432 - accepting connections
+Found 2 pods, using pod/shelfshare-backend-6f9cc6b8d-lkklx
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+

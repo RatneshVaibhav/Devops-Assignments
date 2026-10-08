@@ -1,0 +1,73 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project
+$ until [ "$(kubectl get hpa shelfshare-backend -n shelfshare -o jsonpath="{.status.currentReplicas}")" = 2 ]; do sleep 10; done; date +%T; kubectl get hpa -n shelfshare; kubectl describe hpa shelfshare-backend -n shelfshare | grep SuccessfulRescale | tail -2 | cut -c1-150
+17:39:08
+NAME                 REFERENCE                       TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+shelfshare-backend   Deployment/shelfshare-backend   cpu: 11%/70%   2         4         2          117m
+  Normal   SuccessfulRescale             7m                   horizontal-pod-autoscaler  New size: 4; reason: cpu resource utilization (percentage of 
+  Normal   SuccessfulRescale             25s                  horizontal-pod-autoscaler  New size: 2; reason: All metrics below target
+
+$ echo "Final lab state: monitoring paused (its TSDB is on a PVC now), Argo CD running."; kubectl -n monitoring patch prometheus kps-prometheus --type merge -p "{\"spec\":{\"replicas\":0}}"; kubectl -n monitoring patch alertmanager kps-alertmanager --type merge -p "{\"spec\":{\"replicas\":0}}"; kubectl -n monitoring scale deploy kps-kube-state-metrics kps-grafana --replicas=0; kubectl get pvc -n monitoring --no-headers | cut -c1-90
+Final lab state: monitoring paused (its TSDB is on a PVC now), Argo CD running.
+prometheus.monitoring.coreos.com/kps-prometheus patched
+alertmanager.monitoring.coreos.com/kps-alertmanager patched
+deployment.apps/kps-kube-state-metrics scaled
+deployment.apps/kps-grafana scaled
+prometheus-kps-prometheus-db-prometheus-kps-prometheus-0   Bound   pvc-115e29a9-6bd5-490c-
+
+$ kubectl -n argocd scale statefulset argocd-application-controller --replicas=1 && kubectl -n argocd scale deploy argocd-server argocd-repo-server argocd-redis --replicas=1 && kubectl -n argocd rollout status deploy/argocd-server --timeout=300s >/dev/null && until [ "$(kubectl get application shelfshare-dev -n argocd -o jsonpath="{.status.sync.revision}/{.status.sync.status}/{.status.health.status}")" = "$(git -C ~/shelfshare-gitops rev-parse HEAD)/Synced/Healthy" ]; do sleep 5; done; argocd app get shelfshare-dev | sed -n "/^Source/,/Health Status/p"
+statefulset.apps/argocd-application-controller scaled
+deployment.apps/argocd-server scaled
+deployment.apps/argocd-repo-server scaled
+deployment.apps/argocd-redis scaled
+Source:
+- Repo:             http://gitea-http.gitea.svc.cluster.local:3000/ratnesh/shelfshare-gitops.git
+  Target:           main
+  Path:             charts/shelfshare
+  Helm Values:      ../../environments/dev/values.yaml
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to main (fa92134)
+Health Status:      Healthy
+
+$ kubectl get deploy,sts,hpa,ingress,pvc -n shelfshare
+NAME                                  READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/shelfshare-backend    2/2     2            2           118m
+deployment.apps/shelfshare-frontend   2/2     2            2           118m
+
+NAME                                   READY   AGE
+statefulset.apps/shelfshare-postgres   1/1     118m
+
+NAME                                                     REFERENCE                       TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/shelfshare-backend   Deployment/shelfshare-backend   cpu: 11%/70%   2         4         2          118m
+
+NAME                                   CLASS   HOSTS                  ADDRESS     PORTS   AGE
+ingress.networking.k8s.io/shelfshare   nginx   shelfshare.localhost   localhost   80      118m
+
+NAME                                               STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/data-shelfshare-postgres-0   Bound    pvc-29c4b257-9552-4950-81f8-b3b0ca6c68e7   1Gi        RWO            standard       <unset>                 146m
+
+$ kubectl get pods -n shelfshare -o custom-columns=POD:.metadata.name,READY:.status.containerStatuses[0].ready,IMAGE:.spec.containers[0].image
+POD                                    READY   IMAGE
+shelfshare-backend-8498d7f6d5-j446d    true    localhost:5001/ratneshvaibhav/shelfshare-backend:15295481756c72f32c9864c3c61759b67627722a
+shelfshare-backend-8498d7f6d5-ncxfh    true    localhost:5001/ratneshvaibhav/shelfshare-backend:15295481756c72f32c9864c3c61759b67627722a
+shelfshare-frontend-6c76759dc8-2987z   true    localhost:5001/ratneshvaibhav/shelfshare-frontend:15295481756c72f32c9864c3c61759b67627722a
+shelfshare-frontend-6c76759dc8-cxnqm   true    localhost:5001/ratneshvaibhav/shelfshare-frontend:15295481756c72f32c9864c3c61759b67627722a
+shelfshare-postgres-0                  true    postgres:17-alpine
+
+$ curl -s -o /dev/null -w "UI  http://shelfshare.localhost:8088/          -> HTTP %{http_code}\n" http://shelfshare.localhost:8088/; curl -s -w "  -> HTTP %{http_code}\n" http://shelfshare.localhost:8088/api/books/stats | cut -c1-150
+UI  http://shelfshare.localhost:8088/          -> HTTP 200
+{"total":6,"by_status":{"available":4,"reserved":1,"exchanged":1},"top_courses":[{"course_code":"CS301","books":2},{"course_code":"CS201","books":1},{
+
+$ git -C ~/shelfshare-gitops log --format="%h %<(15,trunc)%an %s" | cat
+fa92134 Ratnesh Vaibhav Chart 1.0.2: dashboard counts books over the selected range (counters reset when pods restart)
+d0c16f5 Ratnesh Vaibhav Revert "Fault 3 - "simplify" the backend by dropping its resource settings."
+78d5ed6 Ratnesh Vaibhav Fault 3 - "simplify" the backend by dropping its resource settings.
+2261881 Ratnesh Vaibhav Revert "Fault 2 - the ingress host is changed to a name nobody uses."
+f44a0aa Ratnesh Vaibhav Fault 2 - the ingress host is changed to a name nobody uses.
+1565540 Ratnesh Vaibhav Revert "Fault 1 - a "harmless" rename of the database user in the environment values."
+4771a87 Ratnesh Vaibhav Fault 1 - a "harmless" rename of the database user in the environment values.
+3c52022 shelfshare-ci   Deploy shelfshare 1529548 to dev (pipeline run 1)
+ace65d2 Ratnesh Vaibhav Frontend: autotune nginx workers, 64Mi limit; roll dev forward to 1.0.1 (CVE-patched frontend)
+2b697b3 Ratnesh Vaibhav Roll back dev to 1.0.0: frontend 1.0.1 is OOMKilled at start-up
+27be9f0 Ratnesh Vaibhav Bootstrap: shelfshare chart 1.0.0 and dev environment
+

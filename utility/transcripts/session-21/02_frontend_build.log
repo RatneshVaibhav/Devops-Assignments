@@ -1,0 +1,39 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project/application/frontend
+$ node --version && npm --version
+v23.6.0
+10.9.2
+
+$ npm ci --no-audit --no-fund && npm run build
+
+added 21 packages in 1s
+
+> shelfshare-frontend@1.0.0 build
+> vite build
+
+vite v8.3.3 building client environment for production...
+transforming...
+✓ 17 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.46 kB │ gzip:  0.30 kB
+dist/assets/index-BmNlCvho.css    3.76 kB │ gzip:  1.23 kB
+dist/assets/index-BUELFX0e.js   225.64 kB │ gzip: 70.57 kB
+
+✓ built in 336ms
+
+$ ls -la dist dist/assets
+dist:
+total 20
+drwxrwxr-x 3 ratnesh ratnesh 4096 Oct  8 15:00 .
+drwxrwxr-x 6 ratnesh ratnesh 4096 Oct  8 14:59 ..
+drwxrwxr-x 2 ratnesh ratnesh 4096 Oct  8 15:00 assets
+-rw-rw-r-- 1 ratnesh ratnesh  172 Oct  8 15:00 favicon.svg
+-rw-rw-r-- 1 ratnesh ratnesh  466 Oct  8 15:00 index.html
+
+dist/assets:
+total 236
+drwxrwxr-x 2 ratnesh ratnesh   4096 Oct  8 15:00 .
+drwxrwxr-x 3 ratnesh ratnesh   4096 Oct  8 15:00 ..
+-rw-rw-r-- 1 ratnesh ratnesh   3762 Oct  8 15:00 index-BmNlCvho.css
+-rw-rw-r-- 1 ratnesh ratnesh 225649 Oct  8 15:00 index-BUELFX0e.js
+

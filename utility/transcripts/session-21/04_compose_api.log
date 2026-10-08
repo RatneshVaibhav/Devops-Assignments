@@ -1,0 +1,53 @@
+#CWD ~/Devops-Assignments/session-21-final-devops-project/final-devops-project/docker
+$ curl -s localhost:3000/api/books; echo; curl -s localhost:8000/health; echo; curl -s localhost:8000/ready; echo
+[]
+{"status":"ok","version":"1.0.0","build":"local"}
+{"status":"ready"}
+
+$ post() { curl -s -X POST localhost:3000/api/books -H "Content-Type: application/json" -d "$1" | jq -c "{id, title, course_code, status}"; }; post "{\"title\":\"Operating System Concepts\",\"author\":\"Silberschatz, Galvin, Gagne\",\"course_code\":\"CS301\",\"condition\":\"good\",\"owner_name\":\"Ratnesh\"}"; post "{\"title\":\"Computer Networks\",\"author\":\"Andrew S. Tanenbaum\",\"course_code\":\"CS305\",\"condition\":\"fair\",\"owner_name\":\"Aditi\"}"; post "{\"title\":\"Introduction to Algorithms\",\"author\":\"Cormen et al.\",\"course_code\":\"CS201\",\"condition\":\"new\",\"owner_name\":\"Kabir\"}"; post "{\"title\":\"Database System Concepts\",\"author\":\"Korth, Sudarshan\",\"course_code\":\"CS301\",\"condition\":\"worn\",\"owner_name\":\"Meera\"}"; post "{\"title\":\"Probability and Statistics\",\"author\":\"Sheldon Ross\",\"course_code\":\"MA201\",\"condition\":\"good\",\"owner_name\":\"Ishaan\"}"
+{"id":1,"title":"Operating System Concepts","course_code":"CS301","status":"available"}
+{"id":2,"title":"Computer Networks","course_code":"CS305","status":"available"}
+{"id":3,"title":"Introduction to Algorithms","course_code":"CS201","status":"available"}
+{"id":4,"title":"Database System Concepts","course_code":"CS301","status":"available"}
+{"id":5,"title":"Probability and Statistics","course_code":"MA201","status":"available"}
+
+$ curl -s -X POST localhost:3000/api/books/2/reserve -H "Content-Type: application/json" -d "{\"reserved_by\":\"Riya\"}" | jq -c "{id, status, reserved_by}"
+{"id":2,"status":"reserved","reserved_by":"Riya"}
+
+$ curl -s -X PUT localhost:3000/api/books/3 -H "Content-Type: application/json" -d "{\"status\":\"exchanged\"}" | jq -c "{id, status}"
+{"id":3,"status":"exchanged"}
+
+$ curl -s -o /dev/null -w "DELETE /api/books/5 -> HTTP %{http_code}\n" -X DELETE localhost:3000/api/books/5
+DELETE /api/books/5 -> HTTP 204
+
+$ curl -s -X POST localhost:3000/api/books/2/reserve -H "Content-Type: application/json" -d "{\"reserved_by\":\"Arjun\"}"; echo
+{"detail":"book is already reserved"}
+
+$ curl -s -X POST localhost:3000/api/books -H "Content-Type: application/json" -d "{\"title\":\"X\",\"author\":\"Y\",\"course_code\":\"bad\",\"owner_name\":\"Z\"}" | jq -c "[.detail[].loc[-1]]"
+["title","author","course_code","owner_name"]
+
+$ curl -s localhost:3000/api/books/stats | jq -c .
+{"total":4,"by_status":{"available":2,"reserved":1,"exchanged":1},"top_courses":[{"course_code":"CS301","books":2},{"course_code":"CS305","books":1},{"course_code":"CS201","books":1}]}
+
+$ docker compose exec db psql -U shelfshare -d shelfshare -c "select id, title, status, reserved_by from books order by id" -c "select version_num from alembic_version"
+ id |           title            |  status   | reserved_by 
+----+----------------------------+-----------+-------------
+  1 | Operating System Concepts  | available | 
+  2 | Computer Networks          | reserved  | Riya
+  3 | Introduction to Algorithms | exchanged | 
+  4 | Database System Concepts   | available | 
+(4 rows)
+
+ version_num 
+-------------
+ 0001
+(1 row)
+
+
+$ curl -s localhost:8000/metrics | grep -E "^shelfshare_books_(listed|reserved)_total |^http_requests_total\{.*books\"" | head -6
+shelfshare_books_listed_total 5.0
+shelfshare_books_reserved_total 1.0
+http_requests_total{handler="/api/books",method="GET",status="2xx"} 1.0
+http_requests_total{handler="/api/books",method="POST",status="2xx"} 5.0
+http_requests_total{handler="/api/books",method="POST",status="4xx"} 1.0
+
