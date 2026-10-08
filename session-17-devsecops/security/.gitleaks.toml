@@ -1,0 +1,20 @@
+# Gitleaks configuration for Session 17.
+title = "session-17 secret scanning"
+
+# keep all of gitleaks' built-in rules (AWS keys, GitHub tokens, private keys, ...)
+[extend]
+useDefault = true
+
+# plus one organisation-specific rule: tokens for the (fictional) campus portal API
+[[rules]]
+id = "campus-portal-token"
+description = "Campus portal API token"
+regex = '''cmp_(live|test)_[a-z0-9]{32}'''
+keywords = ["cmp_live_", "cmp_test_"]
+
+[[allowlists]]
+description = "rendered evidence and generated reports are not source code"
+paths = [
+  '''(^|/)utility/(transcripts|screenshots)/''',
+  '''(^|/)reports/''',
+]

@@ -1,0 +1,276 @@
+# Session 17 - Complete CI/CD + DevSecOps
+#
+#  Code → Build → Unit Test → SAST ─┐
+#                           SCA  ───┼→ Docker Build → Image Scan ─┐
+#                     Secret Scan ──┘                             │
+#        (every scanner writes a JSON report; none of them fails the job on its own)
+#                                                                  ▼
+#                                     Security Gate (one policy over all reports)
+#                                                                  ▼
+#                                         Push Image → Deploy to Kubernetes
+name: Session 17 - DevSecOps pipeline
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "session-17-devsecops/**"
+      - ".github/workflows/session-17-devsecops.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "session-17-devsecops/**"
+      - ".github/workflows/session-17-devsecops.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: session17-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  APP_DIR: session-17-devsecops
+  IMAGE_NAME: session17-lost-and-found
+  REGISTRY: ${{ vars.REGISTRY || 'ghcr.io' }}
+
+defaults:
+  run:
+    shell: bash            # bash -eo pipefail: a failing command in a pipe fails the step
+    working-directory: session-17-devsecops
+
+jobs:
+  build:
+    name: 1 Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install runtime dependencies
+        run: pip install -r requirements.txt
+      - name: Compile the application
+        run: python -m compileall -q app && echo "app compiles"
+
+  unit-test:
+    name: 2 Unit tests
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+      - name: Run pytest
+        run: pytest -v --cov=app --cov-report=term --junitxml=reports/junit.xml
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-report
+          path: ${{ env.APP_DIR }}/reports/
+
+  sast:
+    name: 3 SAST (Bandit + Semgrep)
+    needs: unit-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install scanners
+        run: pip install bandit==1.9.4 semgrep==1.179.0
+      - name: Bandit
+        run: |
+          mkdir -p reports
+          bandit -r app -c security/bandit.yaml -f json -o reports/bandit.json --exit-zero -q
+          bandit -r app -c security/bandit.yaml --exit-zero -q --format screen | tail -n 25
+      - name: Semgrep (p/python + project rules)
+        run: |
+          semgrep scan --config p/python --config security/semgrep-rules.yml --metrics off \
+            --json -o reports/semgrep.json app
+          jq -r '"semgrep: \(.results | length) findings in \(.paths.scanned | length) files"' reports/semgrep.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: security-sast
+          path: ${{ env.APP_DIR }}/reports/
+
+  sca:
+    name: 4 SCA (pip-audit + Trivy fs)
+    needs: unit-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned, checksum-verified scanners
+        run: |
+          bash security/install-tools.sh "$HOME/.local/bin"
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          pip install pip-audit==2.10.1
+      - name: pip-audit
+        run: |
+          mkdir -p reports
+          pip-audit -r requirements.txt -f json -o reports/pip-audit.json || true
+          jq -r '"pip-audit: \([.dependencies[].vulns[]] | length) known vulnerabilities in \(.dependencies | length) dependencies"' reports/pip-audit.json
+      - name: Trivy filesystem scan
+        run: |
+          trivy fs --config security/trivy.yaml --quiet --format json -o reports/trivy-fs.json .
+          trivy fs --config security/trivy.yaml --quiet .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: security-sca
+          path: ${{ env.APP_DIR }}/reports/
+
+  secret-scan:
+    name: 5 Secret scan (Gitleaks)
+    needs: unit-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned, checksum-verified scanners
+        run: bash security/install-tools.sh "$HOME/.local/bin" && echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: Gitleaks
+        run: |
+          mkdir -p reports
+          gitleaks dir . --config security/.gitleaks.toml --redact --no-banner \
+            --report-format json --report-path reports/gitleaks.json --exit-code 0
+          jq -r '"gitleaks: \(length) secrets found"' reports/gitleaks.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: security-secrets
+          path: ${{ env.APP_DIR }}/reports/
+
+  docker-build:
+    name: 6 Docker build
+    needs: [sast, sca, secret-scan]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build --build-arg BUILD_SHA="$GITHUB_SHA" -t "$IMAGE_NAME:$GITHUB_SHA" .
+      - name: Save image
+        run: docker save "$IMAGE_NAME:$GITHUB_SHA" -o image.tar && ls -lh image.tar
+      - uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: ${{ env.APP_DIR }}/image.tar
+          retention-days: 1
+
+  image-scan:
+    name: 7 Container image scan (Trivy)
+    needs: docker-build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+          path: ${{ env.APP_DIR }}
+      - name: Install pinned, checksum-verified scanners
+        run: bash security/install-tools.sh "$HOME/.local/bin" && echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: Trivy image scan (scans the exact tarball that will be pushed)
+        run: |
+          mkdir -p reports
+          trivy image --config security/trivy.yaml --quiet --input image.tar --format json -o reports/trivy-image.json
+          trivy image --config security/trivy.yaml --quiet --input image.tar --format table | head -n 40
+      - uses: actions/upload-artifact@v4
+        with:
+          name: security-image
+          path: ${{ env.APP_DIR }}/reports/
+
+  security-gate:
+    name: 8 Security gate
+    needs: [sast, sca, secret-scan, image-scan]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Collect every scanner report
+        uses: actions/download-artifact@v4
+        with:
+          pattern: security-*
+          merge-multiple: true
+          path: ${{ env.APP_DIR }}/reports
+      - name: Apply the security policy
+        run: |
+          ls reports
+          security/security-gate.sh reports | tee gate.txt
+      - name: Publish the gate result
+        if: always()
+        run: |
+          { echo '### Security gate'; echo '```'; cat gate.txt 2>/dev/null; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+
+  push:
+    name: 9 Push image
+    needs: [security-gate]
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+          path: ${{ env.APP_DIR }}
+      - name: Load image
+        run: docker load -i image.tar
+      - name: Log in to GitHub Container Registry
+        if: env.REGISTRY == 'ghcr.io'
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+      - name: Tag and push
+        run: |
+          IMAGE="$REGISTRY/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE_NAME:$GITHUB_SHA"
+          docker tag "$IMAGE_NAME:$GITHUB_SHA" "$IMAGE"
+          docker push "$IMAGE"
+          echo "pushed $IMAGE"
+
+  deploy:
+    name: 10 Deploy to Kubernetes
+    needs: push
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    environment: staging
+    env:
+      KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/setup-kubectl@v4
+      - name: Image reference
+        run: echo "IMAGE=$REGISTRY/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE_NAME:$GITHUB_SHA" >> "$GITHUB_ENV"
+      - name: Use the cluster from the KUBE_CONFIG secret
+        if: env.KUBE_CONFIG != ''
+        run: |
+          mkdir -p ~/.kube && printf '%s\n' "$KUBE_CONFIG" > ~/.kube/config && chmod 600 ~/.kube/config
+          kubectl get nodes
+      - name: No cluster secret - create a throw-away kind cluster
+        if: env.KUBE_CONFIG == ''
+        uses: helm/kind-action@v1
+        with:
+          cluster_name: ci
+      - name: Load the image into the kind cluster
+        if: env.KUBE_CONFIG == ''
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+          docker pull "$IMAGE"
+          kind load docker-image "$IMAGE" --name ci
+      - name: Deploy (namespace enforces Pod Security "restricted")
+        run: |
+          kubectl apply -f k8s/namespace.yaml
+          sed "s|IMAGE_PLACEHOLDER|$IMAGE|" k8s/deployment.yaml | kubectl apply -f -
+          kubectl apply -f k8s/service.yaml
+          kubectl -n session17 rollout status deployment/lost-and-found --timeout=180s
+          kubectl -n session17 get pods -o wide
+      - name: Smoke test
+        run: |
+          kubectl -n session17 port-forward svc/lost-and-found 18081:80 > /dev/null 2>&1 &
+          sleep 4
+          curl -fsS http://127.0.0.1:18081/health; echo
+          curl -fsS -X POST http://127.0.0.1:18081/api/items -H 'Content-Type: application/json' \
+            -d '{"title":"Smoke test umbrella","category":"other","location":"Main gate"}'; echo

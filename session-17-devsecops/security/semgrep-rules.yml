@@ -1,0 +1,25 @@
+# Project-specific Semgrep rules, run together with the public p/python ruleset.
+rules:
+  - id: flask-debug-enabled
+    languages: [python]
+    severity: ERROR
+    message: Flask debug mode exposes the Werkzeug debugger (remote code execution). Never enable it in code that ships.
+    pattern: $APP.run(..., debug=True, ...)
+
+  - id: subprocess-shell-true
+    languages: [python]
+    severity: ERROR
+    message: subprocess with shell=True and non-constant input allows command injection.
+    patterns:
+      - pattern: subprocess.$FUNC(..., shell=True, ...)
+      - pattern-not: subprocess.$FUNC("...", ..., shell=True, ...)
+
+  - id: hardcoded-credential-assignment
+    languages: [python]
+    severity: ERROR
+    message: Credential assigned from a string literal - load it from the environment or a secret store.
+    patterns:
+      - pattern: $NAME = "..."
+      - metavariable-regex:
+          metavariable: $NAME
+          regex: (?i).*(password|passwd|secret|api_?key|token).*

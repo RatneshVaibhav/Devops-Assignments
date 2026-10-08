@@ -1,0 +1,3 @@
+# old pins with published CVEs - appended to requirements.txt only during the demo
+PyYAML==5.3.1
+requests==2.19.1
