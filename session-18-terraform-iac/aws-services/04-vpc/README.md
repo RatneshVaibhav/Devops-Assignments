@@ -332,4 +332,21 @@ The `local` route is created automatically in every route table. A regional NAT 
 - [Control subnet traffic with network ACLs](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html)
 - [Amazon VPC quotas](https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html)
 
-<!-- HANDS-ON -->
+## Hands-on
+
+Run on my laptop with the AWS CLI against the local AWS emulator ([`utility/aws-emulator/`](../../../utility/aws-emulator/), Moto), because there are no AWS credentials on this machine. Moto implements the real AWS APIs in memory, so the commands and responses are the real ones. Nothing is billed, and account `123456789012` is Moto's fixed test account.
+
+![VPC: 10.0.0.0/16 created, public and private /24 subnets with 251 available addresses each, internet gateway attached, public route table with 0.0.0.0/0 to the IGW, NAT gateway in the public subnet with an Elastic IP, private route table with 0.0.0.0/0 to the NAT gateway](../../../utility/screenshots/session-18/13_vpc_hands_on_1.png)
+![route tables showing local and default routes, and the default network ACL entries allow 100 and deny 32767 for inbound and outbound](../../../utility/screenshots/session-18/13_vpc_hands_on_2.png)
+
+- **CIDR and reserved addresses:** each `/24` has 256 addresses, but `AvailableIpAddressCount`
+  is **251**. AWS reserves 5 per subnet (network, VPC router, DNS, future use, broadcast).
+- **Public vs private** is decided only by the route table: the public subnet's table sends
+  `0.0.0.0/0` to the **Internet Gateway**, the private subnet's to the **NAT Gateway** (which
+  sits in the public subnet with an Elastic IP). Both keep the implicit `10.0.0.0/16 → local`
+  route.
+- **Network ACL:** the default NACL allows everything with rule `100` and ends with the
+  catch-all deny `32767`, in both directions (`Egress True/False`). NACL rules are evaluated
+  in number order and are stateless, unlike security groups.
+- The same network is built with Terraform in [Session 19](../../../session-19-cloud-terraform/).
+

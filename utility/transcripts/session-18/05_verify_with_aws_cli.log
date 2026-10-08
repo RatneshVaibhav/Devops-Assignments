@@ -1,0 +1,61 @@
+#CWD ~/Devops-Assignments/session-18-terraform-iac/terraform-s3-demo
+$ aws s3 ls
+2026-10-08 13:33:58 ratnesh-devops-s18-demo
+
+$ aws s3 ls s3://ratnesh-devops-s18-demo --recursive
+2026-10-08 13:33:58         81 docs/README.txt
+
+$ aws s3 cp s3://ratnesh-devops-s18-demo/docs/README.txt -
+Bucket ratnesh-devops-s18-demo is managed by Terraform (owner: Ratnesh Vaibhav).
+
+$ aws s3api get-bucket-versioning --bucket ratnesh-devops-s18-demo
+{
+    "Status": "Enabled"
+}
+
+$ aws s3api get-bucket-encryption --bucket ratnesh-devops-s18-demo --query "ServerSideEncryptionConfiguration.Rules[0]"
+{
+    "ApplyServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+    },
+    "BucketKeyEnabled": false
+}
+
+$ aws s3api get-public-access-block --bucket ratnesh-devops-s18-demo
+{
+    "PublicAccessBlockConfiguration": {
+        "BlockPublicAcls": true,
+        "IgnorePublicAcls": true,
+        "BlockPublicPolicy": true,
+        "RestrictPublicBuckets": true
+    }
+}
+
+$ aws s3api get-bucket-lifecycle-configuration --bucket ratnesh-devops-s18-demo --query "Rules[0]"
+{
+    "ID": "expire-old-versions",
+    "Filter": {
+        "Prefix": ""
+    },
+    "Status": "Enabled",
+    "NoncurrentVersionExpiration": {
+        "NoncurrentDays": 30
+    }
+}
+
+$ aws s3api get-bucket-tagging --bucket ratnesh-devops-s18-demo --output table
+----------------------------------------------
+|              GetBucketTagging              |
++--------------------------------------------+
+||                  TagSet                  ||
+|+--------------+---------------------------+|
+||      Key     |           Value           ||
+|+--------------+---------------------------+|
+||  ManagedBy   |  Terraform                ||
+||  Name        |  ratnesh-devops-s18-demo  ||
+||  Owner       |  Ratnesh Vaibhav          ||
+||  Project     |  devops-assignments       ||
+||  Session     |  18                       ||
+||  Environment |  dev                      ||
+|+--------------+---------------------------+|
+

@@ -1,0 +1,62 @@
+#CWD ~/Devops-Assignments/session-18-terraform-iac/terraform-s3-demo
+$ terraform output
+bucket_arn = "arn:aws:s3:::ratnesh-devops-s18-demo"
+bucket_name = "ratnesh-devops-s18-demo"
+bucket_region = "ap-south-1"
+readme_object = "s3://ratnesh-devops-s18-demo/docs/README.txt"
+versioning_status = "Enabled"
+
+$ terraform output -raw bucket_arn; echo
+arn:aws:s3:::ratnesh-devops-s18-demo
+
+$ terraform output -json | jq "map_values(.value)"
+{
+  "bucket_arn": "arn:aws:s3:::ratnesh-devops-s18-demo",
+  "bucket_name": "ratnesh-devops-s18-demo",
+  "bucket_region": "ap-south-1",
+  "readme_object": "s3://ratnesh-devops-s18-demo/docs/README.txt",
+  "versioning_status": "Enabled"
+}
+
+$ terraform state list
+aws_s3_bucket.demo
+aws_s3_bucket_lifecycle_configuration.demo
+aws_s3_bucket_public_access_block.demo
+aws_s3_bucket_server_side_encryption_configuration.demo
+aws_s3_bucket_versioning.demo
+aws_s3_object.readme
+
+$ terraform show -no-color | sed -n "/^# aws_s3_bucket.demo:/,/^}/p" | grep -v -E "^\s*$"
+# aws_s3_bucket.demo:
+resource "aws_s3_bucket" "demo" {
+    acceleration_status         = null
+    arn                         = "arn:aws:s3:::ratnesh-devops-s18-demo"
+    bucket                      = "ratnesh-devops-s18-demo"
+    bucket_domain_name          = "ratnesh-devops-s18-demo.s3.amazonaws.com"
+    bucket_namespace            = "global"
+    bucket_prefix               = null
+    bucket_region               = "ap-south-1"
+    bucket_regional_domain_name = "ratnesh-devops-s18-demo.s3.ap-south-1.amazonaws.com"
+    force_destroy               = true
+    hosted_zone_id              = "Z11RGJOFQNVJUP"
+    id                          = "ratnesh-devops-s18-demo"
+    object_lock_enabled         = false
+    policy                      = null
+    region                      = "ap-south-1"
+    request_payer               = null
+    tags                        = {}
+    tags_all                    = {}
+    grant {
+        id          = "75aa57f09aa0c8caeab4f8c24e99d10f8e7faeebf76c078efc7c6caea54ba06a"
+        permissions = [
+            "FULL_CONTROL",
+        ]
+        type        = "CanonicalUser"
+        uri         = null
+    }
+    versioning {
+        enabled    = false
+        mfa_delete = false
+    }
+}
+

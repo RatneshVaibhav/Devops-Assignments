@@ -321,4 +321,23 @@ Since AWS provider v4, bucket settings are separate resources rather than inline
 - [Blocking public access to your Amazon S3 storage](https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html)
 - [Controlling ownership of objects and disabling ACLs](https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html)
 
-<!-- HANDS-ON -->
+## Hands-on
+
+Run on my laptop with the AWS CLI against the local AWS emulator ([`utility/aws-emulator/`](../../../utility/aws-emulator/), Moto), because there are no AWS credentials on this machine. Moto implements the real AWS APIs in memory, so the commands and responses are the real ones. Nothing is billed, and account `123456789012` is Moto's fixed test account.
+
+![S3: bucket created, versioning enabled, notes.txt uploaded twice gives two versions, the old version is still readable, deleting creates a delete marker while both versions remain, an object stored as STANDARD_IA, and a bucket policy that denies non-TLS access](../../../utility/screenshots/session-18/12_s3_hands_on.png)
+
+- **Versioning:** two uploads of `notes.txt` → two version IDs, only the newest `IsLatest`.
+  The old version can still be fetched by its `VersionId`.
+- **Delete with versioning on:** `aws s3 rm` only adds a **delete marker**; both versions are
+  still there and the object can be restored by deleting the marker.
+- **Storage class per object:** `--storage-class STANDARD_IA` → `head-object` reports
+  `STANDARD_IA`.
+- **Bucket policy:** [`deny-insecure-transport-policy.json`](deny-insecure-transport-policy.json)
+  denies every request where `aws:SecureTransport` is `false`, so plain-HTTP access is refused.
+- Emulator difference: real S3 has encrypted every new object with SSE-S3 by default since
+  January 2023, so `head-object` would show `"ServerSideEncryption": "AES256"`. Moto returns
+  `null`.
+- The Terraform version of versioning, encryption, public-access block and lifecycle rules is
+  in [`../terraform-s3-demo/`](../terraform-s3-demo/).
+

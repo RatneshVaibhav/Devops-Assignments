@@ -22,7 +22,7 @@ import sys
 import time
 
 
-def run(cmd, inputs, idle=0.45, timeout=120):
+def run(cmd, inputs, idle=0.45, timeout=120, wait_for=None):
     pid, fd = pty.fork()
     if pid == 0:                                     # child
         os.environ["TERM"] = "xterm-256color"
@@ -34,6 +34,7 @@ def run(cmd, inputs, idle=0.45, timeout=120):
 
     chunks = []
     pending = list(inputs)
+    seen = 0          # length of output already matched against wait_for
     last_data = time.time()
     start = time.time()
 
@@ -57,12 +58,15 @@ def run(cmd, inputs, idle=0.45, timeout=120):
             last_data = time.time()
         else:
             # the program has stopped printing - it is waiting for input
-            if pending and time.time() - last_data > idle:
+            text = b"".join(chunks).decode("utf-8", "replace")
+            prompt_shown = wait_for is None or wait_for in text[seen:]
+            if pending and prompt_shown and time.time() - last_data > idle:
+                seen = len(text)
                 answer = pending.pop(0)
                 os.write(fd, answer.encode() + b"\n")
                 last_data = time.time()
-            elif not pending and time.time() - last_data > 3.0:
-                break
+            # with no answers left, keep reading until the program exits (EIO);
+            # a long quiet phase (terraform creating resources) must not cut it off
 
     os.close(fd)
     _, status = os.waitpid(pid, 0)
@@ -75,6 +79,10 @@ def main():
     ap.add_argument("--cwd", default=None)
     ap.add_argument("--input", action="append", default=[])
     ap.add_argument("--append", action="store_true")
+    ap.add_argument("--wait-for", default=None,
+                    help="only type the next answer after this text appears")
+    ap.add_argument("--idle", type=float, default=0.45,
+                    help="seconds of silence before the next answer is typed")
     ap.add_argument("cmd", nargs=argparse.REMAINDER)
     a = ap.parse_args()
 
@@ -82,7 +90,7 @@ def main():
     if not cmd:
         ap.error("no command given")
 
-    out, rc = run(cmd, a.input)
+    out, rc = run(cmd, a.input, idle=a.idle, timeout=600, wait_for=a.wait_for)
 
     mode = "a" if a.append else "w"
     with open(a.log, mode, encoding="utf-8") as fh:

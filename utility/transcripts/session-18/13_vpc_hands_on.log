@@ -1,0 +1,71 @@
+#CWD ~/Devops-Assignments/session-18-terraform-iac/aws-services/04-vpc
+$ VPC=$(aws ec2 create-vpc --cidr-block 10.0.0.0/16 --tag-specifications "ResourceType=vpc,Tags=[{Key=Name,Value=s18-vpc}]" --query Vpc.VpcId --output text); echo $VPC
+vpc-c84c1ffc211c8566c
+
+$ PUB=$(aws ec2 create-subnet --vpc-id $VPC --cidr-block 10.0.1.0/24 --availability-zone ap-south-1a --query Subnet.SubnetId --output text); PRIV=$(aws ec2 create-subnet --vpc-id $VPC --cidr-block 10.0.2.0/24 --availability-zone ap-south-1a --query Subnet.SubnetId --output text); aws ec2 modify-subnet-attribute --subnet-id $PUB --map-public-ip-on-launch; echo "public=$PUB private=$PRIV"
+public=subnet-f22630d905105d190 private=subnet-18b5a92dc0ba6cc22
+
+$ aws ec2 describe-subnets --subnet-ids $PUB $PRIV --query "Subnets[].[SubnetId,CidrBlock,AvailableIpAddressCount,MapPublicIpOnLaunch]" --output table
+-------------------------------------------------------------
+|                      DescribeSubnets                      |
++---------------------------+---------------+------+--------+
+|  subnet-f22630d905105d190 |  10.0.1.0/24  |  251 |  True  |
+|  subnet-18b5a92dc0ba6cc22 |  10.0.2.0/24  |  251 |  False |
++---------------------------+---------------+------+--------+
+
+$ IGW=$(aws ec2 create-internet-gateway --query InternetGateway.InternetGatewayId --output text) && aws ec2 attach-internet-gateway --internet-gateway-id $IGW --vpc-id $VPC && echo "attached $IGW"
+attached igw-ab126cb7233a2016e
+
+$ PUBRT=$(aws ec2 create-route-table --vpc-id $VPC --query RouteTable.RouteTableId --output text) && aws ec2 create-route --route-table-id $PUBRT --destination-cidr-block 0.0.0.0/0 --gateway-id $IGW --output text && aws ec2 associate-route-table --route-table-id $PUBRT --subnet-id $PUB --query AssociationState.State --output text
+True
+associated
+
+$ EIP=$(aws ec2 allocate-address --domain vpc --query AllocationId --output text) && NAT=$(aws ec2 create-nat-gateway --subnet-id $PUB --allocation-id $EIP --query NatGateway.NatGatewayId --output text) && echo "NAT gateway $NAT in the public subnet"
+NAT gateway nat-7f8006cb94182a6ab in the public subnet
+
+$ PRIVRT=$(aws ec2 create-route-table --vpc-id $VPC --query RouteTable.RouteTableId --output text) && aws ec2 create-route --route-table-id $PRIVRT --destination-cidr-block 0.0.0.0/0 --nat-gateway-id $NAT --output text && aws ec2 associate-route-table --route-table-id $PRIVRT --subnet-id $PRIV --query AssociationState.State --output text
+True
+associated
+
+$ aws ec2 describe-route-tables --route-table-ids $PUBRT $PRIVRT --query "RouteTables[].{table:RouteTableId,subnet:Associations[0].SubnetId,routes:Routes[].[DestinationCidrBlock,GatewayId||NatGatewayId]}"
+[
+    {
+        "table": "rtb-fd68f0b583d1dc625",
+        "subnet": "subnet-f22630d905105d190",
+        "routes": [
+            [
+                "10.0.0.0/16",
+                "local"
+            ],
+            [
+                "0.0.0.0/0",
+                "igw-ab126cb7233a2016e"
+            ]
+        ]
+    },
+    {
+        "table": "rtb-af70864060782a5d0",
+        "subnet": "subnet-18b5a92dc0ba6cc22",
+        "routes": [
+            [
+                "10.0.0.0/16",
+                "local"
+            ],
+            [
+                "0.0.0.0/0",
+                "nat-7f8006cb94182a6ab"
+            ]
+        ]
+    }
+]
+
+$ aws ec2 describe-network-acls --filters Name=vpc-id,Values=$VPC --query "NetworkAcls[0].Entries[].[Egress,RuleNumber,Protocol,CidrBlock,RuleAction]" --output table
+------------------------------------------------
+|              DescribeNetworkAcls             |
++-------+--------+-----+-------------+---------+
+|  True |  100   |  -1 |  0.0.0.0/0  |  allow  |
+|  True |  32767 |  -1 |  0.0.0.0/0  |  deny   |
+|  False|  100   |  -1 |  0.0.0.0/0  |  allow  |
+|  False|  32767 |  -1 |  0.0.0.0/0  |  deny   |
++-------+--------+-----+-------------+---------+
+

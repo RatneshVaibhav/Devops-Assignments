@@ -320,4 +320,23 @@ resource "aws_eip" "web" {
 - [Elastic IP addresses](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html)
 - [Amazon EC2 instance state changes](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html)
 
-<!-- HANDS-ON -->
+## Hands-on
+
+Run on my laptop with the AWS CLI against the local AWS emulator ([`utility/aws-emulator/`](../../../utility/aws-emulator/), Moto), because there are no AWS credentials on this machine. Moto implements the real AWS APIs in memory, so the commands and responses are the real ones. Nothing is billed, and account `123456789012` is Moto's fixed test account.
+
+![EC2: newest Amazon Linux 2023 AMI, instance type sizes, key pair fingerprint only, security group with HTTPS from anywhere and SSH from one /32, t3.micro launched with an encrypted gp3 volume, its private and public IP, then stop, start and terminate state transitions](../../../utility/screenshots/session-18/11_ec2_hands_on.png)
+
+- **AMI lookup** by name filter and newest `CreationDate`, the same way the Terraform `aws_ami`
+  data source works in Session 19.
+- **Instance types:** `t3.micro` (2 vCPU / 1 GiB, burstable), `m7g.large` (Graviton, general
+  purpose), `c7i.xlarge` (compute optimised).
+- **Key pair:** only the name and fingerprint are printed. The private key is returned once at
+  creation and must never be logged.
+- **Security group:** HTTPS `443` from `0.0.0.0/0`, but SSH `22` only from a single `/32`
+  (documentation range `203.0.113.10`). Groups are allow-only, and return traffic is allowed
+  automatically (stateful).
+- **EBS:** root volume `gp3`, 10 GiB, `Encrypted=True`.
+- **Public vs private IP:** the instance got both, because it is in the default VPC's public subnet.
+- **Lifecycle:** `running → stopping` (stop), `stopped → pending` (start), `running →
+  shutting-down` (terminate), ending in `terminated`.
+

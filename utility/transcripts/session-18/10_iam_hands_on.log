@@ -1,0 +1,54 @@
+#CWD ~/Devops-Assignments/session-18-terraform-iac/aws-services/01-iam
+$ aws iam create-group --group-name developers --query "Group.Arn" --output text
+arn:aws:iam::123456789012:group/developers
+
+$ aws iam create-user --user-name ratnesh-dev --tags Key=team,Value=devops --query "User.Arn" --output text
+arn:aws:iam::123456789012:user/ratnesh-dev
+
+$ aws iam add-user-to-group --group-name developers --user-name ratnesh-dev && aws iam get-group --group-name developers --query "Users[].UserName"
+[
+    "ratnesh-dev"
+]
+
+$ cat s3-read-one-bucket-policy.json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ListOnlyThisBucket",
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::ratnesh-course-notes"
+    },
+    {
+      "Sid": "ReadObjectsInThisBucket",
+      "Effect": "Allow",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::ratnesh-course-notes/*"
+    }
+  ]
+}
+
+$ aws iam create-policy --policy-name s3-read-course-notes --policy-document file://s3-read-one-bucket-policy.json --query "Policy.[PolicyName,Arn,DefaultVersionId]" --output text
+s3-read-course-notes	arn:aws:iam::123456789012:policy/s3-read-course-notes	v1
+
+$ aws iam attach-group-policy --group-name developers --policy-arn arn:aws:iam::123456789012:policy/s3-read-course-notes && aws iam list-attached-group-policies --group-name developers --query "AttachedPolicies[].PolicyName"
+[
+    "s3-read-course-notes"
+]
+
+$ aws iam create-role --role-name app-server-role --assume-role-policy-document file://ec2-trust-policy.json --query "Role.[RoleName,Arn]" --output text
+app-server-role	arn:aws:iam::123456789012:role/app-server-role
+
+$ aws iam attach-role-policy --role-name app-server-role --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess && aws iam list-attached-role-policies --role-name app-server-role --query "AttachedPolicies[].PolicyName"
+[
+    "AmazonS3ReadOnlyAccess"
+]
+
+$ aws iam create-instance-profile --instance-profile-name app-server-profile --query "InstanceProfile.Arn" --output text && aws iam add-role-to-instance-profile --instance-profile-name app-server-profile --role-name app-server-role
+arn:aws:iam::123456789012:instance-profile/app-server-profile
+
+$ aws iam list-access-keys --user-name ratnesh-dev --query "length(AccessKeyMetadata)"; echo "^ no long-lived access keys: the workload uses the role instead"
+0
+^ no long-lived access keys: the workload uses the role instead
+

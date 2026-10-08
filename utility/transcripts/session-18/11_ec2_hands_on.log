@@ -1,0 +1,53 @@
+#CWD ~/Devops-Assignments/session-18-terraform-iac/aws-services/02-ec2
+$ AMI=$(aws ec2 describe-images --owners amazon --filters "Name=name,Values=al2023-ami-2023*-x86_64" --query "sort_by(Images,&CreationDate)[-1].ImageId" --output text); aws ec2 describe-images --image-ids $AMI --query "Images[0].[ImageId,Name,Architecture,RootDeviceType]" --output text
+ami-00d2dbb426772b03a	al2023-ami-2023.12.20260727.0-kernel-6.18-x86_64	x86_64	ebs
+
+$ aws ec2 describe-instance-types --instance-types t3.micro m7g.large c7i.xlarge --query "InstanceTypes[].[InstanceType,VCpuInfo.DefaultVCpus,MemoryInfo.SizeInMiB]" --output table
+-----------------------------
+|   DescribeInstanceTypes   |
++-------------+----+--------+
+|  c7i.xlarge |  4 |  8192  |
+|  m7g.large  |  2 |  8192  |
+|  t3.micro   |  2 |  1024  |
++-------------+----+--------+
+
+$ aws ec2 create-key-pair --key-name ratnesh-key --query "[KeyName,KeyFingerprint]" --output text   # private key material is never printed
+ratnesh-key	88:24:46:1f:3b:6d:94:73:54:02:fa:f5:d1:b1:34:47:cf:b7:92:53
+
+$ VPC=$(aws ec2 describe-vpcs --filters Name=is-default,Values=true --query "Vpcs[0].VpcId" --output text); SG=$(aws ec2 create-security-group --group-name web-sg --description "HTTPS from anywhere, SSH from one IP" --vpc-id $VPC --query GroupId --output text); echo "$VPC $SG"
+vpc-a9616cdcc9311f068 sg-8bf0a221aa592c8fb
+
+$ aws ec2 authorize-security-group-ingress --group-id $SG --ip-permissions IpProtocol=tcp,FromPort=443,ToPort=443,IpRanges="[{CidrIp=0.0.0.0/0}]" IpProtocol=tcp,FromPort=22,ToPort=22,IpRanges="[{CidrIp=203.0.113.10/32,Description=admin-laptop}]" --query "SecurityGroupRules[].[IpProtocol,FromPort,CidrIpv4]" --output text
+tcp	22	203.0.113.10/32
+
+$ ID=$(aws ec2 run-instances --image-id $AMI --instance-type t3.micro --key-name ratnesh-key --security-group-ids $SG --block-device-mappings "DeviceName=/dev/xvda,Ebs={VolumeSize=10,VolumeType=gp3,Encrypted=true}" --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=s18-web}]" --query "Instances[0].InstanceId" --output text); echo $ID
+i-042e45252260ec4d1
+
+$ aws ec2 describe-instances --instance-ids $ID --query "Reservations[0].Instances[0].{state:State.Name,type:InstanceType,privateIp:PrivateIpAddress,publicIp:PublicIpAddress,az:Placement.AvailabilityZone}"
+{
+    "state": "running",
+    "type": "t3.micro",
+    "privateIp": "10.78.154.78",
+    "publicIp": "54.214.17.211",
+    "az": "ap-south-1a"
+}
+
+$ aws ec2 describe-volumes --filters Name=attachment.instance-id,Values=$ID --query "Volumes[].[VolumeId,VolumeType,Size,Encrypted]" --output text
+vol-4d5b0a91ebe60e74b	gp3	10	True
+
+$ aws ec2 stop-instances --instance-ids $ID --query "StoppingInstances[0].[PreviousState.Name,CurrentState.Name]" --output text
+running	stopping
+
+$ aws ec2 start-instances --instance-ids $ID --query "StartingInstances[0].[PreviousState.Name,CurrentState.Name]" --output text
+stopped	pending
+
+$ aws ec2 terminate-instances --instance-ids $ID --query "TerminatingInstances[0].[PreviousState.Name,CurrentState.Name]" --output text
+running	shutting-down
+
+$ aws ec2 describe-security-groups --group-names web-sg --query "SecurityGroups[0].IpPermissions[].[IpProtocol,FromPort,IpRanges[0].CidrIp,IpRanges[0].Description]" --output text
+tcp	443	0.0.0.0/0	None
+tcp	22	203.0.113.10/32	admin-laptop
+
+$ aws ec2 describe-instances --filters Name=tag:Name,Values=s18-web --query "Reservations[].Instances[].State.Name" --output text
+terminated
+

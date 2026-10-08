@@ -320,4 +320,20 @@ Policies can be written with `jsonencode()` or with the `aws_iam_policy_document
 - [Attribute-based access control (ABAC)](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_attribute-based-access-control.html)
 - [What is IAM Identity Center?](https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html)
 
-<!-- HANDS-ON -->
+## Hands-on
+
+Run on my laptop with the AWS CLI against the local AWS emulator ([`utility/aws-emulator/`](../../../utility/aws-emulator/), Moto), because there are no AWS credentials on this machine. Moto implements the real AWS APIs in memory, so the commands and responses are the real ones. Nothing is billed, and account `123456789012` is Moto's fixed test account.
+
+![IAM: group developers, user ratnesh-dev added to it, the least-privilege policy JSON, policy created and attached to the group, role app-server-role with an EC2 trust policy and AmazonS3ReadOnlyAccess, instance profile, and zero access keys for the user](../../../utility/screenshots/session-18/10_iam_hands_on.png)
+
+- **Group, not user, gets the permissions:** `ratnesh-dev` inherits the policy by being in
+  `developers`; nothing is attached to the user directly.
+- **Least privilege:** [`s3-read-one-bucket-policy.json`](s3-read-one-bucket-policy.json) allows
+  only `s3:ListBucket` on one bucket and `s3:GetObject` on its objects. No `s3:*`, no `*`
+  resources. Every other action is an implicit deny.
+- **Role for workloads:** `app-server-role` can only be assumed by `ec2.amazonaws.com`
+  ([`ec2-trust-policy.json`](ec2-trust-policy.json)) and is wrapped in an instance profile, so
+  an EC2 instance gets short-lived credentials automatically. The user has **0 access keys**.
+- I also tried `aws iam simulate-custom-policy`; Moto does not implement the policy simulator
+  (it returned HTTP 500), so that check needs a real account.
+

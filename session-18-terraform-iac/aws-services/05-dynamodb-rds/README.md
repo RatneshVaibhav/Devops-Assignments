@@ -328,4 +328,30 @@ resource "aws_db_instance" "app" {
 - [Multi-AZ DB cluster deployments](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html)
 - [Working with DB instance read replicas](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html)
 
-<!-- HANDS-ON -->
+## Hands-on
+
+Run on my laptop with the AWS CLI against the local AWS emulator ([`utility/aws-emulator/`](../../../utility/aws-emulator/), Moto), because there are no AWS credentials on this machine. Moto implements the real AWS APIs in memory, so the commands and responses are the real ones. Nothing is billed, and account `123456789012` is Moto's fixed test account.
+
+![DynamoDB Enrollments table with partition key student_id and sort key course_code in on-demand mode, four items written, a query returning three courses for one student, a begins_with query on the sort key counting 2 CS courses, get-item by full key; RDS PostgreSQL db.t3.micro with encryption, 7 days of backups and Multi-AZ, a snapshot and a read replica](../../../utility/screenshots/session-18/14_dynamodb_rds_hands_on.png)
+
+**DynamoDB**
+
+- `Enrollments` uses a **composite primary key**: partition key `student_id`, sort key
+  `course_code`, billing mode `PAY_PER_REQUEST` (on-demand).
+- `query` with only the partition key returns **all of one student's enrollments**, sorted by
+  `course_code`. `begins_with(course_code, "CS")` narrows within the partition (2 CS courses).
+- `get-item` needs the **full** key (both attributes). Items are schemaless apart from the key
+  (`course`, `grade` are plain attributes).
+
+**RDS**
+
+- `campus-db`: PostgreSQL 16.4 on `db.t3.micro`, `--storage-encrypted`,
+  `--backup-retention-period 7` (point-in-time restore window), `--multi-az` (synchronous
+  standby in a second AZ). The endpoint is a DNS name, not an IP, so failover only changes
+  where the name points.
+- The master password was generated inline with `openssl rand` and never printed. In real
+  projects it belongs in Secrets Manager (`--manage-master-user-password`).
+- **Snapshot** `campus-db-before-upgrade`: a manual backup kept until deleted.
+- **Read replica** `campus-db-replica`: asynchronous copy for read scaling, showing its
+  `ReadReplicaSourceDBInstanceIdentifier`.
+

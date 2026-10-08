@@ -1,0 +1,43 @@
+#CWD ~/Devops-Assignments/session-18-terraform-iac/terraform-s3-demo
+$ aws s3api delete-bucket-tagging --bucket ratnesh-devops-s18-demo && echo "tags removed outside Terraform"
+tags removed outside Terraform
+
+$ terraform plan -no-color | sed -n "/Terraform will perform/,\$p" | grep -v "^$"
+Terraform will perform the following actions:
+  # aws_s3_bucket.demo will be updated in-place
+  ~ resource "aws_s3_bucket" "demo" {
+        id                          = "ratnesh-devops-s18-demo"
+      ~ tags                        = {
+          + "Environment" = "dev"
+          + "Name"        = "ratnesh-devops-s18-demo"
+        }
+      ~ tags_all                    = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "Terraform"
+          + "Name"        = "ratnesh-devops-s18-demo"
+          + "Owner"       = "Ratnesh Vaibhav"
+          + "Project"     = "devops-assignments"
+          + "Session"     = "18"
+        }
+        # (14 unchanged attributes hidden)
+        # (4 unchanged blocks hidden)
+    }
+Plan: 0 to add, 1 to change, 0 to destroy.
+─────────────────────────────────────────────────────────────────────────────
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.
+
+$ terraform apply -auto-approve -no-color | grep -E "Modifying|Modifications complete|Apply complete"
+aws_s3_bucket.demo: Modifying... [id=ratnesh-devops-s18-demo]
+aws_s3_bucket.demo: Modifications complete after 0s [id=ratnesh-devops-s18-demo]
+Apply complete! Resources: 0 added, 1 changed, 0 destroyed.
+
+$ terraform plan -detailed-exitcode -no-color | tail -3; echo "plan exit code: $? (0 = no changes)"
+
+Terraform has compared your real infrastructure against your configuration
+and found no differences, so no changes are needed.
+plan exit code: 0 (0 = no changes)
+
+$ terraform plan -detailed-exitcode -no-color > /dev/null; echo "terraform plan exit code: $?   (0 = no changes, 2 = changes pending)"
+terraform plan exit code: 0   (0 = no changes, 2 = changes pending)
+

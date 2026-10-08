@@ -1,0 +1,30 @@
+draft 1
+97a1e8b2-042d-4c7e-98c1-3153b85d2c6a
+
+$ aws s3 rm s3://ratnesh-s3-hands-on/notes.txt && aws s3api list-object-versions --bucket ratnesh-s3-hands-on --query "{versions: length(Versions), deleteMarkers: DeleteMarkers[].IsLatest}"
+delete: s3://ratnesh-s3-hands-on/notes.txt
+{
+    "versions": 2,
+    "deleteMarkers": [
+        true
+    ]
+}
+
+$ aws s3 cp /etc/hostname s3://ratnesh-s3-hands-on/archive/hostname.txt --storage-class STANDARD_IA --quiet && aws s3api head-object --bucket ratnesh-s3-hands-on --key archive/hostname.txt --query "{StorageClass:StorageClass,Encryption:ServerSideEncryption,Size:ContentLength}"
+{
+    "StorageClass": "STANDARD_IA",
+    "Encryption": null,
+    "Size": 8
+}
+
+$ aws s3api put-bucket-policy --bucket ratnesh-s3-hands-on --policy file://deny-insecure-transport-policy.json && aws s3api get-bucket-policy --bucket ratnesh-s3-hands-on --query Policy --output text | jq ".Statement[0] | {Sid, Effect, Condition}"
+{
+  "Sid": "DenyInsecureTransport",
+  "Effect": "Deny",
+  "Condition": {
+    "Bool": {
+      "aws:SecureTransport": "false"
+    }
+  }
+}
+
