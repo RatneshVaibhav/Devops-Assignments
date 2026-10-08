@@ -89,7 +89,9 @@ jobs:
         run: |
           mkdir -p reports
           bandit -r app -c security/bandit.yaml -f json -o reports/bandit.json --exit-zero -q
-          bandit -r app -c security/bandit.yaml --exit-zero -q --format screen | tail -n 25
+          jq -r '"bandit: \(.results | length) findings (\([.results[] | select(.issue_severity == "HIGH")] | length) HIGH) in \(.metrics._totals.loc) lines of code"' reports/bandit.json
+          # print the rule name, not issue_text: for B105/B106 the text contains the secret itself
+          jq -r '.results[] | "  \(.issue_severity) \(.test_id) \(.filename):\(.line_number) \(.test_name)"' reports/bandit.json
       - name: Semgrep (p/python + project rules)
         run: |
           semgrep scan --config p/python --config security/semgrep-rules.yml --metrics off \
