@@ -1,0 +1,55 @@
+#CWD ~/Devops-Assignments
+$ kubectl get deploy,pods,svc -n session16 -o wide
+NAME                              READY   UP-TO-DATE   AVAILABLE   AGE     CONTAINERS   IMAGES                                                                                             SELECTOR
+deployment.apps/cgpa-calculator   2/2     2            2           2m21s   api          localhost:5001/ratneshvaibhav/session16-cgpa-calculator:8ecf9cd442a0411f4bd527b3ad9f31a4ef18de11   app=cgpa-calculator
+
+NAME                                   READY   STATUS    RESTARTS   AGE     IP             NODE                       NOMINATED NODE   READINESS GATES
+pod/cgpa-calculator-76cc9758d6-kcjr2   1/1     Running   0          2m21s   10.244.0.132   devops-lab-control-plane   <none>           <none>
+pod/cgpa-calculator-76cc9758d6-mwbl2   1/1     Running   0          2m21s   10.244.0.133   devops-lab-control-plane   <none>           <none>
+
+NAME                      TYPE       CLUSTER-IP    EXTERNAL-IP   PORT(S)        AGE     SELECTOR
+service/cgpa-calculator   NodePort   10.96.38.45   <none>        80:30001/TCP   2m21s   app=cgpa-calculator
+
+$ kubectl get deploy cgpa-calculator -n session16 -o jsonpath="{.spec.template.spec.containers[0].image}{\"\n\"}"
+localhost:5001/ratneshvaibhav/session16-cgpa-calculator:8ecf9cd442a0411f4bd527b3ad9f31a4ef18de11
+
+$ curl -s http://localhost:5001/v2/ratneshvaibhav/session16-cgpa-calculator/tags/list; echo
+{"name":"ratneshvaibhav/session16-cgpa-calculator","tags":["8ecf9cd442a0411f4bd527b3ad9f31a4ef18de11"]}
+
+
+$ git rev-parse HEAD
+8ecf9cd442a0411f4bd527b3ad9f31a4ef18de11
+
+$ curl -s http://localhost:30001/health; echo
+{"build":"8ecf9cd442a0","status":"ok","version":"1.0.0"}
+
+
+$ curl -s -X POST http://localhost:30001/api/cgpa -H "Content-Type: application/json" -d "{\"semesters\":[{\"sgpa\":8.88,\"credits\":22},{\"sgpa\":9.14,\"credits\":24}]}"; echo
+{"cgpa":9.02,"percentage":85.69}
+
+
+$ find .artifacts -type f | sort | head -20
+.artifacts/1/cgpa-calculator-dist/cgpa-calculator-dist.zip
+.artifacts/1/docker-image/docker-image.zip
+.artifacts/1/test-report-py3.11/test-report-py3.11.zip
+.artifacts/1/test-report-py3.12/test-report-py3.12.zip
+.artifacts/1/test-report-py3.13/test-report-py3.13.zip
+
+$ cd .artifacts && unzip -l $(find . -path "*test-report-py3.12*" -name "*.zip" | head -1) && unzip -l $(find . -path "*cgpa-calculator-dist*" -name "*.zip" | head -1)
+Archive:  ./1/test-report-py3.12/test-report-py3.12.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+     3571  2026-10-08 07:50   coverage-py3.12.xml
+     1374  2026-10-08 07:50   junit-py3.12.xml
+---------                     -------
+     4945                     2 files
+Archive:  ./1/cgpa-calculator-dist/cgpa-calculator-dist.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+      198  2026-10-08 07:50   build-info.txt
+     3180  2026-10-08 07:50   cgpa_calculator-1.0.0-py3-none-any.whl
+     3335  2026-10-08 07:50   cgpa_calculator-1.0.0.tar.gz
+---------                     -------
+     6713                     3 files
+
+#CWD ~/Devops-Assignments/.artifacts

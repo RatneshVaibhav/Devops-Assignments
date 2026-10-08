@@ -1,0 +1,37 @@
+#CWD ~/Devops-Assignments
+$ grep -E "flake8 found|passed in|Artifact .* has been successfully uploaded" utility/transcripts/session-16/raw/act-run-1-success.txt | sed -E "s/^\[Session 16 - CI\/CD pipeline\//[/"
+[Lint (flake8)       ]   | flake8 found no issues
+[Test (Python 3.13)-3]   | ============================== 13 passed in 0.49s ==============================
+[Test (Python 3.13)-3]   | Artifact test-report-py3.13 has been successfully uploaded! Final size is 1282 bytes. Artifact ID is 3340301067
+[Test (Python 3.11)-1]   | ============================== 13 passed in 0.35s ==============================
+[Test (Python 3.11)-1]   | Artifact test-report-py3.11 has been successfully uploaded! Final size is 1279 bytes. Artifact ID is 3373856305
+[Test (Python 3.12)-2]   | ============================== 13 passed in 0.45s ==============================
+[Test (Python 3.12)-2]   | Artifact test-report-py3.12 has been successfully uploaded! Final size is 1288 bytes. Artifact ID is 3323523448
+[Build (wheel + Docker image)]   | Artifact cgpa-calculator-dist has been successfully uploaded! Final size is 6587 bytes. Artifact ID is 2571601390
+[Build (wheel + Docker image)]   | Artifact docker-image has been successfully uploaded! Final size is 45164770 bytes. Artifact ID is 3572604477
+
+$ grep -A6 "application : cgpa" utility/transcripts/session-16/raw/act-run-1-success.txt | head -6 | sed -E "s/^\[Session 16 - CI\/CD pipeline\//[/"
+[Build (wheel + Docker image)]   | application : cgpa-calculator 1.0.0
+[Build (wheel + Docker image)]   | commit      : 8ecf9cd442a0411f4bd527b3ad9f31a4ef18de11
+[Build (wheel + Docker image)]   | built by    : nektos/act on docker-desktop
+[Build (wheel + Docker image)]   | built at    : 2026-10-08T07:50:44Z
+[Build (wheel + Docker image)]   | python      : Python 3.12.15
+[Build (wheel + Docker image)]   ✅  Success - Main Build the Python package [5.051443137s]
+
+$ grep -E "\"status\":\"ok\"|uid=10001|image.tar.gz$|pushed |DEMO_API_KEY|digest: sha256" utility/transcripts/session-16/raw/act-run-1-success.txt | sed -E "s/^\[Session 16 - CI\/CD pipeline\//[/"
+[Build (wheel + Docker image)]   | {"build":"8ecf9cd442a0","status":"ok","version":"1.0.0"}
+[Build (wheel + Docker image)]   | uid=10001(appuser) gid=10001(appuser) groups=10001(appuser)
+[Build (wheel + Docker image)]   | -rw-r--r-- 1 root root 44M Oct  8 07:51 image.tar.gz
+[Deliver (push image)        ]   | 8ecf9cd442a0411f4bd527b3ad9f31a4ef18de11: digest: sha256:8b3dee5f86ce7a5d0f2c0650f59c6d4d44a6d0d1ceab9f911a346b26488bf6fd size: 856
+[Deliver (push image)        ]   | pushed localhost:5001/ratneshvaibhav/session16-cgpa-calculator:8ecf9cd442a0411f4bd527b3ad9f31a4ef18de11
+[Deliver (push image)        ]   | DEMO_API_KEY is available (29 characters).
+[Deploy to Kubernetes        ]   | {"build":"8ecf9cd442a0","status":"ok","version":"1.0.0"}
+
+$ grep -E "deployment.apps|service/|successfully rolled out|cgpa-calculator-[a-z0-9]+-[a-z0-9]+ |\"sgpa\"" utility/transcripts/session-16/raw/act-run-1-success.txt | sed -E "s/^\[Session 16 - CI\/CD pipeline\//[/" | cut -c1-170
+[Deploy to Kubernetes        ]   | deployment.apps/cgpa-calculator created
+[Deploy to Kubernetes        ]   | service/cgpa-calculator created
+[Deploy to Kubernetes        ]   | deployment "cgpa-calculator" successfully rolled out
+[Deploy to Kubernetes        ]   | cgpa-calculator-76cc9758d6-kcjr2   1/1     Running   0          10s   10.244.0.132   devops-lab-control-plane   <none>           <none>
+[Deploy to Kubernetes        ]   | cgpa-calculator-76cc9758d6-mwbl2   1/1     Running   0          10s   10.244.0.133   devops-lab-control-plane   <none>           <none>
+[Deploy to Kubernetes        ]   | {"sgpa":9.14}
+

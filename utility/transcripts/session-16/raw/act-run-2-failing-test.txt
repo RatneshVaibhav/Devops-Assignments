@@ -1,0 +1,601 @@
+time="2026-10-08T13:24:34+05:30" level=info msg="Using docker host 'unix:///home/ratnesh/.docker/desktop/docker.sock', and daemon socket 'unix:///var/run/docker.sock'"
+time="2026-10-08T13:24:34+05:30" level=info msg="Start server on http://100.128.167.30:34567"
+[Session 16 - CI/CD pipeline/Basic security check] ⭐ Run Set up job
+[Session 16 - CI/CD pipeline/Basic security check] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] ⭐ Run Set up job
+[Session 16 - CI/CD pipeline/Lint (flake8)       ] ⭐ Run Set up job
+[Session 16 - CI/CD pipeline/Lint (flake8)       ] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] ⭐ Run Set up job
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] ⭐ Run Set up job
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 16 - CI/CD pipeline/Basic security check]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Basic security check]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Basic security check]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 16 - CI/CD pipeline/Basic security check]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ✅  Success - Set up job
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ✅  Success - Set up job
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ✅  Success - Set up job
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ✅  Success - Set up job
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v5
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v5
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v5
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v5
+[Session 16 - CI/CD pipeline/Basic security check]   ✅  Success - Set up job
+[Session 16 - CI/CD pipeline/Basic security check] ⭐ Run Main Checkout
+[Session 16 - CI/CD pipeline/Basic security check]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 16 - CI/CD pipeline/Basic security check]   ✅  Success - Main Checkout [1.107913309s]
+[Session 16 - CI/CD pipeline/Basic security check] ⭐ Run Main Look for files that must never be committed
+[Session 16 - CI/CD pipeline/Basic security check]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/1] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Basic security check]   | No .env / *.pem / *.key / id_rsa files in session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Basic security check]   ✅  Success - Main Look for files that must never be committed [156.726927ms]
+[Session 16 - CI/CD pipeline/Basic security check] ⭐ Run Complete job
+[Session 16 - CI/CD pipeline/Basic security check] Cleaning up container for job Basic security check
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[Session 16 - CI/CD pipeline/Basic security check]   ✅  Success - Complete job
+[Session 16 - CI/CD pipeline/Basic security check] 🏁  Job succeeded
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[Session 16 - CI/CD pipeline/Lint (flake8)       ] ⭐ Run Main Checkout
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ✅  Success - Main Checkout [573.578965ms]
+[Session 16 - CI/CD pipeline/Lint (flake8)       ] ⭐ Run Main Set up Python
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-setup-python@v5/ dst=/var/run/act/actions/actions-setup-python@v5/
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/setup/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ❓  ::group::Installed versions
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   | (node:32) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   | Successfully set up CPython (3.12.15)
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ❓  ::endgroup::
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ❓ add-matcher /run/act/actions/actions-setup-python@v5/.github/python.json
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ✅  Success - Main Set up Python [1.007039074s]
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.12.15/x64/bin/python
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ⚙  ::set-output:: python-version=3.12.15
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64/bin
+[Session 16 - CI/CD pipeline/Lint (flake8)       ] ⭐ Run Main Install flake8
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/2] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   | Requirement already satisfied: flake8==7.4.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (7.4.1)
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   | Requirement already satisfied: mccabe<0.8.0,>=0.7.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from flake8==7.4.1) (0.7.0)
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   | Requirement already satisfied: pycodestyle<2.16.0,>=2.15.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from flake8==7.4.1) (2.15.0)
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   | Requirement already satisfied: pyflakes<4.1.0,>=4.0.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from flake8==7.4.1) (4.0.3)
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ✅  Success - Main Install flake8 [1.03385154s]
+[Session 16 - CI/CD pipeline/Lint (flake8)       ] ⭐ Run Main Run flake8
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/3] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] 🧪  Matrix: map[python-version:3.11]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] ⭐ Run Main Checkout
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   | flake8 found no issues
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ✅  Success - Main Run flake8 [322.841102ms]
+[Session 16 - CI/CD pipeline/Lint (flake8)       ] ⭐ Run Post Set up Python
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/cache-save/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   | (node:83) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ✅  Success - Post Set up Python [302.219599ms]
+[Session 16 - CI/CD pipeline/Lint (flake8)       ] ⭐ Run Complete job
+[Session 16 - CI/CD pipeline/Lint (flake8)       ] Cleaning up container for job Lint (flake8)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ✅  Success - Main Checkout [636.982756ms]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] ⭐ Run Main Set up Python 3.11
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-setup-python@v5/ dst=/var/run/act/actions/actions-setup-python@v5/
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ✅  Success - Complete job
+[Session 16 - CI/CD pipeline/Lint (flake8)       ] 🏁  Job succeeded
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] 🧪  Matrix: map[python-version:3.13]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] ⭐ Run Main Checkout
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/setup/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ✅  Success - Main Checkout [596.947765ms]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ❓  ::group::Installed versions
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | (node:30) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Successfully set up CPython (3.11.17)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ❓  ::endgroup::
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ❓ add-matcher /run/act/actions/actions-setup-python@v5/.github/python.json
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ✅  Success - Main Set up Python 3.11 [1.389927756s]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.11.17/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.11.17/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.11.17/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.11.17/x64/lib
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.11.17/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.11.17/x64/bin/python
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::set-output:: python-version=3.11.17
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.11.17/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.11.17/x64/bin
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] ⭐ Run Main Set up Python 3.13
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-setup-python@v5/ dst=/var/run/act/actions/actions-setup-python@v5/
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] ⭐ Run Main Install dependencies
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/2] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] 🧪  Matrix: map[python-version:3.12]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] ⭐ Run Main Checkout
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/setup/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: Flask==3.1.3 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from -r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.1.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: gunicorn==26.2.0 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from -r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 2)) (26.2.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: pytest==9.1.1 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from -r requirements-dev.txt (line 2)) (9.1.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: pytest-cov==7.1.0 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from -r requirements-dev.txt (line 3)) (7.1.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: flake8==7.4.1 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from -r requirements-dev.txt (line 4)) (7.4.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: build==1.6.1 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from -r requirements-dev.txt (line 5)) (1.6.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ❓  ::group::Installed versions
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: blinker>=1.9.0 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (1.9.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: click>=8.1.3 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (8.5.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: itsdangerous>=2.2.0 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (2.2.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: jinja2>=3.1.2 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.1.6)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: markupsafe>=2.1.1 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.0.4)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: werkzeug>=3.1.0 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.1.9)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | (node:29) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Successfully set up CPython (3.13.16)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ❓  ::endgroup::
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ❓ add-matcher /run/act/actions/actions-setup-python@v5/.github/python.json
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: iniconfig>=1.0.1 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (2.3.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: packaging>=22 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (26.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: pluggy<2,>=1.5 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (1.6.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: pygments>=2.7.2 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (2.21.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: coverage>=7.10.6 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from coverage[toml]>=7.10.6->pytest-cov==7.1.0->-r requirements-dev.txt (line 3)) (7.16.2)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: mccabe<0.8.0,>=0.7.0 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (0.7.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: pycodestyle<2.16.0,>=2.15.0 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (2.15.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: pyflakes<4.1.0,>=4.0.0 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (4.0.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ✅  Success - Main Set up Python 3.13 [1.255435323s]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: pyproject_hooks in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from build==1.6.1->-r requirements-dev.txt (line 5)) (1.3.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.13.16/x64/lib
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.13.16/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.13.16/x64/lib/pkgconfig
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::set-output:: python-version=3.13.16
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.13.16/x64/bin/python
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.13.16/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.13.16/x64/bin
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ✅  Success - Main Checkout [591.170735ms]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] ⭐ Run Main Install dependencies
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] ⭐ Run Main Set up Python 3.12
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-setup-python@v5/ dst=/var/run/act/actions/actions-setup-python@v5/
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ✅  Success - Main Install dependencies [1.40539638s]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/2] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] ⭐ Run Main Run pytest
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/3] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/setup/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | ============================= test session starts ==============================
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | platform linux -- Python 3.11.17, pytest-9.1.1, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.17/x64/bin/python
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | cachedir: .pytest_cache
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | rootdir: /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | configfile: pytest.ini
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | testpaths: tests
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | plugins: cov-7.1.0
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ❓  ::group::Installed versions
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | (node:30) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Successfully set up CPython (3.12.15)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ❓  ::endgroup::
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ❓ add-matcher /run/act/actions/actions-setup-python@v5/.github/python.json
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ✅  Success - Main Set up Python 3.12 [1.281418929s]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::set-output:: python-version=3.12.15
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.12.15/x64/bin/python
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64/bin
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: Flask==3.1.3 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from -r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.1.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: gunicorn==26.2.0 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from -r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 2)) (26.2.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: pytest==9.1.1 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from -r requirements-dev.txt (line 2)) (9.1.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: pytest-cov==7.1.0 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from -r requirements-dev.txt (line 3)) (7.1.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: flake8==7.4.1 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from -r requirements-dev.txt (line 4)) (7.4.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: build==1.6.1 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from -r requirements-dev.txt (line 5)) (1.6.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: blinker>=1.9.0 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (1.9.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: click>=8.1.3 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (8.5.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: itsdangerous>=2.2.0 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (2.2.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: jinja2>=3.1.2 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.1.6)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: markupsafe>=2.1.1 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.0.4)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: werkzeug>=3.1.0 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.1.9)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: iniconfig>=1.0.1 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (2.3.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: packaging>=22 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (26.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: pluggy<2,>=1.5 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (1.6.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: pygments>=2.7.2 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (2.21.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] ⭐ Run Main Install dependencies
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: coverage>=7.10.6 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from coverage[toml]>=7.10.6->pytest-cov==7.1.0->-r requirements-dev.txt (line 3)) (7.16.2)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: mccabe<0.8.0,>=0.7.0 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (0.7.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: pycodestyle<2.16.0,>=2.15.0 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (2.15.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: pyflakes<4.1.0,>=4.0.0 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (4.0.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: pyproject_hooks in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from build==1.6.1->-r requirements-dev.txt (line 5)) (1.3.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | collecting ... collected 13 items
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_gpa.py::test_grade_point_is_case_insensitive PASSED           [  7%]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_gpa.py::test_unknown_grade_is_rejected PASSED                 [ 15%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_gpa.py::test_sgpa_is_credit_weighted FAILED                   [ 23%]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_gpa.py::test_sgpa_needs_positive_credits PASSED               [ 30%]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_gpa.py::test_sgpa_needs_courses PASSED                        [ 38%]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_gpa.py::test_cgpa_weights_semesters_by_credits PASSED         [ 46%]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_gpa.py::test_cgpa_rejects_out_of_range_sgpa PASSED            [ 53%]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_gpa.py::test_percentage_conversion PASSED                     [ 61%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/2] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_web.py::test_home_page PASSED                                 [ 69%]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_web.py::test_health PASSED                                    [ 76%]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_web.py::test_sgpa_endpoint FAILED                             [ 84%]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_web.py::test_sgpa_endpoint_validates_input PASSED             [ 92%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ✅  Success - Main Install dependencies [1.567193927s]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_web.py::test_cgpa_endpoint PASSED                             [100%]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | =================================== FAILURES ===================================
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | _________________________ test_sgpa_is_credit_weighted _________________________
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   |     def test_sgpa_is_credit_weighted():
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   |         courses = [
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   |             {"grade": "O", "credits": 4},   # 40
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   |             {"grade": "A", "credits": 3},   # 24
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   |             {"grade": "B+", "credits": 1},  # 7
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   |         ]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | >       assert sgpa(courses) == round(71 / 8, 2)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | E       AssertionError: assert 23.67 == 8.88
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | E        +  where 23.67 = sgpa([{'grade': 'O', 'credits': 4}, {'grade': 'A', 'credits': 3}, {'grade': 'B+', 'credits': 1}])
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | E        +  and   8.88 = round((71 / 8), 2)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_gpa.py:22: AssertionError
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | ______________________________ test_sgpa_endpoint ______________________________
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | client = <FlaskClient <Flask 'app.web'>>
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   |     def test_sgpa_endpoint(client):
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   |         res = client.post("/api/sgpa", json={"courses": [{"grade": "A+", "credits": 4},
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   |                                                          {"grade": "B", "credits": 2}]})
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   |         assert res.status_code == 200
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | >       assert res.get_json() == {"sgpa": 8.0}
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | E       AssertionError: assert {'sgpa': 24.0} == {'sgpa': 8.0}
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | E         
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | E         Differing items:
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | E         {'sgpa': 24.0} != {'sgpa': 8.0}
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | E         
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | E         Full diff:
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | E           {
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | E         -     'sgpa': 8.0,
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | E         ?             ^
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | E         +     'sgpa': 24.0,
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | E         ?             ^^
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | E           }
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_web.py:30: AssertionError
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | - generated xml file: /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/reports/junit-py3.11.xml -
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | ================================ tests coverage ================================
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | _______________ coverage: platform linux, python 3.11.17-final-0 _______________
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Name              Stmts   Miss  Cover
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | -------------------------------------
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | app/__init__.py       1      0   100%
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | app/gpa.py           34      3    91%
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | app/web.py           36      4    89%
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | -------------------------------------
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | TOTAL                71      7    90%
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Coverage XML written to file reports/coverage-py3.11.xml
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | =========================== short test summary info ============================
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | FAILED tests/test_gpa.py::test_sgpa_is_credit_weighted - AssertionError: assert 23.67 == 8.88
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   |  +  where 23.67 = sgpa([{'grade': 'O', 'credits': 4}, {'grade': 'A', 'credits': 3}, {'grade': 'B+', 'credits': 1}])
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   |  +  and   8.88 = round((71 / 8), 2)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | FAILED tests/test_web.py::test_sgpa_endpoint - AssertionError: assert {'sgpa': 24.0} == {'sgpa': 8.0}
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   |   
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   |   Differing items:
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   |   {'sgpa': 24.0} != {'sgpa': 8.0}
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   |   
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   |   Full diff:
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   |     {
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   |   -     'sgpa': 8.0,
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   |   ?             ^
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   |   +     'sgpa': 24.0,
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   |   ?             ^^
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   |     }
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | ========================= 2 failed, 11 passed in 0.50s =========================
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] ⭐ Run Main Run pytest
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ❌  Failure - Main Run pytest [1.559806039s]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/3] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] exitcode '1': failure
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] ⭐ Run Main Upload test report
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | ============================= test session starts ==============================
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | platform linux -- Python 3.13.16, pytest-9.1.1, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.13.16/x64/bin/python
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | cachedir: .pytest_cache
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | rootdir: /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | configfile: pytest.ini
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | testpaths: tests
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | plugins: cov-7.1.0
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: Flask==3.1.3 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from -r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.1.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: gunicorn==26.2.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from -r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 2)) (26.2.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: pytest==9.1.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from -r requirements-dev.txt (line 2)) (9.1.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: pytest-cov==7.1.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from -r requirements-dev.txt (line 3)) (7.1.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: flake8==7.4.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from -r requirements-dev.txt (line 4)) (7.4.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: build==1.6.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from -r requirements-dev.txt (line 5)) (1.6.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: blinker>=1.9.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (1.9.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: click>=8.1.3 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (8.5.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: itsdangerous>=2.2.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (2.2.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: jinja2>=3.1.2 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.1.6)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: markupsafe>=2.1.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.0.4)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: werkzeug>=3.1.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.1.9)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: iniconfig>=1.0.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (2.3.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: packaging>=22 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (26.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: pluggy<2,>=1.5 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (1.6.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: pygments>=2.7.2 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (2.21.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: coverage>=7.10.6 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from coverage[toml]>=7.10.6->pytest-cov==7.1.0->-r requirements-dev.txt (line 3)) (7.16.2)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: mccabe<0.8.0,>=0.7.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (0.7.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: pycodestyle<2.16.0,>=2.15.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (2.15.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: pyflakes<4.1.0,>=4.0.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (4.0.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: pyproject_hooks in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from build==1.6.1->-r requirements-dev.txt (line 5)) (1.3.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | collecting ... collected 13 items
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_gpa.py::test_grade_point_is_case_insensitive PASSED           [  7%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_gpa.py::test_unknown_grade_is_rejected PASSED                 [ 15%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_gpa.py::test_sgpa_is_credit_weighted FAILED                   [ 23%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_gpa.py::test_sgpa_needs_positive_credits PASSED               [ 30%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_gpa.py::test_sgpa_needs_courses PASSED                        [ 38%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_gpa.py::test_cgpa_weights_semesters_by_credits PASSED         [ 46%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_gpa.py::test_cgpa_rejects_out_of_range_sgpa PASSED            [ 53%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_gpa.py::test_percentage_conversion PASSED                     [ 61%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ✅  Success - Main Install dependencies [1.133769085s]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_web.py::test_home_page PASSED                                 [ 69%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_web.py::test_health PASSED                                    [ 76%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_web.py::test_sgpa_endpoint FAILED                             [ 84%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_web.py::test_sgpa_endpoint_validates_input PASSED             [ 92%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] ⭐ Run Main Run pytest
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | (node:73) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | With the provided path, there will be 2 files uploaded
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Artifact name is valid!
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Root directory input is valid!
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_web.py::test_cgpa_endpoint PASSED                             [100%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | =================================== FAILURES ===================================
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | _________________________ test_sgpa_is_credit_weighted _________________________
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   |     def test_sgpa_is_credit_weighted():
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   |         courses = [
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   |             {"grade": "O", "credits": 4},   # 40
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   |             {"grade": "A", "credits": 3},   # 24
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   |             {"grade": "B+", "credits": 1},  # 7
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   |         ]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | >       assert sgpa(courses) == round(71 / 8, 2)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | E       AssertionError: assert 23.67 == 8.88
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | E        +  where 23.67 = sgpa([{'grade': 'O', 'credits': 4}, {'grade': 'A', 'credits': 3}, {'grade': 'B+', 'credits': 1}])
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | E        +  and   8.88 = round((71 / 8), 2)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_gpa.py:22: AssertionError
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | ______________________________ test_sgpa_endpoint ______________________________
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | client = <FlaskClient <Flask 'app.web'>>
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   |     def test_sgpa_endpoint(client):
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   |         res = client.post("/api/sgpa", json={"courses": [{"grade": "A+", "credits": 4},
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   |                                                          {"grade": "B", "credits": 2}]})
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   |         assert res.status_code == 200
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | >       assert res.get_json() == {"sgpa": 8.0}
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | E       AssertionError: assert {'sgpa': 24.0} == {'sgpa': 8.0}
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | E         
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | E         Differing items:
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | E         {'sgpa': 24.0} != {'sgpa': 8.0}
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | E         
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | E         Full diff:
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | E           {
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | E         -     'sgpa': 8.0,
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | E         ?             ^
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | E         +     'sgpa': 24.0,
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | E         ?             ^^
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | E           }
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_web.py:30: AssertionError
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | - generated xml file: /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/reports/junit-py3.13.xml -
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | ================================ tests coverage ================================
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | _______________ coverage: platform linux, python 3.13.16-final-0 _______________
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Name              Stmts   Miss  Cover
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | -------------------------------------
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | app/__init__.py       1      0   100%
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | app/gpa.py           34      3    91%
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | app/web.py           36      4    89%
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | -------------------------------------
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | TOTAL                71      7    90%
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Coverage XML written to file reports/coverage-py3.13.xml
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | =========================== short test summary info ============================
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | FAILED tests/test_gpa.py::test_sgpa_is_credit_weighted - AssertionError: assert 23.67 == 8.88
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   |  +  where 23.67 = sgpa([{'grade': 'O', 'credits': 4}, {'grade': 'A', 'credits': 3}, {'grade': 'B+', 'credits': 1}])
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   |  +  and   8.88 = round((71 / 8), 2)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | FAILED tests/test_web.py::test_sgpa_endpoint - AssertionError: assert {'sgpa': 24.0} == {'sgpa': 8.0}
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   |   
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   |   Differing items:
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   |   {'sgpa': 24.0} != {'sgpa': 8.0}
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   |   
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   |   Full diff:
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   |     {
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   |   -     'sgpa': 8.0,
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   |   ?             ^
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   |   +     'sgpa': 24.0,
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   |   ?             ^^
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   |     }
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | ========================= 2 failed, 11 passed in 0.42s =========================
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Beginning upload of artifact content to blob storage
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/3] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | (node:73) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Uploaded bytes 1819
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Finished uploading artifact content to blob storage!
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | SHA256 digest of uploaded artifact zip is b318ba2a242fb5f64c1e38de61934446e458021d1cfe0a1eae8ea1784fe5507d
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Finalizing artifact upload
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Artifact test-report-py3.11.zip successfully finalized. Artifact ID 3373856305
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Artifact test-report-py3.11 has been successfully uploaded! Final size is 1819 bytes. Artifact ID is 3373856305
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Artifact download URL: https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/3373856305
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ✅  Success - Main Upload test report [936.163211ms]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::set-output:: artifact-id=3373856305
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::set-output:: artifact-digest=b318ba2a242fb5f64c1e38de61934446e458021d1cfe0a1eae8ea1784fe5507d
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::set-output:: artifact-url=https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/3373856305
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ❌  Failure - Main Run pytest [1.111933645s]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] exitcode '1': failure
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] ⭐ Run Complete job
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ✅  Success - Complete job
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] 🏁  Job failed
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] ⭐ Run Main Upload test report
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | ============================= test session starts ==============================
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | platform linux -- Python 3.12.15, pytest-9.1.1, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.12.15/x64/bin/python
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | cachedir: .pytest_cache
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | rootdir: /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | configfile: pytest.ini
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | testpaths: tests
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | plugins: cov-7.1.0
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | collecting ... collected 13 items
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_gpa.py::test_grade_point_is_case_insensitive PASSED           [  7%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_gpa.py::test_unknown_grade_is_rejected PASSED                 [ 15%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_gpa.py::test_sgpa_is_credit_weighted FAILED                   [ 23%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_gpa.py::test_sgpa_needs_positive_credits PASSED               [ 30%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_gpa.py::test_sgpa_needs_courses PASSED                        [ 38%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_gpa.py::test_cgpa_weights_semesters_by_credits PASSED         [ 46%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_gpa.py::test_cgpa_rejects_out_of_range_sgpa PASSED            [ 53%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_gpa.py::test_percentage_conversion PASSED                     [ 61%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | (node:72) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_web.py::test_home_page PASSED                                 [ 69%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_web.py::test_health PASSED                                    [ 76%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | With the provided path, there will be 2 files uploaded
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Artifact name is valid!
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Root directory input is valid!
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_web.py::test_sgpa_endpoint FAILED                             [ 84%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_web.py::test_sgpa_endpoint_validates_input PASSED             [ 92%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Beginning upload of artifact content to blob storage
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | (node:72) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Uploaded bytes 1814
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Finished uploading artifact content to blob storage!
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | SHA256 digest of uploaded artifact zip is 849c4b1b5e7689482a3be4a6dd7caae0c433bdbcd52585e0052db6a3f996f3d6
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Finalizing artifact upload
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Artifact test-report-py3.13.zip successfully finalized. Artifact ID 3340301067
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Artifact test-report-py3.13 has been successfully uploaded! Final size is 1814 bytes. Artifact ID is 3340301067
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Artifact download URL: https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/3340301067
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ✅  Success - Main Upload test report [852.499892ms]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_web.py::test_cgpa_endpoint PASSED                             [100%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | =================================== FAILURES ===================================
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | _________________________ test_sgpa_is_credit_weighted _________________________
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   |     def test_sgpa_is_credit_weighted():
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   |         courses = [
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   |             {"grade": "O", "credits": 4},   # 40
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   |             {"grade": "A", "credits": 3},   # 24
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   |             {"grade": "B+", "credits": 1},  # 7
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   |         ]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | >       assert sgpa(courses) == round(71 / 8, 2)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | E       AssertionError: assert 23.67 == 8.88
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | E        +  where 23.67 = sgpa([{'grade': 'O', 'credits': 4}, {'grade': 'A', 'credits': 3}, {'grade': 'B+', 'credits': 1}])
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | E        +  and   8.88 = round((71 / 8), 2)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_gpa.py:22: AssertionError
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | ______________________________ test_sgpa_endpoint ______________________________
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | client = <FlaskClient <Flask 'app.web'>>
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   |     def test_sgpa_endpoint(client):
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   |         res = client.post("/api/sgpa", json={"courses": [{"grade": "A+", "credits": 4},
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   |                                                          {"grade": "B", "credits": 2}]})
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   |         assert res.status_code == 200
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | >       assert res.get_json() == {"sgpa": 8.0}
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | E       AssertionError: assert {'sgpa': 24.0} == {'sgpa': 8.0}
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | E         
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | E         Differing items:
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | E         {'sgpa': 24.0} != {'sgpa': 8.0}
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | E         
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | E         Full diff:
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | E           {
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | E         -     'sgpa': 8.0,
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | E         ?             ^
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | E         +     'sgpa': 24.0,
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | E         ?             ^^
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | E           }
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_web.py:30: AssertionError
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | - generated xml file: /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/reports/junit-py3.12.xml -
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | ================================ tests coverage ================================
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | _______________ coverage: platform linux, python 3.12.15-final-0 _______________
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Name              Stmts   Miss  Cover
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | -------------------------------------
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | app/__init__.py       1      0   100%
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | app/gpa.py           34      3    91%
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | app/web.py           36      4    89%
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | -------------------------------------
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | TOTAL                71      7    90%
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Coverage XML written to file reports/coverage-py3.12.xml
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | =========================== short test summary info ============================
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | FAILED tests/test_gpa.py::test_sgpa_is_credit_weighted - AssertionError: assert 23.67 == 8.88
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   |  +  where 23.67 = sgpa([{'grade': 'O', 'credits': 4}, {'grade': 'A', 'credits': 3}, {'grade': 'B+', 'credits': 1}])
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   |  +  and   8.88 = round((71 / 8), 2)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | FAILED tests/test_web.py::test_sgpa_endpoint - AssertionError: assert {'sgpa': 24.0} == {'sgpa': 8.0}
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   |   
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   |   Differing items:
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   |   {'sgpa': 24.0} != {'sgpa': 8.0}
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   |   
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   |   Full diff:
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   |     {
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   |   -     'sgpa': 8.0,
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   |   ?             ^
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   |   +     'sgpa': 24.0,
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   |   ?             ^^
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   |     }
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | ========================= 2 failed, 11 passed in 0.47s =========================
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::set-output:: artifact-id=3340301067
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::set-output:: artifact-digest=849c4b1b5e7689482a3be4a6dd7caae0c433bdbcd52585e0052db6a3f996f3d6
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::set-output:: artifact-url=https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/3340301067
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] ⭐ Run Complete job
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ✅  Success - Complete job
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] 🏁  Job failed
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ❌  Failure - Main Run pytest [1.174397528s]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] exitcode '1': failure
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] ⭐ Run Main Upload test report
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | (node:73) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | With the provided path, there will be 2 files uploaded
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Artifact name is valid!
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Root directory input is valid!
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Beginning upload of artifact content to blob storage
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | (node:73) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Uploaded bytes 1816
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Finished uploading artifact content to blob storage!
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | SHA256 digest of uploaded artifact zip is 02ff41403b4d597fe41e0fcea899c5bd28b0f98bccd7da21f577303c6abf979d
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Finalizing artifact upload
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Artifact test-report-py3.12.zip successfully finalized. Artifact ID 3323523448
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Artifact test-report-py3.12 has been successfully uploaded! Final size is 1816 bytes. Artifact ID is 3323523448
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Artifact download URL: https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/3323523448
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ✅  Success - Main Upload test report [814.301695ms]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::set-output:: artifact-id=3323523448
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::set-output:: artifact-digest=02ff41403b4d597fe41e0fcea899c5bd28b0f98bccd7da21f577303c6abf979d
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::set-output:: artifact-url=https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/3323523448
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] ⭐ Run Complete job
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ✅  Success - Complete job
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] 🏁  Job failed
+Error: Job 'Test (Python ${{ matrix.python-version }})' failed

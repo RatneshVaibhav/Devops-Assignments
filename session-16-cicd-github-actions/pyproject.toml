@@ -6,6 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "cgpa-calculator"
 version = "1.0.0"
 description = "CGPA calculator API - Session 16 CI/CD demo"
+readme = "README.md"
 requires-python = ">=3.11"
 dependencies = ["Flask>=3.1"]
 

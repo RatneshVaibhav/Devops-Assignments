@@ -1,0 +1,26 @@
+#CWD ~/Devops-Assignments
+$ export DOCKER_HOST=unix://$HOME/.docker/desktop/docker.sock   # act does not read docker contexts
+
+$ act --version
+act version 0.2.89
+
+$ act push -l -W .github/workflows/session-16-ci-cd.yml
+time="2026-10-08T13:15:37+05:30" level=info msg="Using docker host 'unix:///home/ratnesh/.docker/desktop/docker.sock', and daemon socket 'unix:///home/ratnesh/.docker/desktop/docker.sock'"
+Stage  Job ID          Job name                                    Workflow name                Workflow file         Events                             
+0      lint            Lint (flake8)                               Session 16 - CI/CD pipeline  session-16-ci-cd.yml  push,pull_request,workflow_dispatch
+0      test            Test (Python ${{ matrix.python-version }})  Session 16 - CI/CD pipeline  session-16-ci-cd.yml  push,pull_request,workflow_dispatch
+0      security-check  Basic security check                        Session 16 - CI/CD pipeline  session-16-ci-cd.yml  push,pull_request,workflow_dispatch
+1      build           Build (wheel + Docker image)                Session 16 - CI/CD pipeline  session-16-ci-cd.yml  push,pull_request,workflow_dispatch
+2      deliver         Deliver (push image)                        Session 16 - CI/CD pipeline  session-16-ci-cd.yml  push,pull_request,workflow_dispatch
+3      deploy          Deploy to Kubernetes                        Session 16 - CI/CD pipeline  session-16-ci-cd.yml  push,pull_request,workflow_dispatch
+
+$ act pull_request -l -W .github/workflows/session-16-ci-cd.yml
+time="2026-10-08T13:15:37+05:30" level=info msg="Using docker host 'unix:///home/ratnesh/.docker/desktop/docker.sock', and daemon socket 'unix:///home/ratnesh/.docker/desktop/docker.sock'"
+Stage  Job ID          Job name                                    Workflow name                Workflow file         Events                             
+0      lint            Lint (flake8)                               Session 16 - CI/CD pipeline  session-16-ci-cd.yml  pull_request,workflow_dispatch,push
+0      test            Test (Python ${{ matrix.python-version }})  Session 16 - CI/CD pipeline  session-16-ci-cd.yml  push,pull_request,workflow_dispatch
+0      security-check  Basic security check                        Session 16 - CI/CD pipeline  session-16-ci-cd.yml  pull_request,workflow_dispatch,push
+1      build           Build (wheel + Docker image)                Session 16 - CI/CD pipeline  session-16-ci-cd.yml  pull_request,workflow_dispatch,push
+2      deliver         Deliver (push image)                        Session 16 - CI/CD pipeline  session-16-ci-cd.yml  push,pull_request,workflow_dispatch
+3      deploy          Deploy to Kubernetes                        Session 16 - CI/CD pipeline  session-16-ci-cd.yml  push,pull_request,workflow_dispatch
+

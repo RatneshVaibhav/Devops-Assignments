@@ -1,0 +1,225 @@
+# Session 16 - CI/CD with GitHub Actions
+#
+#   CI:  lint ─┐
+#        test (3.11 / 3.12 / 3.13 matrix) ─┼─► build (wheel + Docker image, artifacts)
+#        security-check ─┘                         │
+#   CD:                                    deliver (push image :<sha>) ─► deploy (Kubernetes + smoke test)
+#
+# On GitHub the image goes to ghcr.io and is deployed to a throw-away kind
+# cluster inside the runner. Run locally with `act`, the repository variable
+# REGISTRY points at the lab registry and the KUBE_CONFIG secret at the lab
+# cluster instead (see session-16-cicd-github-actions/README.md).
+name: Session 16 - CI/CD pipeline
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "session-16-cicd-github-actions/**"
+      - ".github/workflows/session-16-ci-cd.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "session-16-cicd-github-actions/**"
+      - ".github/workflows/session-16-ci-cd.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: session16-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  APP_DIR: session-16-cicd-github-actions
+  IMAGE_NAME: session16-cgpa-calculator
+  REGISTRY: ${{ vars.REGISTRY || 'ghcr.io' }}
+
+defaults:
+  run:
+    working-directory: session-16-cicd-github-actions
+
+jobs:
+  # ------------------------------------------------------------------ CI
+  lint:
+    name: Lint (flake8)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install flake8
+        run: pip install flake8==7.4.1
+      - name: Run flake8
+        run: flake8 app tests && echo "flake8 found no issues"
+
+  test:
+    name: Test (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+      - name: Run pytest
+        run: >
+          pytest -v
+          --junitxml=reports/junit-py${{ matrix.python-version }}.xml
+          --cov=app --cov-report=term --cov-report=xml:reports/coverage-py${{ matrix.python-version }}.xml
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report-py${{ matrix.python-version }}
+          path: ${{ env.APP_DIR }}/reports/
+          retention-days: 7
+
+  security-check:
+    name: Basic security check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Look for files that must never be committed
+        run: |
+          found=$(find . -type f \( -name ".env" -o -name "*.pem" -o -name "*.key" -o -name "id_rsa*" \) -print)
+          if [ -n "$found" ]; then
+            echo "Sensitive files found:"; echo "$found"; exit 1
+          fi
+          echo "No .env / *.pem / *.key / id_rsa files in $APP_DIR"
+
+  build:
+    name: Build (wheel + Docker image)
+    needs: [lint, test, security-check]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build the Python package
+        run: |
+          pip install build==1.6.1
+          ./build.sh
+          cat build/build-info.txt
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cgpa-calculator-dist
+          path: ${{ env.APP_DIR }}/build/
+      - name: Build the Docker image
+        run: docker build --build-arg BUILD_SHA="$GITHUB_SHA" -t "$IMAGE_NAME:$GITHUB_SHA" .
+      - name: Test the image before shipping it
+        run: |
+          docker run -d --name cgpa-smoke -p 18000:8000 "$IMAGE_NAME:$GITHUB_SHA"
+          for i in $(seq 1 20); do curl -fsS http://127.0.0.1:18000/health && break; sleep 1; done
+          echo
+          docker exec cgpa-smoke id
+          docker rm -f cgpa-smoke
+      - name: Save the image as an artifact
+        run: docker save "$IMAGE_NAME:$GITHUB_SHA" | gzip > image.tar.gz && ls -lh image.tar.gz
+      - name: Upload image artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: ${{ env.APP_DIR }}/image.tar.gz
+          retention-days: 1
+
+  # ------------------------------------------------------------------ CD
+  deliver:
+    name: Deliver (push image)
+    needs: build
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write          # lets GITHUB_TOKEN push to ghcr.io
+    env:
+      DEMO_API_KEY: ${{ secrets.DEMO_API_KEY }}
+    steps:
+      - name: Download image artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+          path: ${{ env.APP_DIR }}
+      - name: Load image
+        run: gunzip -c image.tar.gz | docker load
+      - name: Log in to GitHub Container Registry
+        if: env.REGISTRY == 'ghcr.io'
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+      - name: Tag and push (tag = commit SHA)
+        run: |
+          IMAGE="$REGISTRY/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE_NAME:$GITHUB_SHA"
+          docker tag "$IMAGE_NAME:$GITHUB_SHA" "$IMAGE"
+          docker push "$IMAGE"
+          echo "pushed $IMAGE"
+      - name: Use a repository secret
+        run: |
+          if [ -z "$DEMO_API_KEY" ]; then
+            echo "DEMO_API_KEY is not configured for this repository - nothing to do"
+          else
+            echo "DEMO_API_KEY is available (${#DEMO_API_KEY} characters)."
+            echo "Printing it anyway shows the masking: $DEMO_API_KEY"
+          fi
+
+  deploy:
+    name: Deploy to Kubernetes
+    needs: deliver
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    environment: staging
+    env:
+      KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v4
+      - name: Image reference
+        run: echo "IMAGE=$REGISTRY/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE_NAME:$GITHUB_SHA" >> "$GITHUB_ENV"
+      - name: Use the cluster from the KUBE_CONFIG secret
+        if: env.KUBE_CONFIG != ''
+        run: |
+          mkdir -p ~/.kube
+          printf '%s\n' "$KUBE_CONFIG" > ~/.kube/config
+          chmod 600 ~/.kube/config
+          kubectl get nodes
+      - name: No cluster secret - create a throw-away kind cluster
+        if: env.KUBE_CONFIG == ''
+        uses: helm/kind-action@v1
+        with:
+          cluster_name: ci
+      - name: Load the image into the kind cluster
+        if: env.KUBE_CONFIG == ''
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+          docker pull "$IMAGE"
+          kind load docker-image "$IMAGE" --name ci
+      - name: Deploy
+        run: |
+          sed "s|IMAGE_PLACEHOLDER|$IMAGE|" k8s/deployment.yaml | kubectl apply -f -
+          kubectl apply -f k8s/service.yaml
+          kubectl -n session16 rollout status deployment/cgpa-calculator --timeout=180s
+          kubectl -n session16 get pods -o wide
+      - name: Smoke test
+        run: |
+          kubectl -n session16 port-forward svc/cgpa-calculator 18080:80 > /dev/null 2>&1 &
+          sleep 4
+          curl -fsS http://127.0.0.1:18080/health; echo
+          curl -fsS -X POST http://127.0.0.1:18080/api/sgpa \
+            -H 'Content-Type: application/json' \
+            -d '{"courses":[{"grade":"O","credits":4},{"grade":"A","credits":3}]}'; echo

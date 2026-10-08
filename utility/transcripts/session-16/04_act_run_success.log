@@ -1,0 +1,14 @@
+#CWD ~/Devops-Assignments
+$ act push -W .github/workflows/session-16-ci-cd.yml -P ubuntu-latest=ghcr.io/catthehacker/ubuntu:act-latest --pull=false --container-daemon-socket unix:///var/run/docker.sock --var REGISTRY=localhost:5001 -s KUBE_CONFIG="$(kind get kubeconfig --name devops-lab)" -s DEMO_API_KEY="demo-$(openssl rand -hex 12)" --artifact-server-path .artifacts > utility/transcripts/session-16/raw/act-run-1-success.txt 2>&1; echo "act exit code: $?"
+act exit code: 0
+
+$ grep -E "Job succeeded|Job failed" utility/transcripts/session-16/raw/act-run-1-success.txt
+[Session 16 - CI/CD pipeline/Basic security check] 🏁  Job succeeded
+[Session 16 - CI/CD pipeline/Lint (flake8)       ] 🏁  Job succeeded
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] 🏁  Job succeeded
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] 🏁  Job succeeded
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] 🏁  Job succeeded
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)] 🏁  Job succeeded
+[Session 16 - CI/CD pipeline/Deliver (push image)        ] 🏁  Job succeeded
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ] 🏁  Job succeeded
+

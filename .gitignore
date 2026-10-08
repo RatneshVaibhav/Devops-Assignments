@@ -35,7 +35,7 @@ dist/
 # --- build outputs and CI artifacts produced while running pipelines locally
 build/
 .artifacts/
-reports/tmp/
+reports/
 
 # --- editor / OS noise
 .DS_Store

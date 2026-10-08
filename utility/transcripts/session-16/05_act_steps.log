@@ -1,0 +1,42 @@
+#CWD ~/Devops-Assignments
+$ grep -E "(✅|❌)  (Success|Failure) - Main" utility/transcripts/session-16/raw/act-run-1-success.txt | sed -E "s/ \[[0-9.]+[a-z]*s\]$//; s/^\[Session 16 - CI\/CD pipeline\//[/"
+[Basic security check]   ✅  Success - Main Checkout
+[Basic security check]   ✅  Success - Main Look for files that must never be committed
+[Lint (flake8)       ]   ✅  Success - Main Checkout
+[Test (Python 3.13)-3]   ✅  Success - Main Checkout
+[Lint (flake8)       ]   ✅  Success - Main Set up Python
+[Test (Python 3.13)-3]   ✅  Success - Main Set up Python 3.13
+[Lint (flake8)       ]   ✅  Success - Main Install flake8
+[Test (Python 3.11)-1]   ✅  Success - Main Checkout
+[Lint (flake8)       ]   ✅  Success - Main Run flake8
+[Test (Python 3.13)-3]   ✅  Success - Main Install dependencies
+[Test (Python 3.12)-2]   ✅  Success - Main Checkout
+[Test (Python 3.11)-1]   ✅  Success - Main Set up Python 3.11
+[Test (Python 3.13)-3]   ✅  Success - Main Run pytest
+[Test (Python 3.11)-1]   ✅  Success - Main Install dependencies
+[Test (Python 3.12)-2]   ✅  Success - Main Set up Python 3.12
+[Test (Python 3.13)-3]   ✅  Success - Main Upload test report
+[Test (Python 3.11)-1]   ✅  Success - Main Run pytest
+[Test (Python 3.12)-2]   ✅  Success - Main Install dependencies
+[Test (Python 3.11)-1]   ✅  Success - Main Upload test report
+[Test (Python 3.12)-2]   ✅  Success - Main Run pytest
+[Test (Python 3.12)-2]   ✅  Success - Main Upload test report
+[Build (wheel + Docker image)]   ✅  Success - Main Checkout
+[Build (wheel + Docker image)]   ✅  Success - Main Set up Python
+[Build (wheel + Docker image)]   ✅  Success - Main Build the Python package
+[Build (wheel + Docker image)]   ✅  Success - Main Upload build artifact
+[Build (wheel + Docker image)]   ✅  Success - Main Build the Docker image
+[Build (wheel + Docker image)]   ✅  Success - Main Test the image before shipping it
+[Build (wheel + Docker image)]   ✅  Success - Main Save the image as an artifact
+[Build (wheel + Docker image)]   ✅  Success - Main Upload image artifact
+[Deliver (push image)        ]   ✅  Success - Main Download image artifact
+[Deliver (push image)        ]   ✅  Success - Main Load image
+[Deliver (push image)        ]   ✅  Success - Main Tag and push (tag = commit SHA)
+[Deliver (push image)        ]   ✅  Success - Main Use a repository secret
+[Deploy to Kubernetes        ]   ✅  Success - Main Checkout
+[Deploy to Kubernetes        ]   ✅  Success - Main Install kubectl
+[Deploy to Kubernetes        ]   ✅  Success - Main Image reference
+[Deploy to Kubernetes        ]   ✅  Success - Main Use the cluster from the KUBE_CONFIG secret
+[Deploy to Kubernetes        ]   ✅  Success - Main Deploy
+[Deploy to Kubernetes        ]   ✅  Success - Main Smoke test
+

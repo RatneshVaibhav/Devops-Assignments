@@ -1,0 +1,102 @@
+#CWD ~/Devops-Assignments/session-16-cicd-github-actions
+$ tree -a -I ".venv|__pycache__" .
+.
+├── app
+│   ├── gpa.py
+│   ├── __init__.py
+│   └── web.py
+├── build.sh
+├── Dockerfile
+├── .dockerignore
+├── .flake8
+├── k8s
+│   ├── deployment.yaml
+│   └── service.yaml
+├── pyproject.toml
+├── pytest.ini
+├── requirements-dev.txt
+├── requirements.txt
+└── tests
+    ├── test_gpa.py
+    └── test_web.py
+
+4 directories, 15 files
+
+$ python3 -m venv .venv && . .venv/bin/activate && pip install -q -r requirements-dev.txt && pip list 2>/dev/null | grep -i -E "^(flask|gunicorn|pytest|pytest-cov|flake8|build) "
+build           1.6.1
+flake8          7.4.1
+Flask           3.1.3
+gunicorn        26.2.0
+pytest          9.1.1
+pytest-cov      7.1.0
+
+$ flake8 app tests && echo "flake8: no issues"
+flake8: no issues
+
+$ pytest -v --cov=app --cov-report=term
+=========================================================== test session starts ============================================================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0 -- /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/.venv/bin/python3.12
+cachedir: .pytest_cache
+rootdir: /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions
+configfile: pytest.ini
+testpaths: tests
+plugins: cov-7.1.0
+collecting ... collected 13 items
+
+tests/test_gpa.py::test_grade_point_is_case_insensitive PASSED                                                                       [  7%]
+tests/test_gpa.py::test_unknown_grade_is_rejected PASSED                                                                             [ 15%]
+tests/test_gpa.py::test_sgpa_is_credit_weighted PASSED                                                                               [ 23%]
+tests/test_gpa.py::test_sgpa_needs_positive_credits PASSED                                                                           [ 30%]
+tests/test_gpa.py::test_sgpa_needs_courses PASSED                                                                                    [ 38%]
+tests/test_gpa.py::test_cgpa_weights_semesters_by_credits PASSED                                                                     [ 46%]
+tests/test_gpa.py::test_cgpa_rejects_out_of_range_sgpa PASSED                                                                        [ 53%]
+tests/test_gpa.py::test_percentage_conversion PASSED                                                                                 [ 61%]
+tests/test_web.py::test_home_page PASSED                                                                                             [ 69%]
+tests/test_web.py::test_health PASSED                                                                                                [ 76%]
+tests/test_web.py::test_sgpa_endpoint PASSED                                                                                         [ 84%]
+tests/test_web.py::test_sgpa_endpoint_validates_input PASSED                                                                         [ 92%]
+tests/test_web.py::test_cgpa_endpoint PASSED                                                                                         [100%]
+
+============================================================== tests coverage ==============================================================
+_____________________________________________ coverage: platform linux, python 3.12.3-final-0 ______________________________________________
+
+Name              Stmts   Miss  Cover
+-------------------------------------
+app/__init__.py       1      0   100%
+app/gpa.py           34      3    91%
+app/web.py           36      4    89%
+-------------------------------------
+TOTAL                71      7    90%
+============================================================ 13 passed in 0.27s ============================================================
+
+$ ./build.sh && cat build/build-info.txt
+* Creating isolated environment: venv+pip...
+* Installing packages in isolated environment:
+  - setuptools>=75
+* Getting build dependencies for sdist...
+* Installed build dependency versions:
+  - setuptools==84.0.0
+* Building sdist...
+warning: sdist: standard file not found: should have one of README, README.rst, README.txt, README.md
+
+* Building wheel from sdist
+* Creating isolated environment: venv+pip...
+* Installing packages in isolated environment:
+  - setuptools>=75
+* Getting build dependencies for wheel...
+* Installed build dependency versions:
+  - setuptools==84.0.0
+* Building wheel...
+Build artifacts:
+total 20
+drwxrwxr-x  2 ratnesh ratnesh 4096 Oct  8 13:13 .
+drwxrwxr-x 10 ratnesh ratnesh 4096 Oct  8 13:13 ..
+-rw-rw-r--  1 ratnesh ratnesh  154 Oct  8 13:13 build-info.txt
+-rw-rw-r--  1 ratnesh ratnesh 3100 Oct  8 13:13 cgpa_calculator-1.0.0-py3-none-any.whl
+-rw-rw-r--  1 ratnesh ratnesh 3288 Oct  8 13:13 cgpa_calculator-1.0.0.tar.gz
+application : cgpa-calculator 1.0.0
+commit      : 8ecf9cd
+built by    : ratnesh on IdeaPad
+built at    : 2026-10-08T07:43:08Z
+python      : Python 3.12.3
+

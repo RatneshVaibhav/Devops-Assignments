@@ -1,0 +1,931 @@
+time="2026-10-08T13:20:11+05:30" level=info msg="Using docker host 'unix:///home/ratnesh/.docker/desktop/docker.sock', and daemon socket 'unix:///var/run/docker.sock'"
+time="2026-10-08T13:20:11+05:30" level=info msg="Start server on http://100.128.167.30:34567"
+[Session 16 - CI/CD pipeline/Lint (flake8)       ] ⭐ Run Set up job
+[Session 16 - CI/CD pipeline/Basic security check] ⭐ Run Set up job
+[Session 16 - CI/CD pipeline/Basic security check] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] ⭐ Run Set up job
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 16 - CI/CD pipeline/Lint (flake8)       ] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] ⭐ Run Set up job
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] ⭐ Run Set up job
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 16 - CI/CD pipeline/Basic security check]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Basic security check]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Basic security check]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 16 - CI/CD pipeline/Basic security check]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ✅  Success - Set up job
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ✅  Success - Set up job
+[Session 16 - CI/CD pipeline/Basic security check]   ✅  Success - Set up job
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v5
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ✅  Success - Set up job
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v5
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v5
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Basic security check] ⭐ Run Main Checkout
+[Session 16 - CI/CD pipeline/Basic security check]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 16 - CI/CD pipeline/Basic security check]   ✅  Success - Main Checkout [1.42408592s]
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 16 - CI/CD pipeline/Basic security check] ⭐ Run Main Look for files that must never be committed
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ✅  Success - Set up job
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v5
+[Session 16 - CI/CD pipeline/Basic security check]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/1] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Basic security check]   | No .env / *.pem / *.key / id_rsa files in session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Basic security check]   ✅  Success - Main Look for files that must never be committed [149.887259ms]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[Session 16 - CI/CD pipeline/Basic security check] ⭐ Run Complete job
+[Session 16 - CI/CD pipeline/Basic security check] Cleaning up container for job Basic security check
+[Session 16 - CI/CD pipeline/Basic security check]   ✅  Success - Complete job
+[Session 16 - CI/CD pipeline/Basic security check] 🏁  Job succeeded
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[Session 16 - CI/CD pipeline/Lint (flake8)       ] ⭐ Run Main Checkout
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ✅  Success - Main Checkout [771.095863ms]
+[Session 16 - CI/CD pipeline/Lint (flake8)       ] ⭐ Run Main Set up Python
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-setup-python@v5/ dst=/var/run/act/actions/actions-setup-python@v5/
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] 🧪  Matrix: map[python-version:3.13]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] ⭐ Run Main Checkout
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/setup/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ✅  Success - Main Checkout [440.979717ms]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] ⭐ Run Main Set up Python 3.13
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-setup-python@v5/ dst=/var/run/act/actions/actions-setup-python@v5/
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ❓  ::group::Installed versions
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   | (node:31) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   | Successfully set up CPython (3.12.15)
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ❓  ::endgroup::
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ❓ add-matcher /run/act/actions/actions-setup-python@v5/.github/python.json
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ✅  Success - Main Set up Python [1.154766586s]
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ⚙  ::set-output:: python-version=3.12.15
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.12.15/x64/bin/python
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64/bin
+[Session 16 - CI/CD pipeline/Lint (flake8)       ] ⭐ Run Main Install flake8
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/2] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] 🧪  Matrix: map[python-version:3.11]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/setup/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] ⭐ Run Main Checkout
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   | Requirement already satisfied: flake8==7.4.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (7.4.1)
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   | Requirement already satisfied: mccabe<0.8.0,>=0.7.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from flake8==7.4.1) (0.7.0)
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   | Requirement already satisfied: pycodestyle<2.16.0,>=2.15.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from flake8==7.4.1) (2.15.0)
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   | Requirement already satisfied: pyflakes<4.1.0,>=4.0.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from flake8==7.4.1) (4.0.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ❓  ::group::Installed versions
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | (node:29) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Successfully set up CPython (3.13.16)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ❓  ::endgroup::
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ❓ add-matcher /run/act/actions/actions-setup-python@v5/.github/python.json
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ✅  Success - Main Set up Python 3.13 [1.233283435s]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.13.16/x64/lib
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.13.16/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.13.16/x64/lib/pkgconfig
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.13.16/x64/bin/python
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::set-output:: python-version=3.13.16
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.13.16/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.13.16/x64/bin
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ✅  Success - Main Install flake8 [1.12246083s]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] ⭐ Run Main Install dependencies
+[Session 16 - CI/CD pipeline/Lint (flake8)       ] ⭐ Run Main Run flake8
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/2] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/3] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ✅  Success - Main Checkout [660.898409ms]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] ⭐ Run Main Set up Python 3.11
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-setup-python@v5/ dst=/var/run/act/actions/actions-setup-python@v5/
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   | flake8 found no issues
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ✅  Success - Main Run flake8 [511.520214ms]
+[Session 16 - CI/CD pipeline/Lint (flake8)       ] ⭐ Run Post Set up Python
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/cache-save/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: Flask==3.1.3 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from -r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.1.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: gunicorn==26.2.0 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from -r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 2)) (26.2.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: pytest==9.1.1 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from -r requirements-dev.txt (line 2)) (9.1.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: pytest-cov==7.1.0 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from -r requirements-dev.txt (line 3)) (7.1.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: flake8==7.4.1 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from -r requirements-dev.txt (line 4)) (7.4.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: build==1.6.1 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from -r requirements-dev.txt (line 5)) (1.6.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: blinker>=1.9.0 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (1.9.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: click>=8.1.3 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (8.5.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: itsdangerous>=2.2.0 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (2.2.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: jinja2>=3.1.2 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.1.6)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: markupsafe>=2.1.1 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.0.4)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: werkzeug>=3.1.0 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.1.9)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: iniconfig>=1.0.1 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (2.3.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: packaging>=22 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (26.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: pluggy<2,>=1.5 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (1.6.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: pygments>=2.7.2 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (2.21.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: coverage>=7.10.6 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from coverage[toml]>=7.10.6->pytest-cov==7.1.0->-r requirements-dev.txt (line 3)) (7.16.2)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] 🧪  Matrix: map[python-version:3.12]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: mccabe<0.8.0,>=0.7.0 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (0.7.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: pycodestyle<2.16.0,>=2.15.0 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (2.15.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: pyflakes<4.1.0,>=4.0.0 in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (4.0.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Requirement already satisfied: pyproject_hooks in /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages (from build==1.6.1->-r requirements-dev.txt (line 5)) (1.3.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] ⭐ Run Main Checkout
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   | (node:81) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ✅  Success - Post Set up Python [447.617575ms]
+[Session 16 - CI/CD pipeline/Lint (flake8)       ] ⭐ Run Complete job
+[Session 16 - CI/CD pipeline/Lint (flake8)       ] Cleaning up container for job Lint (flake8)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ✅  Success - Main Install dependencies [1.360714713s]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] ⭐ Run Main Run pytest
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/3] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/setup/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Lint (flake8)       ]   ✅  Success - Complete job
+[Session 16 - CI/CD pipeline/Lint (flake8)       ] 🏁  Job succeeded
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ❓  ::group::Installed versions
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Successfully set up CPython (3.11.17)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ❓  ::endgroup::
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ❓ add-matcher /run/act/actions/actions-setup-python@v5/.github/python.json
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | (node:33) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ✅  Success - Main Checkout [927.922467ms]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ✅  Success - Main Set up Python 3.11 [1.794031539s]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.11.17/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.11.17/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.11.17/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.11.17/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.11.17/x64/lib
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::set-output:: python-version=3.11.17
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.11.17/x64/bin/python
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.11.17/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.11.17/x64/bin
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] ⭐ Run Main Install dependencies
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] ⭐ Run Main Set up Python 3.12
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-setup-python@v5/ dst=/var/run/act/actions/actions-setup-python@v5/
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | ============================= test session starts ==============================
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | platform linux -- Python 3.13.16, pytest-9.1.1, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.13.16/x64/bin/python
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | cachedir: .pytest_cache
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | rootdir: /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | configfile: pytest.ini
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | testpaths: tests
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | plugins: cov-7.1.0
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/2] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | collecting ... collected 13 items
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_gpa.py::test_grade_point_is_case_insensitive PASSED           [  7%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_gpa.py::test_unknown_grade_is_rejected PASSED                 [ 15%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_gpa.py::test_sgpa_is_credit_weighted PASSED                   [ 23%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_gpa.py::test_sgpa_needs_positive_credits PASSED               [ 30%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_gpa.py::test_sgpa_needs_courses PASSED                        [ 38%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_gpa.py::test_cgpa_weights_semesters_by_credits PASSED         [ 46%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_gpa.py::test_cgpa_rejects_out_of_range_sgpa PASSED            [ 53%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_gpa.py::test_percentage_conversion PASSED                     [ 61%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_web.py::test_home_page PASSED                                 [ 69%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_web.py::test_health PASSED                                    [ 76%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_web.py::test_sgpa_endpoint PASSED                             [ 84%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_web.py::test_sgpa_endpoint_validates_input PASSED             [ 92%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | tests/test_web.py::test_cgpa_endpoint PASSED                             [100%]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | - generated xml file: /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/reports/junit-py3.13.xml -
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | ================================ tests coverage ================================
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | _______________ coverage: platform linux, python 3.13.16-final-0 _______________
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Name              Stmts   Miss  Cover
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | -------------------------------------
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | app/__init__.py       1      0   100%
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | app/gpa.py           34      3    91%
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | app/web.py           36      4    89%
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | -------------------------------------
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | TOTAL                71      7    90%
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Coverage XML written to file reports/coverage-py3.13.xml
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | ============================== 13 passed in 0.49s ==============================
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ✅  Success - Main Run pytest [1.518596194s]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] ⭐ Run Main Upload test report
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: Flask==3.1.3 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from -r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.1.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: gunicorn==26.2.0 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from -r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 2)) (26.2.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: pytest==9.1.1 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from -r requirements-dev.txt (line 2)) (9.1.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: pytest-cov==7.1.0 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from -r requirements-dev.txt (line 3)) (7.1.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: flake8==7.4.1 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from -r requirements-dev.txt (line 4)) (7.4.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: build==1.6.1 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from -r requirements-dev.txt (line 5)) (1.6.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: blinker>=1.9.0 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (1.9.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: click>=8.1.3 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (8.5.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: itsdangerous>=2.2.0 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (2.2.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: jinja2>=3.1.2 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.1.6)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: markupsafe>=2.1.1 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.0.4)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: werkzeug>=3.1.0 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.1.9)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: iniconfig>=1.0.1 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (2.3.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: packaging>=22 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (26.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: pluggy<2,>=1.5 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (1.6.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: pygments>=2.7.2 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (2.21.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: coverage>=7.10.6 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from coverage[toml]>=7.10.6->pytest-cov==7.1.0->-r requirements-dev.txt (line 3)) (7.16.2)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: mccabe<0.8.0,>=0.7.0 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (0.7.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: pycodestyle<2.16.0,>=2.15.0 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (2.15.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: pyflakes<4.1.0,>=4.0.0 in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (4.0.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Requirement already satisfied: pyproject_hooks in /opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages (from build==1.6.1->-r requirements-dev.txt (line 5)) (1.3.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/setup/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ✅  Success - Main Install dependencies [1.250697028s]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] ⭐ Run Main Run pytest
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/3] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ❓  ::group::Installed versions
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | (node:31) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Successfully set up CPython (3.12.15)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ❓  ::endgroup::
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ❓ add-matcher /run/act/actions/actions-setup-python@v5/.github/python.json
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ✅  Success - Main Set up Python 3.12 [1.513630357s]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.12.15/x64/bin/python
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::set-output:: python-version=3.12.15
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64/bin
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] ⭐ Run Main Install dependencies
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/2] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | (node:71) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | With the provided path, there will be 2 files uploaded
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Artifact name is valid!
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Root directory input is valid!
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Beginning upload of artifact content to blob storage
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | (node:71) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Uploaded bytes 1282
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Finished uploading artifact content to blob storage!
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | SHA256 digest of uploaded artifact zip is fc8a8418aa8e9ca17df121c12c75569697e1b82d921ebd629c300c7d1c9f15e5
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Finalizing artifact upload
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | ============================= test session starts ==============================
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | platform linux -- Python 3.11.17, pytest-9.1.1, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.17/x64/bin/python
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | cachedir: .pytest_cache
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | rootdir: /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | configfile: pytest.ini
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | testpaths: tests
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | plugins: cov-7.1.0
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Artifact test-report-py3.13.zip successfully finalized. Artifact ID 3340301067
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Artifact test-report-py3.13 has been successfully uploaded! Final size is 1282 bytes. Artifact ID is 3340301067
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | Artifact download URL: https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/3340301067
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ✅  Success - Main Upload test report [1.162714458s]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::set-output:: artifact-id=3340301067
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::set-output:: artifact-digest=fc8a8418aa8e9ca17df121c12c75569697e1b82d921ebd629c300c7d1c9f15e5
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ⚙  ::set-output:: artifact-url=https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/3340301067
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] ⭐ Run Post Set up Python 3.13
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/cache-save/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | collecting ... collected 13 items
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_gpa.py::test_grade_point_is_case_insensitive PASSED           [  7%]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_gpa.py::test_unknown_grade_is_rejected PASSED                 [ 15%]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_gpa.py::test_sgpa_is_credit_weighted PASSED                   [ 23%]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_gpa.py::test_sgpa_needs_positive_credits PASSED               [ 30%]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_gpa.py::test_sgpa_needs_courses PASSED                        [ 38%]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_gpa.py::test_cgpa_weights_semesters_by_credits PASSED         [ 46%]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_gpa.py::test_cgpa_rejects_out_of_range_sgpa PASSED            [ 53%]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_gpa.py::test_percentage_conversion PASSED                     [ 61%]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_web.py::test_home_page PASSED                                 [ 69%]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_web.py::test_health PASSED                                    [ 76%]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_web.py::test_sgpa_endpoint PASSED                             [ 84%]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_web.py::test_sgpa_endpoint_validates_input PASSED             [ 92%]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | tests/test_web.py::test_cgpa_endpoint PASSED                             [100%]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | - generated xml file: /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/reports/junit-py3.11.xml -
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | ================================ tests coverage ================================
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | _______________ coverage: platform linux, python 3.11.17-final-0 _______________
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Name              Stmts   Miss  Cover
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | -------------------------------------
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | app/__init__.py       1      0   100%
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | app/gpa.py           34      3    91%
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | app/web.py           36      4    89%
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | -------------------------------------
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | TOTAL                71      7    90%
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Coverage XML written to file reports/coverage-py3.11.xml
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | ============================== 13 passed in 0.35s ==============================
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | (node:88) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ✅  Success - Post Set up Python 3.13 [298.210515ms]
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] ⭐ Run Complete job
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] Cleaning up container for job Test (Python 3.13)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ✅  Success - Main Run pytest [1.003606354s]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] ⭐ Run Main Upload test report
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: Flask==3.1.3 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from -r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.1.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: gunicorn==26.2.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from -r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 2)) (26.2.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: pytest==9.1.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from -r requirements-dev.txt (line 2)) (9.1.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: pytest-cov==7.1.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from -r requirements-dev.txt (line 3)) (7.1.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: flake8==7.4.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from -r requirements-dev.txt (line 4)) (7.4.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: build==1.6.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from -r requirements-dev.txt (line 5)) (1.6.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: blinker>=1.9.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (1.9.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: click>=8.1.3 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (8.5.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: itsdangerous>=2.2.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (2.2.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: jinja2>=3.1.2 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.1.6)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: markupsafe>=2.1.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.0.4)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: werkzeug>=3.1.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from Flask==3.1.3->-r /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/requirements.txt (line 1)) (3.1.9)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: iniconfig>=1.0.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (2.3.1)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: packaging>=22 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (26.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: pluggy<2,>=1.5 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (1.6.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: pygments>=2.7.2 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (2.21.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: coverage>=7.10.6 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from coverage[toml]>=7.10.6->pytest-cov==7.1.0->-r requirements-dev.txt (line 3)) (7.16.2)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: mccabe<0.8.0,>=0.7.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (0.7.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: pycodestyle<2.16.0,>=2.15.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (2.15.0)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: pyflakes<4.1.0,>=4.0.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (4.0.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Requirement already satisfied: pyproject_hooks in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from build==1.6.1->-r requirements-dev.txt (line 5)) (1.3.3)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3]   ✅  Success - Complete job
+[Session 16 - CI/CD pipeline/Test (Python 3.13)-3] 🏁  Job succeeded
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ✅  Success - Main Install dependencies [1.20442665s]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] ⭐ Run Main Run pytest
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/3] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | ============================= test session starts ==============================
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | platform linux -- Python 3.12.15, pytest-9.1.1, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.12.15/x64/bin/python
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | cachedir: .pytest_cache
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | rootdir: /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | configfile: pytest.ini
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | testpaths: tests
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | plugins: cov-7.1.0
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | (node:75) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | With the provided path, there will be 2 files uploaded
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Artifact name is valid!
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Root directory input is valid!
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Beginning upload of artifact content to blob storage
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | (node:75) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Uploaded bytes 1279
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Finished uploading artifact content to blob storage!
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | SHA256 digest of uploaded artifact zip is 85f311649f8a0b13cbc1dd68d8546c3761b36add1340c581cb45c84f782ed480
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Finalizing artifact upload
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Artifact test-report-py3.11.zip successfully finalized. Artifact ID 3373856305
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Artifact test-report-py3.11 has been successfully uploaded! Final size is 1279 bytes. Artifact ID is 3373856305
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | Artifact download URL: https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/3373856305
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ✅  Success - Main Upload test report [1.161031281s]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::set-output:: artifact-digest=85f311649f8a0b13cbc1dd68d8546c3761b36add1340c581cb45c84f782ed480
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::set-output:: artifact-url=https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/3373856305
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ⚙  ::set-output:: artifact-id=3373856305
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] ⭐ Run Post Set up Python 3.11
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/cache-save/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | collecting ... collected 13 items
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_gpa.py::test_grade_point_is_case_insensitive PASSED           [  7%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_gpa.py::test_unknown_grade_is_rejected PASSED                 [ 15%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_gpa.py::test_sgpa_is_credit_weighted PASSED                   [ 23%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_gpa.py::test_sgpa_needs_positive_credits PASSED               [ 30%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_gpa.py::test_sgpa_needs_courses PASSED                        [ 38%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_gpa.py::test_cgpa_weights_semesters_by_credits PASSED         [ 46%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_gpa.py::test_cgpa_rejects_out_of_range_sgpa PASSED            [ 53%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_gpa.py::test_percentage_conversion PASSED                     [ 61%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_web.py::test_home_page PASSED                                 [ 69%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_web.py::test_health PASSED                                    [ 76%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_web.py::test_sgpa_endpoint PASSED                             [ 84%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_web.py::test_sgpa_endpoint_validates_input PASSED             [ 92%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | tests/test_web.py::test_cgpa_endpoint PASSED                             [100%]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | - generated xml file: /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions/reports/junit-py3.12.xml -
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | ================================ tests coverage ================================
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | _______________ coverage: platform linux, python 3.12.15-final-0 _______________
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | 
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Name              Stmts   Miss  Cover
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | -------------------------------------
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | app/__init__.py       1      0   100%
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | app/gpa.py           34      3    91%
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | app/web.py           36      4    89%
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | -------------------------------------
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | TOTAL                71      7    90%
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Coverage XML written to file reports/coverage-py3.12.xml
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | ============================== 13 passed in 0.45s ==============================
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | (node:92) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ✅  Success - Post Set up Python 3.11 [279.770375ms]
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] ⭐ Run Complete job
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] Cleaning up container for job Test (Python 3.11)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ✅  Success - Main Run pytest [1.087463475s]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] ⭐ Run Main Upload test report
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1]   ✅  Success - Complete job
+[Session 16 - CI/CD pipeline/Test (Python 3.11)-1] 🏁  Job succeeded
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | (node:74) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | With the provided path, there will be 2 files uploaded
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Artifact name is valid!
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Root directory input is valid!
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Beginning upload of artifact content to blob storage
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | (node:74) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Uploaded bytes 1288
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Finished uploading artifact content to blob storage!
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | SHA256 digest of uploaded artifact zip is 2dac4e2d3658565b1d724ab6bb983ddc6acc60c7fc50250e17f2381a0f13a05a
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Finalizing artifact upload
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Artifact test-report-py3.12.zip successfully finalized. Artifact ID 3323523448
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Artifact test-report-py3.12 has been successfully uploaded! Final size is 1288 bytes. Artifact ID is 3323523448
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | Artifact download URL: https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/3323523448
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ✅  Success - Main Upload test report [1.558587452s]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::set-output:: artifact-id=3323523448
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::set-output:: artifact-digest=2dac4e2d3658565b1d724ab6bb983ddc6acc60c7fc50250e17f2381a0f13a05a
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ⚙  ::set-output:: artifact-url=https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/3323523448
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] ⭐ Run Post Set up Python 3.12
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/cache-save/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | (node:91) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ✅  Success - Post Set up Python 3.12 [253.433143ms]
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] ⭐ Run Complete job
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] Cleaning up container for job Test (Python 3.12)
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2]   ✅  Success - Complete job
+[Session 16 - CI/CD pipeline/Test (Python 3.12)-2] 🏁  Job succeeded
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)] ⭐ Run Set up job
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ✅  Success - Set up job
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v5
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)] ⭐ Run Main Checkout
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ✅  Success - Main Checkout [498.050011ms]
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)] ⭐ Run Main Set up Python
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-setup-python@v5/ dst=/var/run/act/actions/actions-setup-python@v5/
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/setup/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ❓  ::group::Installed versions
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | (node:31) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Successfully set up CPython (3.12.15)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ❓  ::endgroup::
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ❓ add-matcher /run/act/actions/actions-setup-python@v5/.github/python.json
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ✅  Success - Main Set up Python [966.785706ms]
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ⚙  ::set-output:: python-version=3.12.15
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.12.15/x64/bin/python
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/x64/bin
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)] ⭐ Run Main Build the Python package
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/2] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Requirement already satisfied: build==1.6.1 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (1.6.1)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Requirement already satisfied: packaging>=24.0 in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from build==1.6.1) (26.3)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Requirement already satisfied: pyproject_hooks in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from build==1.6.1) (1.3.3)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | * Creating isolated environment: venv+pip...
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | * Installing packages in isolated environment:
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   |   - setuptools>=75
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | * Getting build dependencies for sdist...
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | * Installed build dependency versions:
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   |   - setuptools==84.0.0
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | * Building sdist...
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | * Building wheel from sdist
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | * Creating isolated environment: venv+pip...
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | * Installing packages in isolated environment:
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   |   - setuptools>=75
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | * Getting build dependencies for wheel...
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | * Installed build dependency versions:
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   |   - setuptools==84.0.0
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | * Building wheel...
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Build artifacts:
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | total 20
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | drwxr-xr-x 2 root root 4096 Oct  8 07:50 .
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | drwxr-xr-x 8 root root 4096 Oct  8 07:50 ..
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | -rw-r--r-- 1 root root  198 Oct  8 07:50 build-info.txt
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | -rw-r--r-- 1 root root 3180 Oct  8 07:50 cgpa_calculator-1.0.0-py3-none-any.whl
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | -rw-r--r-- 1 root root 3335 Oct  8 07:50 cgpa_calculator-1.0.0.tar.gz
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | application : cgpa-calculator 1.0.0
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | commit      : 8ecf9cd442a0411f4bd527b3ad9f31a4ef18de11
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | built by    : nektos/act on docker-desktop
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | built at    : 2026-10-08T07:50:44Z
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | python      : Python 3.12.15
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ✅  Success - Main Build the Python package [5.051443137s]
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)] ⭐ Run Main Upload build artifact
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | (node:122) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | With the provided path, there will be 3 files uploaded
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Artifact name is valid!
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Root directory input is valid!
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Beginning upload of artifact content to blob storage
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | (node:122) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Uploaded bytes 6587
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Finished uploading artifact content to blob storage!
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | SHA256 digest of uploaded artifact zip is 9f5b8aff111ad8b74d8eb8b3294e9f5e1369261613519df8d2b9545ab13f94af
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Finalizing artifact upload
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Artifact cgpa-calculator-dist.zip successfully finalized. Artifact ID 2571601390
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Artifact cgpa-calculator-dist has been successfully uploaded! Final size is 6587 bytes. Artifact ID is 2571601390
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Artifact download URL: https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/2571601390
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ✅  Success - Main Upload build artifact [945.692591ms]
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ⚙  ::set-output:: artifact-id=2571601390
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ⚙  ::set-output:: artifact-digest=9f5b8aff111ad8b74d8eb8b3294e9f5e1369261613519df8d2b9545ab13f94af
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ⚙  ::set-output:: artifact-url=https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/2571601390
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)] ⭐ Run Main Build the Docker image
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/4] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #0 building with "default" instance using docker driver
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | 
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #1 [internal] load build definition from Dockerfile
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #1 transferring dockerfile: 925B done
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #1 DONE 0.0s
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | 
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #2 [internal] load metadata for docker.io/library/python:3.12-slim
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #2 DONE 1.4s
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | 
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #3 [internal] load .dockerignore
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #3 transferring context: 107B done
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #3 DONE 0.0s
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | 
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #4 [internal] load build context
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #4 transferring context: 4.67kB done
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #4 DONE 0.1s
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | 
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #5 [build 1/6] FROM docker.io/library/python:3.12-slim@sha256:05cda9777409a9c3ffddd94a4c476b79f0769a0b4857f0c7ed9226b6800b0d6f
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #5 resolve docker.io/library/python:3.12-slim@sha256:05cda9777409a9c3ffddd94a4c476b79f0769a0b4857f0c7ed9226b6800b0d6f 0.0s done
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #5 DONE 0.1s
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | 
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #6 [stage-1 2/6] WORKDIR /app
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #6 DONE 0.1s
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | 
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #7 [build 2/6] WORKDIR /src
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #7 DONE 0.1s
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | 
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #8 [stage-1 3/6] COPY requirements.txt ./
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #8 DONE 0.0s
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | 
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 [stage-1 4/6] RUN pip install --no-cache-dir -r requirements.txt
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 2.027 Collecting Flask==3.1.3 (from -r requirements.txt (line 1))
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 2.258   Downloading flask-3.1.3-py3-none-any.whl.metadata (3.2 kB)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 2.342 Collecting gunicorn==26.2.0 (from -r requirements.txt (line 2))
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 2.376   Downloading gunicorn-26.2.0-py3-none-any.whl.metadata (5.5 kB)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 2.409 Collecting blinker>=1.9.0 (from Flask==3.1.3->-r requirements.txt (line 1))
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 2.431   Downloading blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 2.474 Collecting click>=8.1.3 (from Flask==3.1.3->-r requirements.txt (line 1))
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 2.498   Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 2.525 Collecting itsdangerous>=2.2.0 (from Flask==3.1.3->-r requirements.txt (line 1))
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 2.548   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 2.582 Collecting jinja2>=3.1.2 (from Flask==3.1.3->-r requirements.txt (line 1))
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 2.604   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 2.708 Collecting markupsafe>=2.1.1 (from Flask==3.1.3->-r requirements.txt (line 1))
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 2.730   Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 2.781 Collecting werkzeug>=3.1.0 (from Flask==3.1.3->-r requirements.txt (line 1))
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 2.810   Downloading werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 2.854 Downloading flask-3.1.3-py3-none-any.whl (103 kB)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 2.924 Downloading gunicorn-26.2.0-py3-none-any.whl (228 kB)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 3.027 Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 3.049 Downloading click-8.5.0-py3-none-any.whl (125 kB)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 3.097 Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 3.135 Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 ...
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | 
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #10 [build 3/6] RUN pip install --no-cache-dir build==1.6.1
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #10 2.253 Collecting build==1.6.1
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #10 2.474   Downloading build-1.6.1-py3-none-any.whl.metadata (5.6 kB)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #10 2.514 Collecting packaging>=24.0 (from build==1.6.1)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #10 2.537   Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #10 2.566 Collecting pyproject_hooks (from build==1.6.1)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #10 2.589   Downloading pyproject_hooks-1.3.3-py3-none-any.whl.metadata (1.3 kB)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #10 2.614 Downloading build-1.6.1-py3-none-any.whl (31 kB)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #10 2.649 Downloading packaging-26.3-py3-none-any.whl (129 kB)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #10 2.695 Downloading pyproject_hooks-1.3.3-py3-none-any.whl (10 kB)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #10 2.715 Installing collected packages: pyproject_hooks, packaging, build
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #10 2.885 Successfully installed build-1.6.1 packaging-26.3 pyproject_hooks-1.3.3
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #10 2.886 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #10 3.106 
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #10 3.106 [notice] A new release of pip is available: 25.0.1 -> 26.2.1
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #10 3.106 [notice] To update, run: pip install --upgrade pip
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #10 DONE 3.3s
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | 
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 [stage-1 4/6] RUN pip install --no-cache-dir -r requirements.txt
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 3.204 Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 3.232 Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 ...
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | 
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #11 [build 4/6] COPY pyproject.toml ./
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #11 DONE 0.1s
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | 
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #12 [build 5/6] COPY app ./app
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #12 DONE 0.0s
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | 
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 [stage-1 4/6] RUN pip install --no-cache-dir -r requirements.txt
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 3.303 Installing collected packages: markupsafe, itsdangerous, gunicorn, click, blinker, werkzeug, jinja2, Flask
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 3.911 Successfully installed Flask-3.1.3 blinker-1.9.0 click-8.5.0 gunicorn-26.2.0 itsdangerous-2.2.0 jinja2-3.1.6 markupsafe-3.0.4 werkzeug-3.1.9
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 3.912 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 4.168 
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 4.168 [notice] A new release of pip is available: 25.0.1 -> 26.2.1
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 4.168 [notice] To update, run: pip install --upgrade pip
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #9 DONE 4.3s
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | 
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 [build 6/6] RUN python -m build --wheel --outdir /dist .
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 0.355 * Creating isolated environment: venv+pip...
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 0.372 * Installing packages in isolated environment:
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 0.372   - setuptools>=75
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 1.786 * Getting build dependencies for wheel...
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.249 running egg_info
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.251 creating cgpa_calculator.egg-info
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.255 writing cgpa_calculator.egg-info/PKG-INFO
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.256 writing dependency_links to cgpa_calculator.egg-info/dependency_links.txt
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.256 writing requirements to cgpa_calculator.egg-info/requires.txt
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.256 writing top-level names to cgpa_calculator.egg-info/top_level.txt
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.257 writing manifest file 'cgpa_calculator.egg-info/SOURCES.txt'
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.262 reading manifest file 'cgpa_calculator.egg-info/SOURCES.txt'
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.263 writing manifest file 'cgpa_calculator.egg-info/SOURCES.txt'
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.306 WARNING File '/src/README.md' cannot be found
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.308 * Installed build dependency versions:
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.308   - setuptools==84.0.0
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.308 * Building wheel...
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.489 running bdist_wheel
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.496 running build
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.496 running build_py
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.499 creating build/lib/app
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.501 copying app/web.py -> build/lib/app
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.501 copying app/gpa.py -> build/lib/app
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.501 copying app/__init__.py -> build/lib/app
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.501 running egg_info
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.503 writing cgpa_calculator.egg-info/PKG-INFO
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.504 writing dependency_links to cgpa_calculator.egg-info/dependency_links.txt
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.504 writing requirements to cgpa_calculator.egg-info/requires.txt
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.505 writing top-level names to cgpa_calculator.egg-info/top_level.txt
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.507 reading manifest file 'cgpa_calculator.egg-info/SOURCES.txt'
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.509 writing manifest file 'cgpa_calculator.egg-info/SOURCES.txt'
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.512 installing to build/bdist.linux-x86_64/wheel
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.512 running install
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.519 running install_lib
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.521 creating build/bdist.linux-x86_64/wheel
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.523 creating build/bdist.linux-x86_64/wheel/app
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.523 copying build/lib/app/web.py -> build/bdist.linux-x86_64/wheel/./app
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.523 copying build/lib/app/gpa.py -> build/bdist.linux-x86_64/wheel/./app
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.524 copying build/lib/app/__init__.py -> build/bdist.linux-x86_64/wheel/./app
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.524 running install_egg_info
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.526 Copying cgpa_calculator.egg-info to build/bdist.linux-x86_64/wheel/./cgpa_calculator-1.0.0-py3.12.egg-info
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.528 running install_scripts
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.529 creating build/bdist.linux-x86_64/wheel/cgpa_calculator-1.0.0.dist-info/WHEEL
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.530 creating '/dist/.tmp-099x0hjc/cgpa_calculator-1.0.0-py3-none-any.whl' and adding 'build/bdist.linux-x86_64/wheel' to it
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.531 adding 'app/__init__.py'
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.531 adding 'app/gpa.py'
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.531 adding 'app/web.py'
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.532 adding 'cgpa_calculator-1.0.0.dist-info/METADATA'
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.532 adding 'cgpa_calculator-1.0.0.dist-info/WHEEL'
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.532 adding 'cgpa_calculator-1.0.0.dist-info/top_level.txt'
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.533 adding 'cgpa_calculator-1.0.0.dist-info/RECORD'
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.533 removing build/bdist.linux-x86_64/wheel
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.559 WARNING File '/src/README.md' cannot be found
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 2.574 Successfully built cgpa_calculator-1.0.0-py3-none-any.whl
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #13 DONE 2.6s
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | 
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #14 [stage-1 5/6] COPY --from=build /dist/*.whl /tmp/
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #14 DONE 0.0s
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | 
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #15 [stage-1 6/6] RUN pip install --no-cache-dir --no-deps /tmp/*.whl && rm /tmp/*.whl  && useradd --uid 10001 --no-create-home appuser
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #15 1.344 Processing /tmp/cgpa_calculator-1.0.0-py3-none-any.whl
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #15 1.350 Installing collected packages: cgpa-calculator
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #15 1.375 Successfully installed cgpa-calculator-1.0.0
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #15 1.376 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #15 1.559 
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #15 1.559 [notice] A new release of pip is available: 25.0.1 -> 26.2.1
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #15 1.559 [notice] To update, run: pip install --upgrade pip
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #15 DONE 1.7s
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | 
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #16 exporting to image
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #16 exporting layers
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #16 exporting layers 0.4s done
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #16 exporting manifest sha256:43bb125068ed2d0566bc4e9a6a18604763d8c5c4775b030f575c322196028acf
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #16 exporting manifest sha256:43bb125068ed2d0566bc4e9a6a18604763d8c5c4775b030f575c322196028acf 0.0s done
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #16 exporting config sha256:3e9c9990e86d583c2b8a86e363025a2ec0e132551fc15fb61d9cce56d237673f 0.0s done
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #16 exporting attestation manifest sha256:5a8601f549d4a8ae5a88d414d1c9e50b32f32d70ba7e72842404d730b80951dc 0.0s done
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #16 exporting manifest list sha256:8b3dee5f86ce7a5d0f2c0650f59c6d4d44a6d0d1ceab9f911a346b26488bf6fd 0.0s done
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #16 naming to docker.io/library/session16-cgpa-calculator:8ecf9cd442a0411f4bd527b3ad9f31a4ef18de11 done
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #16 unpacking to docker.io/library/session16-cgpa-calculator:8ecf9cd442a0411f4bd527b3ad9f31a4ef18de11
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #16 unpacking to docker.io/library/session16-cgpa-calculator:8ecf9cd442a0411f4bd527b3ad9f31a4ef18de11 0.2s done
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | #16 DONE 0.8s
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ✅  Success - Main Build the Docker image [11.496973792s]
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)] ⭐ Run Main Test the image before shipping it
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/5] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | db2d1660c410a22d6bf0dc3663d08775ed306a5d914eb2458383494f6bf03704
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | curl: (7) Failed to connect to 127.0.0.1 port 18000 after 0 ms: Couldn't connect to server
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | {"build":"8ecf9cd442a0","status":"ok","version":"1.0.0"}
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | 
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | uid=10001(appuser) gid=10001(appuser) groups=10001(appuser)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | cgpa-smoke
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ✅  Success - Main Test the image before shipping it [1.921754558s]
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)] ⭐ Run Main Save the image as an artifact
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/6] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | -rw-r--r-- 1 root root 44M Oct  8 07:51 image.tar.gz
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ✅  Success - Main Save the image as an artifact [1.995609501s]
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)] ⭐ Run Main Upload image artifact
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | (node:262) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | With the provided path, there will be 1 file uploaded
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Artifact name is valid!
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Root directory input is valid!
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Beginning upload of artifact content to blob storage
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | (node:262) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Uploaded bytes 8388608
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Uploaded bytes 16777216
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Uploaded bytes 25165824
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Uploaded bytes 33554432
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Uploaded bytes 41943040
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Uploaded bytes 45164770
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Finished uploading artifact content to blob storage!
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | SHA256 digest of uploaded artifact zip is 67c722f8b46cd557e6fb322484188b26cdc871f4336e136d5dec151d6c4b15ec
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Finalizing artifact upload
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Artifact docker-image.zip successfully finalized. Artifact ID 3572604477
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Artifact docker-image has been successfully uploaded! Final size is 45164770 bytes. Artifact ID is 3572604477
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | Artifact download URL: https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/3572604477
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ✅  Success - Main Upload image artifact [2.637282465s]
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ⚙  ::set-output:: artifact-id=3572604477
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ⚙  ::set-output:: artifact-digest=67c722f8b46cd557e6fb322484188b26cdc871f4336e136d5dec151d6c4b15ec
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ⚙  ::set-output:: artifact-url=https://github.com/RatneshVaibhav/Devops-Assignments/actions/runs/1/artifacts/3572604477
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)] ⭐ Run Post Set up Python
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-setup-python@v5/dist/cache-save/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | (node:279) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ✅  Success - Post Set up Python [246.318714ms]
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)] ⭐ Run Complete job
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)] Cleaning up container for job Build (wheel + Docker image)
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)]   ✅  Success - Complete job
+[Session 16 - CI/CD pipeline/Build (wheel + Docker image)] 🏁  Job succeeded
+[Session 16 - CI/CD pipeline/Deliver (push image)        ] ⭐ Run Set up job
+[Session 16 - CI/CD pipeline/Deliver (push image)        ] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   ✅  Success - Set up job
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   ☁  git clone 'https://github.com/actions/download-artifact' # ref=v4
+[Session 16 - CI/CD pipeline/Deliver (push image)        ] ⭐ Run Main Download image artifact
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   🐳  docker cp src=/home/ratnesh/.cache/act/actions-download-artifact@v4/ dst=/var/run/act/actions/actions-download-artifact@v4/
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/actions-download-artifact@v4/dist/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | Downloading single artifact
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | (node:30) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | Preparing to download the following artifacts:
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | - docker-image (ID: 3572604477, Size: 4096, Expected Digest: undefined)
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | Redirecting to blob download url: http://100.128.167.30:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | Starting download of artifact to: /home/ratnesh/Devops-Assignments/session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | (node:30) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | SHA256 digest of downloaded artifact is 67c722f8b46cd557e6fb322484188b26cdc871f4336e136d5dec151d6c4b15ec
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | Artifact download completed successfully.
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | Total of 1 artifact(s) downloaded
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | Download artifact has finished successfully
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   ✅  Success - Main Download image artifact [971.424995ms]
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   ⚙  ::set-output:: download-path=/home/ratnesh/Devops-Assignments/session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Deliver (push image)        ] ⭐ Run Main Load image
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/1] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | Loaded image: session16-cgpa-calculator:8ecf9cd442a0411f4bd527b3ad9f31a4ef18de11
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   ✅  Success - Main Load image [1.020955476s]
+[Session 16 - CI/CD pipeline/Deliver (push image)        ] ⭐ Run Main Tag and push (tag = commit SHA)
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/3] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | The push refers to repository [localhost:5001/ratneshvaibhav/session16-cgpa-calculator]
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 6912e23eb445: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | bbc5a1223747: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 050363a8465d: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 0e574dc8a259: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 2e04307f7735: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | cc3759a5c5e9: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 8e2d2311f2e8: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 2b3843af45c2: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | ecc510c1e359: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 75b6a36c64a1: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | cc3759a5c5e9: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 8e2d2311f2e8: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 2b3843af45c2: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | ecc510c1e359: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 75b6a36c64a1: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 6912e23eb445: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | bbc5a1223747: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 050363a8465d: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 0e574dc8a259: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 2e04307f7735: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | bbc5a1223747: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 050363a8465d: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 0e574dc8a259: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 2e04307f7735: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | cc3759a5c5e9: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 8e2d2311f2e8: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 2b3843af45c2: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | ecc510c1e359: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 75b6a36c64a1: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 6912e23eb445: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 2e04307f7735: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | cc3759a5c5e9: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 8e2d2311f2e8: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 2b3843af45c2: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | ecc510c1e359: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 75b6a36c64a1: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 6912e23eb445: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | bbc5a1223747: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 050363a8465d: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 0e574dc8a259: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 8e2d2311f2e8: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 2b3843af45c2: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | ecc510c1e359: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 75b6a36c64a1: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 6912e23eb445: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | bbc5a1223747: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 050363a8465d: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 0e574dc8a259: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 2e04307f7735: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | cc3759a5c5e9: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | ecc510c1e359: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 75b6a36c64a1: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 6912e23eb445: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | bbc5a1223747: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 050363a8465d: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 0e574dc8a259: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 2e04307f7735: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | cc3759a5c5e9: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 8e2d2311f2e8: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 2b3843af45c2: Waiting
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 2b3843af45c2: Pushed
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 75b6a36c64a1: Pushed
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 6912e23eb445: Pushed
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | bbc5a1223747: Pushed
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 050363a8465d: Pushed
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 0e574dc8a259: Pushed
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 2e04307f7735: Pushed
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | cc3759a5c5e9: Pushed
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 8e2d2311f2e8: Pushed
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | ecc510c1e359: Pushed
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | 8ecf9cd442a0411f4bd527b3ad9f31a4ef18de11: digest: sha256:8b3dee5f86ce7a5d0f2c0650f59c6d4d44a6d0d1ceab9f911a346b26488bf6fd size: 856
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | pushed localhost:5001/ratneshvaibhav/session16-cgpa-calculator:8ecf9cd442a0411f4bd527b3ad9f31a4ef18de11
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   ✅  Success - Main Tag and push (tag = commit SHA) [1.17187095s]
+[Session 16 - CI/CD pipeline/Deliver (push image)        ] ⭐ Run Main Use a repository secret
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/4] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | DEMO_API_KEY is available (29 characters).
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   | Printing it anyway shows the masking: ***
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   ✅  Success - Main Use a repository secret [110.065626ms]
+[Session 16 - CI/CD pipeline/Deliver (push image)        ] ⭐ Run Complete job
+[Session 16 - CI/CD pipeline/Deliver (push image)        ] Cleaning up container for job Deliver (push image)
+[Session 16 - CI/CD pipeline/Deliver (push image)        ]   ✅  Success - Complete job
+[Session 16 - CI/CD pipeline/Deliver (push image)        ] 🏁  Job succeeded
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ] ⭐ Run Set up job
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ] 🚀  Start image=ghcr.io/catthehacker/ubuntu:act-latest
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   🐳  docker pull image=ghcr.io/catthehacker/ubuntu:act-latest platform= username= forcePull=false
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   🐳  docker create image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   🐳  docker run image=ghcr.io/catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   ✅  Success - Set up job
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   ☁  git clone 'https://github.com/azure/setup-kubectl' # ref=v4
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   ☁  git clone 'https://github.com/helm/kind-action' # ref=v1
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ] ⭐ Run Main Checkout
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   🐳  docker cp src=/home/ratnesh/Devops-Assignments/. dst=/home/ratnesh/Devops-Assignments
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   ✅  Success - Main Checkout [611.988102ms]
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ] ⭐ Run Main Install kubectl
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   🐳  docker cp src=/home/ratnesh/.cache/act/azure-setup-kubectl@v4/ dst=/var/run/act/actions/azure-setup-kubectl@v4/
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/x64/bin/node /var/run/act/actions/azure-setup-kubectl@v4/lib/index.js] user= workdir=
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   ✅  Success - Main Install kubectl [9.770755967s]
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   ⚙  ::set-output:: kubectl-path=/opt/hostedtoolcache/kubectl/1.31.0/x64/kubectl
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   ⚙  ::add-path:: /opt/hostedtoolcache/kubectl/1.31.0/x64
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ] ⭐ Run Main Image reference
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/2] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   ✅  Success - Main Image reference [129.708808ms]
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   ⚙  ::set-env:: IMAGE=localhost:5001/ratneshvaibhav/session16-cgpa-calculator:8ecf9cd442a0411f4bd527b3ad9f31a4ef18de11
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ] ⭐ Run Main Use the cluster from the KUBE_CONFIG secret
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/3] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   | NAME                       STATUS   ROLES           AGE   VERSION
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   | devops-lab-control-plane   Ready    control-plane   16h   v1.37.0
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   ✅  Success - Main Use the cluster from the KUBE_CONFIG secret [279.975682ms]
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ] ⭐ Run Main Deploy
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/6] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   | namespace/session16 created
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   | deployment.apps/cgpa-calculator created
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   | service/cgpa-calculator created
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   | Waiting for deployment "cgpa-calculator" rollout to finish: 0 of 2 updated replicas are available...
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   | Waiting for deployment "cgpa-calculator" rollout to finish: 1 of 2 updated replicas are available...
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   | deployment "cgpa-calculator" successfully rolled out
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   | NAME                               READY   STATUS    RESTARTS   AGE   IP             NODE                       NOMINATED NODE   READINESS GATES
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   | cgpa-calculator-76cc9758d6-kcjr2   1/1     Running   0          10s   10.244.0.132   devops-lab-control-plane   <none>           <none>
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   | cgpa-calculator-76cc9758d6-mwbl2   1/1     Running   0          10s   10.244.0.133   devops-lab-control-plane   <none>           <none>
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   ✅  Success - Main Deploy [10.028551935s]
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ] ⭐ Run Main Smoke test
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/7] user= workdir=session-16-cicd-github-actions
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   | {"build":"8ecf9cd442a0","status":"ok","version":"1.0.0"}
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   | 
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   | {"sgpa":9.14}
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   | 
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   ✅  Success - Main Smoke test [4.226914875s]
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ] ⭐ Run Complete job
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ] Cleaning up container for job Deploy to Kubernetes
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ]   ✅  Success - Complete job
+[Session 16 - CI/CD pipeline/Deploy to Kubernetes        ] 🏁  Job succeeded

@@ -1,0 +1,37 @@
+#CWD ~/Devops-Assignments/session-16-cicd-github-actions
+$ docker build -q --build-arg BUILD_SHA=$(git rev-parse HEAD) -t session16-cgpa-calculator:local .
+sha256:ed048b47a1ce3aa7c0f1a97046fd5bdcd127ae14a9b2e588d17d98b8c7626243
+
+$ docker images session16-cgpa-calculator --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}"
+REPOSITORY                  TAG       SIZE
+session16-cgpa-calculator   local     199MB
+
+$ docker run -d --name cgpa-local -p 18000:8000 session16-cgpa-calculator:local
+5f573d58af25518b8ae65f2a7110b0b40ecbeff7766a8b70131f7c9fbe34ce86
+
+$ docker exec cgpa-local id
+uid=10001(appuser) gid=10001(appuser) groups=10001(appuser)
+
+$ curl -s http://localhost:18000/health; echo
+{"build":"8ecf9cd442a0","status":"ok","version":"1.0.0"}
+
+
+$ curl -s -X POST http://localhost:18000/api/sgpa -H "Content-Type: application/json" -d "{\"courses\":[{\"grade\":\"O\",\"credits\":4},{\"grade\":\"A\",\"credits\":3},{\"grade\":\"B+\",\"credits\":1}]}"; echo
+{"sgpa":8.88}
+
+
+$ curl -s -X POST http://localhost:18000/api/cgpa -H "Content-Type: application/json" -d "{\"semesters\":[{\"sgpa\":8.0,\"credits\":20},{\"sgpa\":9.0,\"credits\":30}]}"; echo
+{"cgpa":8.6,"percentage":81.7}
+
+
+$ curl -s -X POST http://localhost:18000/api/sgpa -H "Content-Type: application/json" -d "{\"courses\":[{\"grade\":\"Z\",\"credits\":4}]}"; echo
+{"error":"unknown grade 'Z', expected one of O, A+, A, B+, B, C, P, F"}
+
+
+$ docker ps --filter name=cgpa-local --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+NAMES        STATUS                            PORTS
+cgpa-local   Up 3 seconds (health: starting)   0.0.0.0:18000->8000/tcp, [::]:18000->8000/tcp
+
+$ docker rm -f cgpa-local
+cgpa-local
+
